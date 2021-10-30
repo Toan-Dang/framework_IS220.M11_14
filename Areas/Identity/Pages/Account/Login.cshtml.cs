@@ -9,7 +9,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using WEB2.Models;
-using WEB2.Views.Shared.Components;
 
 namespace WEB2.Areas.Identity.Pages.Account {
 
@@ -98,12 +97,8 @@ namespace WEB2.Areas.Identity.Pages.Account {
                 }
 
                 if (result.Succeeded) {
-                    _logger.LogInformation("User đã đăng nhập");
-                    return ViewComponent(MessagePage.COMPONENTNAME, new MessagePage.Message() {
-                        title = "Đã đăng nhập",
-                        htmlcontent = "Đăng nhập thành công",
-                        urlredirect = returnUrl
-                    });
+                    _logger.LogInformation("User logged in.");
+                    return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor) {
                     // Nếu cấu hình đăng nhập hai yếu tố thì chuyển hướng đến LoginWith2fa
