@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -12,6 +13,7 @@ using Newtonsoft.Json;
 using System;
 using System.Text;
 using WEB2.Data;
+using WEB2.Mail;
 using WEB2.Models;
 
 namespace WEB2 {
@@ -89,6 +91,9 @@ namespace WEB2 {
 
             services.AddOptions(); // Kích hoạt Options
             var mailsettings = Configuration.GetSection("MailSettings"); // đọc config
+            services.Configure<MailSettings>(mailsettings);               // đăng ký để Inject
+
+            services.AddTransient<IEmailSender, SendMailService>();        // Đăng ký dịch vụ Mail
             services.AddAuthorization(options => {
                 // User thỏa mãn policy khi có roleclaim: permission với giá trị manage.user
                 options.AddPolicy("AdminDropdown", policy => {
