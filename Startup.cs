@@ -65,7 +65,7 @@ namespace WEB2 {
                 options.User.RequireUniqueEmail = false; // Email khong là duy nhất
 
                 // Cấu hình đăng nhập.
-                options.SignIn.RequireConfirmedEmail = false; // Cấu hình xác thực địa chỉ email (email phải tồn tại)
+                options.SignIn.RequireConfirmedEmail = true; // Cấu hình xác thực địa chỉ email (email phải tồn tại)
                 options.SignIn.RequireConfirmedPhoneNumber = false; // Xác thực số điện thoại
             });
 
@@ -103,15 +103,27 @@ namespace WEB2 {
                 options.AddPolicy("Admin", policy => {
                     policy.RequireRole("Admin");
                 });
-                options.AddPolicy("Trainer", policy => {
-                    policy.RequireRole("Trainer", "Admin");
-                });
-                options.AddPolicy("Trainee", policy => {
-                    policy.RequireRole("Trainee", "Admin");
+                options.AddPolicy("Staff", policy => {
+                    policy.RequireRole("Staff", "Admin");
                 });
             });
 
-            services.AddAuthentication();
+            services.AddAuthentication().AddGoogle(googleOptions => {
+                // Đọc thông tin Authentication:Google từ appsettings.json
+                IConfigurationSection googleAuthNSection = Configuration.GetSection("Authentication:Google");
+
+                // Thiết lập ClientID và ClientSecret để truy cập API google
+                googleOptions.ClientId = googleAuthNSection["ClientId"];
+                googleOptions.ClientSecret = googleAuthNSection["ClientSecret"];
+            })
+                    .AddFacebook(facebookOptions => {
+                        // Đọc cấu hình
+                        IConfigurationSection facebookAuthNSection = Configuration.GetSection("Authentication:Facebook");
+                        facebookOptions.AppId = facebookAuthNSection["AppId"];
+                        facebookOptions.AppSecret = facebookAuthNSection["AppSecret"];
+                        // Thiết lập đường dẫn Facebook chuyển hướng đến
+                        facebookOptions.CallbackPath = "/dang-nhap-tu-facebook";
+                    });
 
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -127,9 +139,6 @@ namespace WEB2 {
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-            // app.UsePiranha(optionn => {
-            //     optionn.UseTinyMCE();
-            // });
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
