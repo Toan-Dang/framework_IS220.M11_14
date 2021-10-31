@@ -18,6 +18,11 @@ namespace WEB2.Data {
                     entityType.SetTableName(tableName.Substring(6));
                 }
             }
+            builder.Entity<Voucher_detail>().HasKey(p => new { p.CustomerID, p.VoucherID });
+            builder.Entity<OrderDetail>().HasKey(p => new { p.OrderId, p.ProductId });
+            builder.Entity<Purchase>().HasKey(p => new { p.ProductId, p.SupplierId });
+            builder.Entity<Discount>().HasKey(p => new { p.ProductId, p.DiscountId });
+            builder.Entity<ConfigDetail>().HasKey(p => new { p.ConfigId, p.CpuId, p.RamId, p.RomId });
         }
     }
 }

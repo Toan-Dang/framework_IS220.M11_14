@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace WEB2.Models {
 
@@ -9,5 +10,6 @@ namespace WEB2.Models {
 
         public int VoucherName { get; set; }
         public int VoucherDetail { get; set; }
+        public virtual ICollection<Voucher_detail> Voucher_Details { get; set; }
     }
 }
