@@ -24,5 +24,9 @@ namespace WEB2.Data {
             builder.Entity<Discount>().HasKey(p => new { p.ProductId, p.DiscountId });
             builder.Entity<ConfigDetail>().HasKey(p => new { p.ConfigId, p.CpuId, p.RamId, p.RomId });
         }
+
+        public DbSet<WEB2.Models.Staff> Staff { get; set; }
+
+        public DbSet<WEB2.Models.Category> Category { get; set; }
     }
 }

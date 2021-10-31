@@ -80,6 +80,7 @@ install-package Microsoft.AspNetCore.Authentication.Google
 install-package Microsoft.AspNetCore.Authentication.Facebook
 install-package MailKit
 install-package MimeKit
+install-package Microsoft.EntityFrameworkCore.Tools
 ```
 
 ## License
