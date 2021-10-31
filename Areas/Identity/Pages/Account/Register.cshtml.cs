@@ -102,7 +102,9 @@ namespace WEB2.Areas.Identity.Pages.Account {
                         protocol: Request.Scheme);
 
                     // Gửi email
-                    await _emailSender.SendEmailAsync(Input.Email, "Xác nhận địa chỉ email trên website bán hàng xxx ",
+                    await _emailSender.SendEmailAsync(
+                        Input.Email,
+                        "Xác nhận địa chỉ email trên website bán hàng xxx ",
                         $"Mail này đã dùng để đăng ký tài khoản trên website xxx \nHãy xác nhận địa chỉ email bằng cách <a href='{callbackUrl}'>Bấm vào đây</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedEmail) {
