@@ -45,12 +45,17 @@ chỉnh lại đường dẫn ở appsettings.js
     "DefaultConnection": "Server = <tên server>; Database = <tên database>  ; Trusted_Connection=True;MultipleActiveResultSets=True"
   }
 ```
+Không cần tạo trước database:
 có thể tự tạo database thông qua model qua identity thông qua 2 lệnh sau: 
 ```
 add-migration addInit
 update-database
 ```
-> có thể chạy bằng nuget console
+> chạy bằng nuget console
+
+## Note
+
+File database trong thư mục Data-> Database_Design 
 
 ## Các Packages đã sử dụng
 sử dụng nuget console để tải các packages:

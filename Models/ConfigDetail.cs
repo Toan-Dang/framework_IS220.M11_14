@@ -1,9 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WEB2.Models {
 
     public class ConfigDetail {
+
+        [Key]
         public int ConfigId { get; set; }
+
         public int CpuId { get; set; }
         public int RamId { get; set; }
         public int RomId { get; set; }
@@ -15,9 +19,12 @@ namespace WEB2.Models {
         public int StructId { get; set; }
         public int ConnId { get; set; }
         public int CamId { get; set; }
+        public string AdvanceFunction { get; set; }
+        public string OtherInfo { get; set; }
+        public int ProductId { get; set; }
 
-        [ForeignKey("ConfigId")]
-        public virtual ProductConfig ProductConfig { get; set; }
+        [ForeignKey("ProductId")]
+        public virtual Product Product { get; set; }
 
         [ForeignKey("CpuId")]
         public virtual Processor Processor { get; set; }

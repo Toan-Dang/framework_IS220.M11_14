@@ -32,14 +32,16 @@ namespace WEB2.Mail {
         }
 
         public async Task SendEmailAsync( string email, string subject, string htmlMessage ) {
-            var message = new MimeMessage();
-            message.Sender = new MailboxAddress(mailSettings.DisplayName, mailSettings.Mail);
+            var message = new MimeMessage {
+                Sender = new MailboxAddress(mailSettings.DisplayName, mailSettings.Mail)
+            };
             message.From.Add(new MailboxAddress(mailSettings.DisplayName, mailSettings.Mail));
             message.To.Add(MailboxAddress.Parse(email));
             message.Subject = subject;
 
-            var builder = new BodyBuilder();
-            builder.HtmlBody = htmlMessage;
+            var builder = new BodyBuilder {
+                HtmlBody = htmlMessage
+            };
             message.Body = builder.ToMessageBody();
 
             // dùng SmtpClient của MailKit

@@ -41,6 +41,6 @@ namespace WEB2.Models {
         public virtual ICollection<ProductRanking> ProductRankings { get; set; }
         public virtual ICollection<Discount> Discounts { get; set; }
         public virtual ICollection<Purchase> Purchases { get; set; }
-        public virtual ICollection<ProductConfig> ProductConfigs { get; set; }
+        public virtual ICollection<ConfigDetail> ConfigDetails { get; set; }
     }
 }
