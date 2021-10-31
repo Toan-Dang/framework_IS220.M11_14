@@ -51,6 +51,10 @@ namespace WEB2.Mail {
                 smtp.Connect(mailSettings.Host, mailSettings.Port, SecureSocketOptions.StartTls);
                 smtp.Authenticate(mailSettings.Mail, mailSettings.Password);
                 await smtp.SendAsync(message);
+                //lưu mail
+                System.IO.Directory.CreateDirectory("mailssave");
+                var emailsavefile = string.Format(@"mailssave/{0}.eml", Guid.NewGuid());
+                await message.WriteToAsync(emailsavefile);
             }
             catch (Exception ex) {
                 // Gửi mail thất bại, nội dung email sẽ lưu vào thư mục mailssave
