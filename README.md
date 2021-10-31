@@ -38,17 +38,18 @@ Lớp thực hành .2
  Chạy bằng [Visual Studio 2019]
  Database: [SQLServer]
 
-chỉnh lại đường dẫn ở appsettings.js
+chỉnh lại đường dẫn ở appsettings.js 
+đổi serve là serve của người dùng, và database có thể tự đặt miễn là không trùng với database cũ
 
 ```
  "ConnectionStrings": {
     "DefaultConnection": "Server = <tên server>; Database = <tên database>  ; Trusted_Connection=True;MultipleActiveResultSets=True"
   }
 ```
+
 Không cần tạo trước database:
 có thể tự tạo database thông qua model qua identity thông qua 2 lệnh sau: 
 ```
-add-migration addInit
 update-database
 ```
 > chạy bằng nuget console
@@ -56,32 +57,6 @@ update-database
 ## Note
 
 File database trong thư mục Data-> Database_Design 
-
-## Các Packages đã sử dụng
-sử dụng nuget console để tải các packages:
-```
-install-package System.Data.SqlClient
-install-package Microsoft.EntityFrameworkCore
-install-package Microsoft.EntityFrameworkCore.SqlServer
-install-package Microsoft.EntityFrameworkCore.Design
-install-package Microsoft.Extensions.DependencyInjection
-install-package Microsoft.Extensions.Logging.Console
-install-package Microsoft.AspNetCore.Identity
-install-package Microsoft.AspNetCore.Identity.EntityFrameworkCore
-install-package Microsoft.VisualStudio.Web.CodeGeneration.Design
-install-package Microsoft.AspNetCore.Identity.UI
-install-package Microsoft.AspNetCore.Authentication
-install-package Microsoft.AspNetCore.Http.Abstractions
-install-package Microsoft.AspNetCore.Authentication.Cookies
-install-package Microsoft.AspNetCore.Authentication.JwtBearer
-install-package Microsoft.AspNetCore.Authentication.oAuth
-install-package Microsoft.AspNetCore.Authentication.OpenIDConnect
-install-package Microsoft.AspNetCore.Authentication.Google
-install-package Microsoft.AspNetCore.Authentication.Facebook
-install-package MailKit
-install-package MimeKit
-install-package Microsoft.EntityFrameworkCore.Tools
-```
 
 ## License
 
