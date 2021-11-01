@@ -1,11 +1,9 @@
 ﻿@{
-    if (ViewData.TryGetValue("ParentLayout", out var parentLayout))
-    {
+    if (ViewData.TryGetValue("ParentLayout", out var parentLayout)) {
         Layout = (string)parentLayout;
     }
-    else
-    {
-        Layout = "/Areas/Identity/Pages/_Layout.cshtml";
+    else {
+        Layout = "/Views/Shared/_Layout.cshtml";
     }
 }
 
