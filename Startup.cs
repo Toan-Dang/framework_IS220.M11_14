@@ -15,9 +15,6 @@ using System.Text;
 using WEB2.Data;
 using WEB2.Mail;
 using WEB2.Models;
-using JavaScriptEngineSwitcher.ChakraCore;
-using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
-using React.AspNet;
 namespace WEB2 {
 
     public class Startup {
@@ -30,12 +27,6 @@ namespace WEB2 {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices( IServiceCollection services ) {
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddReact();
-
-            // Make sure a JS engine is registered, or you will get an error!
-            services.AddJsEngineSwitcher(options => options.DefaultEngineName = ChakraCoreJsEngine.EngineName)
-              .AddChakraCore();
             services.AddMvc();                              //MVC 
             services.AddDistributedMemoryCache();           // Đăng ký dịch vụ lưu cache trong bộ nhớ (Session sẽ sử dụng nó)
             services.AddSession(cfg => {                    // Đăng ký dịch vụ Session
@@ -135,24 +126,6 @@ namespace WEB2 {
             }
 
             app.UseHttpsRedirection();
-            app.UseReact(config =>
-            {
-                // If you want to use server-side rendering of React components,
-                // add all the necessary JavaScript files here. This includes
-                // your components as well as all of their dependencies.
-                // See http://reactjs.net/ for more information. Example:
-                //config
-                //    .AddScript("~/js/First.jsx")
-                //    .AddScript("~/js/Second.jsx");
-
-                // If you use an external build too (for example, Babel, Webpack,
-                // Browserify or Gulp), you can improve performance by disabling
-                // ReactJS.NET's version of Babel and loading the pre-transpiled
-                // scripts. Example:
-                //config
-                //    .SetLoadBabel(false)
-                //    .AddScriptWithoutTransform("~/Scripts/bundle.server.js");
-            });
             app.UseStaticFiles();
 
             app.UseSession();         // Đăng ký Middleware Session vào Pipeline
