@@ -1,21 +1,76 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
+@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
+@font-face {
+    font-family: 'Glyphicons Halflings';
+    src: url('https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.eot');
+    src: url('https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.woff') format('woff'), url('https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
+}
 a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
 }
-
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
+/*nav*/
+.topnav {
+    margin-bottom: 0rem !important;
 }
+.sub-nav {
+    position: sticky;
+    top: 0;
+    background-color: #be1e2d;
+    margin-top: -1px
+}
+.sub-nav-item > a, a:link, a:visited, a:hover, a:active {
+    color: white;
+    text-decoration: none;
+}
+    .sub-nav-item > a > i {
+        font-size: 18px;
+    }
+    /*nav*/
+    .logo {
+        font-family: "Cabin", sans-serif;
+        font-size: 200%;
+        justify-content: center;
+        display: flex;
+        color: black;
+    }
+
+    .logo span {
+        color: #be1e2d;
+        display: inline-block;
+    }
+        .logo {
+            display: inline-block;
+            word-wrap: normal;
+        }
+    /* Provide sufficient contrast against white background */
+    /*search*/
+    .form-control:focus {
+        box-shadow: none !important;
+        border-color: #be1e2d;
+        transition: 0.3s ease-in;
+    }
+.input-group-text {
+    background-color: #be1e2d;
+    border-color: #be1e2d;
+    color: white;
+}
+#button-addon1, #button-addon1:focus, #button-addon1:hover {
+    border: #be1e2d;
+    box-shadow: none !important;
+    color: white;
+    background-color: #be1e2d;
+}
+/*search*/
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
