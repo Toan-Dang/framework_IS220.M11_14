@@ -11,6 +11,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WEB2.Data;
 using WEB2.Models;
 
 namespace WEB2.Areas.Identity.Pages.Account {
@@ -22,16 +23,20 @@ namespace WEB2.Areas.Identity.Pages.Account {
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
+        private readonly AppDbContext _context;
+
         // Các dịch vụ được Inject vào: UserManger, SignInManager, ILogger, IEmailSender
         public RegisterModel(
             UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender ) {
+            IEmailSender emailSender,
+            AppDbContext context ) {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
         }
 
         // InputModel được binding khi Form Post tới
@@ -83,6 +88,10 @@ namespace WEB2.Areas.Identity.Pages.Account {
                 // Tạo AppUser sau đó tạo User mới (cập nhật vào db)
                 var user = new AppUser { UserName = Input.UserName, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
+                ///cập nhật khách hàng mới
+                var customer = new Customer { UserId = user.Id };
+                _context.Add(customer);
+                await _context.SaveChangesAsync();
 
                 if (result.Succeeded) {
                     _logger.LogInformation("Vừa tạo mới tài khoản thành công.");

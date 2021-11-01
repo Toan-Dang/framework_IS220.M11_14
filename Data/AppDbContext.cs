@@ -28,5 +28,9 @@ namespace WEB2.Data {
         public DbSet<WEB2.Models.Staff> Staff { get; set; }
 
         public DbSet<WEB2.Models.Category> Category { get; set; }
+
+        public DbSet<WEB2.Models.Battery> Battery { get; set; }
+
+        public DbSet<WEB2.Models.Customer> Customer { get; set; }
     }
 }

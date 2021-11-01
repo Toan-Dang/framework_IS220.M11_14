@@ -19,6 +19,7 @@ Lớp thực hành .2
   
 ## Features
 - Đăng nhập/ đăng ký/ đăng xuất/ logout / nhớ mật khẩu
+- Phân quyền (admin, staff, customer)
 - Gửi mail để xác nhận đăng nhập và reset mật khẩu 
 > Khi nào xong sẽ ghi thêm
 
