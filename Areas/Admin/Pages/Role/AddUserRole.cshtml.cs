@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using WEB2.Data;
 using WEB2.Models;
 
 namespace WEB2.Areas.Admin.Pages.Role {
@@ -14,11 +15,14 @@ namespace WEB2.Areas.Admin.Pages.Role {
     public class AddUserRole : PageModel {
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<AppUser> _userManager;
+        private readonly AppDbContext _context;
 
         public AddUserRole( RoleManager<IdentityRole> roleManager,
-                            UserManager<AppUser> userManager ) {
+                            UserManager<AppUser> userManager,
+                            AppDbContext context ) {
             _roleManager = roleManager;
             _userManager = userManager;
+            _context = context;
         }
 
         public class InputModel {
@@ -71,6 +75,22 @@ namespace WEB2.Areas.Admin.Pages.Role {
                 foreach (var rolename in Input.RoleNames) {
                     if (roles.Contains(rolename))
                         continue;
+                    /*
+                    if (rolename.Equals("Staff")) {
+                        // nếu cập nhật 1 user thành nhân viên thì cập nhật vào bảng nhân viên
+                        var staff = new Staff { UserId = user.Id };
+                        _context.Add(staff);
+                        await _context.SaveChangesAsync();
+                        // tìm khách hàng có userid là id trong bảng user hàng xóa
+                        var cusid = _context.Customer
+                                    .Where(b => b.UserId == user.Id)
+                                    .FirstOrDefault();
+                        //xóa khách hàng
+                        var customer = await _context.Customer.FindAsync(cusid);
+                        _context.Customer.Remove(customer);
+                        await _context.SaveChangesAsync();
+                    }
+                    */
                     await _userManager.AddToRoleAsync(user, rolename);
                 }
                 foreach (var rolename in roles) {
