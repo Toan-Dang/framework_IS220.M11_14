@@ -15,7 +15,6 @@ using System.Text;
 using WEB2.Data;
 using WEB2.Mail;
 using WEB2.Models;
-
 namespace WEB2 {
 
     public class Startup {
@@ -28,6 +27,7 @@ namespace WEB2 {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices( IServiceCollection services ) {
+            services.AddMvc();                              //MVC 
             services.AddDistributedMemoryCache();           // Đăng ký dịch vụ lưu cache trong bộ nhớ (Session sẽ sử dụng nó)
             services.AddSession(cfg => {                    // Đăng ký dịch vụ Session
                 cfg.Cookie.Name = "ToanDang";             // Đặt tên Session - tên này sử dụng ở Browser (Cookie)
