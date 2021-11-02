@@ -13,6 +13,10 @@ a.navbar-brand {
   text-align: center;
   word-break: break-all;
 }
+body{
+    color: black;
+}
+
 /*nav*/
 .topnav {
     margin-bottom: 0rem !important;
@@ -23,10 +27,23 @@ a.navbar-brand {
     background-color: #be1e2d;
     margin-top: -1px
 }
-.sub-nav-item > a, a:link, a:visited, a:hover, a:active {
+.sub-nav-item > a, , a:visited, a:hover, a:active {
     color: white;
     text-decoration: none;
 }
+    .sub-nav-item > a:link {
+        color: white;
+        text-decoration: none;
+    }
+    .sub-nav-item > a:hover {
+        color: white;
+        text-decoration: none;
+    }
+    .sub-nav-item > a:active {
+        color: white;
+        text-decoration: none;
+    }
+
     .sub-nav-item > a > i {
         font-size: 18px;
     }
@@ -117,10 +134,21 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
+body a{
+    color: black;
+}
 .footer {
+  color: black;
   position: absolute;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
+  background-color: black;
+}
+.footer  h5 {
+    color: white;
+}
+main-body a {
+    color: black;
 }
