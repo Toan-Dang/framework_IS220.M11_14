@@ -25,36 +25,103 @@ body{
     position: sticky;
     top: 0;
     background-color: #be1e2d;
-    margin-top: -1px
+    margin-top: -1px;
+    z-index: 2;
 }
-.sub-nav-item > a{
+.sub-nav-item{
+    padding: 0px;
+}
+.sub-nav-item > ul > li > a {
+    color: white;
+    text-decoration: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.sub-nav-item > ul > li > a:link {
     color: white;
     text-decoration: none;
 }
-    .sub-nav-item > a:link {
+    .sub-nav-item > ul > li > a:visited {
         color: white;
         text-decoration: none;
     }
-    .sub-nav-item > a:hover {
+    .sub-nav-item > ul > li > a:hover {
         color: white;
         text-decoration: none;
     }
-    .sub-nav-item > a:active {
+    .sub-nav-item > ul > li > a:active {
         color: white;
         text-decoration: none;
     }
 
-    .sub-nav-item > a > i {
+    .sub-nav-item > ul > li > a > i {
         font-size: 18px;
     }
-    /*nav*/
-    .logo {
-        font-family: "Cabin", sans-serif;
-        font-size: 200%;
-        justify-content: center;
-        display: flex;
-        color: black;
+    .sub-nav-item > ul > li:hover {
+        transition: 1s ease-in-out;
     }
+    .sub-nav-item > ul > li > div {
+       margin-top: 0px;
+    }
+    .sub-nav-item > ul > li:hover > div {
+        display: block;
+        position: absolute;
+        left: inherit;
+        transition: 1s ease-in-out;
+    }
+.dropdown-menu > div > ul > li > a:link {
+    text-decoration: none;
+    background-color: white;
+}
+.dropdown-menu > div > ul > li > a:hover {
+    text-decoration: none;
+    background-color: white;
+    color: #be1e2d;
+}
+.dropdown-menu > div > ul > li > a:visited {
+    text-decoration: none;
+    background-color: white;
+}
+.dropdown-menu > div > ul > li > a:active {
+    text-decoration: none;
+    background-color: white;
+}
+.dropdown-menu > div > ul > li > a:focus {
+    text-decoration: none;
+    background-color: white;
+    color: #be1e2d;
+}
+
+.dropdown-menu > div > a:hover {
+    background-color: white;
+    color: black;
+}
+.dropdown-menu > div > a:focus {
+    background-color: white;
+    color: black;
+}
+.dropdown-menu > div > ul > li {
+    display: inline-table;
+    width: 50%;
+}
+.dropdown-menu {
+    width: fit-content;
+    border-radius: 10px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+    .dropdown-menu > div {
+        display: inline-table;
+        padding: 10px;
+       
+    }
+/*nav*/
+.logo {
+    font-family: "Cabin", sans-serif;
+    font-size: 200%;
+    justify-content: center;
+    display: flex;
+    color: black;
+}
 
     .logo span {
         color: #be1e2d;
@@ -142,12 +209,48 @@ body a{
     bottom: 0;
     position: relative;
     width: 100%;
-    white-space: nowrap;
+    white-space: normal;
     background-color: black;
 }
-.footer h5 {
+.footer p {
     color: white;
+    font-weight: bold;
 }
     .footer a {
-        color: white;
+        color: #6c6f7d;
+        font-size: 15px;
+        display: block;
+    }
+        .footer a:link {
+            color: #6c6f7d;
+            text-decoration: none;
+        }
+
+        .footer a:visited {
+            color: #6c6f7d;
+            text-decoration: none;
+            transition: 0.5s ease-in;
+        }
+
+        .footer a:hover {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer a:active {
+            color: #6c6f7d;
+            text-decoration: none;
+        }
+.credit  {
+    background-color: #f1f1f1;
+}
+    .credit > .container > p {
+        display: inline-block;
+        word-wrap: break-word;
+        margin-bottom: 0px;
+        font-size: 12px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        color: black;
+        font-weight: normal;
     }
