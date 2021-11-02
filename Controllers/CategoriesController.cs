@@ -22,7 +22,8 @@ namespace WEB2.Controllers
         // GET: Categories
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Category.ToListAsync());
+            var appDbContext = _context.Category.Include(c => c.ParentCategory);
+            return View(await appDbContext.ToListAsync());
         }
 
         // GET: Categories/Details/5
@@ -34,6 +35,7 @@ namespace WEB2.Controllers
             }
 
             var category = await _context.Category
+                .Include(c => c.ParentCategory)
                 .FirstOrDefaultAsync(m => m.CategoryId == id);
             if (category == null)
             {
@@ -46,6 +48,7 @@ namespace WEB2.Controllers
         // GET: Categories/Create
         public IActionResult Create()
         {
+            ViewData["ParentCategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryId");
             return View();
         }
 
@@ -54,7 +57,7 @@ namespace WEB2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CategoryId,CategoryName,Description,Active,Picture")] Category category)
+        public async Task<IActionResult> Create([Bind("CategoryId,ParentCategoryId,CategoryName,Description,Active,Picture")] Category category)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +65,7 @@ namespace WEB2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ParentCategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryId", category.ParentCategoryId);
             return View(category);
         }
 
@@ -78,6 +82,7 @@ namespace WEB2.Controllers
             {
                 return NotFound();
             }
+            ViewData["ParentCategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryId", category.ParentCategoryId);
             return View(category);
         }
 
@@ -86,7 +91,7 @@ namespace WEB2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CategoryId,CategoryName,Description,Active,Picture")] Category category)
+        public async Task<IActionResult> Edit(int id, [Bind("CategoryId,ParentCategoryId,CategoryName,Description,Active,Picture")] Category category)
         {
             if (id != category.CategoryId)
             {
@@ -113,6 +118,7 @@ namespace WEB2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ParentCategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryId", category.ParentCategoryId);
             return View(category);
         }
 
@@ -125,6 +131,7 @@ namespace WEB2.Controllers
             }
 
             var category = await _context.Category
+                .Include(c => c.ParentCategory)
                 .FirstOrDefaultAsync(m => m.CategoryId == id);
             if (category == null)
             {

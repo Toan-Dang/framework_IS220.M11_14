@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WEB2</title>
+    <title>@ViewData["Title"] - Zerone.vn</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     @*<link rel="stylesheet" type="text/css" href="/css/site.css?/Version=1" />*@
     <link href="@Url.Content("/css/site.css")" rel="stylesheet" type="text/css" />
@@ -13,7 +13,7 @@
 </head>
 <body>
     <header>
-        <nav  class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white topnav">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white topnav">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <p class="logo mb-0">Zer<span style="color: #be1e2d">o</span>ne.vn</p>
@@ -49,14 +49,15 @@
     </header>
     <div class="sub-nav">
         <div class="container navbar sub-nav-item">
-            <a class="nav-item" href="/phone"><i class="bi bi-phone-fill"></i> ĐIỆN THOẠI</a>
+            <a class="nav-item" href="/phone"><i class="bi bi-phone-fill"></i> Điện thoại</a>
             <a class="nav-item" href="/laptop"><i class="bi bi-laptop-fill"></i> LAPTOP</a>
             <a class="nav-item" href="/tablet"><i class="bi bi-tablet-landscape-fill"></i> TABLET</a>
             <a class="nav-item" href="/watch"><i class="bi bi-smartwatch"></i> ĐỒNG HỒ</a>
             <a class="nav-item" href="/sound"><i class="bi bi-earbuds"></i> ÂM THANH</a>
             <a class="nav-item" href="/accessories"><i class="bi bi-sd-card-fill"></i> PHỤ KIỆN</a>
             <a class="nav-item" href="/news"><i class="bi bi-newspaper"></i> TIN TỨC</a>
-            <a class="nav-item" href="/showroom"><i class="bi bi-building"></i> SHOWROOM</a>
+            <a class="nav-item" asp-area="" asp-controller="showroom" asp-action="Index"><i class="bi bi-building"></i> SHOWROOM</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
         </div>
     </div>
     <div class="container">
@@ -67,6 +68,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
+<<<<<<< HEAD
             <h5 class="pt-1">&copy; 2021 - Công ty TNHH Thương mại Zerone</h5>
             <div class="col-md-3 pt-1">
                 <h5>Thông tin</h5>
@@ -74,6 +76,9 @@
                 <a href="/about">Giới thiệu</a>
                 <a href="/work">Tuyển dụng</a>
             </div>
+=======
+            &copy; 2021 - WEB2 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+>>>>>>> 56a436f230347e155ae2d373bb398ea757867833
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

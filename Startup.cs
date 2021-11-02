@@ -76,7 +76,7 @@ namespace WEB2 {
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
                 options.LoginPath = $"/login/"; // Url đến trang đăng nhập
                 options.LogoutPath = $"/logout/";
-                options.AccessDeniedPath = $"/Identity/Account/AccessDenied"; // Trang khi User bị cấm truy cập
+                options.AccessDeniedPath = $"/AccessDenied/"; // Trang khi User bị cấm truy cập
             });
             services.Configure<SecurityStampValidatorOptions>(options => {
                 // Trên 5 giây truy cập lại sẽ nạp lại thông tin User (Role)
@@ -186,7 +186,7 @@ namespace WEB2 {
 
             app.Run(async ( HttpContext context ) => {
                 context.Response.StatusCode = StatusCodes.Status404NotFound;
-                await context.Response.WriteAsync("Page not found (Toandang)!");
+                await context.Response.WriteAsync("Page not found!");
             });
         }
     }
