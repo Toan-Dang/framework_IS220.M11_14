@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -12,6 +13,7 @@ using WEB2.Models;
 
 namespace WEB2.Areas.Admin.Pages.Role {
 
+    [Authorize("Admin")]
     public class AddUserRole : PageModel {
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<AppUser> _userManager;

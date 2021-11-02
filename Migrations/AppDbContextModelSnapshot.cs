@@ -296,10 +296,15 @@ namespace WEB2.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ParentCategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Picture")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CategoryId");
+
+                    b.HasIndex("ParentCategoryId");
 
                     b.ToTable("Category");
                 });
@@ -1192,6 +1197,15 @@ namespace WEB2.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("WEB2.Models.Category", b =>
+                {
+                    b.HasOne("WEB2.Models.Category", "ParentCategory")
+                        .WithMany()
+                        .HasForeignKey("ParentCategoryId");
+
+                    b.Navigation("ParentCategory");
                 });
 
             modelBuilder.Entity("WEB2.Models.ConfigDetail", b =>

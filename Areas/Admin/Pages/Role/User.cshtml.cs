@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using WEB2.Models;
 
 namespace WEB2.Areas.Admin.Pages.Role {
 
+    [Authorize("Admin")]
     public class UserModel : PageModel {
         private const int USER_PER_PAGE = 10;
         private readonly RoleManager<IdentityRole> _roleManager;

@@ -15,7 +15,7 @@ namespace WEB2.Data {
             foreach (var entityType in builder.Model.GetEntityTypes()) {
                 var tableName = entityType.GetTableName();
                 if (tableName.StartsWith("AspNet")) {
-                    entityType.SetTableName(tableName.Substring(6));
+                    entityType.SetTableName(tableName[6..]);
                 }
             }
             builder.Entity<Voucher_detail>().HasKey(p => new { p.CustomerID, p.VoucherID });
