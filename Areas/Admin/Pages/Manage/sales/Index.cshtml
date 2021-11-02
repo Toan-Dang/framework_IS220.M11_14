@@ -1,0 +1,120 @@
+﻿@page
+@model WEB2.Areas.Admin.Pages.Manage.sales.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].OTP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].OrderDay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].Freight)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].ShipDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].RequiredDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].SalesTax)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].TransactStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].Errlog)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].Errmsg)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].Deleted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].Paid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].PaymentDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].Payment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].Customer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].Shipment)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Order) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OTP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Freight)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RequiredDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SalesTax)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TransactStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Errlog)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Errmsg)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Deleted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Payment.PaymentId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.CustomerID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Shipment.ShipperId)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.OrderId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.OrderId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.OrderId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

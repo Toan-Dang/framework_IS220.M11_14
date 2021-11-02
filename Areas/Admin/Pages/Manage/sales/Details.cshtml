@@ -1,0 +1,109 @@
+﻿@page
+@model WEB2.Areas.Admin.Pages.Manage.sales.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Order.OTP)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Order.OTP)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Order.OrderDay)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Order.OrderDay)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Order.Freight)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Order.Freight)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Order.ShipDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Order.ShipDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Order.RequiredDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Order.RequiredDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Order.SalesTax)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Order.SalesTax)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Order.TransactStatus)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Order.TransactStatus)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Order.Errlog)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Order.Errlog)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Order.Errmsg)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Order.Errmsg)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Order.Deleted)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Order.Deleted)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Order.Paid)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Order.Paid)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Order.PaymentDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Order.PaymentDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Order.Payment)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Order.Payment.PaymentId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Order.Customer)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Order.Customer.CustomerID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Order.Shipment)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Order.Shipment.ShipperId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Order.OrderId">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
