@@ -27,7 +27,7 @@ body{
     background-color: #be1e2d;
     margin-top: -1px
 }
-.sub-nav-item > a, , a:visited, a:hover, a:active {
+.sub-nav-item > a{
     color: white;
     text-decoration: none;
 }
@@ -138,17 +138,16 @@ body a{
     color: black;
 }
 .footer {
-  color: black;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
-  background-color: black;
+    color: white;
+    bottom: 0;
+    position: relative;
+    width: 100%;
+    white-space: nowrap;
+    background-color: black;
 }
-.footer  h5 {
+.footer h5 {
     color: white;
 }
-main-body a {
-    color: black;
-}
+    .footer a {
+        color: white;
+    }
