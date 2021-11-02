@@ -30,33 +30,250 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                @*                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
-                            </li>
-                        </ul>
-                    </div>*@
                 @await Html.PartialAsync("_LoginPartial")
             </div>
         </nav>
     </header>
     <div class="sub-nav">
-        <div class="container navbar sub-nav-item">
-            <a class="nav-item" href="/phone"><i class="bi bi-phone-fill"></i> Điện thoại</a>
-            <a class="nav-item" href="/laptop"><i class="bi bi-laptop-fill"></i> LAPTOP</a>
-            <a class="nav-item" href="/tablet"><i class="bi bi-tablet-landscape-fill"></i> TABLET</a>
-            <a class="nav-item" href="/watch"><i class="bi bi-smartwatch"></i> ĐỒNG HỒ</a>
-            <a class="nav-item" href="/sound"><i class="bi bi-earbuds"></i> ÂM THANH</a>
-            <a class="nav-item" href="/accessories"><i class="bi bi-sd-card-fill"></i> PHỤ KIỆN</a>
-            <a class="nav-item" href="/news"><i class="bi bi-newspaper"></i> TIN TỨC</a>
-            <a class="nav-item" asp-area="" asp-controller="showroom" asp-action="Index"><i class="bi bi-building"></i> SHOWROOM</a>
+        <div class="container navbar sub-nav-item" >
+            <ul class="nav justify-content-center" style="margin: auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/phone"><i class="bi bi-phone-fill"></i> ĐIỆN THOẠI</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <div>
+                            <a class="dropdown-item"><strong>THƯƠNG HIỆU</strong></a>
+                            <ul class="nav" style="width: 250px;">
+                                <li class="nav-item"><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Apple</a></li>
+                                <li class="nav-item"><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Samsung</a></li>
+                                <li class="nav-item"><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Xiaomi</a></li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Vivo</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Sony</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Nokia</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Realme</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">OPPO</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/laptop"><i class="bi bi-laptop-fill"></i> LAPTOP</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <div>
+                            <a class="dropdown-item"><strong>THƯƠNG HIỆU</strong></a>
+                            <ul class="nav" style="width: 200px;">
+                                <li class="nav-item"><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Apple</a></li>
+                                <li class="nav-item"><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Asus</a></li>
+                                <li class="nav-item"><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Acer</a></li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Dell</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Lenovo</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">HP</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">MSI</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Avita</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/tablet"><i class="bi bi-tablet-landscape-fill"></i> TABLET</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <div>
+                            <a class="dropdown-item"><strong>THƯƠNG HIỆU</strong></a>
+                            <ul class="nav" style="width: 230px;">
+                                <li class="nav-item"><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Apple</a></li>
+                                <li class="nav-item"><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Samsung</a></li>
+                                <li class="nav-item"><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Xiaomi</a></li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Huawei</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Lenovo</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Masstel</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/watch"><i class="bi bi-smartwatch"></i> ĐỒNG HỒ</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <div>
+                            <a class="dropdown-item"><strong>THƯƠNG HIỆU</strong></a>
+                            <ul class="nav" style="width: 280px;">
+                                <li class="nav-item"><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Apple</a></li>
+                                <li class="nav-item"><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Samsung</a></li>
+                                <li class="nav-item"><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Garmin</a></li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Amazfit</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Huawei</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Masstel</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">OPPO</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Realme</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Xiaomi</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Fitbit</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/sound"><i class="bi bi-earbuds"></i> ÂM THANH</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <div>
+                            <a class="dropdown-item"><strong>THƯƠNG HIỆU</strong></a>
+                            <ul class="nav" style="width: 320px;">
+                                <li class="nav-item"><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Energizer</a></li>
+                                <li class="nav-item"><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">LG</a></li>
+                                <li class="nav-item"><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Tekin</a></li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Samsung</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Divoom</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Huawei</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Marshall</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">JBL</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Sony</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Apple</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Anker</a>
+                                </li>
+                            </ul>
+                        </div>
+@*                        <div>
+                            <a class="dropdown-item"><strong>TAI NGHE</strong></a>
+                            <ul class="nav" style="width:300px">
+                                <li class="nav-item"><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Sony</a></li>
+                                <li class="nav-item"><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">JBL</a></li>
+                                <li class="nav-item"><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">AKG</a></li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Apple AirPods</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Energizer</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Huawei</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">LG</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Samsung</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Beats</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Nokia</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Pisen</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Motorola</a>
+                                </li>
+                            </ul>
+                        </div>*@
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/accessories"><i class="bi bi-sd-card-fill"></i> PHỤ KIỆN</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <div>
+                            <a class="dropdown-item"><strong>THƯƠNG HIỆU</strong></a>
+                            <ul class="nav" style="width: 280px;">
+                                <li class="nav-item"><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Apple</a></li>
+                                <li class="nav-item"><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Asus</a></li>
+                                <li class="nav-item"><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">OPPO</a></li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">LG</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Anker</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Aukey</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Totolink</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Tenda</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Samsung</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Razer</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Belkin</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Xiaomi</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Pisen</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">AVA</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/news"><i class="bi bi-newspaper"></i> TIN TỨC</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index"><i class="bi bi-building"></i> SHOWROOM</a>
+                </li>
+            </ul>
         </div>
     </div>
     <div class="container">
@@ -66,15 +283,49 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            <h5 class="pt-1">&copy; 2021 - Công ty TNHH Thương mại Zerone</h5>
-            <div class="col-md-3 pt-1">
-                <h5>Thông tin</h5>
-                @*<a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>*@
-                <a href="/about">Giới thiệu</a>
-                <a href="/work">Tuyển dụng</a>
+        <div class="container pt-4 pb-4">
+            <h6 style="color: white" class="mt-1">Công ty TNHH Thương mại Zerone</h6>
+            <div class="row">
+                <div class="col-md-3 col-sm6">
+                    <p>Thông tin</p>
+                    @*<a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>*@
+                    <a class="nav-item" asp-area="" asp-controller="Home" asp-action="Index">Giới thiệu</a>
+                    <a class="nav-item" asp-area="" asp-controller="Home" asp-action="Index"> Tuyển dụng</a>
+                </div>
+                <div class="col-md-3 col-sm6">
+                    <p>Chính sách</p>
+                    @*<a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>*@
+                    <a class="nav-item" asp-area="" asp-controller="Home" asp-action="Index">Chính sách bảo hành</a>
+                    <a class="nav-item" asp-area="" asp-controller="Home" asp-action="Index">Chính sách đổi trả</a>
+                    <a class="nav-item" asp-area="" asp-controller="Home" asp-action="Index">Chính sách vận chuyển</a>
+                    <a class="nav-item" asp-area="" asp-controller="Home" asp-action="Index">Chính sách bảo mật</a>
+                    <a class="nav-item" asp-area="" asp-controller="Home" asp-action="Index">Chính sách trả góp</a>
+                </div>
+                <div class="col-md-3 col-sm6">
+                    <p>Liên hệ</p>
+                    @*<a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>*@
+                    <a class="nav-item">Tư vấn mua hàng: <strong>1900.3030</strong></a>
+                    <a class="nav-item">Giải quyết khiếu nại: <strong>1900.3033</strong></a>
+                    <a class="nav-item">Dành cho đối tác: <strong>0366.485.663</strong></a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a class="nav-item"><img src="/img/index/bocongthuong.png" style="width: 60%; height: 60%" /></a>
+                    <br />
+                    <a class="nav-item"><img src="/img/index/paymethod.png" style="width: 60%; height: 60%" /></a>
+                </div>
             </div>
-            &copy; 2021 - WEB2 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+        <div class="credit">
+            <div class="container">
+                <p>
+                    © 2021. Công ty TNHH thương mại Zerone. GPDKKD: 2264357221 do sở KH & ĐT TP.HCM cấp ngày 10/10/2021. GPMXH: 333/GP-BTTTT do Bộ Thông Tin và Truyền Thông cấp ngày 03/03/2021.
+                    Địa chỉ: 333 Trần Quang Khải, P. Tân Định, Q.1, TP. Hồ Chí Minh.
+                    <br />Điện thoại: <strong>0366.485.663</strong>. Email: cskh@zerone.com.
+                    <br /><br />Chịu trách nhiệm nội dung: Nguyễn Ngọc Thiện.
+                    <br />Chịu trách nhiệm vận hành: Đặng Phúc Toàn.
+                    <br />Chịu trách nhiệm bảo mật: Đinh Công Thành.
+                </p>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

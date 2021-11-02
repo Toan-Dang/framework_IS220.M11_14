@@ -10,7 +10,7 @@ using WEB2.Data;
 namespace WEB2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20211101181022_addInit")]
+    [Migration("20211102143820_addInit")]
     partial class addInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
