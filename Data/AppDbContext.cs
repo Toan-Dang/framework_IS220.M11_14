@@ -32,5 +32,7 @@ namespace WEB2.Data {
         public DbSet<WEB2.Models.Battery> Battery { get; set; }
 
         public DbSet<WEB2.Models.Customer> Customer { get; set; }
+
+        public DbSet<WEB2.Models.Order> Order { get; set; }
     }
 }
