@@ -1,0 +1,15 @@
+﻿.register-form {
+    position: relative;
+    background: white;
+    border-radius: 5px;
+    width: 33%;
+}
+body{
+    background-image: url("/img/areas/identity/pages/accounts/Register_bg.jpg");
+}
+.register-form input {
+    border-radius: 3px;
+}
+.register-form > button {
+    text-align: center;
+}
