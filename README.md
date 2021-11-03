@@ -49,15 +49,17 @@ chỉnh lại đường dẫn ở appsettings.js
 ```
 
 Không cần tạo trước database:
-có thể tự tạo database thông qua model qua identity thông qua 2 lệnh sau: 
+có thể tự tạo database thông qua model qua identity thông qua lệnh sau: 
 ```
 update-database
 ```
 > chạy bằng nuget console
 
+Cập nhật dữ liệu trong sql <xem phần dưới> 
 ## Note
 
 File database trong thư mục Data-> Database_Design 
+Dữ liệu được lưu dưới dạng .sql trong thư mục Data -> Script
 
 ## License
 
