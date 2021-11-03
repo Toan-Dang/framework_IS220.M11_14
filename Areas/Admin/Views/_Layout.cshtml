@@ -115,10 +115,16 @@
                                         <i class="icon-envelope-open"></i>
                                         <span class="ml-2">Inbox </span>
                                     </a>
-                                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                    @*
+                                        <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                            <i class="icon-key"></i>
+                                            <span class="ml-2">Logout </span>
+                                        </a>*@
+
+                                    <form id="logoutForm" class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                                         <i class="icon-key"></i>
-                                        <span class="ml-2">Logout </span>
-                                    </a>
+                                        <button id="logout" class="ml-2 " style="border: none; background-color: white;" type="submit">Logout</button>
+                                    </form>
                                 </div>
                             </li>
                         </ul>
@@ -179,7 +185,7 @@
                     <li class="nav-label">Components</li>
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon icon-world-2"></i><span class="nav-text">Bootstrap</span>
+                            <i class="icon icon-world-2"></i><span class="nav-text">Control Bar</span>
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="./ui-accordion.html">Accordion</a></li>

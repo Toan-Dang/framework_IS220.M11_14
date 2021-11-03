@@ -20,6 +20,7 @@ namespace WEB2.Areas.Identity.Pages.Account {
 
         public async Task<IActionResult> OnPost( string returnUrl = null ) {
             await _signInManager.SignOutAsync();
+
             _logger.LogInformation("Người dùng đăng suất");
             if (returnUrl != null) {
                 return LocalRedirect(returnUrl);

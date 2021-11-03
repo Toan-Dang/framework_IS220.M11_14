@@ -1,45 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
 using WEB2.Data;
 using WEB2.Models;
 
-namespace WEB2.Areas.Admin.Controllers
-{
+namespace WEB2.Areas.Admin.Controllers {
+
     [Area("Admin")]
-    public class CategoriesController : Controller
-    {
+    [Authorize("Admin")]
+    public class CategoriesController : Controller {
         private readonly AppDbContext _context;
 
-        public CategoriesController(AppDbContext context)
-        {
+        public CategoriesController( AppDbContext context ) {
             _context = context;
         }
 
         // GET: Admin/Categories
-        public async Task<IActionResult> Index()
-        {
+
+        public async Task<IActionResult> Index() {
             var appDbContext = _context.Category.Include(c => c.ParentCategory);
             return View(await appDbContext.ToListAsync());
         }
 
         // GET: Admin/Categories/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<IActionResult> Details( int? id ) {
+            if (id == null) {
                 return NotFound();
             }
 
             var category = await _context.Category
                 .Include(c => c.ParentCategory)
                 .FirstOrDefaultAsync(m => m.CategoryId == id);
-            if (category == null)
-            {
+            if (category == null) {
                 return NotFound();
             }
 
@@ -47,8 +42,7 @@ namespace WEB2.Areas.Admin.Controllers
         }
 
         // GET: Admin/Categories/Create
-        public IActionResult Create()
-        {
+        public IActionResult Create() {
             ViewData["ParentCategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryId");
             return View();
         }
@@ -58,10 +52,8 @@ namespace WEB2.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CategoryId,ParentCategoryId,CategoryName,Description,Active,Picture")] Category category)
-        {
-            if (ModelState.IsValid)
-            {
+        public async Task<IActionResult> Create( [Bind("CategoryId,ParentCategoryId,CategoryName,Description,Active,Picture")] Category category ) {
+            if (ModelState.IsValid) {
                 _context.Add(category);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -71,16 +63,13 @@ namespace WEB2.Areas.Admin.Controllers
         }
 
         // GET: Admin/Categories/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<IActionResult> Edit( int? id ) {
+            if (id == null) {
                 return NotFound();
             }
 
             var category = await _context.Category.FindAsync(id);
-            if (category == null)
-            {
+            if (category == null) {
                 return NotFound();
             }
             ViewData["ParentCategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryId", category.ParentCategoryId);
@@ -92,28 +81,21 @@ namespace WEB2.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CategoryId,ParentCategoryId,CategoryName,Description,Active,Picture")] Category category)
-        {
-            if (id != category.CategoryId)
-            {
+        public async Task<IActionResult> Edit( int id, [Bind("CategoryId,ParentCategoryId,CategoryName,Description,Active,Picture")] Category category ) {
+            if (id != category.CategoryId) {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
+            if (ModelState.IsValid) {
+                try {
                     _context.Update(category);
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CategoryExists(category.CategoryId))
-                    {
+                catch (DbUpdateConcurrencyException) {
+                    if (!CategoryExists(category.CategoryId)) {
                         return NotFound();
                     }
-                    else
-                    {
+                    else {
                         throw;
                     }
                 }
@@ -124,18 +106,15 @@ namespace WEB2.Areas.Admin.Controllers
         }
 
         // GET: Admin/Categories/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<IActionResult> Delete( int? id ) {
+            if (id == null) {
                 return NotFound();
             }
 
             var category = await _context.Category
                 .Include(c => c.ParentCategory)
                 .FirstOrDefaultAsync(m => m.CategoryId == id);
-            if (category == null)
-            {
+            if (category == null) {
                 return NotFound();
             }
 
@@ -145,16 +124,14 @@ namespace WEB2.Areas.Admin.Controllers
         // POST: Admin/Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
+        public async Task<IActionResult> DeleteConfirmed( int id ) {
             var category = await _context.Category.FindAsync(id);
             _context.Category.Remove(category);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoryExists(int id)
-        {
+        private bool CategoryExists( int id ) {
             return _context.Category.Any(e => e.CategoryId == id);
         }
     }
