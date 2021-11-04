@@ -236,8 +236,8 @@ namespace WEB2.Migrations
                     b.Property<int>("Capacity")
                         .HasColumnType("int");
 
-                    b.Property<int>("Charge")
-                        .HasColumnType("int");
+                    b.Property<string>("Charge")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Technology")
                         .HasColumnType("nvarchar(max)");
@@ -287,8 +287,8 @@ namespace WEB2.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Active")
-                        .HasColumnType("int");
+                    b.Property<string>("Active")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CategoryName")
                         .HasColumnType("nvarchar(max)");
@@ -465,6 +465,32 @@ namespace WEB2.Migrations
                     b.ToTable("Discount");
                 });
 
+            modelBuilder.Entity("WEB2.Models.Feedback", b =>
+                {
+                    b.Property<int>("FeedbackId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Rank")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Rate")
+                        .HasColumnType("int");
+
+                    b.HasKey("FeedbackId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Feedback");
+                });
+
             modelBuilder.Entity("WEB2.Models.Gift", b =>
                 {
                     b.Property<int>("GiftId")
@@ -498,8 +524,8 @@ namespace WEB2.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Core")
-                        .HasColumnType("int");
+                    b.Property<string>("Core")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("GPUMemory")
                         .HasColumnType("nvarchar(max)");
@@ -542,6 +568,9 @@ namespace WEB2.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Adress")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -563,8 +592,8 @@ namespace WEB2.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Version")
-                        .HasColumnType("int");
+                    b.Property<string>("Version")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("OsId");
 
@@ -581,8 +610,8 @@ namespace WEB2.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Deleted")
-                        .HasColumnType("int");
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Errlog")
                         .HasColumnType("nvarchar(max)");
@@ -590,8 +619,8 @@ namespace WEB2.Migrations
                     b.Property<string>("Errmsg")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Freight")
-                        .HasColumnType("int");
+                    b.Property<bool>("Freight")
+                        .HasColumnType("bit");
 
                     b.Property<string>("OTP")
                         .HasColumnType("nvarchar(max)");
@@ -620,8 +649,8 @@ namespace WEB2.Migrations
                     b.Property<int>("ShipperId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TransactStatus")
-                        .HasColumnType("int");
+                    b.Property<string>("TransactStatus")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("OrderId");
 
@@ -651,11 +680,11 @@ namespace WEB2.Migrations
                     b.Property<double>("Discount")
                         .HasColumnType("float");
 
-                    b.Property<int>("Fulfilled")
-                        .HasColumnType("int");
+                    b.Property<bool>("Fulfilled")
+                        .HasColumnType("bit");
 
-                    b.Property<int>("IDSKU")
-                        .HasColumnType("int");
+                    b.Property<string>("IDSKU")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
@@ -666,8 +695,8 @@ namespace WEB2.Migrations
                     b.Property<DateTime>("ShipDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Total")
                         .HasColumnType("float");
@@ -686,11 +715,11 @@ namespace WEB2.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Allowed")
-                        .HasColumnType("int");
+                    b.Property<bool>("Allowed")
+                        .HasColumnType("bit");
 
-                    b.Property<int>("PaymentType")
-                        .HasColumnType("int");
+                    b.Property<string>("PaymentType")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("PaymentId");
 
@@ -836,32 +865,6 @@ namespace WEB2.Migrations
                     b.ToTable("ProductDiscount");
                 });
 
-            modelBuilder.Entity("WEB2.Models.ProductRanking", b =>
-                {
-                    b.Property<int>("RankingId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Comment")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Rank")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Rate")
-                        .HasColumnType("int");
-
-                    b.HasKey("RankingId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductRanking");
-                });
-
             modelBuilder.Entity("WEB2.Models.Purchase", b =>
                 {
                     b.Property<int>("ProductId")
@@ -898,6 +901,9 @@ namespace WEB2.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Slots")
+                        .HasColumnType("int");
 
                     b.Property<int>("Speed")
                         .HasColumnType("int");
@@ -1080,8 +1086,8 @@ namespace WEB2.Migrations
                     b.Property<int>("DiscountAvailable")
                         .HasColumnType("int");
 
-                    b.Property<int>("DiscountType")
-                        .HasColumnType("int");
+                    b.Property<string>("DiscountType")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -1089,8 +1095,8 @@ namespace WEB2.Migrations
                     b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PaymentMethod")
-                        .HasColumnType("int");
+                    b.Property<string>("PaymentMethod")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
@@ -1098,8 +1104,8 @@ namespace WEB2.Migrations
                     b.Property<string>("PostalCode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TypeGoods")
-                        .HasColumnType("int");
+                    b.Property<string>("TypeGoods")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("URL")
                         .HasColumnType("nvarchar(max)");
@@ -1116,11 +1122,11 @@ namespace WEB2.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("VoucherDetail")
-                        .HasColumnType("int");
+                    b.Property<string>("VoucherDetail")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("VoucherName")
-                        .HasColumnType("int");
+                    b.Property<string>("VoucherName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("VoucherID");
 
@@ -1335,6 +1341,17 @@ namespace WEB2.Migrations
                     b.Navigation("ProductDiscount");
                 });
 
+            modelBuilder.Entity("WEB2.Models.Feedback", b =>
+                {
+                    b.HasOne("WEB2.Models.Product", "Product")
+                        .WithMany("ProductRankings")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("WEB2.Models.Gift", b =>
                 {
                     b.HasOne("WEB2.Models.ProductDiscount", "ProductDiscount")
@@ -1420,17 +1437,6 @@ namespace WEB2.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("Inventory");
-                });
-
-            modelBuilder.Entity("WEB2.Models.ProductRanking", b =>
-                {
-                    b.HasOne("WEB2.Models.Product", "Product")
-                        .WithMany("ProductRankings")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("WEB2.Models.Purchase", b =>
