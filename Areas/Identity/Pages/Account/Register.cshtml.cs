@@ -113,8 +113,8 @@ namespace WEB2.Areas.Identity.Pages.Account {
                     // Gửi email
                     await _emailSender.SendEmailAsync(
                         Input.Email,
-                        "Xác nhận địa chỉ email trên website bán hàng xxx ",
-                        $"Mail này đã dùng để đăng ký tài khoản trên website xxx \nHãy xác nhận địa chỉ email bằng cách <a href='{callbackUrl}'>Bấm vào đây</a>.");
+                        "Xác nhận địa chỉ email trên website bán hàng zerone ",
+                        $"Mail này đã dùng để đăng ký tài khoản trên website zerone \nHãy xác nhận địa chỉ email bằng cách <a href='{callbackUrl}'>Bấm vào đây</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedEmail) {
                         // Nếu cấu hình phải xác thực email mới được đăng nhập thì chuyển hướng đến trang

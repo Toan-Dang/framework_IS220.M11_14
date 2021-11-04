@@ -1,4 +1,6 @@
-﻿SET IDENTITY_INSERT Category ON; 
+﻿use website;
+
+SET IDENTITY_INSERT Category ON; 
 BEGIN TRANSACTION
 COMMIT;
 INSERT INTO Category (CategoryId, ParentCategoryId, CategoryName, Active, Picture)
@@ -156,3 +158,4 @@ INSERT INTO Category (CategoryId, ParentCategoryId, CategoryName, Active, Pictur
 VALUES (63, 6,N'AVA', 1, NULL);
 BEGIN TRANSACTION
 COMMIT;
+SET IDENTITY_INSERT Category OFF; 
