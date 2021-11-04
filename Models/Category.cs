@@ -14,7 +14,7 @@ namespace WEB2.Models {
 
         public string CategoryName { get; set; }
         public string Description { get; set; }
-        public int Active { get; set; }
+        public string Active { get; set; }
         public string Picture { get; set; }
 
         [ForeignKey("ParentCategoryId")]

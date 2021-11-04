@@ -15,14 +15,14 @@ namespace WEB2.Models {
         public int CustomerId { get; set; }
         public string OTP { get; set; }
         public DateTime OrderDay { get; set; }
-        public int Freight { get; set; }
+        public bool Freight { get; set; }
         public DateTime ShipDate { get; set; }
         public DateTime RequiredDate { get; set; }
         public double SalesTax { get; set; }
-        public int TransactStatus { get; set; }
+        public string TransactStatus { get; set; }
         public string Errlog { get; set; }
         public string Errmsg { get; set; }
-        public int Deleted { get; set; }
+        public bool Deleted { get; set; }
         public double Paid { get; set; }
         public DateTime PaymentDate { get; set; }
 

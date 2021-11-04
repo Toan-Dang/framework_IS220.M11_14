@@ -8,8 +8,8 @@ namespace WEB2.Models {
         [Key]
         public int VoucherID { get; set; }
 
-        public int VoucherName { get; set; }
-        public int VoucherDetail { get; set; }
+        public string VoucherName { get; set; }
+        public string VoucherDetail { get; set; }
         public virtual ICollection<Voucher_detail> Voucher_Details { get; set; }
     }
 }

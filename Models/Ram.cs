@@ -13,6 +13,7 @@ namespace WEB2.Models {
         public int MaxRam { get; set; }
         public int Speed { get; set; }
         public string Type { get; set; }
+        public int Slots { get; set; }
         public virtual ICollection<ConfigDetail> ConfigDetails { get; set; }
     }
 }
