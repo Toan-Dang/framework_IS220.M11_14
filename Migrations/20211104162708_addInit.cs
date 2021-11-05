@@ -1,14 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace WEB2.Migrations {
-
-    public partial class addInit : Migration {
-
-        protected override void Up( MigrationBuilder migrationBuilder ) {
+namespace WEB2.Migrations
+{
+    public partial class addInit : Migration
+    {
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
             migrationBuilder.CreateTable(
                 name: "Battery",
-                columns: table => new {
+                columns: table => new
+                {
                     BatteryId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Capacity = table.Column<int>(type: "int", nullable: false),
@@ -16,13 +18,15 @@ namespace WEB2.Migrations {
                     Technology = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Charge = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Battery", x => x.BatteryId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Camera",
-                columns: table => new {
+                columns: table => new
+                {
                     CamId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Webcam = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -32,10 +36,10 @@ namespace WEB2.Migrations {
                     Video = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Special = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Camera", x => x.CamId);
                 });
-            //copy calendar
             migrationBuilder.CreateTable(
             name: "Calendar",
             columns: table => new {
@@ -46,10 +50,20 @@ namespace WEB2.Migrations {
                 DayStart = table.Column<DateTime>(type: "nvarchar(max)", nullable: true),
                 DayEnd = table.Column<DateTime>(type: "nvarchar(max)", nullable: true),
             });
-            ///
+            migrationBuilder.CreateTable(
+            name: "News",
+            columns: table => new {
+                NewsId = table.Column<int>(type: "int", nullable: false)
+                    .Annotation("SqlServer:Identity", "1, 1"),
+                Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                DateRealease = table.Column<DateTime>(type: "nvarchar(max)", nullable: true),
+                Author = table.Column<string>(type: "nvarchar(max)", nullable: true),
+            });
             migrationBuilder.CreateTable(
                 name: "Category",
-                columns: table => new {
+                columns: table => new
+                {
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ParentCategoryId = table.Column<int>(type: "int", nullable: true),
@@ -58,7 +72,8 @@ namespace WEB2.Migrations {
                     Active = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Picture = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Category", x => x.CategoryId);
                     table.ForeignKey(
                         name: "FK_Category_Category_ParentCategoryId",
@@ -70,7 +85,8 @@ namespace WEB2.Migrations {
 
             migrationBuilder.CreateTable(
                 name: "Connection",
-                columns: table => new {
+                columns: table => new
+                {
                     ConnId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -83,13 +99,15 @@ namespace WEB2.Migrations {
                     Other = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneJack = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Connection", x => x.ConnId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Graphic",
-                columns: table => new {
+                columns: table => new
+                {
                     GraphicId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NameGPU = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -97,50 +115,58 @@ namespace WEB2.Migrations {
                     GPUMemory = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Core = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Graphic", x => x.GraphicId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Inventory",
-                columns: table => new {
+                columns: table => new
+                {
                     InventoryId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TotalAmount = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Adress = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Inventory", x => x.InventoryId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "OS",
-                columns: table => new {
+                columns: table => new
+                {
                     OsId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Version = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_OS", x => x.OsId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Payment",
-                columns: table => new {
+                columns: table => new
+                {
                     PaymentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PaymentType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Allowed = table.Column<bool>(type: "bit", nullable: false)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Payment", x => x.PaymentId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Processor",
-                columns: table => new {
+                columns: table => new
+                {
                     CpuId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -150,13 +176,15 @@ namespace WEB2.Migrations {
                     MaxSpeed = table.Column<double>(type: "float", nullable: false),
                     Cache = table.Column<int>(type: "int", nullable: false)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Processor", x => x.CpuId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "ProductDiscount",
-                columns: table => new {
+                columns: table => new
+                {
                     DiscountId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Condition = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -167,13 +195,15 @@ namespace WEB2.Migrations {
                     DiscountMoney = table.Column<double>(type: "float", nullable: false),
                     DiscountAvailable = table.Column<int>(type: "int", nullable: false)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_ProductDiscount", x => x.DiscountId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Ram",
-                columns: table => new {
+                columns: table => new
+                {
                     RamId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -183,38 +213,44 @@ namespace WEB2.Migrations {
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Slots = table.Column<int>(type: "int", nullable: false)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Ram", x => x.RamId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Roles",
-                columns: table => new {
+                columns: table => new
+                {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Roles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Rom",
-                columns: table => new {
+                columns: table => new
+                {
                     RomId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Capacity = table.Column<int>(type: "int", nullable: false),
                     MaxRom = table.Column<int>(type: "int", nullable: false),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Rom", x => x.RomId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Screen",
-                columns: table => new {
+                columns: table => new
+                {
                     ScreenId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Resolution = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -224,13 +260,15 @@ namespace WEB2.Migrations {
                     Special = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Technology = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Screen", x => x.ScreenId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Shipment",
-                columns: table => new {
+                columns: table => new
+                {
                     ShipperId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -238,24 +276,28 @@ namespace WEB2.Migrations {
                     ShipDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Received = table.Column<double>(type: "float", nullable: false)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Shipment", x => x.ShipperId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Sound",
-                columns: table => new {
+                columns: table => new
+                {
                     SoundId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Technology = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Sound", x => x.SoundId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Structure",
-                columns: table => new {
+                columns: table => new
+                {
                     StructId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Wide = table.Column<double>(type: "float", nullable: false),
@@ -265,13 +307,15 @@ namespace WEB2.Migrations {
                     Martirial = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Design = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Structure", x => x.StructId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Supplier",
-                columns: table => new {
+                columns: table => new
+                {
                     SupplierId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -289,13 +333,15 @@ namespace WEB2.Migrations {
                     TypeGoods = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Notes = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Supplier", x => x.SupplierId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Users",
-                columns: table => new {
+                columns: table => new
+                {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FullName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Address = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
@@ -315,25 +361,29 @@ namespace WEB2.Migrations {
                     LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
                     AccessFailedCount = table.Column<int>(type: "int", nullable: false)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Voucher",
-                columns: table => new {
+                columns: table => new
+                {
                     VoucherID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     VoucherName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     VoucherDetail = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Voucher", x => x.VoucherID);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Product",
-                columns: table => new {
+                columns: table => new
+                {
                     ProductId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     InventoryId = table.Column<int>(type: "int", nullable: false),
@@ -357,7 +407,8 @@ namespace WEB2.Migrations {
                     CurrentOrder = table.Column<int>(type: "int", nullable: false),
                     Note = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Product", x => x.ProductId);
                     table.ForeignKey(
                         name: "FK_Product_Category_CategoryId",
@@ -375,7 +426,8 @@ namespace WEB2.Migrations {
 
             migrationBuilder.CreateTable(
                 name: "Gift",
-                columns: table => new {
+                columns: table => new
+                {
                     GiftId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DiscountId = table.Column<int>(type: "int", nullable: false),
@@ -383,7 +435,8 @@ namespace WEB2.Migrations {
                     GiftAvailable = table.Column<int>(type: "int", nullable: false),
                     GiftAmount = table.Column<int>(type: "int", nullable: false)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Gift", x => x.GiftId);
                     table.ForeignKey(
                         name: "FK_Gift_ProductDiscount_DiscountId",
@@ -395,14 +448,16 @@ namespace WEB2.Migrations {
 
             migrationBuilder.CreateTable(
                 name: "RoleClaims",
-                columns: table => new {
+                columns: table => new
+                {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_RoleClaims", x => x.Id);
                     table.ForeignKey(
                         name: "FK_RoleClaims_Roles_RoleId",
@@ -414,7 +469,8 @@ namespace WEB2.Migrations {
 
             migrationBuilder.CreateTable(
                 name: "Customer",
-                columns: table => new {
+                columns: table => new
+                {
                     CustomerID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
@@ -422,7 +478,8 @@ namespace WEB2.Migrations {
                     ShipAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateEntered = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Customer", x => x.CustomerID);
                     table.ForeignKey(
                         name: "FK_Customer_Users_UserId",
@@ -434,14 +491,16 @@ namespace WEB2.Migrations {
 
             migrationBuilder.CreateTable(
                 name: "Staff",
-                columns: table => new {
+                columns: table => new
+                {
                     StaffId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     InventoryId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     WorkingDay = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Staff", x => x.StaffId);
                     table.ForeignKey(
                         name: "FK_Staff_Inventory_InventoryId",
@@ -459,14 +518,16 @@ namespace WEB2.Migrations {
 
             migrationBuilder.CreateTable(
                 name: "UserClaims",
-                columns: table => new {
+                columns: table => new
+                {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_UserClaims", x => x.Id);
                     table.ForeignKey(
                         name: "FK_UserClaims_Users_UserId",
@@ -478,13 +539,15 @@ namespace WEB2.Migrations {
 
             migrationBuilder.CreateTable(
                 name: "UserLogins",
-                columns: table => new {
+                columns: table => new
+                {
                     LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_UserLogins", x => new { x.LoginProvider, x.ProviderKey });
                     table.ForeignKey(
                         name: "FK_UserLogins_Users_UserId",
@@ -496,11 +559,13 @@ namespace WEB2.Migrations {
 
             migrationBuilder.CreateTable(
                 name: "UserRoles",
-                columns: table => new {
+                columns: table => new
+                {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_UserRoles", x => new { x.UserId, x.RoleId });
                     table.ForeignKey(
                         name: "FK_UserRoles_Roles_RoleId",
@@ -518,13 +583,15 @@ namespace WEB2.Migrations {
 
             migrationBuilder.CreateTable(
                 name: "UserTokens",
-                columns: table => new {
+                columns: table => new
+                {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_UserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
                     table.ForeignKey(
                         name: "FK_UserTokens_Users_UserId",
@@ -536,7 +603,8 @@ namespace WEB2.Migrations {
 
             migrationBuilder.CreateTable(
                 name: "ConfigDetail",
-                columns: table => new {
+                columns: table => new
+                {
                     ConfigId = table.Column<int>(type: "int", nullable: false),
                     CpuId = table.Column<int>(type: "int", nullable: false),
                     RamId = table.Column<int>(type: "int", nullable: false),
@@ -553,7 +621,8 @@ namespace WEB2.Migrations {
                     OtherInfo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ProductId = table.Column<int>(type: "int", nullable: false)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_ConfigDetail", x => new { x.ConfigId, x.CpuId, x.RamId, x.RomId });
                     table.ForeignKey(
                         name: "FK_ConfigDetail_Battery_BatteryId",
@@ -631,11 +700,13 @@ namespace WEB2.Migrations {
 
             migrationBuilder.CreateTable(
                 name: "Discount",
-                columns: table => new {
+                columns: table => new
+                {
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     DiscountId = table.Column<int>(type: "int", nullable: false)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Discount", x => new { x.ProductId, x.DiscountId });
                     table.ForeignKey(
                         name: "FK_Discount_Product_ProductId",
@@ -653,7 +724,8 @@ namespace WEB2.Migrations {
 
             migrationBuilder.CreateTable(
                 name: "Feedback",
-                columns: table => new {
+                columns: table => new
+                {
                     FeedbackId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductId = table.Column<int>(type: "int", nullable: false),
@@ -661,7 +733,8 @@ namespace WEB2.Migrations {
                     Comment = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Rate = table.Column<int>(type: "int", nullable: false)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Feedback", x => x.FeedbackId);
                     table.ForeignKey(
                         name: "FK_Feedback_Product_ProductId",
@@ -673,13 +746,15 @@ namespace WEB2.Migrations {
 
             migrationBuilder.CreateTable(
                 name: "Image",
-                columns: table => new {
+                columns: table => new
+                {
                     ImageId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     URL = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Image", x => x.ImageId);
                     table.ForeignKey(
                         name: "FK_Image_Product_ProductId",
@@ -691,13 +766,15 @@ namespace WEB2.Migrations {
 
             migrationBuilder.CreateTable(
                 name: "Purchase",
-                columns: table => new {
+                columns: table => new
+                {
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     SupplierId = table.Column<int>(type: "int", nullable: false),
                     QuantityPerUnit = table.Column<int>(type: "int", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Purchase", x => new { x.ProductId, x.SupplierId });
                     table.ForeignKey(
                         name: "FK_Purchase_Product_ProductId",
@@ -715,7 +792,8 @@ namespace WEB2.Migrations {
 
             migrationBuilder.CreateTable(
                 name: "Order",
-                columns: table => new {
+                columns: table => new
+                {
                     OrderId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PaymentId = table.Column<int>(type: "int", nullable: false),
@@ -734,7 +812,8 @@ namespace WEB2.Migrations {
                     Paid = table.Column<double>(type: "float", nullable: false),
                     PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Order", x => x.OrderId);
                     table.ForeignKey(
                         name: "FK_Order_Customer_CustomerId",
@@ -758,13 +837,15 @@ namespace WEB2.Migrations {
 
             migrationBuilder.CreateTable(
                 name: "Voucher_detail",
-                columns: table => new {
+                columns: table => new
+                {
                     CustomerID = table.Column<int>(type: "int", nullable: false),
                     VoucherID = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<int>(type: "int", nullable: false),
                     ID = table.Column<int>(type: "int", nullable: false)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_Voucher_detail", x => new { x.CustomerID, x.VoucherID });
                     table.ForeignKey(
                         name: "FK_Voucher_detail_Customer_CustomerID",
@@ -782,7 +863,8 @@ namespace WEB2.Migrations {
 
             migrationBuilder.CreateTable(
                 name: "OrderDetail",
-                columns: table => new {
+                columns: table => new
+                {
                     OrderId = table.Column<int>(type: "int", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
@@ -796,7 +878,8 @@ namespace WEB2.Migrations {
                     Color = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Fulfilled = table.Column<bool>(type: "bit", nullable: false)
                 },
-                constraints: table => {
+                constraints: table =>
+                {
                     table.PrimaryKey("PK_OrderDetail", x => new { x.OrderId, x.ProductId });
                     table.ForeignKey(
                         name: "FK_OrderDetail_Order_OrderId",
@@ -992,7 +1075,8 @@ namespace WEB2.Migrations {
                 column: "ID");
         }
 
-        protected override void Down( MigrationBuilder migrationBuilder ) {
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
             migrationBuilder.DropTable(
                 name: "ConfigDetail");
 
