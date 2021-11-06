@@ -11,7 +11,7 @@ namespace WEB2.Models {
         public int Capacity { get; set; }
         public string Type { get; set; }
         public string Technology { get; set; }
-        public int Charge { get; set; }
+        public string Charge { get; set; }
         public virtual ICollection<ConfigDetail> ConfigDetails { get; set; }
     }
 }

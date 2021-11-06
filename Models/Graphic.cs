@@ -11,7 +11,7 @@ namespace WEB2.Models {
         public string NameGPU { get; set; }
         public string GPUType { get; set; }
         public string GPUMemory { get; set; }
-        public int Core { get; set; }
+        public string Core { get; set; }
         public virtual ICollection<ConfigDetail> ConfigDetails { get; set; }
     }
 }

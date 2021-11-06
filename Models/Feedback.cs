@@ -3,13 +3,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WEB2.Models {
 
-    public class ProductRanking {
+    public class Feedback {
 
         [Key]
-        public int RankingId { get; set; }
+        public int FeedbackId { get; set; }
 
         public int ProductId { get; set; }
-        public int Rank { get; set; }
+        public string Rank { get; set; }
         public string Comment { get; set; }
         public int Rate { get; set; }
 

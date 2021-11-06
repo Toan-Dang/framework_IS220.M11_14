@@ -8,8 +8,8 @@ namespace WEB2.Models {
         [Key]
         public int PaymentId { get; set; }
 
-        public int PaymentType { get; set; }
-        public int Allowed { get; set; }
+        public string PaymentType { get; set; }
+        public bool Allowed { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
     }
 }

@@ -10,6 +10,7 @@ namespace WEB2.Models {
 
         public int TotalAmount { get; set; }
         public string Name { get; set; }
+        public string Adress { get; set; }
         public virtual ICollection<Product> Products { get; set; }
         public virtual ICollection<Staff> Staffs { get; set; }
     }

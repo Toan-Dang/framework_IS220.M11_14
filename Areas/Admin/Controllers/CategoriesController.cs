@@ -43,7 +43,7 @@ namespace WEB2.Areas.Admin.Controllers {
 
         // GET: Admin/Categories/Create
         public IActionResult Create() {
-            ViewData["ParentCategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryId");
+            ViewData["ParentCategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName");
             return View();
         }
 
@@ -58,7 +58,7 @@ namespace WEB2.Areas.Admin.Controllers {
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ParentCategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryId", category.ParentCategoryId);
+            ViewData["ParentCategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName", category.ParentCategoryId);
             return View(category);
         }
 
@@ -72,7 +72,7 @@ namespace WEB2.Areas.Admin.Controllers {
             if (category == null) {
                 return NotFound();
             }
-            ViewData["ParentCategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryId", category.ParentCategoryId);
+            ViewData["ParentCategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName", category.CategoryName);
             return View(category);
         }
 
@@ -101,7 +101,7 @@ namespace WEB2.Areas.Admin.Controllers {
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ParentCategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryId", category.ParentCategoryId);
+            ViewData["ParentCategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName", category.CategoryName);
             return View(category);
         }
 
