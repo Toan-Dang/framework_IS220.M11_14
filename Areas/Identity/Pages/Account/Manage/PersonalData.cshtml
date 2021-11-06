@@ -1,7 +1,7 @@
 ﻿@page
 @model PersonalDataModel
 @{
-    ViewData["Title"] = "Personal Data";
+    ViewData["Title"] = "Dữ liệu cá nhân";
     ViewData["ActivePage"] = ManageNavPages.PersonalData;
 }
 
@@ -9,15 +9,18 @@
 
 <div class="row">
     <div class="col-md-6">
-        <p>Your account contains personal data that you have given us. This page allows you to download or delete that data.</p>
+        @*<p>Your account contains personal data that you have given us. This page allows you to download or delete that data.</p>*@
+        <p>Bạn có thể tải về hoặc xóa dữ liệu đã cung cấp cho Zerone.</p>
         <p>
-            <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
+            @*<strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>*@
+            <strong>Lưu ý rằng việc xóa dữ liệu cũng sẽ xóa tài khoản khỏi hệ thống, hành động này không thể hoàn tác.</strong>
         </p>
+        <p>Zerone cam kết chỉ sử dụng một phần dữ liệu của bạn để tối ưu hóa trải nghiệm mua sắm và điều chỉnh đề xuất quảng cáo với bên thứ ba. Zerone không chia sẻ thông tin cá nhân cá nhân của bạn với mục đích kinh doanh bất hợp pháp hay bất kỳ mục đích nào khác.</p>
         <form id="download-data" asp-page="DownloadPersonalData" method="post" class="form-group">
-            <button class="btn btn-primary" type="submit">Download</button>
+            <button class="btn btn-primary" type="submit">Tải xuống</button>
         </form>
         <p>
-            <a id="delete" asp-page="DeletePersonalData" class="btn btn-secondary">Delete</a>
+            <a id="delete" asp-page="DeletePersonalData" class="btn btn-secondary">Xóa</a>
         </p>
     </div>
 </div>

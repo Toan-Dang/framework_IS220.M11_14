@@ -13,9 +13,7 @@ a.navbar-brand {
   text-align: center;
   word-break: break-all;
 }
-body{
-    color: black;
-}
+
 
 /*nav*/
 .topnav {
@@ -204,43 +202,52 @@ body {
 body a{
     color: black;
 }
-.footer {
-    color: white;
+/*.footer {
+    position: absolute;
     bottom: 0;
-    position: relative;
+    margin-bottom: 0px;
+    margin-top: auto;
+    color: white;
+    width: 100%;
+    white-space: nowrap;
+    background-color: black;
+    line-height: 60px
+}*/
+.footer {
     width: 100%;
     white-space: normal;
+    padding: 0;
     background-color: black;
 }
-.footer p {
+.sub > p {
     color: white;
     font-weight: bold;
 }
-    .footer a {
+    .sub > a {
         color: #6c6f7d;
         font-size: 15px;
         display: block;
     }
-        .footer a:link {
-            color: #6c6f7d;
-            text-decoration: none;
-        }
+.sub > a:link {
+    color: #6c6f7d;
+    text-decoration: none;
+}
 
-        .footer a:visited {
-            color: #6c6f7d;
-            text-decoration: none;
-            transition: 0.5s ease-in;
-        }
+.sub > a:visited {
+    color: #6c6f7d;
+    text-decoration: none;
+    transition: 0.5s ease-in;
+}
 
-        .footer a:hover {
-            color: white;
-            text-decoration: none;
-        }
+.sub > a:hover {
+    color: white;
+    text-decoration: none;
+}
 
-        .footer a:active {
-            color: #6c6f7d;
-            text-decoration: none;
-        }
+.sub > a:active {
+    color: #6c6f7d;
+    text-decoration: none;
+}
 .credit  {
     background-color: #f1f1f1;
 }
@@ -253,4 +260,46 @@ body a{
         padding-bottom: 15px;
         color: black;
         font-weight: normal;
+    }
+#btn-to-top {
+    display: inline-block;
+    background-color: transparent;
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    border-radius: 100%;
+    position: fixed;
+    bottom: 30px;
+    right: 120px;
+    transition: background-color .3s, opacity .5s, visibility .5s;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+}
+    #btn-to-top > svg {
+        margin: auto;
+        color: #be1e2d;
+    }
+
+    #btn-to-top:after {
+        font-family: FontAwesome;
+        font-weight: normal;
+        font-style: normal;
+        font-size: 2em;
+        line-height: 50px;
+        color: #fff;
+    }
+
+    #btn-to-top:hover {
+        cursor: pointer;
+        background-color: transparent;
+    }
+
+    #btn-to-top:active {
+        background-color: transparent;
+    }
+
+    #btn-to-top.show {
+        opacity: 1;
+        visibility: visible;
     }
