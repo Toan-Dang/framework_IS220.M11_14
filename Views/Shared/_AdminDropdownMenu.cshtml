@@ -4,26 +4,32 @@
 @inject SignInManager<AppUser> SignInManager
 
 @inject Microsoft.AspNetCore.Authorization.IAuthorizationService authorizationService
-<link href="~/css/style.css" rel="stylesheet">
+
 @if (SignInManager.IsSignedIn(User)
 && (await authorizationService.AuthorizeAsync(User, "AdminDropdown")).Succeeded) {
-
-<li class="nav-item dropdown header-profile">
-    <a class="nav-link" href="#" role="button" data-toggle="dropdown">
+    <style>
+        #admin-item > div > a:hover{
+            background-color: #be1e2d;
+            color: white;
+            transition: 0.3s ease-in;
+        }
+    </style>
+<li class="nav-item dropdown header-profile" id="admin-item">
+    <a class="nav-link"  href="#" role="button" data-toggle="dropdown" >
         <i class="mdi mdi-account"></i>
-        <span class="ml-2">Manage</span>
+        <span class="ml-2" style="color: #343a40 !important; padding: 0px;">Quản lý</span>
     </a>
     <div class="dropdown-menu dropdown-menu-right">
         <a class="dropdown-item" asp-page="/Role/Index" asp-area="Admin">
-            <i class="icon-bag"></i>
-            <span class="ml-2">Quản lý role </span>
+            <i class='bx bx-git-branch bx-xs'></i>
+            <span class="ml-2">Quản lý quyền </span>
         </a>
         <a class="dropdown-item" asp-page="/Role/User" asp-area="Admin">
-            <i class="icon-user-follow"></i>
-            <span class="ml-2">Gán role cho User</span>
+            <i class='bx bx-user-plus bx-xs'></i>
+            <span class="ml-2">Gán quyền cho User</span>
         </a>
         <a class="dropdown-item" asp-area="Admin" asp-page="/Manage/Dashboard1">
-            <i class="icon-l-settings"></i>
+            <i class='bx bx-slider-alt bx-xs'></i>
             <span class="ml-2">Trang quản trị </span>
         </a>
     </div>
