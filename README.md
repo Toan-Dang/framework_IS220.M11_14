@@ -21,6 +21,14 @@ Lớp thực hành .2
 - Đăng nhập/ đăng ký/ đăng xuất/ logout / nhớ mật khẩu
 - Phân quyền (admin, staff, customer)
 - Gửi mail để xác nhận đăng nhập và reset mật khẩu 
+-User
+>
+-Thành viên
+>
+-Admin
+> Danh mục sản phẩm
+> Lịch trình
+> Tổng quan
 > Khi nào xong sẽ ghi thêm
 
 ## Tech
@@ -58,8 +66,8 @@ update-database
 Cập nhật dữ liệu trong sql <xem phần dưới> 
 ## Note
 
-File database trong thư mục Data-> Database_Design 
-Dữ liệu được lưu dưới dạng .sql trong thư mục Data -> Script
+-File database trong thư mục Data-> Database_Design 
+-Dữ liệu được lưu dưới dạng .sql trong thư mục Data -> Script
 
 ## License
 

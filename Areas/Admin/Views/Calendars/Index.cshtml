@@ -1,11 +1,9 @@
-﻿@page "/calendar/"
-@model WEB2.Areas.Admin.Pages.Manage.CalendarModel
-@{
-    ViewData["Title"] = "Calendars";
-}
+﻿@page "/calendars/"
+@model IEnumerable<WEB2.Models.Calendar>
+
 <head>
-    <link href="~/vendor/fullcalendar/css/fullcalendar.min.css" rel="stylesheet">
-    <link href="~/css/style.css" rel="stylesheet">
+    <link href="./vendor/fullcalendar/css/fullcalendar.min.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
 </head>
 <body>
 
@@ -133,12 +131,10 @@
     <script type="text/javascript">
 
         ! function (e) {
-
             "use strict";
             var t = function () {
                 this.$body = e("body"), this.$modal = e("#event-modal"), this.$event = "#external-events div.external-event", this.$calendar = e("#calendar"), this.$saveCategoryBtn = e(".save-category"), this.$categoryForm = e("#add-category form"), this.$extEvents = e("#external-events"), this.$calendarObj = null
             };
-
             t.prototype.onDrop = function (t, n) {
                 var a = t.data("eventObject"),
                     o = t.attr("data-class"),
@@ -189,28 +185,27 @@
             }, t.prototype.init = function () {
                 this.enableDrag();
 
-                var markers = [];
-
-                console.log("toi day roi");
-
-                       console.log(markers);
-                 @foreach (var item in Model.Calendars) {
-
-                     <text>
-                markers.push({ title: "@item.Title", start: new Date("@item.DayStart"), end: new Date("@item.DayEnd"), className: "@item.Classname" });
-                    </text>
-
-                   }
-
-                  var t = new Date,
-                      n = (t.getDate(), t.getMonth(), t.getFullYear(), new Date(e.now())),
-                      a = markers,
-                      o = this;
-                console.log(a);
+                var t = new Date,
+                    n = (t.getDate(), t.getMonth(), t.getFullYear(), new Date(e.now())),
+                    a = [{
+                        title: "Chicken Burger",
+                        start: new Date(e.now() + 158e6),
+                        className: "bg-dark"
+                    }, {
+                        title: "Soft drinks",
+                        start: n,
+                        end: n,
+                        className: "bg-danger"
+                    }, {
+                        title: "Hot dog",
+                        start: new Date(e.now() + 338e6),
+                        className: "bg-primary"
+                    }],
+                    o = this;
                 o.$calendarObj = o.$calendar.fullCalendar({
-                    //slotDuration: "00:15:00",
-                    //minTime: "08:00:00",
-                   // maxTime: "19:00:00",
+                    slotDuration: "00:15:00",
+                    minTime: "08:00:00",
+                    maxTime: "19:00:00",
                     defaultView: "month",
                     handleWindowResize: !0,
                     height: e(window).height() - 100,
