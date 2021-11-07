@@ -1,0 +1,82 @@
+﻿
+.highlight::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.highlight > div {
+    float: left;
+    width: 25%;
+    padding-top: 0px;
+}
+.highlight > div > a:hover {
+    text-decoration: none;
+    color: black;
+}
+.highlight {
+    justify-content: center;
+}
+
+    .highlight > div > a > div {
+        border-radius: 10px;
+        margin: 10px;
+    }
+
+        .highlight > div > a > div:hover {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            transition: 0.4s ease-in-out;
+        }
+h5.pricesale {
+    color: #be1e2d;
+}
+h6.price {
+    text-decoration: line-through 1px solid black;
+}
+.card-img-top {
+    height: 65%;
+    width: 65%;
+    margin: auto;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+.card-body {
+    height: 300px;
+}
+.lbsale span {
+    border-radius: 4px;
+    font-size: 11px;
+    line-height: 12px;
+    display: inline-block;
+    padding: 4px;
+}
+
+.lbsale {
+    padding-top: 3px;
+    padding-left: 7px;
+}
+.lbtragop {
+    background-color: #be1e2d;
+    color: white;
+}
+.rating-checked {
+    color: rgb(255, 81, 0);
+}
+.displaying {
+    display: inline-table;
+}
+.hidding {
+    display: none;
+    font-size: 0px;
+}
+.information > ul {
+    padding-top: 20px;
+    padding-left: 35px;
+}
+    .information > ul > li{
+        color: #333;
+        font-size: 12px;
+        font-weight: 500;
+        margin: -15px;
+    }

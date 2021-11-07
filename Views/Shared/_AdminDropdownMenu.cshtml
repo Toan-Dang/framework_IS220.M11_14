@@ -7,6 +7,15 @@
 
 @if (SignInManager.IsSignedIn(User)
 && (await authorizationService.AuthorizeAsync(User, "AdminDropdown")).Succeeded) {
+    <style>
+        #admin-item > div > a:hover{
+            background-color: #be1e2d;
+            color: white;
+            transition: 0.3s ease-in;
+        }
+    </style>
+<li class="nav-item dropdown header-profile" id="admin-item">
+    <a class="nav-link"  href="#" role="button" data-toggle="dropdown" >
 <style>
     #admin-item > div > a:hover {
         background-color: #be1e2d;
