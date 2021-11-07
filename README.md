@@ -21,6 +21,14 @@ Lớp thực hành .2
 - Đăng nhập/ đăng ký/ đăng xuất/ logout / nhớ mật khẩu
 - Phân quyền (admin, staff, customer)
 - Gửi mail để xác nhận đăng nhập và reset mật khẩu 
+-User
+>
+-Thành viên
+>
+-Admin
+> Danh mục sản phẩm
+> Lịch trình
+> Tổng quan
 > Khi nào xong sẽ ghi thêm
 
 ## Tech
