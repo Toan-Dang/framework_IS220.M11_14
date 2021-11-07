@@ -4,19 +4,34 @@
 @inject SignInManager<AppUser> SignInManager
 
 @inject Microsoft.AspNetCore.Authorization.IAuthorizationService authorizationService
+
 @if (SignInManager.IsSignedIn(User)
 && (await authorizationService.AuthorizeAsync(User, "AdminDropdown")).Succeeded) {
-<li class="nav-item dropdown">
-    <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Manager
+<style>
+    #admin-item > div > a:hover {
+        background-color: #be1e2d;
+        color: white;
+        transition: 0.3s ease-in;
+    }
+</style>
+<li class="nav-item dropdown header-profile" id="admin-item">
+    <a class="nav-link" href="#" role="button" data-toggle="dropdown">
+        <i class="mdi mdi-account"></i>
+        <span class="ml-2" style="color: #343a40 !important; padding: 0px;">Quản lý</span>
     </a>
-    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item" asp-page="/Role/Index" asp-area="Admin">Quản lý role</a>
-
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" asp-page="/Role/User" asp-area="Admin">Gán role cho User</a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" asp-controller="Categories" asp-action="Index" asp-area="Admin">Trang Quản trị</a>
+    <div class="dropdown-menu dropdown-menu-right">
+        <a class="dropdown-item" asp-page="/Role/Index" asp-area="Admin">
+            <i class='bx bx-git-branch bx-xs'></i>
+            <span class="ml-2">Quản lý quyền </span>
+        </a>
+        <a class="dropdown-item" asp-page="/Role/User" asp-area="Admin">
+            <i class='bx bx-user-plus bx-xs'></i>
+            <span class="ml-2">Gán quyền cho User</span>
+        </a>
+        <a class="dropdown-item" asp-area="Admin" asp-page="/Manage/Dashboard1">
+            <i class='bx bx-slider-alt bx-xs'></i>
+            <span class="ml-2">Trang quản trị </span>
+        </a>
     </div>
 </li>
 }
