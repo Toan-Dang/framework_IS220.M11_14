@@ -36,5 +36,7 @@ namespace WEB2.Data {
         public DbSet<WEB2.Models.Order> Order { get; set; }
 
         public DbSet<WEB2.Models.Calendar> Calendar { get; set; }
+
+        public DbSet<WEB2.Models.Product> Product { get; set; }
     }
 }

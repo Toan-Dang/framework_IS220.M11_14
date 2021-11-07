@@ -26,9 +26,13 @@ Lớp thực hành .2
 -Thành viên
 >
 -Admin
-> Danh mục sản phẩm
-> Lịch trình
-> Tổng quan
+
+ >Danh mục sản phẩm
+
+>Lịch trình
+
+>Tổng quan
+
 > Khi nào xong sẽ ghi thêm
 
 ## Tech
@@ -67,6 +71,7 @@ Cập nhật dữ liệu trong sql <xem phần dưới>
 ## Note
 
 -File database trong thư mục Data-> Database_Design 
+
 -Dữ liệu được lưu dưới dạng .sql trong thư mục Data -> Script
 
 ## License
