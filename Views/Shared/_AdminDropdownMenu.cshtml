@@ -4,19 +4,28 @@
 @inject SignInManager<AppUser> SignInManager
 
 @inject Microsoft.AspNetCore.Authorization.IAuthorizationService authorizationService
+<link href="~/css/style.css" rel="stylesheet">
 @if (SignInManager.IsSignedIn(User)
 && (await authorizationService.AuthorizeAsync(User, "AdminDropdown")).Succeeded) {
-<li class="nav-item dropdown">
-    <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Manager
-    </a>
-    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item" asp-page="/Role/Index" asp-area="Admin">Quản lý role</a>
 
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" asp-page="/Role/User" asp-area="Admin">Gán role cho User</a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" asp-controller="Categories" asp-action="Index" asp-area="Admin">Trang Quản trị</a>
+<li class="nav-item dropdown header-profile">
+    <a class="nav-link" href="#" role="button" data-toggle="dropdown">
+        <i class="mdi mdi-account"></i>
+        <span class="ml-2">Manage</span>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right">
+        <a class="dropdown-item" asp-page="/Role/Index" asp-area="Admin">
+            <i class="icon-bag"></i>
+            <span class="ml-2">Quản lý role </span>
+        </a>
+        <a class="dropdown-item" asp-page="/Role/User" asp-area="Admin">
+            <i class="icon-user-follow"></i>
+            <span class="ml-2">Gán role cho User</span>
+        </a>
+        <a class="dropdown-item" asp-area="Admin" asp-page="/Manage/Calendar">
+            <i class="icon-l-settings"></i>
+            <span class="ml-2">Trang quản trị </span>
+        </a>
     </div>
 </li>
 }

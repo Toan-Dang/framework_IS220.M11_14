@@ -58,8 +58,8 @@ update-database
 Cập nhật dữ liệu trong sql <xem phần dưới> 
 ## Note
 
-File database trong thư mục Data-> Database_Design 
-Dữ liệu được lưu dưới dạng .sql trong thư mục Data -> Script
+-File database trong thư mục Data-> Database_Design 
+-Dữ liệu được lưu dưới dạng .sql trong thư mục Data -> Script
 
 ## License
 
