@@ -80,3 +80,27 @@ h6.price {
         font-weight: 500;
         margin: -15px;
     }
+
+.d-inline::after{
+    display: table;
+    margin:auto;
+}
+.d-inline > a {
+    border: 1px solid #E5E7EB;
+    border-radius: 100px;
+    display: inline-table;
+    width: 10.5%;
+}
+
+    .d-inline > a:hover{
+        box-shadow: none !important;
+        border-color: #be1e2d;
+    }
+    .btn-on-active {
+        box-shadow: none;
+        border-color: #be1e2d !important;
+    }
+
+.mb-3 > div > a > img {
+        vertical-align: sub;
+}
