@@ -1,8 +1,9 @@
-﻿@model WEB2.Models.Category
+﻿@model WEB2.Models.Shipment
 
 @{
     ViewData["Title"] = "Edit";
 }
+
 <head>
     <link href="~/css/style.css" rel="stylesheet">
 </head>
@@ -11,49 +12,46 @@
         <div class="row page-titles mx-0">
             <div class="col-sm-6 p-md-0">
                 <div class="welcome-text">
-                    <h4>Chỉnh sửa danh mục</h4>
+                    <h4>Chỉnh sửa Vận chuyển</h4>
                 </div>
             </div>
             <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a asp-action="Index">Quản lý sản phẩm</a></li>
-                    <li class="breadcrumb-item active"><a asp-action="Index">Danh mục</a></li>
+                    <li class="breadcrumb-item"><a asp-action="Index">Hàng hóa</a></li>
+                    <li class="breadcrumb-item active"><a asp-action="Index">Vận chuyển</a></li>
                     <li class="breadcrumb-item active"><a href="javascript:void(0)">Chỉnh sửa</a></li>
                 </ol>
             </div>
         </div>
 
         <!-- row -->
-
         <div class="row">
             <div class="col-md-4">
                 <form asp-action="Edit">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" asp-for="CategoryId" />
+                    <input type="hidden" asp-for="ShipperId" />
                     <div class="form-group">
-                        <label asp-for="ParentCategoryId" class="control-label"></label>
-                        <select asp-for="ParentCategoryId" class="form-control" asp-items="ViewBag.ParentCategoryId"></select>
-                        <span asp-validation-for="ParentCategoryId" class="text-danger"></span>
+                        <label asp-for="CompanyName" class="control-label"></label>
+                        <input asp-for="CompanyName" class="form-control" />
+                        <span asp-validation-for="CompanyName" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="CategoryName" class="control-label"></label>
-                        <input asp-for="CategoryName" class="form-control" />
-                        <span asp-validation-for="CategoryName" class="text-danger"></span>
+                        <label asp-for="Phone" class="control-label"></label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Description" class="control-label"></label>
-                        <input asp-for="Description" class="form-control" />
-                        <span asp-validation-for="Description" class="text-danger"></span>
+                        <label asp-for="ShipDate" class="control-label"></label>
+                        <input asp-for="ShipDate" class="form-control" />
+                        <span asp-validation-for="ShipDate" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Active" class="control-label"></label>
-                        <input asp-for="Active" class="form-control" />
-                        <span asp-validation-for="Active" class="text-danger"></span>
+                        <label asp-for="Received" class="control-label"></label>
+                        <input asp-for="Received" class="form-control" />
+                        <span asp-validation-for="Received" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Picture" class="control-label"></label>
-                        <input asp-for="Picture" class="form-control" />
-                        <span asp-validation-for="Picture" class="text-danger"></span>
+                        <input type="submit" value="Save" class="btn btn-default" />
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Save" class="btn btn-outline-primary" />
@@ -69,7 +67,6 @@
     <script src="~/js/quixnav-init.js"></script>
     <script src="~/js/custom.min.js"></script>
 </body>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

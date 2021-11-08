@@ -11,88 +11,87 @@ namespace WEB2.Areas.Admin.Controllers {
 
     [Area("Admin")]
     [Authorize("Admin")]
-    public class CategoriesController : Controller {
+    public class CustomersController : Controller {
         private readonly AppDbContext _context;
 
-        public CategoriesController( AppDbContext context ) {
+        public CustomersController( AppDbContext context ) {
             _context = context;
         }
 
-        // GET: Admin/Categories
-
+        // GET: Admin/Customers
         public async Task<IActionResult> Index() {
-            var appDbContext = _context.Category.Include(c => c.ParentCategory);
+            var appDbContext = _context.Customer.Include(c => c.AppUser);
             return View(await appDbContext.ToListAsync());
         }
 
-        // GET: Admin/Categories/Details/5
+        // GET: Admin/Customers/Details/5
         public async Task<IActionResult> Details( int? id ) {
             if (id == null) {
                 return NotFound();
             }
 
-            var category = await _context.Category
-                .Include(c => c.ParentCategory)
-                .FirstOrDefaultAsync(m => m.CategoryId == id);
-            if (category == null) {
+            var customer = await _context.Customer
+                .Include(c => c.AppUser)
+                .FirstOrDefaultAsync(m => m.CustomerID == id);
+            if (customer == null) {
                 return NotFound();
             }
 
-            return View(category);
+            return View(customer);
         }
 
-        // GET: Admin/Categories/Create
+        // GET: Admin/Customers/Create
         public IActionResult Create() {
-            ViewData["ParentCategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName");
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
-        // POST: Admin/Categories/Create
+        // POST: Admin/Customers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( [Bind("CategoryId,ParentCategoryId,CategoryName,Description,Active,Picture")] Category category ) {
+        public async Task<IActionResult> Create( [Bind("CustomerID,UserId,CreditCardTypeID,ShipAddress,DateEntered")] Customer customer ) {
             if (ModelState.IsValid) {
-                _context.Add(category);
+                _context.Add(customer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ParentCategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName", category.ParentCategoryId);
-            return View(category);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", customer.UserId);
+            return View(customer);
         }
 
-        // GET: Admin/Categories/Edit/5
+        // GET: Admin/Customers/Edit/5
         public async Task<IActionResult> Edit( int? id ) {
             if (id == null) {
                 return NotFound();
             }
 
-            var category = await _context.Category.FindAsync(id);
-            if (category == null) {
+            var customer = await _context.Customer.FindAsync(id);
+            if (customer == null) {
                 return NotFound();
             }
-            ViewData["ParentCategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName", category.CategoryId);
-            return View(category);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", customer.UserId);
+            return View(customer);
         }
 
-        // POST: Admin/Categories/Edit/5
+        // POST: Admin/Customers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit( int id, [Bind("CategoryId,ParentCategoryId,CategoryName,Description,Active,Picture")] Category category ) {
-            if (id != category.CategoryId) {
+        public async Task<IActionResult> Edit( int id, [Bind("CustomerID,UserId,CreditCardTypeID,ShipAddress,DateEntered")] Customer customer ) {
+            if (id != customer.CustomerID) {
                 return NotFound();
             }
 
             if (ModelState.IsValid) {
                 try {
-                    _context.Update(category);
+                    _context.Update(customer);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException) {
-                    if (!CategoryExists(category.CategoryId)) {
+                    if (!CustomerExists(customer.CustomerID)) {
                         return NotFound();
                     }
                     else {
@@ -101,38 +100,38 @@ namespace WEB2.Areas.Admin.Controllers {
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ParentCategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName", category.CategoryId);
-            return View(category);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", customer.UserId);
+            return View(customer);
         }
 
-        // GET: Admin/Categories/Delete/5
+        // GET: Admin/Customers/Delete/5
         public async Task<IActionResult> Delete( int? id ) {
             if (id == null) {
                 return NotFound();
             }
 
-            var category = await _context.Category
-                .Include(c => c.ParentCategory)
-                .FirstOrDefaultAsync(m => m.CategoryId == id);
-            if (category == null) {
+            var customer = await _context.Customer
+                .Include(c => c.AppUser)
+                .FirstOrDefaultAsync(m => m.CustomerID == id);
+            if (customer == null) {
                 return NotFound();
             }
 
-            return View(category);
+            return View(customer);
         }
 
-        // POST: Admin/Categories/Delete/5
+        // POST: Admin/Customers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed( int id ) {
-            var category = await _context.Category.FindAsync(id);
-            _context.Category.Remove(category);
+            var customer = await _context.Customer.FindAsync(id);
+            _context.Customer.Remove(customer);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoryExists( int id ) {
-            return _context.Category.Any(e => e.CategoryId == id);
+        private bool CustomerExists( int id ) {
+            return _context.Customer.Any(e => e.CustomerID == id);
         }
     }
 }

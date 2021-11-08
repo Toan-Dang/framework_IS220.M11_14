@@ -1,37 +1,35 @@
-(function($) {
+(function ($) {
     "use strict";
-
-
 
     // Morris bar chart
     Morris.Bar({
         element: 'morris-bar-chart',
         data: [{
-            y: '2006',
-            a: 100,
+            y: '2015',
+            a: 10,
             b: 90
         }, {
-            y: '2007',
+            y: '2016',
             a: 75,
             b: 65
         }, {
-            y: '2008',
+            y: '2017',
             a: 50,
             b: 40
         }, {
-            y: '2009',
+            y: '2018',
             a: 75,
             b: 65
         }, {
-            y: '2010',
+            y: '2019',
             a: 50,
             b: 40
         }, {
-            y: '2011',
+            y: '2020',
             a: 75,
             b: 65
         }, {
-            y: '2012',
+            y: '2021',
             a: 100,
             b: 90
         }],
@@ -41,7 +39,7 @@
         barColors: ['#343957', '#5873FE'],
         hideHover: 'auto',
         gridLineColor: '#eef0f2',
-        resize: true
+        resize: true,
     });
 
     $('#info-circle-card').circleProgress({
@@ -121,7 +119,6 @@
                     "rgba(89, 59, 219, .5)",
                     "rgba(89, 59, 219, .07)"
                 ]
-
             }],
             labels: [
                 "one",
@@ -136,26 +133,21 @@
             maintainAspectRatio: false
         }
     });
-
-
-
 })(jQuery);
 
-(function($) {
+(function ($) {
     "use strict";
 
     var data = [],
         totalPoints = 300;
 
     function getRandomData() {
-
         if (data.length > 0)
             data = data.slice(1);
 
         // Do a random walk
 
         while (data.length < totalPoints) {
-
             var prev = data.length > 0 ? data[data.length - 1] : 50,
                 y = prev + Math.random() * 10 - 5;
 
@@ -181,7 +173,7 @@
     // Set up the control widget
 
     var updateInterval = 30;
-    $("#updateInterval").val(updateInterval).change(function() {
+    $("#updateInterval").val(updateInterval).change(function () {
         var v = $(this).val();
         if (v && !isNaN(+v)) {
             updateInterval = +v;
@@ -217,12 +209,9 @@
             content: "Y: %y",
             defaultTheme: false
         }
-
-
     });
 
     function update() {
-
         plot.setData([getRandomData()]);
 
         // Since the axes don't change, we don't need to call plot.setupGrid()
@@ -232,10 +221,7 @@
     }
 
     update();
-
-
 })(jQuery);
-
 
 const wt = new PerfectScrollbar('.widget-todo');
 const wtl = new PerfectScrollbar('.widget-timeline');

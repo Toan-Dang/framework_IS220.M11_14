@@ -8,7 +8,9 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace WEB2 {
+
     public class Program {
+
         public static void Main( string[] args ) {
             CreateHostBuilder(args).Build().Run();
         }

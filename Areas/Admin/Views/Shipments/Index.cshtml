@@ -1,4 +1,5 @@
-﻿@model IEnumerable<WEB2.Models.Category>
+﻿@model IEnumerable<WEB2.Models.Shipment>
+
 @{
     ViewData["Title"] = "Index";
 }
@@ -18,14 +19,14 @@
                     <h4>Hi, welcome back!</h4>
 
                     <span class="ml-1">
-                        <a asp-action="Create">Tạo danh mục mới</a>
+                        <a asp-action="Create">Thêm vận chuyển mới</a>
                     </span>
                 </div>
             </div>
             <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Quản lý sản phẩm</a></li>
-                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Danh mục</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Hàng hóa</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Vận chuyển</a></li>
                 </ol>
             </div>
         </div>
@@ -36,7 +37,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title"> Categories</h4>
+                        <h4 class="card-title"> Products</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -44,19 +45,16 @@
                                 <thead>
                                     <tr>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.CategoryName)
+                                            @Html.DisplayNameFor(model => model.CompanyName)
                                         </th>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.Description)
+                                            @Html.DisplayNameFor(model => model.Phone)
                                         </th>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.Active)
+                                            @Html.DisplayNameFor(model => model.ShipDate)
                                         </th>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.Picture)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.ParentCategory)
+                                            @Html.DisplayNameFor(model => model.Received)
                                         </th>
                                         <th></th>
                                     </tr>
@@ -65,44 +63,39 @@
                                     @foreach (var item in Model) {
                                         <tr>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.CategoryName)
+                                                @Html.DisplayFor(modelItem => item.CompanyName)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.Description)
+                                                @Html.DisplayFor(modelItem => item.Phone)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.Active)
+                                                @Html.DisplayFor(modelItem => item.ShipDate)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.Picture)
+                                                @Html.DisplayFor(modelItem => item.Received)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.ParentCategory.CategoryName)
-                                            </td>
-                                            <td>
-                                                <a asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a> |
-                                                <a asp-action="Details" asp-route-id="@item.CategoryId">Details</a> |
-                                                <a asp-action="Delete" asp-route-id="@item.CategoryId">Delete</a>
+                                                <a asp-action="Edit" asp-route-id="@item.ShipperId">Edit</a> |
+                                                <a asp-action="Details" asp-route-id="@item.ShipperId">Details</a> |
+                                                <a asp-action="Delete" asp-route-id="@item.ShipperId">Delete</a>
                                             </td>
                                         </tr>
                                     }
                                 </tbody>
                                 <tfoot>
+
                                     <tr>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.CategoryName)
+                                            @Html.DisplayNameFor(model => model.CompanyName)
                                         </th>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.Description)
+                                            @Html.DisplayNameFor(model => model.Phone)
                                         </th>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.Active)
+                                            @Html.DisplayNameFor(model => model.ShipDate)
                                         </th>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.Picture)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.ParentCategory)
+                                            @Html.DisplayNameFor(model => model.Received)
                                         </th>
                                         <th></th>
                                     </tr>
