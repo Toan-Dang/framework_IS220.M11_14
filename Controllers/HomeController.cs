@@ -35,5 +35,21 @@ namespace WEB2.Controllers {
         {
             return View();
         }
+        public IActionResult Tablet()
+        {
+            return View();
+        }
+        public IActionResult Watch()
+        {
+            return View();
+        }
+        public IActionResult Sound()
+        {
+            return View();
+        }
+        public IActionResult Accessories()
+        {
+            return View();
+        }
     }
 }
