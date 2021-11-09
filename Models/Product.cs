@@ -30,17 +30,64 @@ namespace WEB2.Models {
         public int CurrentOrder { get; set; }
         public string Note { get; set; }
 
+        //config
+        public int ConnID { get; set; }
+
+        public int ScreenID { get; set; }
+        public int StructID { get; set; }
+        public int SoundID { get; set; }
+        public int GraphicID { get; set; }
+        public int BatteryID { get; set; }
+        public int RamID { get; set; }
+        public int OSID { get; set; }
+        public int CamID { get; set; }
+        public int CPUID { get; set; }
+        public int RomID { get; set; }
+
         [ForeignKey("CategoryId")]
         public virtual Category Category { get; set; }
 
         [ForeignKey("InventoryId")]
         public virtual Inventory Inventory { get; set; }
 
+        //config ref
+        [ForeignKey("ConnID")]
+        public virtual Connection Connection { get; set; }
+
+        [ForeignKey("ScreenID")]
+        public virtual Screen Screen { get; set; }
+
+        [ForeignKey("StructID")]
+        public virtual Structure Structure { get; set; }
+
+        [ForeignKey("SoundID")]
+        public virtual Sound Sound { get; set; }
+
+        [ForeignKey("GraphicID")]
+        public virtual Graphic Graphic { get; set; }
+
+        [ForeignKey("BatteryID")]
+        public virtual Battery Battery { get; set; }
+
+        [ForeignKey("RamID")]
+        public virtual Ram Ram { get; set; }
+
+        [ForeignKey("OSID")]
+        public virtual OS OS { get; set; }
+
+        [ForeignKey("CamID")]
+        public virtual Camera Camera { get; set; }
+
+        [ForeignKey("CPUID")]
+        public virtual Processor Processor { get; set; }
+
+        [ForeignKey("RomID")]
+        public virtual Rom Rom { get; set; }
+
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual ICollection<Image> Images { get; set; }
         public virtual ICollection<Feedback> ProductRankings { get; set; }
         public virtual ICollection<Discount> Discounts { get; set; }
         public virtual ICollection<Purchase> Purchases { get; set; }
-        public virtual ICollection<ConfigDetail> ConfigDetails { get; set; }
     }
 }

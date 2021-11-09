@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WEB2.Models {
 
@@ -14,6 +15,8 @@ namespace WEB2.Models {
         public double Long { get; set; }
         public string Martirial { get; set; }
         public string Design { get; set; }
-        public virtual ICollection<ConfigDetail> ConfigDetails { get; set; }
+        public int ProductId { get; set; }
+
+        public virtual ICollection<Product> Products { get; set; }
     }
 }
