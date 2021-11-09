@@ -31,5 +31,9 @@ namespace WEB2.Controllers {
         {
             return View();
         }
+        public IActionResult Laptop()
+        {
+            return View();
+        }
     }
 }

@@ -1,89 +1,94 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using WEB2.Data;
 using WEB2.Models;
 
 namespace WEB2.Areas.Admin.Controllers {
 
     [Area("Admin")]
-    public class CalendarsController : Controller {
+    [Authorize("Admin")]
+    public class SuppliersController : Controller {
         private readonly AppDbContext _context;
 
-        public CalendarsController( AppDbContext context ) {
+        public SuppliersController( AppDbContext context ) {
             _context = context;
         }
 
-        // GET: Admin/Calendars
+        // GET: Admin/Suppliers
         public async Task<IActionResult> Index() {
-            return View(await _context.Calendar.ToListAsync());
+            return View(await _context.Supplier.ToListAsync());
         }
 
-        // GET: Admin/Calendars/Details/5
+        // GET: Admin/Suppliers/Details/5
         public async Task<IActionResult> Details( int? id ) {
             if (id == null) {
                 return NotFound();
             }
 
-            var calendar = await _context.Calendar
-                .FirstOrDefaultAsync(m => m.CarlendarId == id);
-            if (calendar == null) {
+            var supplier = await _context.Supplier
+                .FirstOrDefaultAsync(m => m.SupplierId == id);
+            if (supplier == null) {
                 return NotFound();
             }
 
-            return View(calendar);
+            return View(supplier);
         }
 
-        // GET: Admin/Calendars/Create
+        // GET: Admin/Suppliers/Create
         public IActionResult Create() {
             return View();
         }
 
-        // POST: Admin/Calendars/Create
+        // POST: Admin/Suppliers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( [Bind("CarlendarId,Title,Classname,DayStart,DayEnd")] Calendar calendar ) {
+        public async Task<IActionResult> Create( [Bind("SupplierId,CompanyName,ContactName,Address,Phone,Email,PaymentMethod,DiscountType,DiscountAvailable,CurrentOrder,CustomerId,PostalCode,URL,TypeGoods,Notes")] Supplier supplier ) {
             if (ModelState.IsValid) {
-                _context.Add(calendar);
+                _context.Add(supplier);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(calendar);
+            return View(supplier);
         }
 
-        // GET: Admin/Calendars/Edit/5
+        // GET: Admin/Suppliers/Edit/5
         public async Task<IActionResult> Edit( int? id ) {
             if (id == null) {
                 return NotFound();
             }
 
-            var calendar = await _context.Calendar.FindAsync(id);
-            if (calendar == null) {
+            var supplier = await _context.Supplier.FindAsync(id);
+            if (supplier == null) {
                 return NotFound();
             }
-            return View(calendar);
+            return View(supplier);
         }
 
-        // POST: Admin/Calendars/Edit/5
+        // POST: Admin/Suppliers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit( int id, [Bind("CarlendarId,Title,Classname,DayStart,DayEnd")] Calendar calendar ) {
-            if (id != calendar.CarlendarId) {
+        public async Task<IActionResult> Edit( int id, [Bind("SupplierId,CompanyName,ContactName,Address,Phone,Email,PaymentMethod,DiscountType,DiscountAvailable,CurrentOrder,CustomerId,PostalCode,URL,TypeGoods,Notes")] Supplier supplier ) {
+            if (id != supplier.SupplierId) {
                 return NotFound();
             }
 
             if (ModelState.IsValid) {
                 try {
-                    _context.Update(calendar);
+                    _context.Update(supplier);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException) {
-                    if (!CalendarExists(calendar.CarlendarId)) {
+                    if (!SupplierExists(supplier.SupplierId)) {
                         return NotFound();
                     }
                     else {
@@ -92,36 +97,36 @@ namespace WEB2.Areas.Admin.Controllers {
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(calendar);
+            return View(supplier);
         }
 
-        // GET: Admin/Calendars/Delete/5
+        // GET: Admin/Suppliers/Delete/5
         public async Task<IActionResult> Delete( int? id ) {
             if (id == null) {
                 return NotFound();
             }
 
-            var calendar = await _context.Calendar
-                .FirstOrDefaultAsync(m => m.CarlendarId == id);
-            if (calendar == null) {
+            var supplier = await _context.Supplier
+                .FirstOrDefaultAsync(m => m.SupplierId == id);
+            if (supplier == null) {
                 return NotFound();
             }
 
-            return View(calendar);
+            return View(supplier);
         }
 
-        // POST: Admin/Calendars/Delete/5
+        // POST: Admin/Suppliers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed( int id ) {
-            var calendar = await _context.Calendar.FindAsync(id);
-            _context.Calendar.Remove(calendar);
+            var supplier = await _context.Supplier.FindAsync(id);
+            _context.Supplier.Remove(supplier);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CalendarExists( int id ) {
-            return _context.Calendar.Any(e => e.CarlendarId == id);
+        private bool SupplierExists( int id ) {
+            return _context.Supplier.Any(e => e.SupplierId == id);
         }
     }
 }

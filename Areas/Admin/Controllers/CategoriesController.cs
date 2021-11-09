@@ -72,7 +72,7 @@ namespace WEB2.Areas.Admin.Controllers {
             if (category == null) {
                 return NotFound();
             }
-            ViewData["ParentCategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName", category.CategoryName);
+            ViewData["ParentCategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName", category.CategoryId);
             return View(category);
         }
 
@@ -101,7 +101,7 @@ namespace WEB2.Areas.Admin.Controllers {
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ParentCategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName", category.CategoryName);
+            ViewData["ParentCategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName", category.CategoryId);
             return View(category);
         }
 

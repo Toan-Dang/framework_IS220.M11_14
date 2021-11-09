@@ -38,5 +38,13 @@ namespace WEB2.Data {
         public DbSet<WEB2.Models.Calendar> Calendar { get; set; }
 
         public DbSet<WEB2.Models.Product> Product { get; set; }
+
+        public DbSet<WEB2.Models.Supplier> Supplier { get; set; }
+
+        public DbSet<WEB2.Models.Inventory> Inventory { get; set; }
+
+        public DbSet<WEB2.Models.Shipment> Shipment { get; set; }
+
+        public DbSet<WEB2.Models.Voucher> Voucher { get; set; }
     }
 }
