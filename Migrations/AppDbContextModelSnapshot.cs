@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WEB2.Data;
 
+#nullable disable
+
 namespace WEB2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
@@ -15,9 +17,10 @@ namespace WEB2.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.11")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "6.0.0")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -43,15 +46,16 @@ namespace WEB2.Migrations
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -67,15 +71,16 @@ namespace WEB2.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("RoleClaims");
+                    b.ToTable("RoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -91,7 +96,7 @@ namespace WEB2.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserClaims");
+                    b.ToTable("UserClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -113,7 +118,7 @@ namespace WEB2.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserLogins");
+                    b.ToTable("UserLogins", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -128,7 +133,7 @@ namespace WEB2.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserRoles");
+                    b.ToTable("UserRoles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -147,7 +152,7 @@ namespace WEB2.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("UserTokens");
+                    b.ToTable("UserTokens", (string)null);
                 });
 
             modelBuilder.Entity("WEB2.Models.AppUser", b =>
@@ -223,21 +228,25 @@ namespace WEB2.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("WEB2.Models.Battery", b =>
                 {
                     b.Property<int>("BatteryId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BatteryId"), 1L, 1);
 
                     b.Property<int>("Capacity")
                         .HasColumnType("int");
 
                     b.Property<string>("Charge")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Technology")
                         .HasColumnType("nvarchar(max)");
@@ -250,12 +259,38 @@ namespace WEB2.Migrations
                     b.ToTable("Battery");
                 });
 
+            modelBuilder.Entity("WEB2.Models.Calendar", b =>
+                {
+                    b.Property<int>("CarlendarId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CarlendarId"), 1L, 1);
+
+                    b.Property<string>("Classname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DayEnd")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DayStart")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CarlendarId");
+
+                    b.ToTable("Calendar");
+                });
+
             modelBuilder.Entity("WEB2.Models.Camera", b =>
                 {
                     b.Property<int>("CamId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CamId"), 1L, 1);
 
                     b.Property<string>("BCamRes")
                         .HasColumnType("nvarchar(max)");
@@ -265,6 +300,9 @@ namespace WEB2.Migrations
 
                     b.Property<string>("Flash")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Special")
                         .HasColumnType("nvarchar(max)");
@@ -284,8 +322,9 @@ namespace WEB2.Migrations
                 {
                     b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"), 1L, 1);
 
                     b.Property<string>("Active")
                         .HasColumnType("nvarchar(max)");
@@ -309,88 +348,13 @@ namespace WEB2.Migrations
                     b.ToTable("Category");
                 });
 
-            modelBuilder.Entity("WEB2.Models.ConfigDetail", b =>
-                {
-                    b.Property<int>("ConfigId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CpuId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RamId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RomId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("AdvanceFunction")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("BatteryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CamId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ConnId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GraphicId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OsId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("OtherInfo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ScreenId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SoundId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StructId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ConfigId", "CpuId", "RamId", "RomId");
-
-                    b.HasIndex("BatteryId");
-
-                    b.HasIndex("CamId");
-
-                    b.HasIndex("ConnId");
-
-                    b.HasIndex("CpuId");
-
-                    b.HasIndex("GraphicId");
-
-                    b.HasIndex("OsId");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("RamId");
-
-                    b.HasIndex("RomId");
-
-                    b.HasIndex("ScreenId");
-
-                    b.HasIndex("SoundId");
-
-                    b.HasIndex("StructId");
-
-                    b.ToTable("ConfigDetail");
-                });
-
             modelBuilder.Entity("WEB2.Models.Connection", b =>
                 {
                     b.Property<int>("ConnId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ConnId"), 1L, 1);
 
                     b.Property<string>("Blutooth")
                         .HasColumnType("nvarchar(max)");
@@ -403,6 +367,9 @@ namespace WEB2.Migrations
 
                     b.Property<string>("PhoneJack")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Sim")
                         .HasColumnType("nvarchar(max)");
@@ -428,8 +395,9 @@ namespace WEB2.Migrations
                 {
                     b.Property<int>("CustomerID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerID"), 1L, 1);
 
                     b.Property<string>("CreditCardTypeID")
                         .HasColumnType("nvarchar(max)");
@@ -469,11 +437,15 @@ namespace WEB2.Migrations
                 {
                     b.Property<int>("FeedbackId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FeedbackId"), 1L, 1);
 
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("FeedbackDay")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -495,8 +467,9 @@ namespace WEB2.Migrations
                 {
                     b.Property<int>("GiftId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GiftId"), 1L, 1);
 
                     b.Property<int>("DiscountId")
                         .HasColumnType("int");
@@ -521,8 +494,9 @@ namespace WEB2.Migrations
                 {
                     b.Property<int>("GraphicId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GraphicId"), 1L, 1);
 
                     b.Property<string>("Core")
                         .HasColumnType("nvarchar(max)");
@@ -536,6 +510,9 @@ namespace WEB2.Migrations
                     b.Property<string>("NameGPU")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
                     b.HasKey("GraphicId");
 
                     b.ToTable("Graphic");
@@ -545,8 +522,9 @@ namespace WEB2.Migrations
                 {
                     b.Property<int>("ImageId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ImageId"), 1L, 1);
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -565,8 +543,9 @@ namespace WEB2.Migrations
                 {
                     b.Property<int>("InventoryId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InventoryId"), 1L, 1);
 
                     b.Property<string>("Adress")
                         .HasColumnType("nvarchar(max)");
@@ -582,30 +561,13 @@ namespace WEB2.Migrations
                     b.ToTable("Inventory");
                 });
 
-            modelBuilder.Entity("WEB2.Models.OS", b =>
-                {
-                    b.Property<int>("OsId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Version")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("OsId");
-
-                    b.ToTable("OS");
-                });
-
             modelBuilder.Entity("WEB2.Models.Order", b =>
                 {
                     b.Property<int>("OrderId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"), 1L, 1);
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
@@ -708,12 +670,35 @@ namespace WEB2.Migrations
                     b.ToTable("OrderDetail");
                 });
 
+            modelBuilder.Entity("WEB2.Models.OS", b =>
+                {
+                    b.Property<int>("OsId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OsId"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Version")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("OsId");
+
+                    b.ToTable("OS");
+                });
+
             modelBuilder.Entity("WEB2.Models.Payment", b =>
                 {
                     b.Property<int>("PaymentId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PaymentId"), 1L, 1);
 
                     b.Property<bool>("Allowed")
                         .HasColumnType("bit");
@@ -730,8 +715,9 @@ namespace WEB2.Migrations
                 {
                     b.Property<int>("CpuId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CpuId"), 1L, 1);
 
                     b.Property<double>("BaseSpeed")
                         .HasColumnType("float");
@@ -748,6 +734,9 @@ namespace WEB2.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Thread")
                         .HasColumnType("int");
 
@@ -760,13 +749,23 @@ namespace WEB2.Migrations
                 {
                     b.Property<int>("ProductId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"), 1L, 1);
 
                     b.Property<int>("AvailableColor")
                         .HasColumnType("int");
 
                     b.Property<int>("AvailableVersion")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BatteryID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CPUID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CamID")
                         .HasColumnType("int");
 
                     b.Property<int>("CategoryId")
@@ -775,7 +774,13 @@ namespace WEB2.Migrations
                     b.Property<string>("Color")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ConnID")
+                        .HasColumnType("int");
+
                     b.Property<int>("CurrentOrder")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GraphicID")
                         .HasColumnType("int");
 
                     b.Property<int>("InventoryId")
@@ -786,6 +791,9 @@ namespace WEB2.Migrations
 
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OSID")
+                        .HasColumnType("int");
 
                     b.Property<string>("Picture")
                         .HasColumnType("nvarchar(max)");
@@ -799,10 +807,25 @@ namespace WEB2.Migrations
                     b.Property<string>("ProductName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RamID")
+                        .HasColumnType("int");
+
                     b.Property<double>("RawPrice")
                         .HasColumnType("float");
 
                     b.Property<int>("ReorderLevel")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RomID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ScreenID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SoundID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StructID")
                         .HasColumnType("int");
 
                     b.Property<int>("UnitInOrder")
@@ -825,9 +848,31 @@ namespace WEB2.Migrations
 
                     b.HasKey("ProductId");
 
+                    b.HasIndex("BatteryID");
+
+                    b.HasIndex("CPUID");
+
+                    b.HasIndex("CamID");
+
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("ConnID");
+
+                    b.HasIndex("GraphicID");
+
                     b.HasIndex("InventoryId");
+
+                    b.HasIndex("OSID");
+
+                    b.HasIndex("RamID");
+
+                    b.HasIndex("RomID");
+
+                    b.HasIndex("ScreenID");
+
+                    b.HasIndex("SoundID");
+
+                    b.HasIndex("StructID");
 
                     b.ToTable("Product");
                 });
@@ -836,8 +881,9 @@ namespace WEB2.Migrations
                 {
                     b.Property<int>("DiscountId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DiscountId"), 1L, 1);
 
                     b.Property<string>("Condition")
                         .HasColumnType("nvarchar(max)");
@@ -890,8 +936,9 @@ namespace WEB2.Migrations
                 {
                     b.Property<int>("RamId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RamId"), 1L, 1);
 
                     b.Property<int>("Capacity")
                         .HasColumnType("int");
@@ -901,6 +948,9 @@ namespace WEB2.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Slots")
                         .HasColumnType("int");
@@ -920,13 +970,17 @@ namespace WEB2.Migrations
                 {
                     b.Property<int>("RomId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RomId"), 1L, 1);
 
                     b.Property<int>("Capacity")
                         .HasColumnType("int");
 
                     b.Property<int>("MaxRom")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<string>("Type")
@@ -941,14 +995,18 @@ namespace WEB2.Migrations
                 {
                     b.Property<int>("ScreenId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ScreenId"), 1L, 1);
 
                     b.Property<double>("HZ")
                         .HasColumnType("float");
 
                     b.Property<string>("MaxBright")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Resolution")
                         .HasColumnType("nvarchar(max)");
@@ -971,8 +1029,9 @@ namespace WEB2.Migrations
                 {
                     b.Property<int>("ShipperId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ShipperId"), 1L, 1);
 
                     b.Property<string>("CompanyName")
                         .HasColumnType("nvarchar(max)");
@@ -995,8 +1054,12 @@ namespace WEB2.Migrations
                 {
                     b.Property<int>("SoundId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SoundId"), 1L, 1);
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Technology")
                         .HasColumnType("nvarchar(max)");
@@ -1010,8 +1073,9 @@ namespace WEB2.Migrations
                 {
                     b.Property<int>("StaffId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StaffId"), 1L, 1);
 
                     b.Property<int>("InventoryId")
                         .HasColumnType("int");
@@ -1035,8 +1099,9 @@ namespace WEB2.Migrations
                 {
                     b.Property<int>("StructId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StructId"), 1L, 1);
 
                     b.Property<string>("Design")
                         .HasColumnType("nvarchar(max)");
@@ -1049,6 +1114,9 @@ namespace WEB2.Migrations
 
                     b.Property<string>("Martirial")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
 
                     b.Property<double>("Weight")
                         .HasColumnType("float");
@@ -1065,8 +1133,9 @@ namespace WEB2.Migrations
                 {
                     b.Property<int>("SupplierId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SupplierId"), 1L, 1);
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
@@ -1119,8 +1188,9 @@ namespace WEB2.Migrations
                 {
                     b.Property<int>("VoucherID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VoucherID"), 1L, 1);
 
                     b.Property<string>("VoucherDetail")
                         .HasColumnType("nvarchar(max)");
@@ -1212,105 +1282,6 @@ namespace WEB2.Migrations
                         .HasForeignKey("ParentCategoryId");
 
                     b.Navigation("ParentCategory");
-                });
-
-            modelBuilder.Entity("WEB2.Models.ConfigDetail", b =>
-                {
-                    b.HasOne("WEB2.Models.Battery", "Battery")
-                        .WithMany("ConfigDetails")
-                        .HasForeignKey("BatteryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WEB2.Models.Camera", "Camera")
-                        .WithMany("ConfigDetails")
-                        .HasForeignKey("CamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WEB2.Models.Connection", "Connection")
-                        .WithMany("ConfigDetails")
-                        .HasForeignKey("ConnId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WEB2.Models.Processor", "Processor")
-                        .WithMany("ConfigDetails")
-                        .HasForeignKey("CpuId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WEB2.Models.Graphic", "Graphic")
-                        .WithMany("ConfigDetails")
-                        .HasForeignKey("GraphicId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WEB2.Models.OS", "OS")
-                        .WithMany("ConfigDetails")
-                        .HasForeignKey("OsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WEB2.Models.Product", "Product")
-                        .WithMany("ConfigDetails")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WEB2.Models.Ram", "Ram")
-                        .WithMany("ConfigDetails")
-                        .HasForeignKey("RamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WEB2.Models.Rom", "Rom")
-                        .WithMany("ConfigDetails")
-                        .HasForeignKey("RomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WEB2.Models.Screen", "Screen")
-                        .WithMany("ConfigDetails")
-                        .HasForeignKey("ScreenId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WEB2.Models.Sound", "Sound")
-                        .WithMany("ConfigDetails")
-                        .HasForeignKey("SoundId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WEB2.Models.Structure", "Structure")
-                        .WithMany("ConfigDetails")
-                        .HasForeignKey("StructId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Battery");
-
-                    b.Navigation("Camera");
-
-                    b.Navigation("Connection");
-
-                    b.Navigation("Graphic");
-
-                    b.Navigation("OS");
-
-                    b.Navigation("Processor");
-
-                    b.Navigation("Product");
-
-                    b.Navigation("Ram");
-
-                    b.Navigation("Rom");
-
-                    b.Navigation("Screen");
-
-                    b.Navigation("Sound");
-
-                    b.Navigation("Structure");
                 });
 
             modelBuilder.Entity("WEB2.Models.Customer", b =>
@@ -1422,9 +1393,39 @@ namespace WEB2.Migrations
 
             modelBuilder.Entity("WEB2.Models.Product", b =>
                 {
+                    b.HasOne("WEB2.Models.Battery", "Battery")
+                        .WithMany("Products")
+                        .HasForeignKey("BatteryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WEB2.Models.Processor", "Processor")
+                        .WithMany("Products")
+                        .HasForeignKey("CPUID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WEB2.Models.Camera", "Camera")
+                        .WithMany("Products")
+                        .HasForeignKey("CamID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("WEB2.Models.Category", "Category")
                         .WithMany("Product")
                         .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WEB2.Models.Connection", "Connection")
+                        .WithMany("Products")
+                        .HasForeignKey("ConnID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WEB2.Models.Graphic", "Graphic")
+                        .WithMany("Products")
+                        .HasForeignKey("GraphicID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1434,9 +1435,67 @@ namespace WEB2.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("WEB2.Models.OS", "OS")
+                        .WithMany("Products")
+                        .HasForeignKey("OSID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WEB2.Models.Ram", "Ram")
+                        .WithMany("Products")
+                        .HasForeignKey("RamID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WEB2.Models.Rom", "Rom")
+                        .WithMany("Products")
+                        .HasForeignKey("RomID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WEB2.Models.Screen", "Screen")
+                        .WithMany("Products")
+                        .HasForeignKey("ScreenID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WEB2.Models.Sound", "Sound")
+                        .WithMany("Products")
+                        .HasForeignKey("SoundID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WEB2.Models.Structure", "Structure")
+                        .WithMany("Products")
+                        .HasForeignKey("StructID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Battery");
+
+                    b.Navigation("Camera");
+
                     b.Navigation("Category");
 
+                    b.Navigation("Connection");
+
+                    b.Navigation("Graphic");
+
                     b.Navigation("Inventory");
+
+                    b.Navigation("OS");
+
+                    b.Navigation("Processor");
+
+                    b.Navigation("Ram");
+
+                    b.Navigation("Rom");
+
+                    b.Navigation("Screen");
+
+                    b.Navigation("Sound");
+
+                    b.Navigation("Structure");
                 });
 
             modelBuilder.Entity("WEB2.Models.Purchase", b =>
@@ -1496,12 +1555,12 @@ namespace WEB2.Migrations
 
             modelBuilder.Entity("WEB2.Models.Battery", b =>
                 {
-                    b.Navigation("ConfigDetails");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("WEB2.Models.Camera", b =>
                 {
-                    b.Navigation("ConfigDetails");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("WEB2.Models.Category", b =>
@@ -1511,7 +1570,7 @@ namespace WEB2.Migrations
 
             modelBuilder.Entity("WEB2.Models.Connection", b =>
                 {
-                    b.Navigation("ConfigDetails");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("WEB2.Models.Customer", b =>
@@ -1523,7 +1582,7 @@ namespace WEB2.Migrations
 
             modelBuilder.Entity("WEB2.Models.Graphic", b =>
                 {
-                    b.Navigation("ConfigDetails");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("WEB2.Models.Inventory", b =>
@@ -1533,14 +1592,14 @@ namespace WEB2.Migrations
                     b.Navigation("Staffs");
                 });
 
-            modelBuilder.Entity("WEB2.Models.OS", b =>
-                {
-                    b.Navigation("ConfigDetails");
-                });
-
             modelBuilder.Entity("WEB2.Models.Order", b =>
                 {
                     b.Navigation("OrderDetails");
+                });
+
+            modelBuilder.Entity("WEB2.Models.OS", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("WEB2.Models.Payment", b =>
@@ -1550,13 +1609,11 @@ namespace WEB2.Migrations
 
             modelBuilder.Entity("WEB2.Models.Processor", b =>
                 {
-                    b.Navigation("ConfigDetails");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("WEB2.Models.Product", b =>
                 {
-                    b.Navigation("ConfigDetails");
-
                     b.Navigation("Discounts");
 
                     b.Navigation("Images");
@@ -1577,17 +1634,17 @@ namespace WEB2.Migrations
 
             modelBuilder.Entity("WEB2.Models.Ram", b =>
                 {
-                    b.Navigation("ConfigDetails");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("WEB2.Models.Rom", b =>
                 {
-                    b.Navigation("ConfigDetails");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("WEB2.Models.Screen", b =>
                 {
-                    b.Navigation("ConfigDetails");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("WEB2.Models.Shipment", b =>
@@ -1597,12 +1654,12 @@ namespace WEB2.Migrations
 
             modelBuilder.Entity("WEB2.Models.Sound", b =>
                 {
-                    b.Navigation("ConfigDetails");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("WEB2.Models.Structure", b =>
                 {
-                    b.Navigation("ConfigDetails");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("WEB2.Models.Supplier", b =>

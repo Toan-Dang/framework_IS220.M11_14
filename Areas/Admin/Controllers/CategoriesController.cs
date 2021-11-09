@@ -14,7 +14,7 @@ namespace WEB2.Areas.Admin.Controllers {
     public class CategoriesController : Controller {
         private readonly AppDbContext _context;
 
-        public CategoriesController( AppDbContext context ) {
+        public CategoriesController(AppDbContext context) {
             _context = context;
         }
 
@@ -26,7 +26,7 @@ namespace WEB2.Areas.Admin.Controllers {
         }
 
         // GET: Admin/Categories/Details/5
-        public async Task<IActionResult> Details( int? id ) {
+        public async Task<IActionResult> Details(int? id) {
             if (id == null) {
                 return NotFound();
             }
@@ -52,7 +52,7 @@ namespace WEB2.Areas.Admin.Controllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( [Bind("CategoryId,ParentCategoryId,CategoryName,Description,Active,Picture")] Category category ) {
+        public async Task<IActionResult> Create([Bind("CategoryId,ParentCategoryId,CategoryName,Description,Active,Picture")] Category category) {
             if (ModelState.IsValid) {
                 _context.Add(category);
                 await _context.SaveChangesAsync();
@@ -63,7 +63,7 @@ namespace WEB2.Areas.Admin.Controllers {
         }
 
         // GET: Admin/Categories/Edit/5
-        public async Task<IActionResult> Edit( int? id ) {
+        public async Task<IActionResult> Edit(int? id) {
             if (id == null) {
                 return NotFound();
             }
@@ -81,7 +81,7 @@ namespace WEB2.Areas.Admin.Controllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit( int id, [Bind("CategoryId,ParentCategoryId,CategoryName,Description,Active,Picture")] Category category ) {
+        public async Task<IActionResult> Edit(int id, [Bind("CategoryId,ParentCategoryId,CategoryName,Description,Active,Picture")] Category category) {
             if (id != category.CategoryId) {
                 return NotFound();
             }
@@ -90,12 +90,10 @@ namespace WEB2.Areas.Admin.Controllers {
                 try {
                     _context.Update(category);
                     await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException) {
+                } catch (DbUpdateConcurrencyException) {
                     if (!CategoryExists(category.CategoryId)) {
                         return NotFound();
-                    }
-                    else {
+                    } else {
                         throw;
                     }
                 }
@@ -106,7 +104,7 @@ namespace WEB2.Areas.Admin.Controllers {
         }
 
         // GET: Admin/Categories/Delete/5
-        public async Task<IActionResult> Delete( int? id ) {
+        public async Task<IActionResult> Delete(int? id) {
             if (id == null) {
                 return NotFound();
             }
@@ -124,14 +122,14 @@ namespace WEB2.Areas.Admin.Controllers {
         // POST: Admin/Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed( int id ) {
+        public async Task<IActionResult> DeleteConfirmed(int id) {
             var category = await _context.Category.FindAsync(id);
             _context.Category.Remove(category);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoryExists( int id ) {
+        private bool CategoryExists(int id) {
             return _context.Category.Any(e => e.CategoryId == id);
         }
     }

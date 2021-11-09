@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WEB2.Models {
 
@@ -11,6 +12,8 @@ namespace WEB2.Models {
         public int Capacity { get; set; }
         public int MaxRom { get; set; }
         public string Type { get; set; }
-        public virtual ICollection<ConfigDetail> ConfigDetails { get; set; }
+        public int ProductId { get; set; }
+
+        public virtual ICollection<Product> Products { get; set; }
     }
 }
