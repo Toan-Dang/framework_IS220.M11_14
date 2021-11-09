@@ -86,6 +86,8 @@ h6.price {
     margin:auto;
 }
 .d-inline > a {
+    margin-top: 3px !important;
+    margin-bottom: 3px !important;
     border: 1px solid #E5E7EB;
     border-radius: 100px;
     display: inline-table;
