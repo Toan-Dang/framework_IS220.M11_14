@@ -18,7 +18,7 @@ namespace WEB2.Models {
         public string Blutooth { get; set; }
         public string Other { get; set; }
         public string PhoneJack { get; set; }
-        public int ProductId { get; set; }
+
         public virtual ICollection<Product> Products { get; set; }
     }
 }

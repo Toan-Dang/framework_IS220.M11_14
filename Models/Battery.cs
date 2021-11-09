@@ -13,7 +13,7 @@ namespace WEB2.Models {
         public string Type { get; set; }
         public string Technology { get; set; }
         public string Charge { get; set; }
-        public int ProductId { get; set; }
+  
 
         public virtual ICollection<Product> Products { get; set; }
     }

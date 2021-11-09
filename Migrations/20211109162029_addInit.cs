@@ -18,8 +18,7 @@ namespace WEB2.Migrations
                     Capacity = table.Column<int>(type: "int", nullable: false),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Technology = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Charge = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProductId = table.Column<int>(type: "int", nullable: false)
+                    Charge = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -42,18 +41,17 @@ namespace WEB2.Migrations
                     table.PrimaryKey("PK_Calendar", x => x.CarlendarId);
                 });
             migrationBuilder.CreateTable(
-               name: "News",
-               columns: table => new {
-                   NewsId = table.Column<int>(type: "int", nullable: false)
-                       .Annotation("SqlServer:Identity", "1, 1"),
-                   Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                   Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                   DateRealease = table.Column<DateTime>(type: "datetime2", nullable: true),
-                   Author = table.Column<string>(type: "nvarchar(max)", nullable: true),
-               },
-                  constraints: table => {
-                      table.PrimaryKey("PK_News", x => x.NewsId);
-                  });
+                 name: "Content",
+                 columns: table => new {
+                     NewsId = table.Column<int>(type: "int", nullable: false)
+                         .Annotation("SqlServer:Identity", "1, 1"),
+                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                     Contents = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                     DateRealease = table.Column<DateTime>(type: "datetime2", nullable: true),
+                     Author = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                 }, constraints: table => {
+                     table.PrimaryKey("PK_Content", x => x.NewsId);
+                 });
             migrationBuilder.CreateTable(
                 name: "Camera",
                 columns: table => new
@@ -65,8 +63,7 @@ namespace WEB2.Migrations
                     BCamRes = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Flash = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Video = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Special = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProductId = table.Column<int>(type: "int", nullable: false)
+                    Special = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -109,8 +106,7 @@ namespace WEB2.Migrations
                     GPS = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Blutooth = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Other = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneJack = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProductId = table.Column<int>(type: "int", nullable: false)
+                    PhoneJack = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -126,8 +122,7 @@ namespace WEB2.Migrations
                     NameGPU = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     GPUType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     GPUMemory = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Core = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProductId = table.Column<int>(type: "int", nullable: false)
+                    Core = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -156,8 +151,7 @@ namespace WEB2.Migrations
                     OsId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Version = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProductId = table.Column<int>(type: "int", nullable: false)
+                    Version = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -185,12 +179,12 @@ namespace WEB2.Migrations
                     CpuId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Genth = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Core = table.Column<int>(type: "int", nullable: false),
                     Thread = table.Column<int>(type: "int", nullable: false),
                     BaseSpeed = table.Column<double>(type: "float", nullable: false),
                     MaxSpeed = table.Column<double>(type: "float", nullable: false),
-                    Cache = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false)
+                    Cache = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -227,8 +221,7 @@ namespace WEB2.Migrations
                     MaxRam = table.Column<int>(type: "int", nullable: false),
                     Speed = table.Column<int>(type: "int", nullable: false),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Slots = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false)
+                    Slots = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -257,8 +250,7 @@ namespace WEB2.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Capacity = table.Column<int>(type: "int", nullable: false),
                     MaxRom = table.Column<int>(type: "int", nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProductId = table.Column<int>(type: "int", nullable: false)
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -276,8 +268,7 @@ namespace WEB2.Migrations
                     HZ = table.Column<double>(type: "float", nullable: false),
                     MaxBright = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Special = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Technology = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProductId = table.Column<int>(type: "int", nullable: false)
+                    Technology = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -306,8 +297,7 @@ namespace WEB2.Migrations
                 {
                     SoundId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Technology = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProductId = table.Column<int>(type: "int", nullable: false)
+                    Technology = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -325,8 +315,7 @@ namespace WEB2.Migrations
                     High = table.Column<double>(type: "float", nullable: false),
                     Long = table.Column<double>(type: "float", nullable: false),
                     Martirial = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Design = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProductId = table.Column<int>(type: "int", nullable: false)
+                    Design = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -470,17 +459,17 @@ namespace WEB2.Migrations
                     ReorderLevel = table.Column<int>(type: "int", nullable: false),
                     CurrentOrder = table.Column<int>(type: "int", nullable: false),
                     Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConnID = table.Column<int>(type: "int", nullable: false),
-                    ScreenID = table.Column<int>(type: "int", nullable: false),
-                    StructID = table.Column<int>(type: "int", nullable: false),
-                    SoundID = table.Column<int>(type: "int", nullable: false),
-                    GraphicID = table.Column<int>(type: "int", nullable: false),
-                    BatteryID = table.Column<int>(type: "int", nullable: false),
-                    RamID = table.Column<int>(type: "int", nullable: false),
-                    OSID = table.Column<int>(type: "int", nullable: false),
-                    CamID = table.Column<int>(type: "int", nullable: false),
-                    CPUID = table.Column<int>(type: "int", nullable: false),
-                    RomID = table.Column<int>(type: "int", nullable: false)
+                    ConnID = table.Column<int>(type: "int", nullable: true),
+                    ScreenID = table.Column<int>(type: "int", nullable: true),
+                    StructID = table.Column<int>(type: "int", nullable: true),
+                    SoundID = table.Column<int>(type: "int", nullable: true),
+                    GraphicID = table.Column<int>(type: "int", nullable: true),
+                    BatteryID = table.Column<int>(type: "int", nullable: true),
+                    RamID = table.Column<int>(type: "int", nullable: true),
+                    OSID = table.Column<int>(type: "int", nullable: true),
+                    CamID = table.Column<int>(type: "int", nullable: true),
+                    CPUID = table.Column<int>(type: "int", nullable: true),
+                    RomID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {

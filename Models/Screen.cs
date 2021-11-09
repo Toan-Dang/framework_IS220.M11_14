@@ -15,7 +15,7 @@ namespace WEB2.Models {
         public string MaxBright { get; set; }
         public string Special { get; set; }
         public string Technology { get; set; }
-        public int ProductId { get; set; }
+
         public virtual ICollection<Product> Products { get; set; }
     }
 }
