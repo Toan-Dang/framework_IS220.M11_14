@@ -15,7 +15,7 @@ namespace WEB2.Models {
         public int Thread { get; set; }
         public double BaseSpeed { get; set; }
         public double MaxSpeed { get; set; }
-        public int Cache { get; set; }
+        public double Cache { get; set; }
 
         public virtual ICollection<Product> Products { get; set; }
     }
