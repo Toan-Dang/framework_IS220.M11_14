@@ -16,7 +16,6 @@ namespace WEB2.Models {
         public string Type { get; set; }
         public int Slots { get; set; }
 
-
         public virtual ICollection<Product> Products { get; set; }
     }
 }
