@@ -199,6 +199,7 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.ProductId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+    @Html.ActionLink("Thêm vào giỏ hàng","Index","OrderDetails",new {productid = @Model.ProductId},null)
+    <a asp-action="">Cái gì đó</a>
 </div>

@@ -1,0 +1,74 @@
+﻿@model IEnumerable<WEB2.Models.OrderDetail>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+          
+
+            <th>
+                @Html.DisplayNameFor(model => model.Total)
+            </th>
+       
+        
+            <th>
+                @Html.DisplayNameFor(model => model.Color)
+            </th>
+        
+         
+            <th>
+                @Html.DisplayNameFor(model => model.Product)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+       
+    
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+      
+            <td>
+                @Html.DisplayFor(modelItem => item.Color)
+            </td>
+           
+         
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.ProductName)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { productid =item.ProductId, orderid = item.OrderId }) |
+                @Html.ActionLink("Delete", "Delete", new { productid =item.ProductId, orderid = item.OrderId })
+
+
+                  
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

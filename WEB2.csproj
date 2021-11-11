@@ -45,6 +45,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Order\" />
     <Folder Include="mailssave\" />
     <Folder Include="Migrations\" />
     <Folder Include="Views\Shared\" />
