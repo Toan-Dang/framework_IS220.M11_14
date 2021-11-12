@@ -20,14 +20,14 @@ namespace WEB2.Controllers {
         // GET: Laptop
         public async Task<IActionResult> Laptop() {
             var appDbContext = _context.Product.Include(p => p.Battery).Include(p => p.Camera).Include(p => p.Category).Include(p => p.Connection).Include(p => p.Graphic).Include(p => p.Inventory).Include(p => p.OS).Include(p => p.Processor).Include(p => p.Ram).Include(p => p.Rom).Include(p => p.Screen).Include(p => p.Sound).Include(p => p.Structure)
-                .Where(p => p.Category.ParentCategoryId == 1);
+                .Where(p => p.Category.ParentCategoryId == 2);
             return View(await appDbContext.ToListAsync());
         }
 
         // GET: Phone
         public async Task<IActionResult> Phone() {
             var appDbContext = _context.Product.Include(p => p.Battery).Include(p => p.Camera).Include(p => p.Category).Include(p => p.Connection).Include(p => p.Graphic).Include(p => p.Inventory).Include(p => p.OS).Include(p => p.Processor).Include(p => p.Ram).Include(p => p.Rom).Include(p => p.Screen).Include(p => p.Sound).Include(p => p.Structure)
-                .Where(p => p.Category.ParentCategoryId == 2);
+                .Where(p => p.Category.ParentCategoryId == 1);
             return View(await appDbContext.ToListAsync());
         }
 

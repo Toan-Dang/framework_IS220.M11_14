@@ -28,7 +28,7 @@ namespace WEB2.Controllers {
         }
 
         // GET: OrderDetails
-        public async Task<IActionResult> Index(int productid) {
+        public async Task<IActionResult> AddCart(int productid) {
             var user = await _userManager.GetUserAsync(User);
             var userid = await _userManager.GetUserIdAsync(user);
             var customer = await _context.Customer.Where(o => o.UserId == userid).FirstAsync();
@@ -38,13 +38,13 @@ namespace WEB2.Controllers {
 
             await AddtoCart(user, productid);
 
-            var appDbContext = _context.OrderDetail.Include(o => o.Order).Include(o => o.Product)
-            .Where(o => o.Order.CustomerId == customer.CustomerID);
+            // var appDbContext = _context.OrderDetail.Include(o => o.Order).Include(o => o.Product)
+            // .Where(o => o.Order.CustomerId == customer.CustomerID);
 
-            return View(await appDbContext.ToListAsync());
+            return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Cart() {
+        public async Task<IActionResult> Index() {
             var user = await _userManager.GetUserAsync(User);
             var userid = await _userManager.GetUserIdAsync(user);
             var customer = await _context.Customer.Where(o => o.UserId == userid).FirstAsync();
@@ -127,7 +127,9 @@ namespace WEB2.Controllers {
                         .Where(p => p.Fulfilled == false)
                         .Where(p => p.ProductId == productid)
                         .ToListAsync();
-
+                    if (orderdetail == null) {
+                        return;
+                    }
                     if (orderdetail.Count == 0) {
                         var cart = new OrderDetail() {
                             OrderId = orderid,
@@ -208,7 +210,7 @@ namespace WEB2.Controllers {
         }
 
         // GET: OrderDetails/Delete/5
-        public async Task<IActionResult> Delete(int productid, int orderid) {
+        public async Task<IActionResult> Delete(int? productid, int? orderid) {
             if (productid == null || orderid == null) {
                 return NotFound();
             }

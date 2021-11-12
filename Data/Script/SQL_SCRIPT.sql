@@ -160,7 +160,7 @@ INSERT INTO Category (CategoryId, ParentCategoryId, CategoryName, Active, Pictur
 VALUES (56, 6,N'Xiaomi', 1, NULL);
 INSERT INTO Category (CategoryId, ParentCategoryId, CategoryName, Active, Picture)
 VALUES (57, 6,N'AVA', 1, NULL);
-SET IDENTITY_INSERT Inventory OFF;
+SET IDENTITY_INSERT Category OFF;
 BEGIN TRANSACTION
 COMMIT;
 
