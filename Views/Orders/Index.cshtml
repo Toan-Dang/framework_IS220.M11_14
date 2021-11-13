@@ -1,0 +1,129 @@
+﻿@model IEnumerable<WEB2.Models.Order>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Thanh toan</h2>
+<h1>Thông tin</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+      
+            <th>
+                @Html.DisplayNameFor(model => model.Customer)
+            </th>
+     
+
+
+            <th>                                                            
+                @Html.DisplayNameFor(model => model.RequiredDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SalesTax)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Paid)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.CustomerID)
+                </td>
+
+            
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequiredDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SalesTax)
+                </td>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Paid)
+                </td>
+            </tr>
+        }
+    </tbody>
+    
+</table>
+<h2>chọn vận chuyển</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+      
+            <th>
+                @Html.DisplayNameFor(model => model.Shipment)
+            </th>
+     
+
+
+            <th>                                                            
+                @Html.DisplayNameFor(model => model.RequiredDate)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Shipment.CompanyName)
+                </td>
+
+            
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequiredDate)
+                </td>
+          
+                
+    
+            </tr>
+        }
+    </tbody>
+    
+</table>
+
+<h3>Chọn phương thức thanh toán + voucher</h3>
+<table class="table">
+    <thead>
+        <tr>
+      
+            <th>
+                @Html.DisplayNameFor(model => model.Payment)
+            </th>     
+             <th>
+                 chỗ này chọn voucher
+             </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Payment.PaymentType)
+                </td>
+
+                  <td>
+                      chỗ này xử lý sau
+                  </td>
+          
+                
+    
+            </tr>
+        }
+    </tbody>
+    
+</table>
+<h1>thanh toán</h1>
