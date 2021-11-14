@@ -71,24 +71,6 @@ namespace WEB2.Controllers {
                 var product = await _context.Product.FirstOrDefaultAsync(p => p.ProductId == productid);
                 //nếu như khách hàng chưa có giỏ hàng nào thì tạo 1 hóa đơn để thêm giỏ hàng, còn nếu có rồi thì cứ việc thêm
                 if (order == null) {
-                    //tạo phương thức thanh toán
-                    var payment = await _context.Payment.FindAsync(1);
-                    if (payment == null) {
-                        var newpay = new Payment {
-                            PaymentId = 1
-                        };
-                        _context.Add(newpay);
-                        await _context.SaveChangesAsync();
-                    }
-                    //tạo vận chuyển
-                    var shipment = await _context.Shipment.FindAsync(1);
-                    if (shipment == null) {
-                        var ship = new Shipment {
-                            ShipperId = 1
-                        };
-                        _context.Add(ship);
-                        await _context.SaveChangesAsync();
-                    }
                     // nhập dữ liệu vào order
                     var neworder = new Order {
                         CustomerId = customer.CustomerID,

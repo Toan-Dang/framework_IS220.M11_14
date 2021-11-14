@@ -1,129 +1,279 @@
-﻿@model IEnumerable<WEB2.Models.Order>
+﻿@model IEnumerable<WEB2.Models.OrderDetail>
 
 @{
-    ViewData["Title"] = "Index";
+    Layout = null;
 }
+<!DOCTYPE html>
+<html lang="en">
 
-<h2>Thanh toan</h2>
-<h1>Thông tin</h1>
-
-<table class="table">
-    <thead>
-        <tr>
-      
-            <th>
-                @Html.DisplayNameFor(model => model.Customer)
-            </th>
-     
-
-
-            <th>                                                            
-                @Html.DisplayNameFor(model => model.RequiredDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SalesTax)
-            </th>
-
-            <th>
-                @Html.DisplayNameFor(model => model.Paid)
-            </th>
-
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Customer.CustomerID)
-                </td>
-
-            
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.RequiredDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SalesTax)
-                </td>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Focus - Bootstrap Admin Dashboard </title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png">
+    <!-- Form step -->
+    <link href="~/vendor/jquery-steps/css/jquery.steps.css" rel="stylesheet">
+    <!-- Datatable -->
+    <link href="~/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+    <!-- Custom Stylesheet -->
+    <link href="~/css/style.css" rel="stylesheet">
 
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Paid)
-                </td>
-            </tr>
-        }
-    </tbody>
-    
-</table>
-<h2>chọn vận chuyển</h2>
+</head>
+<body>
 
-<table class="table">
-    <thead>
-        <tr>
-      
-            <th>
-                @Html.DisplayNameFor(model => model.Shipment)
-            </th>
-     
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white topnav">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <p class="logo mb-0">Zer<span style="color: #be1e2d">o</span>ne.vn</p>
+                </a>
+
+                @await Html.PartialAsync("_LoginPartial")
+            </div>
+        </nav>
+    </header>
+    <!-- row -->
+    <div class="container">
+        <div class="container-fluid">
+            <div class="row page-titles mx-0">
+                <div class="col-sm-6 p-md-0">
+                    <div class="welcome-text">
+                        <h4>Thanh toán</h4>
+
+                    </div>
+                </div>
+                <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a asp-area="" asp-action="Index" asp-controller="OrderDetails">Giỏ hàng</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Thanh toán</a></li>
+                    </ol>
+                </div>
+            </div>
+            <!-- row -->
+            <div class="row">
+                <div class="col-xl-12 col-xxl-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Form step</h4>
+                        </div>
+                        <div class="card-body">
+                            <form asp-action="Payment" id="step-form-horizontal" class="step-form-horizontal">
+                                <div>
+                                    <h4>Thông tin cá nhân</h4>
+                                    <section>
+
+                                        @foreach (var item in Model) {
+                                            <div class="row">
+                                                <div class="col-lg-6 mb-4">
+                                                    <div class="form-group">
+                                                        <label class="text-label">Họ tên đầy đủ</label>
+                                                        <input asp-for="@item.Order.Customer.AppUser.FullName" class="form-control" disabled />
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 mb-4">
+                                                    <div class="form-group">
+                                                        <label class="text-label">Username</label>
+                                                        <input asp-for="@item.Order.Customer.AppUser.UserName" class="form-control" disabled />
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12 mb-4">
+                                                    <div class="form-group">
+                                                        <label class="text-label">Địa chỉ email</label>
+                                                        <div class="input-group">
+
+                                                            <input asp-for="@item.Order.Customer.AppUser.Email" type="email" class="form-control" placeholder="example@example.com.com" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12 mb-4">
+                                                    <div class="form-group">
+                                                        <label class="text-label">Số điện thoại</label>
+                                                        <div class="input-group">
+                                                            <input asp-for="@item.Order.Customer.AppUser.PhoneNumber" type="text" name="phoneNumber" class="form-control" placeholder="(+1)408-657-9007" required>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12 mb-4">
+                                                    <div class="form-group">
+                                                        <label class="text-label">Địa chỉ giao Hàng</label>
+                                                        <input asp-for="@item.Order.Customer.ShipAddress" type="text" name="place" class="form-control" required>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            break;
+                                        }
+
+                                    </section>
+                                    <h4>Sản phẩm</h4>
+                                    <section>
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="table-responsive">
+                                                        <table class="display" style="width:100%">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Sản phẩm</th>
+                                                                    <th>Tên sản phẩm</th>
+                                                                    <th>Giá</th>
+                                                                    <th>Số lượng</th>
+                                                                    <th>Thành tiền</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach (var item in Model) {
+                                                                    <tr>
+                                                                        <td>
+                                                                            <img src="@Html.DisplayFor(modelItem => item.Product.Picture)" style="width: 96px; height: 96px ;max-width: 96px;max-height: 96px" />
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.Product.ProductName)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.Price)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.Quantity)
+                                                                        </td>
+
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.Total)
+                                                                        </td>
+
+                                                                    </tr>
+                                                                }
 
 
-            <th>                                                            
-                @Html.DisplayNameFor(model => model.RequiredDate)
-            </th>
+                                                            </tbody>
 
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Shipment.CompanyName)
-                </td>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                            <div class="actions clearfix"> Tổng tiền </div>
+                                    </section>
+                                    <h4>Vận chuyển</h4>
+                                    <section>
 
-            
+                                        @foreach (var item in Model) {
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.RequiredDate)
-                </td>
-          
-                
-    
-            </tr>
-        }
-    </tbody>
-    
-</table>
+                                            <div class="form-group">
+                                                <label class="control-label">Chọn công ty vận chuyển</label>
+                                                <select asp-for="@item.Order.Shipment.ShipperId" class="form-control" asp-items="ViewBag.ShipperId"></select>
+                                                <span asp-validation-for="@item.Order.Shipment.ShipperId" class="text-danger"></span>
+                                            </div>
+                                              @*<div class="form-group">
+                                                <label class="control-label">Chọn mã khuyến mãi của bạn</label>
+                                                <select asp-for="@item.Order.Customer.Voucher_Details" class="form-control" asp-items="ViewBag.VoucherId"></select>
+                                                <span asp-validation-for="@item.Order.Customer.Voucher_Details" class="text-danger"></span>
+                                            </div>  *@
 
-<h3>Chọn phương thức thanh toán + voucher</h3>
-<table class="table">
-    <thead>
-        <tr>
-      
-            <th>
-                @Html.DisplayNameFor(model => model.Payment)
-            </th>     
-             <th>
-                 chỗ này chọn voucher
-             </th>
+                                            <div class="form-group">
+                                                <label class="control-label">Chọn phương thức thanh toán</label>
+                                                <select asp-for="@item.Order.Payment.PaymentId" class="form-control" asp-items="ViewBag.PaymentId"></select>
+                                                <span asp-validation-for="@item.Order.Payment.PaymentId" class="text-danger"></span>
+                                            </div>
+                                            break;      
+                                        }
+                                        <div class="actions clearfix"> Tổng tiền</div>
+                                    </section>
+                                    <h4>Email Setup</h4>
+                                    <section>
+                                        <div class="row emial-setup">
+                                            <div class="col-sm-3 col-6">
+                                                <div class="form-group">
+                                                    <label for="mailclient11" class="mailclinet mailclinet-gmail">
+                                                        <input type="radio" name="emailclient" id="mailclient11">
+                                                        <span class="mail-icon">
+                                                            <i class="mdi mdi-google-plus" aria-hidden="true"></i>
+                                                        </span>
+                                                        <span class="mail-text">I'm using Gmail</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3 col-6">
+                                                <div class="form-group">
+                                                    <label for="mailclient12" class="mailclinet mailclinet-office">
+                                                        <input type="radio" name="emailclient" id="mailclient12">
+                                                        <span class="mail-icon">
+                                                            <i class="mdi mdi-office" aria-hidden="true"></i>
+                                                        </span>
+                                                        <span class="mail-text">I'm using Office</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3 col-6">
+                                                <div class="form-group">
+                                                    <label for="mailclient13" class="mailclinet mailclinet-drive">
+                                                        <input type="radio" name="emailclient" id="mailclient13">
+                                                        <span class="mail-icon">
+                                                            <i class="mdi mdi-google-drive" aria-hidden="true"></i>
+                                                        </span>
+                                                        <span class="mail-text">I'm using Drive</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3 col-6">
+                                                <div class="form-group">
+                                                    <label for="mailclient14" class="mailclinet mailclinet-another">
+                                                        <input type="radio" name="emailclient" id="mailclient14">
+                                                        <span class="mail-icon">
+                                                            <i class="fa fa-question-circle-o"
+                                                               aria-hidden="true"></i>
+                                                        </span>
+                                                        <span class="mail-text">Another Service</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
 
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Payment.PaymentType)
-                </td>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="skip-email text-center">
+                                                    <p>Or if want skip this step entirely and setup it later</p>
+                                                    <a href="javascript:void()">Skip step</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Required vendors -->
+    <script src="~/vendor/global/global.min.js"></script>
+    <script src="~/js/quixnav-init.js"></script>
+    <script src="~/js/custom.min.js"></script>
 
-                  <td>
-                      chỗ này xử lý sau
-                  </td>
-          
-                
-    
-            </tr>
-        }
-    </tbody>
-    
-</table>
-<h1>thanh toán</h1>
+
+
+    <script src="~/vendor/jquery-steps/build/step.js"></script>
+    <script src="~/vendor/jquery-validation/jquery.validate.min.js"></script>
+    <!-- Form validate init -->
+    <script src="~/js/plugins-init/jquery.validate-init.js"></script>
+
+
+
+    <!-- Form step init -->
+    <script src="~/js/plugins-init/jquery-steps-init.js"></script>
+
+    <!-- Datatable -->
+    <script src="~/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/plugins-init/datatables.init.js"></script>
+
+</body>
+
+</html>
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}
