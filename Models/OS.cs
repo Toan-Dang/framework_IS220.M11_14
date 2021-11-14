@@ -11,7 +11,7 @@ namespace WEB2.Models {
 
         public string Name { get; set; }
         public string Version { get; set; }
-        public int ProductId { get; set; }
+  
 
         public virtual ICollection<Product> Products { get; set; }
     }

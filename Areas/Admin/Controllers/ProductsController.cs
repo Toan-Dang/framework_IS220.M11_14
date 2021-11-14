@@ -70,9 +70,8 @@ namespace WEB2.Areas.Admin.Controllers {
             return View();
         }
 
-        // POST: Admin/Products/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Admin/Products/Create To protect from overposting attacks, enable the specific
+        // properties you want to bind to. For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProductId,InventoryId,CategoryId,ProductName,UnitPrice,View,Picture,RawPrice,VendorProductId,ProductDetail,MSRP,AvailableVersion,Version,AvailableColor,Color,UnitInStock,ProductAvailable,UnitInOrder,ReorderLevel,CurrentOrder,Note,ConnID,ScreenID,StructID,SoundID,GraphicID,BatteryID,RamID,OSID,CamID,CPUID,RomID")] Product product) {
@@ -123,9 +122,8 @@ namespace WEB2.Areas.Admin.Controllers {
             return View(product);
         }
 
-        // POST: Admin/Products/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Admin/Products/Edit/5 To protect from overposting attacks, enable the specific
+        // properties you want to bind to. For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ProductId,InventoryId,CategoryId,ProductName,UnitPrice,View,Picture,RawPrice,VendorProductId,ProductDetail,MSRP,AvailableVersion,Version,AvailableColor,Color,UnitInStock,ProductAvailable,UnitInOrder,ReorderLevel,CurrentOrder,Note,ConnID,ScreenID,StructID,SoundID,GraphicID,BatteryID,RamID,OSID,CamID,CPUID,RomID")] Product product) {

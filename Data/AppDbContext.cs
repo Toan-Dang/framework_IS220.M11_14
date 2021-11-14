@@ -47,5 +47,9 @@ namespace WEB2.Data {
         public DbSet<WEB2.Models.Product> Product { get; set; }
 
         public DbSet<WEB2.Models.Ram> Ram { get; set; }
+
+        public DbSet<WEB2.Models.OrderDetail> OrderDetail { get; set; }
+        public DbSet<WEB2.Models.Payment> Payment { get; set; }
+        public DbSet<WEB2.Models.Voucher_detail> Voucher_Details { get; set; }
     }
 }

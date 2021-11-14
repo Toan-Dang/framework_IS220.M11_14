@@ -1,0 +1,82 @@
+﻿@model IEnumerable<WEB2.Models.OrderDetail>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Gio hang</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Sản phẩm
+            </th>
+            <th>
+                tên sản phẩm
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Color)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+            @{Boolean vis = true;}
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+              @Html.ActionLink("hình Sản phẩm", "Details","Products", new { id =item.ProductId},
+              new { @style ="background-image : src(@Html.DisplayFor(modelItem => item.Product.ProductId))" })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Color)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total)
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", new { productid =item.ProductId, orderid = item.OrderId })
+
+
+
+                </td>
+            </tr>
+        
+            if( vis == true) {
+                @Html.ActionLink("Thanh toán","Index","Orders",new {id = item.OrderId},null)
+                ;
+                vis = false;
+
+            }
+           
+           
+        }
+             
+    </tbody>
+</table>
+     

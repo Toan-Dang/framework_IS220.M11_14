@@ -11,7 +11,7 @@ namespace WEB2.Models {
         [ForeignKey("CustomerID")]
         public virtual Customer Customer { get; set; }
 
-        [ForeignKey("ID")]
+        [ForeignKey("VoucherID")]
         public virtual Voucher Voucher { get; set; }
     }
 }

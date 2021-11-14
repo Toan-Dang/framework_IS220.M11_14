@@ -1,0 +1,19 @@
+﻿@model WEB2.Models.OrderDetail
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+
+  
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="OrderId" />
+        <input type="hidden" asp-for="ProductId" />
+        <input type="submit" value="Yes" class="btn btn-default" /> |
+        <a asp-action="Index">no</a>
+    </form>
+

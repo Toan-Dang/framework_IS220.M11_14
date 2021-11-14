@@ -16,7 +16,7 @@ namespace WEB2.Areas.Identity.Pages.Account.Manage {
 
         public IndexModel(
             UserManager<AppUser> userManager,
-            SignInManager<AppUser> signInManager ) {
+            SignInManager<AppUser> signInManager) {
             _userManager = userManager;
             _signInManager = signInManager;
         }
@@ -51,7 +51,7 @@ namespace WEB2.Areas.Identity.Pages.Account.Manage {
         }
 
         // Nạp thông tin từ User vào Model
-        private async Task LoadAsync( AppUser user ) {
+        private async Task LoadAsync(AppUser user) {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             Username = userName;

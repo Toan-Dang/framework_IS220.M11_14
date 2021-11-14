@@ -13,7 +13,7 @@ namespace WEB2.Models {
         public string GPUType { get; set; }
         public string GPUMemory { get; set; }
         public string Core { get; set; }
-        public int ProductId { get; set; }
+
 
         public virtual ICollection<Product> Products { get; set; }
     }

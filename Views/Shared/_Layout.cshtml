@@ -46,7 +46,7 @@
         <div class="container navbar sub-nav-item">
             <ul class="nav justify-content-center" style="margin: auto">
                 <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Phone" id="phone"><i class="bi bi-phone-fill"></i> ĐIỆN THOẠI</a>
+                    <a class="nav-link" asp-area="" asp-controller="Products" asp-action="Phone" id="phone"><i class="bi bi-phone-fill"></i> ĐIỆN THOẠI</a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <div>
                             <a class="dropdown-item"><strong>THƯƠNG HIỆU</strong></a>
@@ -58,9 +58,6 @@
                                     <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index"><img src="//cdn.tgdd.vn/Brand/1/Vivo42-b_50.jpg" width="90" /></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index"><img src="https://cdn.tgdd.vn/Brand/1/Huawei522-b_4.jpg" width="90" /></a>
-                                </li>
-                                <li class="nav-item">
                                     <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index"><img src="https://cdn.tgdd.vn/Brand/1/OnePlus42-b_36.jpg" width="90" /></a>
                                 </li>
                                 <li class="nav-item">
@@ -69,15 +66,12 @@
                                 <li class="nav-item">
                                     <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index"><img src="//cdn.tgdd.vn/Brand/1/Realme42-b_37.png" width="90" /></a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index"><img src="//cdn.tgdd.vn/Brand/1/OPPO42-b_5.jpg" width="90" /></a>
-                                </li>
                             </ul>
                         </div>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Laptop" id="laptop"><i class="bi bi-laptop-fill" id="laptop"></i> LAPTOP</a>
+                    <a class="nav-link" asp-area="" asp-controller="Products" asp-action="Laptop" id="laptop"><i class="bi bi-laptop-fill" id="laptop"></i> LAPTOP</a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <div>
                             <a class="dropdown-item"><strong>THƯƠNG HIỆU</strong></a>
@@ -102,7 +96,7 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Tablet" id="tablet"><i class="bi bi-tablet-landscape-fill" id="tablet"></i> TABLET</a>
+                    <a class="nav-link" asp-area="" asp-controller="Products" asp-action="Tablet" id="tablet"><i class="bi bi-tablet-landscape-fill" id="tablet"></i> TABLET</a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <div>
                             <a class="dropdown-item"><strong>THƯƠNG HIỆU</strong></a>
@@ -124,38 +118,7 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Watch" id="watch"><i class="bi bi-smartwatch" id="watch"></i> ĐỒNG HỒ</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <div>
-                            <a class="dropdown-item"><strong>THƯƠNG HIỆU</strong></a>
-                            <ul class="nav" style="width: 280px;">
-                                <li class="nav-item"><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index"><img src="https://www.thegioididong.com/ContentMwg/images/smartwatch/logo01.png" width="90" /></a></li>
-                                <li class="nav-item"><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index"><img src="https://www.thegioididong.com/ContentMwg/images/smartwatch/logo02b.png" width="90" /></a></li>
-                                <li class="nav-item"><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index"><img src="https://www.thegioididong.com/ContentMwg/images/smartwatch/logo03.png" width="90" /></a></li>
-                                <li class="nav-item">
-                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index"><img src="https://www.thegioididong.com/ContentMwg/images/smartwatch/logoAMZ.png" width="90" /></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index"><img src="https://cdn.tgdd.vn/Brand/1/Huawei522-b_4.jpg" width="90" /></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index"><img src="https://cdn.tgdd.vn/Brand/1/Masstel522-b_7.png" width="90" /></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index"><img src="https://cdn.tgdd.vn/Brand/1/OPPO42-b_5.jpg" width="90" /></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index"><img src="https://cdn.tgdd.vn/Brand/1/Realme42-b_37.png" width="90" /></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index"><img src="https://cdn.tgdd.vn/Brand/1/logo-xiaomi-220x48-5.png" width="90" /></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Sound" id="sound"><i class="bi bi-earbuds" id="sound"></i> ÂM THANH</a>
+                    <a class="nav-link" asp-area="" asp-controller="Products" asp-action="Sound" id="sound"><i class="bi bi-earbuds" id="sound"></i> ÂM THANH</a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <div>
                             <a class="dropdown-item"><strong>THƯƠNG HIỆU</strong></a>
@@ -221,7 +184,7 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Accessories" id="accessories"><i class="bi bi-sd-card-fill" id="accessories"></i> PHỤ KIỆN</a>
+                    <a class="nav-link" asp-area="" asp-controller="Products" asp-action="Accessories" id="accessories"><i class="bi bi-sd-card-fill" id="accessories"></i> PHỤ KIỆN</a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <div>
                             <a class="dropdown-item"><strong>THƯƠNG HIỆU</strong></a>

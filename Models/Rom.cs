@@ -12,7 +12,7 @@ namespace WEB2.Models {
         public int Capacity { get; set; }
         public int MaxRom { get; set; }
         public string Type { get; set; }
-        public int ProductId { get; set; }
+
 
         public virtual ICollection<Product> Products { get; set; }
     }

@@ -15,7 +15,7 @@ namespace WEB2.Models {
         public string Flash { get; set; }
         public string Video { get; set; }
         public string Special { get; set; }
-        public int ProductId { get; set; }
+
 
         public virtual ICollection<Product> Products { get; set; }
     }

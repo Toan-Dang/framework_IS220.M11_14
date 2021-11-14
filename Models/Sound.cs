@@ -10,7 +10,7 @@ namespace WEB2.Models {
         public int SoundId { get; set; }
 
         public string Technology { get; set; }
-        public int ProductId { get; set; }
+
 
         public virtual ICollection<Product> Products { get; set; }
     }

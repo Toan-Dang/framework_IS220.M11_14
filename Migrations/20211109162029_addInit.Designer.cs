@@ -12,7 +12,7 @@ using WEB2.Data;
 namespace WEB2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20211109112650_addInit")]
+    [Migration("20211109162029_addInit")]
     partial class addInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -247,9 +247,6 @@ namespace WEB2.Migrations
                     b.Property<string>("Charge")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Technology")
                         .HasColumnType("nvarchar(max)");
 
@@ -302,9 +299,6 @@ namespace WEB2.Migrations
 
                     b.Property<string>("Flash")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Special")
                         .HasColumnType("nvarchar(max)");
@@ -369,9 +363,6 @@ namespace WEB2.Migrations
 
                     b.Property<string>("PhoneJack")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Sim")
                         .HasColumnType("nvarchar(max)");
@@ -511,9 +502,6 @@ namespace WEB2.Migrations
 
                     b.Property<string>("NameGPU")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
 
                     b.HasKey("GraphicId");
 
@@ -683,9 +671,6 @@ namespace WEB2.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Version")
                         .HasColumnType("nvarchar(max)");
 
@@ -730,14 +715,14 @@ namespace WEB2.Migrations
                     b.Property<int>("Core")
                         .HasColumnType("int");
 
+                    b.Property<string>("Genth")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double>("MaxSpeed")
                         .HasColumnType("float");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
 
                     b.Property<int>("Thread")
                         .HasColumnType("int");
@@ -951,9 +936,6 @@ namespace WEB2.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Slots")
                         .HasColumnType("int");
 
@@ -982,9 +964,6 @@ namespace WEB2.Migrations
                     b.Property<int>("MaxRom")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
@@ -1006,9 +985,6 @@ namespace WEB2.Migrations
 
                     b.Property<string>("MaxBright")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Resolution")
                         .HasColumnType("nvarchar(max)");
@@ -1059,9 +1035,6 @@ namespace WEB2.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SoundId"), 1L, 1);
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Technology")
                         .HasColumnType("nvarchar(max)");
@@ -1116,9 +1089,6 @@ namespace WEB2.Migrations
 
                     b.Property<string>("Martirial")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
 
                     b.Property<double>("Weight")
                         .HasColumnType("float");

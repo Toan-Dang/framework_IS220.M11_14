@@ -31,7 +31,7 @@ namespace WEB2.Areas.Identity.Pages.Account {
             SignInManager<AppUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            AppDbContext context ) {
+            AppDbContext context) {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
@@ -75,13 +75,13 @@ namespace WEB2.Areas.Identity.Pages.Account {
             public string UserName { set; get; }
         }
 
-        public async Task OnGetAsync( string returnUrl = null ) {
+        public async Task OnGetAsync(string returnUrl = null) {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
         // Đăng ký tài khoản theo dữ liệu form post tới
-        public async Task<IActionResult> OnPostAsync( string returnUrl = null ) {
+        public async Task<IActionResult> OnPostAsync(string returnUrl = null) {
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid) {
@@ -93,17 +93,22 @@ namespace WEB2.Areas.Identity.Pages.Account {
                 _context.Add(customer);
                 await _context.SaveChangesAsync();
 
+                // cho khuyến mãi để không bị bug
+                var voucher = new Voucher_detail { VoucherID = 1, CustomerID = customer.CustomerID };
+                _context.Add(voucher);
+                await _context.SaveChangesAsync();
+
                 if (result.Succeeded) {
                     _logger.LogInformation("Vừa tạo mới tài khoản thành công.");
 
-                    // phát sinh token theo thông tin user để xác nhận email
-                    // mỗi user dựa vào thông tin sẽ có một mã riêng, mã này nhúng vào link
-                    // trong email gửi đi để người dùng xác nhận
+                    // phát sinh token theo thông tin user để xác nhận email mỗi user dựa vào thông
+                    // tin sẽ có một mã riêng, mã này nhúng vào link trong email gửi đi để người
+                    // dùng xác nhận
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
 
-                    // callbackUrl = /Account/ConfirmEmail?userId=useridxx&code=codexxxx
-                    // Link trong email người dùng bấm vào, nó sẽ gọi Page: /Acount/ConfirmEmail để xác nhận
+                    // callbackUrl = /Account/ConfirmEmail?userId=useridxx&code=codexxxx Link trong
+                    // email người dùng bấm vào, nó sẽ gọi Page: /Acount/ConfirmEmail để xác nhận
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
                         pageHandler: null,
@@ -117,11 +122,11 @@ namespace WEB2.Areas.Identity.Pages.Account {
                         $"Mail này đã dùng để đăng ký tài khoản trên website zerone \nHãy xác nhận địa chỉ email bằng cách <a href='{callbackUrl}'>Bấm vào đây</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedEmail) {
-                        // Nếu cấu hình phải xác thực email mới được đăng nhập thì chuyển hướng đến trang
-                        // RegisterConfirmation - chỉ để hiện thông báo cho biết người dùng cần mở email xác nhận
+                        // Nếu cấu hình phải xác thực email mới được đăng nhập thì chuyển hướng đến
+                        // trang RegisterConfirmation - chỉ để hiện thông báo cho biết người dùng
+                        // cần mở email xác nhận
                         return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-                    }
-                    else {
+                    } else {
                         // Không cần xác thực - đăng nhập luôn
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);
