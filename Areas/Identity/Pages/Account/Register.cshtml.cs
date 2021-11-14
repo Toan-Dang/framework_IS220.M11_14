@@ -93,10 +93,10 @@ namespace WEB2.Areas.Identity.Pages.Account {
                 _context.Add(customer);
                 await _context.SaveChangesAsync();
 
-                // cho khuyến mãi để không bị bug
-                var voucher = new Voucher_detail { VoucherID = 1, CustomerID = customer.CustomerID };
-                _context.Add(voucher);
-                await _context.SaveChangesAsync();
+                //// cho khuyến mãi để không bị bug
+                //var voucher = new Voucher_detail { VoucherID = 1, CustomerID = customer.CustomerID };
+                //_context.Add(voucher);
+                //await _context.SaveChangesAsync();
 
                 if (result.Succeeded) {
                     _logger.LogInformation("Vừa tạo mới tài khoản thành công.");
