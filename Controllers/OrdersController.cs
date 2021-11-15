@@ -64,7 +64,7 @@ namespace WEB2.Controllers {
                 return NotFound();
             }
             ViewData["ShipperId"] = new SelectList(_context.Shipment, "ShipperId", "CompanyName", reorder.Shipment.CompanyName);
-            ViewData["PaymentId"] = new SelectList(_context.Payment, "PaymentId", "PaymentType", reorder.Payment.PaymentType);
+            ViewData["PaymentId"] = new SelectList(_context.Payment.Where(o => o.Allowed == true), "PaymentId", "PaymentType", reorder.Payment.PaymentType);
             // ViewData["VoucherId"] = new SelectList(_context.Voucher, "VoucherId", "VoucherName", voucher.Voucher.VoucherName);
             return View(order);
         }
