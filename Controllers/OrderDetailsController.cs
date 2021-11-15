@@ -155,7 +155,8 @@ namespace WEB2.Controllers {
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int productid, int orderid) {
-            var orderDetail = await _context.OrderDetail.FindAsync(productid, orderid);
+            var orderDetail = await _context.OrderDetail.Where(o => o.OrderId == orderid)
+                .Where(o => o.ProductId == productid).FirstOrDefaultAsync();
             _context.OrderDetail.Remove(orderDetail);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
