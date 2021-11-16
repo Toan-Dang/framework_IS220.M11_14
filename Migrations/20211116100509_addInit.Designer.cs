@@ -12,7 +12,7 @@ using WEB2.Data;
 namespace WEB2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20211109162029_addInit")]
+    [Migration("20211116100509_addInit")]
     partial class addInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -392,9 +392,6 @@ namespace WEB2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerID"), 1L, 1);
 
-                    b.Property<string>("CreditCardTypeID")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("DateEntered")
                         .HasColumnType("datetime2");
 
@@ -413,15 +410,34 @@ namespace WEB2.Migrations
 
             modelBuilder.Entity("WEB2.Models.Discount", b =>
                 {
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<int>("DiscountId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.HasKey("ProductId", "DiscountId");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DiscountId"), 1L, 1);
 
-                    b.HasIndex("DiscountId");
+                    b.Property<string>("Condition")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateEnd")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateRealse")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Detail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DiscountAvailable")
+                        .HasColumnType("int");
+
+                    b.Property<double>("DiscountMoney")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DiscountId");
 
                     b.ToTable("Discount");
                 });
@@ -472,6 +488,9 @@ namespace WEB2.Migrations
 
                     b.Property<int>("GiftAvailable")
                         .HasColumnType("int");
+
+                    b.Property<string>("GiftImgage")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("GiftName")
                         .HasColumnType("nvarchar(max)");
@@ -571,8 +590,8 @@ namespace WEB2.Migrations
                     b.Property<string>("Errmsg")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Freight")
-                        .HasColumnType("bit");
+                    b.Property<double>("Freight")
+                        .HasColumnType("float");
 
                     b.Property<string>("OTP")
                         .HasColumnType("nvarchar(max)");
@@ -589,11 +608,14 @@ namespace WEB2.Migrations
                     b.Property<int>("PaymentId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("RequiredDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("ResponseCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("SalesTax")
                         .HasColumnType("float");
+
+                    b.Property<string>("SecureHash")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ShipDate")
                         .HasColumnType("datetime2");
@@ -602,6 +624,9 @@ namespace WEB2.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("TransactStatus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TransactionNo")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("OrderId");
@@ -623,9 +648,6 @@ namespace WEB2.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("BillDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Color")
                         .HasColumnType("nvarchar(max)");
 
@@ -644,14 +666,14 @@ namespace WEB2.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("ShipDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Total")
                         .HasColumnType("float");
+
+                    b.Property<string>("version")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("OrderId", "ProductId");
 
@@ -709,8 +731,8 @@ namespace WEB2.Migrations
                     b.Property<double>("BaseSpeed")
                         .HasColumnType("float");
 
-                    b.Property<int>("Cache")
-                        .HasColumnType("int");
+                    b.Property<double>("Cache")
+                        .HasColumnType("float");
 
                     b.Property<int>("Core")
                         .HasColumnType("int");
@@ -866,34 +888,15 @@ namespace WEB2.Migrations
 
             modelBuilder.Entity("WEB2.Models.ProductDiscount", b =>
                 {
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
                     b.Property<int>("DiscountId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DiscountId"), 1L, 1);
+                    b.HasKey("ProductId", "DiscountId");
 
-                    b.Property<string>("Condition")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateEnd")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateRealse")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Detail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("DiscountAvailable")
-                        .HasColumnType("int");
-
-                    b.Property<double>("DiscountMoney")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("DiscountId");
+                    b.HasIndex("DiscountId");
 
                     b.ToTable("ProductDiscount");
                 });
@@ -927,11 +930,11 @@ namespace WEB2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RamId"), 1L, 1);
 
-                    b.Property<int>("Capacity")
-                        .HasColumnType("int");
+                    b.Property<double>("Capacity")
+                        .HasColumnType("float");
 
-                    b.Property<int>("MaxRam")
-                        .HasColumnType("int");
+                    b.Property<double>("MaxRam")
+                        .HasColumnType("float");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -939,8 +942,8 @@ namespace WEB2.Migrations
                     b.Property<int>("Slots")
                         .HasColumnType("int");
 
-                    b.Property<int>("Speed")
-                        .HasColumnType("int");
+                    b.Property<double>("Speed")
+                        .HasColumnType("float");
 
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
@@ -980,8 +983,8 @@ namespace WEB2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ScreenId"), 1L, 1);
 
-                    b.Property<double>("HZ")
-                        .HasColumnType("float");
+                    b.Property<string>("HZ")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MaxBright")
                         .HasColumnType("nvarchar(max)");
@@ -1016,12 +1019,6 @@ namespace WEB2.Migrations
 
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Received")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("ShipDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("ShipperId");
 
@@ -1136,9 +1133,6 @@ namespace WEB2.Migrations
                     b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PaymentMethod")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
@@ -1186,14 +1180,11 @@ namespace WEB2.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
-                    b.Property<int>("ID")
-                        .HasColumnType("int");
-
                     b.HasKey("CustomerID", "VoucherID");
 
-                    b.HasIndex("ID");
+                    b.HasIndex("VoucherID");
 
-                    b.ToTable("Voucher_detail");
+                    b.ToTable("Voucher_Details");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1265,25 +1256,6 @@ namespace WEB2.Migrations
                     b.Navigation("AppUser");
                 });
 
-            modelBuilder.Entity("WEB2.Models.Discount", b =>
-                {
-                    b.HasOne("WEB2.Models.ProductDiscount", "ProductDiscount")
-                        .WithMany("Discounts")
-                        .HasForeignKey("DiscountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WEB2.Models.Product", "Product")
-                        .WithMany("Discounts")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-
-                    b.Navigation("ProductDiscount");
-                });
-
             modelBuilder.Entity("WEB2.Models.Feedback", b =>
                 {
                     b.HasOne("WEB2.Models.Product", "Product")
@@ -1297,7 +1269,7 @@ namespace WEB2.Migrations
 
             modelBuilder.Entity("WEB2.Models.Gift", b =>
                 {
-                    b.HasOne("WEB2.Models.ProductDiscount", "ProductDiscount")
+                    b.HasOne("WEB2.Models.Discount", "ProductDiscount")
                         .WithMany("Gifts")
                         .HasForeignKey("DiscountId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1470,6 +1442,25 @@ namespace WEB2.Migrations
                     b.Navigation("Structure");
                 });
 
+            modelBuilder.Entity("WEB2.Models.ProductDiscount", b =>
+                {
+                    b.HasOne("WEB2.Models.Discount", "Discount")
+                        .WithMany("ProductDiscounts")
+                        .HasForeignKey("DiscountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WEB2.Models.Product", "Product")
+                        .WithMany("ProductDiscounts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Discount");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("WEB2.Models.Purchase", b =>
                 {
                     b.HasOne("WEB2.Models.Product", "Product")
@@ -1516,7 +1507,7 @@ namespace WEB2.Migrations
 
                     b.HasOne("WEB2.Models.Voucher", "Voucher")
                         .WithMany("Voucher_Details")
-                        .HasForeignKey("ID")
+                        .HasForeignKey("VoucherID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1550,6 +1541,13 @@ namespace WEB2.Migrations
                     b.Navigation("Orders");
 
                     b.Navigation("Voucher_Details");
+                });
+
+            modelBuilder.Entity("WEB2.Models.Discount", b =>
+                {
+                    b.Navigation("Gifts");
+
+                    b.Navigation("ProductDiscounts");
                 });
 
             modelBuilder.Entity("WEB2.Models.Graphic", b =>
@@ -1586,22 +1584,15 @@ namespace WEB2.Migrations
 
             modelBuilder.Entity("WEB2.Models.Product", b =>
                 {
-                    b.Navigation("Discounts");
-
                     b.Navigation("Images");
 
                     b.Navigation("OrderDetails");
 
+                    b.Navigation("ProductDiscounts");
+
                     b.Navigation("ProductRankings");
 
                     b.Navigation("Purchases");
-                });
-
-            modelBuilder.Entity("WEB2.Models.ProductDiscount", b =>
-                {
-                    b.Navigation("Discounts");
-
-                    b.Navigation("Gifts");
                 });
 
             modelBuilder.Entity("WEB2.Models.Ram", b =>
