@@ -50,12 +50,7 @@
                                         <th>
                                             @Html.DisplayNameFor(model => model.Phone)
                                         </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.ShipDate)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Received)
-                                        </th>
+                                   
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -68,12 +63,7 @@
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.Phone)
                                             </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.ShipDate)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Received)
-                                            </td>
+                                          
                                             <td>
                                                 <a asp-action="Edit" asp-route-id="@item.ShipperId">Edit</a> |
                                                 <a asp-action="Details" asp-route-id="@item.ShipperId">Details</a> |
@@ -91,12 +81,7 @@
                                         <th>
                                             @Html.DisplayNameFor(model => model.Phone)
                                         </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.ShipDate)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Received)
-                                        </th>
+                                       
                                         <th></th>
                                     </tr>
                                 </tfoot>

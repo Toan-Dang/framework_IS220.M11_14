@@ -4,9 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 #nullable disable
 
 namespace WEB2.Migrations {
-
     public partial class addInit : Migration {
-
         protected override void Up(MigrationBuilder migrationBuilder) {
             migrationBuilder.CreateTable(
                 name: "Battery",
@@ -35,18 +33,20 @@ namespace WEB2.Migrations {
                 constraints: table => {
                     table.PrimaryKey("PK_Calendar", x => x.CarlendarId);
                 });
+
             migrationBuilder.CreateTable(
                  name: "Content",
                  columns: table => new {
-                     NewsId = table.Column<int>(type: "int", nullable: false)
+                     ContentId = table.Column<int>(type: "int", nullable: false)
                          .Annotation("SqlServer:Identity", "1, 1"),
                      Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                      Contents = table.Column<string>(type: "nvarchar(max)", nullable: true),
                      DateRealease = table.Column<DateTime>(type: "datetime2", nullable: true),
                      Author = table.Column<string>(type: "nvarchar(max)", nullable: true),
                  }, constraints: table => {
-                     table.PrimaryKey("PK_Content", x => x.NewsId);
+                     table.PrimaryKey("PK_Content", x => x.ContentId);
                  });
+
             migrationBuilder.CreateTable(
                 name: "Camera",
                 columns: table => new {
@@ -100,6 +100,23 @@ namespace WEB2.Migrations {
                 },
                 constraints: table => {
                     table.PrimaryKey("PK_Connection", x => x.ConnId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Discount",
+                columns: table => new {
+                    DiscountId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Condition = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateRealse = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateEnd = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Detail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DiscountMoney = table.Column<double>(type: "float", nullable: false),
+                    DiscountAvailable = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table => {
+                    table.PrimaryKey("PK_Discount", x => x.DiscountId);
                 });
 
             migrationBuilder.CreateTable(
@@ -171,23 +188,6 @@ namespace WEB2.Migrations {
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductDiscount",
-                columns: table => new {
-                    DiscountId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Condition = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DateRealse = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DateEnd = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Detail = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DiscountMoney = table.Column<double>(type: "float", nullable: false),
-                    DiscountAvailable = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table => {
-                    table.PrimaryKey("PK_ProductDiscount", x => x.DiscountId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Ram",
                 columns: table => new {
                     RamId = table.Column<int>(type: "int", nullable: false)
@@ -235,7 +235,7 @@ namespace WEB2.Migrations {
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Resolution = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Size = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    HZ = table.Column<double>(type: "float", nullable: false),
+                    HZ = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MaxBright = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Special = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Technology = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -250,9 +250,7 @@ namespace WEB2.Migrations {
                     ShipperId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ShipDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Received = table.Column<double>(type: "float", nullable: false)
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table => {
                     table.PrimaryKey("PK_Shipment", x => x.ShipperId);
@@ -295,7 +293,6 @@ namespace WEB2.Migrations {
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PaymentMethod = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DiscountType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DiscountAvailable = table.Column<int>(type: "int", nullable: false),
                     CurrentOrder = table.Column<int>(type: "int", nullable: false),
@@ -355,14 +352,15 @@ namespace WEB2.Migrations {
                     DiscountId = table.Column<int>(type: "int", nullable: false),
                     GiftName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     GiftAvailable = table.Column<int>(type: "int", nullable: false),
-                    GiftAmount = table.Column<int>(type: "int", nullable: false)
+                    GiftAmount = table.Column<int>(type: "int", nullable: false),
+                    GiftImgage = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table => {
                     table.PrimaryKey("PK_Gift", x => x.GiftId);
                     table.ForeignKey(
-                        name: "FK_Gift_ProductDiscount_DiscountId",
+                        name: "FK_Gift_Discount_DiscountId",
                         column: x => x.DiscountId,
-                        principalTable: "ProductDiscount",
+                        principalTable: "Discount",
                         principalColumn: "DiscountId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -411,17 +409,17 @@ namespace WEB2.Migrations {
                     ReorderLevel = table.Column<int>(type: "int", nullable: false),
                     CurrentOrder = table.Column<int>(type: "int", nullable: false),
                     Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConnID = table.Column<int>(type: "int", nullable: true),
-                    ScreenID = table.Column<int>(type: "int", nullable: true),
-                    StructID = table.Column<int>(type: "int", nullable: true),
-                    SoundID = table.Column<int>(type: "int", nullable: true),
-                    GraphicID = table.Column<int>(type: "int", nullable: true),
-                    BatteryID = table.Column<int>(type: "int", nullable: true),
-                    RamID = table.Column<int>(type: "int", nullable: true),
-                    OSID = table.Column<int>(type: "int", nullable: true),
-                    CamID = table.Column<int>(type: "int", nullable: true),
-                    CPUID = table.Column<int>(type: "int", nullable: true),
-                    RomID = table.Column<int>(type: "int", nullable: true)
+                    ConnID = table.Column<int>(type: "int", nullable: false),
+                    ScreenID = table.Column<int>(type: "int", nullable: false),
+                    StructID = table.Column<int>(type: "int", nullable: false),
+                    SoundID = table.Column<int>(type: "int", nullable: false),
+                    GraphicID = table.Column<int>(type: "int", nullable: false),
+                    BatteryID = table.Column<int>(type: "int", nullable: false),
+                    RamID = table.Column<int>(type: "int", nullable: false),
+                    OSID = table.Column<int>(type: "int", nullable: false),
+                    CamID = table.Column<int>(type: "int", nullable: false),
+                    CPUID = table.Column<int>(type: "int", nullable: false),
+                    RomID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table => {
                     table.PrimaryKey("PK_Product", x => x.ProductId);
@@ -511,7 +509,6 @@ namespace WEB2.Migrations {
                     CustomerID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CreditCardTypeID = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ShipAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateEntered = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -626,28 +623,6 @@ namespace WEB2.Migrations {
                 });
 
             migrationBuilder.CreateTable(
-                name: "Discount",
-                columns: table => new {
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    DiscountId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table => {
-                    table.PrimaryKey("PK_Discount", x => new { x.ProductId, x.DiscountId });
-                    table.ForeignKey(
-                        name: "FK_Discount_Product_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Product",
-                        principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Discount_ProductDiscount_DiscountId",
-                        column: x => x.DiscountId,
-                        principalTable: "ProductDiscount",
-                        principalColumn: "DiscountId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Feedback",
                 columns: table => new {
                     FeedbackId = table.Column<int>(type: "int", nullable: false)
@@ -680,6 +655,28 @@ namespace WEB2.Migrations {
                     table.PrimaryKey("PK_Image", x => x.ImageId);
                     table.ForeignKey(
                         name: "FK_Image_Product_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Product",
+                        principalColumn: "ProductId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductDiscount",
+                columns: table => new {
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    DiscountId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table => {
+                    table.PrimaryKey("PK_ProductDiscount", x => new { x.ProductId, x.DiscountId });
+                    table.ForeignKey(
+                        name: "FK_ProductDiscount_Discount_DiscountId",
+                        column: x => x.DiscountId,
+                        principalTable: "Discount",
+                        principalColumn: "DiscountId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProductDiscount_Product_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Product",
                         principalColumn: "ProductId",
@@ -720,16 +717,18 @@ namespace WEB2.Migrations {
                     CustomerId = table.Column<int>(type: "int", nullable: false),
                     OTP = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OrderDay = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Freight = table.Column<bool>(type: "bit", nullable: false),
+                    Freight = table.Column<double>(type: "float", nullable: false),
                     ShipDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    RequiredDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     SalesTax = table.Column<double>(type: "float", nullable: false),
                     TransactStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Errlog = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Errmsg = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
                     Paid = table.Column<double>(type: "float", nullable: false),
-                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TransactionNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ResponseCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecureHash = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table => {
                     table.PrimaryKey("PK_Order", x => x.OrderId);
@@ -754,24 +753,23 @@ namespace WEB2.Migrations {
                 });
 
             migrationBuilder.CreateTable(
-                name: "Voucher_detail",
+                name: "Voucher_Details",
                 columns: table => new {
                     CustomerID = table.Column<int>(type: "int", nullable: false),
                     VoucherID = table.Column<int>(type: "int", nullable: false),
-                    Amount = table.Column<int>(type: "int", nullable: false),
-                    ID = table.Column<int>(type: "int", nullable: false)
+                    Amount = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table => {
-                    table.PrimaryKey("PK_Voucher_detail", x => new { x.CustomerID, x.VoucherID });
+                    table.PrimaryKey("PK_Voucher_Details", x => new { x.CustomerID, x.VoucherID });
                     table.ForeignKey(
-                        name: "FK_Voucher_detail_Customer_CustomerID",
+                        name: "FK_Voucher_Details_Customer_CustomerID",
                         column: x => x.CustomerID,
                         principalTable: "Customer",
                         principalColumn: "CustomerID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Voucher_detail_Voucher_ID",
-                        column: x => x.ID,
+                        name: "FK_Voucher_Details_Voucher_VoucherID",
+                        column: x => x.VoucherID,
                         principalTable: "Voucher",
                         principalColumn: "VoucherID",
                         onDelete: ReferentialAction.Cascade);
@@ -788,9 +786,8 @@ namespace WEB2.Migrations {
                     IDSKU = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Discount = table.Column<double>(type: "float", nullable: false),
                     Total = table.Column<double>(type: "float", nullable: false),
-                    ShipDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    BillDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Color = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    version = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Fulfilled = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table => {
@@ -818,11 +815,6 @@ namespace WEB2.Migrations {
                 name: "IX_Customer_UserId",
                 table: "Customer",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Discount_DiscountId",
-                table: "Discount",
-                column: "DiscountId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Feedback_ProductId",
@@ -925,6 +917,11 @@ namespace WEB2.Migrations {
                 column: "StructID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProductDiscount_DiscountId",
+                table: "ProductDiscount",
+                column: "DiscountId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Purchase_SupplierId",
                 table: "Purchase",
                 column: "SupplierId");
@@ -979,17 +976,14 @@ namespace WEB2.Migrations {
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Voucher_detail_ID",
-                table: "Voucher_detail",
-                column: "ID");
+                name: "IX_Voucher_Details_VoucherID",
+                table: "Voucher_Details",
+                column: "VoucherID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder) {
             migrationBuilder.DropTable(
                 name: "Calendar");
-
-            migrationBuilder.DropTable(
-                name: "Discount");
 
             migrationBuilder.DropTable(
                 name: "Feedback");
@@ -1002,6 +996,9 @@ namespace WEB2.Migrations {
 
             migrationBuilder.DropTable(
                 name: "OrderDetail");
+
+            migrationBuilder.DropTable(
+                name: "ProductDiscount");
 
             migrationBuilder.DropTable(
                 name: "Purchase");
@@ -1025,13 +1022,13 @@ namespace WEB2.Migrations {
                 name: "UserTokens");
 
             migrationBuilder.DropTable(
-                name: "Voucher_detail");
-
-            migrationBuilder.DropTable(
-                name: "ProductDiscount");
+                name: "Voucher_Details");
 
             migrationBuilder.DropTable(
                 name: "Order");
+
+            migrationBuilder.DropTable(
+                name: "Discount");
 
             migrationBuilder.DropTable(
                 name: "Product");

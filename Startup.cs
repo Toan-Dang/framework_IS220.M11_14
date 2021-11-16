@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Routing;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using System;
 using System.Text;
+using WEB2.Areas.Order;
 using WEB2.Data;
 using WEB2.Mail;
 using WEB2.Models;
@@ -20,14 +22,14 @@ namespace WEB2 {
 
     public class Startup {
 
-        public Startup( IConfiguration configuration ) {
+        public Startup(IConfiguration configuration) {
             Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices( IServiceCollection services ) {
+        public void ConfigureServices(IServiceCollection services) {
             services.AddMvc();                              //MVC
             services.AddDistributedMemoryCache();           // Đăng ký dịch vụ lưu cache trong bộ nhớ (Session sẽ sử dụng nó)
             services.AddSession(cfg => {                    // Đăng ký dịch vụ Session
@@ -79,8 +81,8 @@ namespace WEB2 {
                 options.AccessDeniedPath = $"/AccessDenied/"; // Trang khi User bị cấm truy cập
             });
             services.Configure<SecurityStampValidatorOptions>(options => {
-                // Trên 5 giây truy cập lại sẽ nạp lại thông tin User (Role)
-                // SecurityStamp trong bảng User đổi -> nạp lại thông tinn Security
+                // Trên 5 giây truy cập lại sẽ nạp lại thông tin User (Role) SecurityStamp trong
+                // bảng User đổi -> nạp lại thông tinn Security
                 options.ValidationInterval = TimeSpan.FromSeconds(3);
             });
 
@@ -91,6 +93,8 @@ namespace WEB2 {
             });
 
             services.AddOptions(); // Kích hoạt Options
+                                   // Add our Config object so it can be injected
+            services.Configure<MyConfig>(Configuration.GetSection("MyConfig"));
             var mailsettings = Configuration.GetSection("MailSettings"); // đọc config
             services.Configure<MailSettings>(mailsettings);               // đăng ký để Inject
 
@@ -107,6 +111,11 @@ namespace WEB2 {
                 options.AddPolicy("Staff", policy => {
                     policy.RequireRole("Staff", "Admin");
                 });
+            });
+            /* The relevant part for Forwarded Headers */
+            services.Configure<ForwardedHeadersOptions>(options => {
+                options.ForwardedHeaders =
+                    ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto | ForwardedHeaders.All;
             });
 
             services.AddAuthentication()
@@ -133,17 +142,18 @@ namespace WEB2 {
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure( IApplicationBuilder app, IWebHostEnvironment env ) {
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
             Console.WriteLine(env.WebRootPath);
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
-            }
-            else {
+            } else {
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection();
+            app.UseForwardedHeaders();
+
             app.UseStaticFiles();
 
             app.UseSession();         // Đăng ký Middleware Session vào Pipeline
@@ -184,7 +194,7 @@ namespace WEB2 {
                 });
             });
 
-            app.Run(async ( HttpContext context ) => {
+            app.Run(async (HttpContext context) => {
                 context.Response.StatusCode = StatusCodes.Status404NotFound;
                 await context.Response.WriteAsync("Page not found!");
             });
