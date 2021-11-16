@@ -61,7 +61,7 @@ namespace WEB2.Controllers {
                 .Where(o => o.Order.OrderId == id)
                 .Where(o => o.Order.Deleted == false)
                 .Where(o => o.Status == "saved")
-                .Where(o => o.Fulfilled == false)
+                // .Where(o => o.Fulfilled == false)
                 .Where(o => o.Order.Customer.UserId == userid)
                 .ToListAsync();
 

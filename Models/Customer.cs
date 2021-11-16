@@ -11,7 +11,6 @@ namespace WEB2.Models {
         public int CustomerID { get; set; }
 
         public string UserId { get; set; }
-        public string CreditCardTypeID { get; set; }
         public string ShipAddress { get; set; }
         public DateTime DateEntered { get; set; }
 

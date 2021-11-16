@@ -15,9 +15,8 @@ namespace WEB2.Models {
         public int CustomerId { get; set; }
         public string OTP { get; set; }
         public DateTime OrderDay { get; set; }
-        public bool Freight { get; set; }
+        public double Freight { get; set; }
         public DateTime ShipDate { get; set; }
-        public DateTime RequiredDate { get; set; }
         public double SalesTax { get; set; }
         public string TransactStatus { get; set; }
         public string Errlog { get; set; }
@@ -25,6 +24,9 @@ namespace WEB2.Models {
         public bool Deleted { get; set; }
         public double Paid { get; set; }
         public DateTime PaymentDate { get; set; }
+        public string TransactionNo { get; set; }
+        public string ResponseCode { get; set; }
+        public string SecureHash { get; set; }
 
         [ForeignKey("PaymentId")]
         public virtual Payment Payment { get; set; }

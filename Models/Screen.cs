@@ -11,7 +11,7 @@ namespace WEB2.Models {
 
         public string Resolution { get; set; }
         public string Size { get; set; }
-        public double HZ { get; set; }
+        public string HZ { get; set; }
         public string MaxBright { get; set; }
         public string Special { get; set; }
         public string Technology { get; set; }

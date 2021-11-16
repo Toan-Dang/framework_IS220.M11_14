@@ -12,8 +12,9 @@ namespace WEB2.Models {
         public string GiftName { get; set; }
         public int GiftAvailable { get; set; }
         public int GiftAmount { get; set; }
+        public string GiftImgage { get; set; }
 
         [ForeignKey("DiscountId")]
-        public virtual ProductDiscount ProductDiscount { get; set; }
+        public virtual Discount ProductDiscount { get; set; }
     }
 }

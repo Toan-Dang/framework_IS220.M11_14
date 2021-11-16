@@ -6,7 +6,7 @@ namespace WEB2.Models {
     public class Content {
 
         [Key]
-        public int NewsId { get; set; }
+        public int ContentId { get; set; }
 
         public string Title { get; set; }
         public string Contents { get; set; }

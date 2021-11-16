@@ -21,19 +21,24 @@ Lớp thực hành .2
 - Đăng nhập/ đăng ký/ đăng xuất/ logout / nhớ mật khẩu
 - Phân quyền (admin, staff, customer)
 - Gửi mail để xác nhận đăng nhập và reset mật khẩu 
--User
->
--Thành viên
->
--Admin
 
- >Danh mục sản phẩm
+#### Thành viên
 
->Lịch trình
+- Giỏ hàng
 
->Tổng quan
+- Thanh toán
 
-> Khi nào xong sẽ ghi thêm
+#### Admin
+
+- Danh mục sản phẩm
+
+- Lịch trình
+
+- Tổng quan
+
+- Quản lý nhân sự
+
+- Quản lý hàng hóa
 
 ## Tech
 - [C#] 
@@ -48,7 +53,7 @@ Lớp thực hành .2
     git clone https://github.com/Toan-Dang/framework_IS220.M11_14.git
 ```
 
- Chạy bằng [Visual Studio 2019]
+ Chạy bằng [Visual Studio 2022]
  Database: [SQLServer]
 
 chỉnh lại đường dẫn ở appsettings.js 
@@ -70,9 +75,9 @@ update-database
 Cập nhật dữ liệu trong sql <xem phần dưới> 
 ## Note
 
--File database trong thư mục Data-> Database_Design 
+-File database trong thư mục Data-> Database_Design (bản hiện tại: version 5 được cập nhật vào ngày 16/11)
 
--Dữ liệu được lưu dưới dạng .sql trong thư mục Data -> Script
+-Dữ liệu được lưu dưới dạng .sql trong thư mục Data -> Script 
 
 ## License
 
