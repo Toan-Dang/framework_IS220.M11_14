@@ -10,9 +10,9 @@
 }
 <main>
 	<div>
-		  <div class="row mt-4">
+		  <div class="row mt-2">
 			<div class="col">
-				<h5 class="mb-3">@Html.DisplayFor(model => model.ProductName)</h5>
+				<h5 class="mb-3">@Html.DisplayFor(model => model.ProductName) (@Html.DisplayFor(model => model.Color))</h5>
 				<div class="product-slice">
 				   <div class="slider-for">
 					   <div><img src="@Html.DisplayFor(model => model.Picture)"/></div>
@@ -68,11 +68,7 @@
 				@Html.DisplayNameFor(model => model.View)
 			</dt>
 			<dd>
-				@Html.DisplayFor(model => model.View) lượt xem
-			</dd>
-
-			<dd>
-				@Html.DisplayFor(model => model.RawPrice) giá nhập kho
+				@Html.DisplayFor(model => model.View)
 			</dd>
 			<dt>
 				@Html.DisplayNameFor(model => model.ProductDetail) chi tiết 
