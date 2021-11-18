@@ -35,7 +35,10 @@
         </tr>
     </thead>
     <tbody>
-            @{Boolean vis = true;}
+        @{
+              Boolean vis = true;
+
+        }     
         @foreach (var item in Model) {
             <tr>
                 <td>
@@ -66,17 +69,22 @@
 
                 </td>
             </tr>
-        
+
+
             if( vis == true) {
-                @Html.ActionLink("Thanh toán","Index","Orders",new {id = item.OrderId},null)
+                @Html.ActionLink("Thanh toán","Pay",new {id = item.OrderId},null)
                 ;
+
                 vis = false;
 
-            }
+            }  
            
            
         }
+
              
     </tbody>
+           
 </table>
+
      

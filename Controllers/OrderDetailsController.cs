@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using WEB2.Areas.Order;
 using WEB2.Data;
 using WEB2.Models;
 
@@ -17,14 +21,17 @@ namespace WEB2.Controllers {
         private readonly AppDbContext _context;
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly IOptions<MyConfig> _config;
 
         public OrderDetailsController(
             AppDbContext context,
             UserManager<AppUser> userManager,
-            SignInManager<AppUser> signInManager) {
+            SignInManager<AppUser> signInManager,
+            IOptions<MyConfig> config) {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
+            _config = config;
         }
 
         // GET: OrderDetails
@@ -52,6 +59,7 @@ namespace WEB2.Controllers {
                 return NotFound($"Không tải được tài khoản ID = '{_userManager.GetUserId(User)}'.");
             }
             var appDbContext = _context.OrderDetail.Include(o => o.Order).Include(o => o.Product)
+            .Where(o => o.Order.TransactStatus != "done")
             .Where(o => o.Order.CustomerId == customer.CustomerID);
 
             return View(await appDbContext.ToListAsync());
@@ -65,7 +73,7 @@ namespace WEB2.Controllers {
             var order = await _context.Order.Include(o => o.Customer)
                 .Where(o => o.Customer.UserId == userid)
                 .Where(o => o.Deleted == false)
-                .Where(o => o.TransactStatus == "null").FirstOrDefaultAsync();
+                .Where(o => o.TransactStatus != "done").FirstOrDefaultAsync();
 
             if (ModelState.IsValid) {
                 var product = await _context.Product.FirstOrDefaultAsync(p => p.ProductId == productid);
@@ -99,7 +107,12 @@ namespace WEB2.Controllers {
                         Total = product.UnitPrice,
                         Discount = 0,
                     };
+                    product.UnitInOrder += 1;
+
                     _context.Add(cart);
+                    await _context.SaveChangesAsync();
+
+                    _context.Update(product);
                     await _context.SaveChangesAsync();
                 } else {
                     int orderid = order.OrderId;
@@ -126,6 +139,11 @@ namespace WEB2.Controllers {
                             Discount = 0,
                         };
                         _context.Add(cart);
+                        await _context.SaveChangesAsync();
+
+                        product.UnitInOrder += 1;
+
+                        _context.Update(product);
                         await _context.SaveChangesAsync();
                     } else {
                     }
@@ -159,11 +177,95 @@ namespace WEB2.Controllers {
                 .Where(o => o.ProductId == productid).FirstOrDefaultAsync();
             _context.OrderDetail.Remove(orderDetail);
             await _context.SaveChangesAsync();
+
+            var product = await _context.Product.FindAsync(productid);
+            product.UnitInOrder -= 1;
+            _context.Update(product);
+            await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
         private bool OrderDetailExists(int id) {
             return _context.OrderDetail.Any(e => e.OrderId == id);
+        }
+
+        public async Task<IActionResult> Pay(int? id) {
+            if (id == null) {
+                return NotFound();
+            }
+            var user = await _userManager.GetUserAsync(User);
+            var userid = await _userManager.GetUserIdAsync(user);
+
+            var order = await _context.OrderDetail
+                .Include(o => o.Order)
+                .Include(o => o.Order.Customer)
+                .Include(o => o.Order.Payment)
+                .Include(o => o.Order.Shipment)
+                .Include(o => o.Order.Customer)
+                .Include(o => o.Order.Customer.AppUser)
+                .Include(o => o.Product)
+                //.Include(o => o.Order.Customer.Voucher_Details)
+                .Where(o => o.Order.TransactStatus != "done")
+                .Where(o => o.OrderId == id)
+                .Where(o => o.Order.OrderId == id)
+                .Where(o => o.Order.Deleted == false)
+                .Where(o => o.Status == "saved")
+                // .Where(o => o.Fulfilled == false)
+                .Where(o => o.Order.Customer.UserId == userid)
+                .ToListAsync();
+
+            var reorder = await _context.Order.Include(o => o.Customer).Include(o => o.Payment).Include(o => o.Shipment)
+            .FirstOrDefaultAsync();
+
+            // var voucher = await _context.Voucher_Details.Include(v => v.Customer).Include(v =>
+            // v.Voucher) .Where(v => v.Customer.UserId == userid).FirstOrDefaultAsync();
+            if (order == null) {
+                return NotFound();
+            }
+            ViewData["ShipperId"] = new SelectList(_context.Shipment, "ShipperId", "CompanyName", reorder.Shipment.CompanyName);
+            ViewData["PaymentId"] = new SelectList(_context.Payment.Where(o => o.Allowed == true), "PaymentId", "PaymentType", reorder.Payment.PaymentType);
+            // ViewData["VoucherId"] = new SelectList(_context.Voucher, "VoucherId", "VoucherName", voucher.Voucher.VoucherName);
+            return View(order);
+        }
+
+        [HttpPost("payment")]
+        [EnableCors]
+        public async Task<IActionResult> Payment([FromBody] ImageCoordinates coordinates) {
+            var orderid = coordinates.Orderid;
+            var shipaddress = coordinates.Shipaddress;
+            var shipmoney = coordinates.Shippay;
+            var paymoney = coordinates.Paid;
+            var shipcom = coordinates.Shipcompany;
+            var typepay = coordinates.TypePay;
+            //cap nhat dia chi giao hang
+            var order = await _context.Order.FindAsync(orderid);
+            var customer = await _context.Customer.FirstOrDefaultAsync(o => o.CustomerID == order.CustomerId);
+
+            customer.ShipAddress = shipaddress;
+            //cap nhat ship
+            order.Freight = shipmoney;
+            order.Paid = paymoney;
+            //cap nhat ngay hoa don
+            order.OrderDay = DateTime.Now;
+            //cap nhat khoa ngoai
+            order.ShipperId = shipcom;
+            order.PaymentId = typepay;
+            //cap nhat tinh trang hoa don
+            order.TransactStatus = "pending";
+
+            if (ModelState.IsValid) {
+                _context.Update(customer);
+                await _context.SaveChangesAsync();
+                _context.Update(order);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Payment", "Orders", new { id = orderid });
+        }
+
+        private bool CustomerExists(int id) {
+            return _context.Customer.Any(e => e.CustomerID == id);
         }
     }
 }

@@ -14,6 +14,7 @@ using System.Configuration;
 using WEB2.Areas.Order;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Cors;
 
 namespace WEB2.Controllers {
 
@@ -33,150 +34,16 @@ namespace WEB2.Controllers {
         }
 
         // GET: Orders
-        //public async Task<IActionResult> Index()
-        //{
-        //    var appDbContext = _context.Order.Include(o => o.Customer).Include(o => o.Payment).Include(o => o.Shipment);
-        //    return View(await appDbContext.ToListAsync());
-        //}
-
-        // GET: Orders/Details/5
-        public async Task<IActionResult> Index(int? id) {
-            if (id == null) {
-                return NotFound();
-            }
-            var user = await _userManager.GetUserAsync(User);
-            var userid = await _userManager.GetUserIdAsync(user);
-
-            var order = await _context.OrderDetail
-                .Include(o => o.Order)
-                .Include(o => o.Order.Customer)
-                .Include(o => o.Order.Payment)
-                .Include(o => o.Order.Shipment)
-                .Include(o => o.Order.Customer)
-                .Include(o => o.Order.Customer.AppUser)
-                .Include(o => o.Product)
-                //.Include(o => o.Order.Customer.Voucher_Details)
-                .Where(o => o.Order.TransactStatus == "null")
-                .Where(o => o.OrderId == id)
-                .Where(o => o.Order.OrderId == id)
-                .Where(o => o.Order.Deleted == false)
-                .Where(o => o.Status == "saved")
-                // .Where(o => o.Fulfilled == false)
-                .Where(o => o.Order.Customer.UserId == userid)
-                .ToListAsync();
-
-            var reorder = await _context.Order.Include(o => o.Customer).Include(o => o.Payment).Include(o => o.Shipment)
-            .FirstOrDefaultAsync();
-
-            // var voucher = await _context.Voucher_Details.Include(v => v.Customer).Include(v =>
-            // v.Voucher) .Where(v => v.Customer.UserId == userid).FirstOrDefaultAsync();
-            if (order == null) {
-                return NotFound();
-            }
-            ViewData["ShipperId"] = new SelectList(_context.Shipment, "ShipperId", "CompanyName", reorder.Shipment.CompanyName);
-            ViewData["PaymentId"] = new SelectList(_context.Payment.Where(o => o.Allowed == true), "PaymentId", "PaymentType", reorder.Payment.PaymentType);
-            // ViewData["VoucherId"] = new SelectList(_context.Voucher, "VoucherId", "VoucherName", voucher.Voucher.VoucherName);
-            return View(order);
-        }
-
-        // GET: Orders/Create
-        public IActionResult Create() {
+        [EnableCors]
+        public IActionResult Index(int id) {
             return View();
         }
 
-        // POST: Orders/Create To protect from overposting attacks, enable the specific properties
-        // you want to bind to. For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderId,PaymentId,ShipperId,CustomerId,OTP,OrderDay,Freight,ShipDate,RequiredDate,SalesTax,TransactStatus,Errlog,Errmsg,Deleted,Paid,PaymentDate")] Order order) {
-            if (ModelState.IsValid) {
-                _context.Add(order);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["CustomerId"] = new SelectList(_context.Customer, "CustomerID", "CustomerID", order.CustomerId);
-            ViewData["PaymentId"] = new SelectList(_context.Payment, "PaymentId", "PaymentId", order.PaymentId);
-            ViewData["ShipperId"] = new SelectList(_context.Shipment, "ShipperId", "ShipperId", order.ShipperId);
-            return View(order);
-        }
+        // GET: Orders/Details/5
 
         // GET: Orders/Edit/5
-        public async Task<IActionResult> Edit(int? id) {
-            if (id == null) {
-                return NotFound();
-            }
 
-            var order = await _context.Order.FindAsync(id);
-            if (order == null) {
-                return NotFound();
-            }
-            ViewData["CustomerId"] = new SelectList(_context.Customer, "CustomerID", "CustomerID", order.CustomerId);
-            ViewData["PaymentId"] = new SelectList(_context.Payment, "PaymentId", "PaymentId", order.PaymentId);
-            ViewData["ShipperId"] = new SelectList(_context.Shipment, "ShipperId", "ShipperId", order.ShipperId);
-            return View(order);
-        }
-
-        // POST: Orders/Edit/5 To protect from overposting attacks, enable the specific properties
-        // you want to bind to. For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderId,PaymentId,ShipperId,CustomerId,OTP,OrderDay,Freight,ShipDate,RequiredDate,SalesTax,TransactStatus,Errlog,Errmsg,Deleted,Paid,PaymentDate")] Order order) {
-            if (id != order.OrderId) {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid) {
-                try {
-                    _context.Update(order);
-                    await _context.SaveChangesAsync();
-                } catch (DbUpdateConcurrencyException) {
-                    if (!OrderExists(order.OrderId)) {
-                        return NotFound();
-                    } else {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["CustomerId"] = new SelectList(_context.Customer, "CustomerID", "CustomerID", order.CustomerId);
-            ViewData["PaymentId"] = new SelectList(_context.Payment, "PaymentId", "PaymentId", order.PaymentId);
-            ViewData["ShipperId"] = new SelectList(_context.Shipment, "ShipperId", "ShipperId", order.ShipperId);
-            return View(order);
-        }
-
-        // GET: Orders/Delete/5
-        public async Task<IActionResult> Delete(int? id) {
-            if (id == null) {
-                return NotFound();
-            }
-
-            var order = await _context.Order
-                .Include(o => o.Customer)
-                .Include(o => o.Payment)
-                .Include(o => o.Shipment)
-                .FirstOrDefaultAsync(m => m.OrderId == id);
-            if (order == null) {
-                return NotFound();
-            }
-
-            return View(order);
-        }
-
-        // POST: Orders/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id) {
-            var order = await _context.Order.FindAsync(id);
-            _context.Order.Remove(order);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool OrderExists(int id) {
-            return _context.Order.Any(e => e.OrderId == id);
-        }
-
-        public ActionResult Payment() {
+        public async Task<ActionResult> Payment(int id) {
             //string url = ConfigurationManager.AppSettings["Url"];
             //string returnUrl = ConfigurationManager.AppSettings["ReturnUrl"];
             //string tmnCode = ConfigurationManager.AppSettings["TmnCode"];
@@ -188,10 +55,13 @@ namespace WEB2.Controllers {
             string hashSecret = _config.Value.HashSecret;
             PayLib pay = new();
 
+            var order = await _context.Order.FindAsync(id);
+            double money = order.Paid * 100;
+
             pay.AddRequestData("vnp_Version", "2.0.0"); //Phiên bản api mà merchant kết nối. Phiên bản hiện tại là 2.0.0
             pay.AddRequestData("vnp_Command", "pay"); //Mã API sử dụng, mã cho giao dịch thanh toán là 'pay'
             pay.AddRequestData("vnp_TmnCode", tmnCode); //Mã website của merchant trên hệ thống của VNPAY (khi đăng ký tài khoản sẽ có trong mail VNPAY gửi về)
-            pay.AddRequestData("vnp_Amount", "1000000"); //số tiền cần thanh toán, công thức: số tiền * 100 - ví dụ 10.000 (mười nghìn đồng) --> 1000000
+            pay.AddRequestData("vnp_Amount", money.ToString()); //số tiền cần thanh toán, công thức: số tiền * 100 - ví dụ 10.000 (mười nghìn đồng) --> 1000000
             pay.AddRequestData("vnp_BankCode", ""); //Mã Ngân hàng thanh toán (tham khảo: https://sandbox.vnpayment.vn/apis/danh-sach-ngan-hang/), có thể để trống, người dùng có thể chọn trên cổng thanh toán VNPAY
             pay.AddRequestData("vnp_CreateDate", DateTime.Now.ToString("yyyyMMddHHmmss")); //ngày thanh toán theo định dạng yyyyMMddHHmmss
             pay.AddRequestData("vnp_CurrCode", "VND"); //Đơn vị tiền tệ sử dụng thanh toán. Hiện tại chỉ hỗ trợ VND
@@ -200,17 +70,20 @@ namespace WEB2.Controllers {
             pay.AddRequestData("vnp_OrderInfo", "Thanh toan don hang"); //Thông tin mô tả nội dung thanh toán
             pay.AddRequestData("vnp_OrderType", "other"); //topup: Nạp tiền điện thoại - billpayment: Thanh toán hóa đơn - fashion: Thời trang - other: Thanh toán trực tuyến
             pay.AddRequestData("vnp_ReturnUrl", returnUrl); //URL thông báo kết quả giao dịch khi Khách hàng kết thúc thanh toán
-            pay.AddRequestData("vnp_TxnRef", DateTime.Now.Ticks.ToString()); //mã hóa đơn
+            pay.AddRequestData("vnp_TxnRef", order.OrderId.ToString()); //mã hóa đơn
 
             string paymentUrl = pay.CreateRequestUrl(url, hashSecret);
-
             return Redirect(paymentUrl);
+
+            // return RedirectToAction("Pay",new { url = paymentUrl });
         }
 
-        public ActionResult PaymentConfirm() {
-            var queryString = HttpContext.Request.QueryString;
+        public ActionResult Pay(string url) {
+            return Redirect(url);
+        }
+
+        public async Task<ActionResult> PaymentConfirm() {
             if (HttpContext.Request.Query.Count > 0) {
-                //string hashSecret = ConfigurationManager.AppSettings["HashSecret"]; //Chuỗi bí mật
                 string hashSecret = _config.Value.HashSecret;
                 var vnpayData = Request.Query;
 
@@ -221,24 +94,58 @@ namespace WEB2.Controllers {
                     pay.AddResponseData(s.Key, s.Value);
                 }
 
-                long orderId = Convert.ToInt64(pay.GetResponseData("vnp_TxnRef")); //mã hóa đơn
+                int orderId = Convert.ToInt32(pay.GetResponseData("vnp_TxnRef")); //mã hóa đơn
                 long vnpayTranId = Convert.ToInt64(pay.GetResponseData("vnp_TransactionNo")); //mã giao dịch tại hệ thống VNPAY
                 string vnp_ResponseCode = pay.GetResponseData("vnp_ResponseCode"); //response code: 00 - thành công, khác 00 - xem thêm https://sandbox.vnpayment.vn/apis/docs/bang-ma-loi/
                 string vnp_SecureHash = HttpContext.Request.Query["vnp_SecureHash"]; //hash của dữ liệu trả về
 
                 bool checkSignature = pay.ValidateSignature(vnp_SecureHash, hashSecret); //check chữ ký đúng hay không?
-
+                var order = await _context.Order.FindAsync(orderId);
                 if (checkSignature) {
                     if (vnp_ResponseCode == "00") {
                         //Thanh toán thành công
                         ViewBag.Message = "Thanh toán thành công hóa đơn " + orderId + " | Mã giao dịch: " + vnpayTranId;
+
+                        order.OTP = "123456";
+
+                        order.TransactStatus = "done";
+                        order.ResponseCode = vnp_ResponseCode;
+                        order.SecureHash = vnp_SecureHash;
+                        order.PaymentDate = DateTime.Now;
                     } else {
                         //Thanh toán không thành công. Mã lỗi: vnp_ResponseCode
                         ViewBag.Message = "Có lỗi xảy ra trong quá trình xử lý hóa đơn " + orderId + " | Mã giao dịch: " + vnpayTranId + " | Mã lỗi: " + vnp_ResponseCode;
+                        order.Errlog = vnp_ResponseCode;
                     }
                 } else {
                     ViewBag.Message = "Có lỗi xảy ra trong quá trình xử lý";
                 }
+                order.TransactionNo = vnpayTranId.ToString();
+
+                //cap nhat order
+                _context.Update(order);
+                await _context.SaveChangesAsync();
+                //cap nhat tinh trang cua gio hang
+                var orderdetail = await _context.OrderDetail.Where(o => o.OrderId == orderId).ToListAsync();
+
+                foreach (var item in orderdetail) {
+                    item.Status = "solved";
+                    //update so luong san pham
+                    var product = await _context.Product.Where(p => p.ProductId == item.ProductId).FirstAsync();
+                    product.AvailableVersion -= item.Quantity;
+                    product.AvailableColor -= item.Quantity;
+                    product.UnitInStock -= item.Quantity;
+                    product.ProductAvailable -= item.Quantity;
+                    product.CurrentOrder += item.Quantity;
+                    product.UnitInOrder -= 1;
+
+                    _context.Update(product);
+                    await _context.SaveChangesAsync();
+                    _context.Update(item);
+                    await _context.SaveChangesAsync();
+                }
+
+                //cap nhat so luong san pham
             }
 
             return View();

@@ -1,18 +1,20 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using WEB2.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace WEB2.Areas.Admin.Pages.Role {
 
-    [Authorize("Admin")]
     public class IndexModel : PageModel {
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public IndexModel( RoleManager<IdentityRole> roleManager ) {
+        public IndexModel(RoleManager<IdentityRole> roleManager) {
             _roleManager = roleManager;
         }
 

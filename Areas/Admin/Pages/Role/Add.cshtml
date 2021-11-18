@@ -4,6 +4,7 @@
     var btnText = Model.IsUpdate ? "Cập nhật" : "Tạo mới";
 }
 
+
 <h1 class="h3 mb-1 text-gray-800">@ViewData["Title"]</h1>
 <partial name="_StatusMessage" model="@Model.StatusMessage" />
 
@@ -11,8 +12,8 @@
     <div class="col-md-6">
         <form method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
-            <input type="hidden" asp-for="Input.ID">
-            <input type="hidden" asp-for="IsUpdate">
+            <input type="hidden"  asp-for="Input.ID">
+            <input type="hidden"  asp-for="IsUpdate">
             <div class="form-group">
                 <label asp-for="Input.Name"></label>
                 <input asp-for="Input.Name" class="form-control">

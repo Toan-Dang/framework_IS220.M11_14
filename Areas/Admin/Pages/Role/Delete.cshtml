@@ -1,7 +1,7 @@
 @page
 @model WEB2.Areas.Admin.Pages.Role.DeleteModel
 @{
-    ViewData["Title"] = "Xóa role";
+   ViewData["Title"] = "Xóa role";
 }
 
 <h1 class="h3 mb-1 text-gray-800">@ViewData["Title"]</h1>
@@ -10,8 +10,8 @@
         <p>Bạn có chăc chắn xóa Role <strong>@Model.Input.Name</strong> </p>
         <form method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
-            <input type="hidden" asp-for="Input.ID">
-            <input type="hidden" asp-for="isConfirmed">
+            <input type="hidden"  asp-for="Input.ID">
+            <input type="hidden"  asp-for="isConfirmed">
             <a class="btn btn-primary" asp-page="./Index">Danh sách</a>
             <button type="submit" asp-page="./Delete" class="btn btn-danger">Xóa</button>
         </form>
@@ -21,3 +21,4 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+
