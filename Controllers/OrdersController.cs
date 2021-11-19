@@ -108,7 +108,7 @@ namespace WEB2.Controllers {
 
                         order.OTP = "123456";
 
-                        order.TransactStatus = "done";
+                        order.TransactStatus = "paid";
                         order.ResponseCode = vnp_ResponseCode;
                         order.SecureHash = vnp_SecureHash;
                         order.PaymentDate = DateTime.Now;

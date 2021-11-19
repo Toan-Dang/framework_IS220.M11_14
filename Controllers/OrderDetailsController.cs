@@ -59,6 +59,7 @@ namespace WEB2.Controllers {
                 return NotFound($"Không tải được tài khoản ID = '{_userManager.GetUserId(User)}'.");
             }
             var appDbContext = _context.OrderDetail.Include(o => o.Order).Include(o => o.Product)
+            .Where(o => o.Order.TransactStatus != "paid")
             .Where(o => o.Order.TransactStatus != "done")
             .Where(o => o.Order.CustomerId == customer.CustomerID);
 
@@ -73,7 +74,9 @@ namespace WEB2.Controllers {
             var order = await _context.Order.Include(o => o.Customer)
                 .Where(o => o.Customer.UserId == userid)
                 .Where(o => o.Deleted == false)
-                .Where(o => o.TransactStatus != "done").FirstOrDefaultAsync();
+                .Where(o => o.TransactStatus != "paid")
+                .Where(o => o.TransactStatus != "done")
+                .FirstOrDefaultAsync();
 
             if (ModelState.IsValid) {
                 var product = await _context.Product.FirstOrDefaultAsync(p => p.ProductId == productid);
@@ -206,6 +209,7 @@ namespace WEB2.Controllers {
                 .Include(o => o.Order.Customer.AppUser)
                 .Include(o => o.Product)
                 //.Include(o => o.Order.Customer.Voucher_Details)
+                .Where(o => o.Order.TransactStatus != "paid")
                 .Where(o => o.Order.TransactStatus != "done")
                 .Where(o => o.OrderId == id)
                 .Where(o => o.Order.OrderId == id)
