@@ -182,11 +182,6 @@ namespace WEB2 {
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-                endpoints.MapControllerRoute(
-                    name: "learnasproute", // đặt tên route
-                    defaults: new { controller = "LearnAsp", action = "Index" },
-                    pattern: "learn-asp-net/{id:int?}");
-
                 // Đến Razor Page
                 endpoints.MapRazorPages();
             });
