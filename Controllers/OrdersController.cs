@@ -120,6 +120,7 @@ namespace WEB2.Controllers {
                 } else {
                     ViewBag.Message = "Có lỗi xảy ra trong quá trình xử lý";
                 }
+
                 order.TransactionNo = vnpayTranId.ToString();
 
                 //cap nhat order

@@ -27,6 +27,7 @@ namespace WEB2.Areas.Admin.Controllers {
                 .Include(o => o.Order.Customer.AppUser)
                 .Include(o => o.Product)
                 .Where(p => p.Order.TransactStatus != "null")
+                .Where(p => p.Order.TransactStatus != "pending")
                 .Where(p => p.Status == "solved")
                 .ToListAsync();
 

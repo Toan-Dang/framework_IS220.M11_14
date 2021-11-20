@@ -61,6 +61,7 @@ namespace WEB2.Controllers {
             var appDbContext = _context.OrderDetail.Include(o => o.Order).Include(o => o.Product)
             .Where(o => o.Order.TransactStatus != "paid")
             .Where(o => o.Order.TransactStatus != "done")
+            .Where(o => o.Order.TransactStatus != "pay by cash")
             .Where(o => o.Order.CustomerId == customer.CustomerID);
 
             return View(await appDbContext.ToListAsync());
@@ -76,6 +77,7 @@ namespace WEB2.Controllers {
                 .Where(o => o.Deleted == false)
                 .Where(o => o.TransactStatus != "paid")
                 .Where(o => o.TransactStatus != "done")
+                .Where(o => o.TransactStatus != "pay by cash")
                 .FirstOrDefaultAsync();
 
             if (ModelState.IsValid) {
@@ -211,6 +213,7 @@ namespace WEB2.Controllers {
                 //.Include(o => o.Order.Customer.Voucher_Details)
                 .Where(o => o.Order.TransactStatus != "paid")
                 .Where(o => o.Order.TransactStatus != "done")
+                .Where(o => o.Order.TransactStatus != "pay by cash")
                 .Where(o => o.OrderId == id)
                 .Where(o => o.Order.OrderId == id)
                 .Where(o => o.Order.Deleted == false)
@@ -257,6 +260,17 @@ namespace WEB2.Controllers {
             order.PaymentId = typepay;
             //cap nhat tinh trang hoa don
             order.TransactStatus = "pending";
+            //nếu trả bằng tiền mặt:
+            if (typepay == 1) {
+                order.TransactStatus = "pay by cash";
+                var orderdetail = await _context.OrderDetail.Where(p => p.OrderId == orderid).Where(p => p.Status == "saved").ToListAsync();
+                foreach (var item in orderdetail) {
+                    item.Status = "solved";
+
+                    _context.Update(item);
+                    await _context.SaveChangesAsync();
+                }
+            }
 
             if (ModelState.IsValid) {
                 _context.Update(customer);
