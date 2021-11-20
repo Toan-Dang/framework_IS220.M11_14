@@ -1,7 +1,9 @@
-﻿@page
-@model WEB2.Areas.Admin.Pages.Manage.DashBoard1Model
+﻿@model IEnumerable<WEB2.Models.OrderDetail>
+
 @{
+    ViewData["Title"] = "Dashboard1";
 }
+
 <head>
     <link rel="stylesheet" href="~/vendor/owl-carousel/css/owl.carousel.min.css">
     <link rel="stylesheet" href="~/vendor/owl-carousel/css/owl.theme.default.min.css">
@@ -13,59 +15,60 @@
     <!-- row -->
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-3 col-sm-6">
-                <div class="card">
-                    <div class="stat-widget-two card-body">
-                        <div class="stat-content">
-                            <div class="stat-text">Doanh số hôm nay </div>
-                            <div class="stat-digit"> <i class="fa fa-usd"></i>8500</div>
-                        </div>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-success w-85" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="card">
-                    <div class="stat-widget-two card-body">
-                        <div class="stat-content">
-                            <div class="stat-text">Chi phí hôm nay</div>
-                            <div class="stat-digit"> <i class="fa fa-usd"></i>7800</div>
-                        </div>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-primary w-75" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"></div>
+         <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="stat-widget-two card-body">
+                                <div class="stat-content">
+                                    <div class="stat-text">Today Expenses </div>
+                                    <div class="stat-digit"> <i class="fa fa-usd"></i>8500</div>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success w-85" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="card">
-                    <div class="stat-widget-two card-body">
-                        <div class="stat-content">
-                            <div class="stat-text">Số đơn trong ngày</div>
-                            <div class="stat-digit"> <i class="fa fa-usd"></i> 500</div>
-                        </div>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-warning w-50" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                    <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Web Server</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="cpu-load-chart">
-                            <div id="cpu-load" class="cpu-load"></div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="stat-widget-two card-body">
+                                <div class="stat-content">
+                                    <div class="stat-text">Income Detail</div>
+                                    <div class="stat-digit"> <i class="fa fa-usd"></i>7800</div>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-primary w-75" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!-- /# card -->
-            </div>
-            <!-- /# column -->
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="stat-widget-two card-body">
+                                <div class="stat-content">
+                                    <div class="stat-text">Task Completed</div>
+                                    <div class="stat-digit"> <i class="fa fa-usd"></i> 500</div>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-warning w-50" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="stat-widget-two card-body">
+                                <div class="stat-content">
+                                    <div class="stat-text">Task Completed</div>
+                                    <div class="stat-digit"> <i class="fa fa-usd"></i>650</div>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-danger w-65" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /# card -->
+                    </div>
+            <!-- /# column -->                          
         </div>
         <div class="row">
             <div class="col-xl-8 col-lg-8 col-md-8">
@@ -291,83 +294,40 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                          
+                            @foreach (var item in Model){
+                                 <tr>
                                         <td>
                                             <div class="round-img">
                                                 <a href=""><img width="35" src="~/images/avatar/1.png" alt=""></a>
                                             </div>
                                         </td>
-                                        <td>Lew Shawon</td>
-                                        <td><span>Dell-985</span></td>
-                                        <td><span>456 pcs</span></td>
-                                        <td><span class="badge badge-success">Done</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="round-img">
-                                                <a href=""><img width="35" src="~/images/avatar/1.png" alt=""></a>
-                                            </div>
-                                        </td>
-                                        <td>Lew Shawon</td>
-                                        <td><span>Asus-565</span></td>
-                                        <td><span>456 pcs</span></td>
-                                        <td><span class="badge badge-warning">Pending</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="round-img">
-                                                <a href=""><img width="35" src="~/images/avatar/1.png" alt=""></a>
-                                            </div>
-                                        </td>
-                                        <td>lew Shawon</td>
-                                        <td><span>Dell-985</span></td>
-                                        <td><span>456 pcs</span></td>
-                                        <td><span class="badge badge-success">Done</span></td>
-                                    </tr>
+                                        <td>@Html.DisplayFor(model => item.Order.Customer.AppUser.FullName)</td>
+                                        <td><span>@Html.DisplayFor(model => item.OrderId)</span></td>
+                                        <td><span>@Html.DisplayFor(model => item.Product.ProductName)</span></td>
+                                        <td><span>@Html.DisplayFor(model => item.Quantity)</span></td>
+                                      
+                                        @{string color = "badge badge-warning";    }
 
-                                    <tr>
-                                        <td>
-                                            <div class="round-img">
-                                                <a href=""><img width="35" src="~/images/avatar/1.png" alt=""></a>
-                                            </div>
-                                        </td>
-                                        <td>Lew Shawon</td>
-                                        <td><span>Asus-565</span></td>
-                                        <td><span>456 pcs</span></td>
-                                        <td><span class="badge badge-warning">Pending</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="round-img">
-                                                <a href=""><img width="35" src="~/images/avatar/1.png" alt=""></a>
-                                            </div>
-                                        </td>
-                                        <td>lew Shawon</td>
-                                        <td><span>Dell-985</span></td>
-                                        <td><span>456 pcs</span></td>
-                                        <td><span class="badge badge-success">Done</span></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                            <div class="round-img">
-                                                <a href=""><img width="35" src="~/images/avatar/1.png" alt=""></a>
-                                            </div>
-                                        </td>
-                                        <td>Lew Shawon</td>
-                                        <td><span>Asus-565</span></td>
-                                        <td><span>456 pcs</span></td>
-                                        <td><span class="badge badge-warning">Pending</span></td>
-                                    </tr>
+                                        @if(item.Order.TransactStatus.Equals("done")){
+                                            color = "badge badge-success" ;
+                                        }
+                                         
+                                        <td><span class= "@color" >@Html.DisplayFor(model => item.Order.TransactStatus)</span></td>
+                                    </tr>   
+                               }
                                 </tbody>
+                               
+                             
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+       
         <div class="row">
-            <div class="col-lg-6 col-xl-4 col-xxl-6 col-md-6">
+           @*  <div class="col-lg-6 col-xl-4 col-xxl-6 col-md-6">
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Timeline</h4>
@@ -522,7 +482,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>      *@
             <div class="col-xl-12 col-xxl-6 col-lg-6 col-md-12">
                 <div class="row">
                     <div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6 col-md-6">

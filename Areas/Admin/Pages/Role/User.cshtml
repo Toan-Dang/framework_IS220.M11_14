@@ -4,6 +4,7 @@
     ViewData["Title"] = "DANH SÁCH NGƯỜI DÙNG";
 }
 
+
 <h1 class="h3 mb-1 text-gray-800">@ViewData["Title"]</h1>
 
 <partial name="_StatusMessage" model="@Model.StatusMessage" />
@@ -14,20 +15,19 @@
         <th>Roles</th>
         <th>Actions</th>
     </tr>
-    @foreach (var user in @Model.users) {
+    @foreach (var user in @Model.users)
+    {
         <tr>
             <td>@user.UserName</td>
             <td>@user.listroles</td>
             <td>
                 <form method="POST" class="d-inline">
-                    <button name="Input.ID" value="@user.Id" class="btn btn-primary btn-sm"
-                            asp-page="./AddUserRole">
-                        Cập nhật Role
-                    </button>
+                <button name="Input.ID" value="@user.Id" class="btn btn-primary btn-sm" 
+                        asp-page="./AddUserRole">Cập nhật Role</button>
                 </form>
             </td>
         </tr>
-
+        
     }
 </table>
 
@@ -36,15 +36,15 @@
 }
 @{
 
-    Func<int?, string> generateUrl = ( int? _pagenumber ) => {
-        return Url.Page("./User", new { pageNumber = _pagenumber });
+    Func<int?,string> generateUrl = (int? _pagenumber)  => {
+        return Url.Page("./User", new {pageNumber = _pagenumber});
     };
 
     var datapaging = new {
         currentPage = Model.pageNumber,
-        countPages = Model.totalPages,
-        generateUrl = generateUrl
+        countPages  = Model.totalPages,
+        generateUrl =  generateUrl
     };
 
 }
-<partial name="_Paging" model="@datapaging" />
+<!--<partial name="_Paging" model="@datapaging" />       -->

@@ -1,17 +1,20 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
+using WEB2.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace WEB2.Areas.Admin.Pages.Role {
 
-    [Authorize("Admin")]
     public class AddModel : PageModel {
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AddModel( RoleManager<IdentityRole> roleManager ) {
+        public AddModel(RoleManager<IdentityRole> roleManager) {
             _roleManager = roleManager;
         }
 
@@ -56,8 +59,7 @@ namespace WEB2.Areas.Admin.Pages.Role {
                 Input.Name = result.Name;
                 ViewData["Title"] = "Cập nhật role : " + Input.Name;
                 ModelState.Clear();
-            }
-            else {
+            } else {
                 StatusMessage = "Error: Không có thông tin về Role ID = " + Input.ID;
             }
 
@@ -83,27 +85,23 @@ namespace WEB2.Areas.Admin.Pages.Role {
                     var roleUpdateRs = await _roleManager.UpdateAsync(result);
                     if (roleUpdateRs.Succeeded) {
                         StatusMessage = "Đã cập nhật role thành công";
-                    }
-                    else {
+                    } else {
                         StatusMessage = "Error: ";
                         foreach (var er in roleUpdateRs.Errors) {
                             StatusMessage += er.Description;
                         }
                     }
-                }
-                else {
+                } else {
                     StatusMessage = "Error: Không tìm thấy Role cập nhật";
                 }
-            }
-            else {
+            } else {
                 // TẠO MỚI
                 var newRole = new IdentityRole(Input.Name);
                 var rsNewRole = await _roleManager.CreateAsync(newRole);
                 if (rsNewRole.Succeeded) {
                     StatusMessage = $"Đã tạo role mới thành công: {newRole.Name}";
                     return RedirectToPage("./Index");
-                }
-                else {
+                } else {
                     StatusMessage = "Error: ";
                     foreach (var er in rsNewRole.Errors) {
                         StatusMessage += er.Description;

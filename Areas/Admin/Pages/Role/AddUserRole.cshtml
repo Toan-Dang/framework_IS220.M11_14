@@ -1,7 +1,7 @@
 @page
 @model WEB2.Areas.Admin.Pages.Role.AddUserRole
 @{
-    ViewData["Title"] = @Model.Input.Name;
+   ViewData["Title"] = @Model.Input.Name;
 }
 
 <h1 class="h3 mb-1 text-gray-800">@ViewData["Title"]</h1>
@@ -13,13 +13,13 @@
             <div class="form-group">
                 @Html.LabelFor(x => x.Input.RoleNames)
                 @Html.ListBoxFor(x => x.Input.RoleNames,
-                    new SelectList(Model.AllRoles),
-                    new { @class = "w-100", id = "selectrole" })
+                    new SelectList( Model.AllRoles ),
+                    new {@class="w-100", id = "selectrole"})
             </div>
 
             <div asp-validation-summary="All" class="text-danger"></div>
-            <input type="hidden" asp-for="Input.ID">
-            <input type="hidden" asp-for="isConfirmed">
+            <input type="hidden"  asp-for="Input.ID">
+            <input type="hidden"  asp-for="isConfirmed">
             <a class="btn btn-primary" asp-page="./User">Danh sách</a>
             <button type="submit" class="btn btn-danger">Cập nhật</button>
         </form>
@@ -30,12 +30,14 @@
     <script src="~/lib/multiple-select/multiple-select.min.js"></script>
     <link rel="stylesheet" href="~/lib/multiple-select/multiple-select.min.css" />
     <script>
-        $('#selectrole').multipleSelect({
-            selectAll: false,
-            keepOpen: false,
-            isOpen: false
-        });
+          $('#selectrole').multipleSelect({
+                selectAll: false,
+                keepOpen: false,
+                isOpen: false
+            });
     </script>
+
 
     <partial name="_ValidationScriptsPartial" />
 }
+

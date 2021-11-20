@@ -1,17 +1,20 @@
-using Microsoft.AspNetCore.Authorization;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
+using WEB2.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace WEB2.Areas.Admin.Pages.Role {
 
-    [Authorize("Admin")]
     public class DeleteModel : PageModel {
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public DeleteModel( RoleManager<IdentityRole> roleManager ) {
+        public DeleteModel(RoleManager<IdentityRole> roleManager) {
             _roleManager = roleManager;
         }
 
@@ -52,8 +55,7 @@ namespace WEB2.Areas.Admin.Pages.Role {
                 StatusMessage = "Đã xóa " + role.Name;
 
                 return RedirectToPage("Index");
-            }
-            else {
+            } else {
                 Input.Name = role.Name;
                 isConfirmed = true;
             }
