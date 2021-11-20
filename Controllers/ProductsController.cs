@@ -66,6 +66,7 @@ namespace WEB2.Controllers {
             }
 
             var product = await _context.Product
+                .Include(p => p.Category)
                 .Include(p => p.Battery)
                 .Include(p => p.Camera)
                 .Include(p => p.Category)

@@ -2,36 +2,45 @@
 .product-slice {
     width: 400px;
     height: 400px;
-    border: 1px solid #D1D5DB;
+    border: 1px solid white;
     border-radius: 10px;
+    box-shadow: rgb(60 64 67 / 10%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 2px 6px 2px;
 }
     .product-slice img {
         width: 350px;
         height: 350px;
     }
-.slider-for {
-    margin: 25px;
-}
-.selection {
+.product-slice-nav {
+    margin-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     width: 400px;
     height: 100px;
+    border: 1px solid white;
     border-radius: 10px;
+    box-shadow: rgb(60 64 67 / 10%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 2px 6px 2px;
 }
-    .selection img {
-        width: 75px;
-        height: 75px;
-        padding: 7px;
-    }
-    .selection > div {
+    .product-slice-nav img {
+        width: 80px;
+        height: 80px;
+        border: 1px solid #D1D5DB;
+        padding: 5px;
+        border-radius: 10px;
         margin: auto;
     }
-    .selection > div > div {
-        border: 1px solid #D1D5DB;
-        border-radius: 10px;
+
+    .slider-nav > div {
         justify-content: center;
     }
-.slick-prev, .slick-next {
-    background-color: rgb(255 255 255) !important;
+    .slider-for {
+        margin: 25px;
+    }
+.col {
+    margin-bottom: 100px;
+}
+
+.product-slice .slick-prev, .product-slice .slick-next {
+    background-color: transparent;
     z-index: 1;
     width: 40px !important;
     height: 60px !important;
@@ -39,38 +48,230 @@
     border-radius: 5px;
     top: 49% !important;
 }
-.slick-prev {
-    border-radius: 7px !important;
-    box-shadow: 6px 0px 4px rgb(0 0 0 / 10%), 4px 0 4px rgb(0 0 0 / 18%);
+.product-slice .slick-prev {
+    box-shadow: none !important;
 }
 
-.slick-next {
-    border-radius: 10px !important;
-    box-shadow: -6px 0 4px rgb(0 0 0 / 10%), -4px 0 4px rgb(0 0 0 / 18%);
+.product-slice .slick-next {
+    box-shadow: none !important;
 }
 
-    .slick-prev:before, .slick-next:before {
+    .product-slice .slick-prev:before, .product-slice .slick-next:before {
         color: rgb(158 158 158 / 0.5) !important;
         font-size: 32px !important;
     }
 
-    .slick-prev:hover, .slick-next:hover {
-        transition: 1s ease-in-out;
-    }
 
-.slick-prev:focus {
+.product-slice .slick-prev:focus {
     box-shadow: 6px 1px 4px rgb(0 0 0 / 10%), 4px 0 4px rgb(0 0 0 / 18%);
 }
 
-.slick-next:focus {
+.product-slice .slick-next:focus {
     box-shadow: -6px 0 4px rgb(0 0 0 / 10%), -4px 0 4px rgb(0 0 0 / 18%);
 }
-h4.unitprice{
+h3.unitprice{
     color: #be1e2d; 
     font-weight: bold;
     display: inline;
 }
-h5.msrp {
-    font-style: italic;
-    display: inline;
+
+#price2 {
+    color: #666;
+    text-decoration: line-through 1px #666;
+}
+    .headerpath {
+        border-bottom: 1px solid #D1D5DB !important;
+    }
+    .headerpath > span > a:link {
+        color: black;
+        text-decoration: none;
+    }
+    .headerpath > span > a:visited {
+        color: black;
+        text-decoration: none;
+    }
+    .headerpath > span > a:hover {
+        color: black;
+        text-decoration: none;
+    }
+    .headerpath > span > a:active {
+        color: black;
+        text-decoration: none;
+    }
+
+.info {
+    margin-top: 35px;
+    border-radius: 10px;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 8px;
+    box-shadow: rgb(60 64 67 / 10%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 2px 6px 2px;
+}
+    .info > div {
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+.info > div > .table > tbody > tr > td {
+    padding: 0.4rem;
+    vertical-align: middle;
+    border-top: none;
+    text-align: left;
+    padding-left: 10px;
+}
+.cauhinhchitiet {
+    margin: auto;
+    margin-bottom: 30px;
+    border: 1px solid #F2F2F2;
+    border-radius: 10px;
+    padding-bottom: 10px;
+}
+    .cauhinhchitiet tr > td {
+        padding: 0.5rem;
+        vertical-align: middle;
+        border-top: none;
+        text-align: left;
+        padding-left: 20px;
+        font-size: 15px;
+        text-align: left;
+    }
+.table tr{
+    border: 1px solid #F2F2F2;
+}
+    .cauhinhchitiet tr > td {
+        max-width: 25px;
+    }
+    .cauhinhchitiet > div > h6 {
+        padding-left: 0.5rem;
+        color: #be1e2d;
+    }
+.cauhinhchitiet tr > td:first-child {
+    font-weight: 500;
+    width: 25%
+}
+.cauhinhchitiet .table{
+    width: 98%;
+}
+table {
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.info > a {
+    width: 10.5%;
+    width: 95%;
+    font-size: 14px;
+    box-shadow: rgb(60 64 67 / 10%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 2px 6px 2px;
+}
+
+    .info > a:hover {
+        color: white !important;
+        background-color: #be1e2d;
+        transition: 0.1s;
+        cursor: pointer;
+    }
+.info tr > td:first-child {
+    font-weight: 500;
+}
+.cauhinhchitiet > div {
+    margin-top: 30px;
+}
+
+
+.clickbuy > a {
+    background-color: rgb(26, 148, 255);
+    position: absolute;
+    margin-top: 20px;
+    color: white;
+    padding: 10px;
+    width: 92%;
+    border-radius: 10px;
+    text-align: center;
+}
+    .clickbuy > a:link{
+        text-decoration: none;
+    }
+        .clickbuy > a:visited {
+            text-decoration: none;
+        }
+        .clickbuy > a:hover {
+            text-decoration: none;
+        }
+        .clickbuy > a:active {
+            text-decoration: none;
+        }
+.clickbuy  p {
+    margin-bottom: 0px;
+}
+
+.uudai {
+    position: absolute;
+    box-shadow: rgb(60 64 67 / 10%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 2px 6px 2px;
+    border-radius: 10px;
+}
+    .uudai > h6 {
+        padding: 10px;
+        background-color: #be1e2d;
+        border-radius: 10px 10px 0px 0px;
+        color: white;
+        margin-bottom: 0px;
+    }
+.uudaicontent > p > i {
+    color: #be1e2d;
+}
+.thongtinmay {
+    position: absolute;
+    box-shadow: rgb(60 64 67 / 10%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 2px 6px 2px;
+    border-radius: 10px;
+}
+    .thongtinmay > h6 {
+        padding: 10px;
+        background-color: #f6f6f6;
+        border-radius: 10px 10px 0px 0px;
+        margin-bottom: 0px;
+    }
+
+.uudaicontent, .thongtincontent, .quatangcontent {
+    margin: auto;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 1px;
+    font-size: 14px;
+}
+
+    .uudaicontent ul, .thongtincontent ul, .quatangcontent ul {
+        padding-left: 20px;
+    }
+    .uudaicontent li::marker, .quatangcontent li::marker {
+        content: "✅";
+    }
+    .thongtincontent li::marker {
+        content: "🛡";
+    }
+.quatangdikem {
+    position: absolute;
+    box-shadow: rgb(60 64 67 / 10%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 2px 6px 2px;
+    border-radius: 10px;
+}
+    .quatangdikem > h6 {
+        padding: 10px;
+        background-color: #be1e2d;
+        border-radius: 10px 10px 0px 0px;
+        margin-bottom: 0px;
+        color: white;
+    }
+.grouping > div {
+    margin-bottom: 8px;
+}
+    .grouping > div > a {
+        border: 1px solid #e0e0e0;
+        color: #333;
+    }
+
+.showing {
+    display: block;
+}
+.hiding {
+    display: none;
 }
