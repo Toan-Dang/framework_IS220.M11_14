@@ -1,249 +1,787 @@
 @model WEB2.Models.Product
 
 @{
-    ViewData["Title"] = "Details";
+	ViewData["Title"] = @Html.DisplayFor(model => model.ProductName);
 }
 @section Styles {
-<link href="@Url.Content("/css/views/product/details.css")" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css")" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css")" rel="stylesheet" type="text/css" />
+	<link href="@Url.Content("/css/views/product/details.css")" rel="stylesheet" type="text/css" />
+   <link href="@Url.Content("//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css")" rel="stylesheet" type="text/css" />
+	  <link href="@Url.Content("//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css")" rel="stylesheet" type="text/css" />
 }
+<div class="headerpath pb-2">
+	<span>
+		<a href="/">Trang chủ</a>
+		<i class="bi bi-caret-right-fill"></i>
+		<a id="cate" href="/"></a>
+		<i class="bi bi-caret-right-fill"></i>
+		<a id="brand" >@Html.DisplayFor(model => model.Category.CategoryName)</a>
+	</span>
+</div>
 <main>
-    <div>
-        <div class="row mt-2">
-            <div class="col">
-                <h5 class="mb-3">@Html.DisplayFor(model => model.ProductName) (@Html.DisplayFor(model => model.Color))</h5>
-                <div class="product-slice">
-                    <div class="slider-for">
-                        <div><img src="@Html.DisplayFor(model => model.Picture)" /></div>
-                        <div><img src="@Html.DisplayFor(model => model.Picture)" /></div>
-                        <div><img src="@Html.DisplayFor(model => model.Picture)" /></div>
-                        <div><img src="@Html.DisplayFor(model => model.Picture)" /></div>
-                        <div><img src="@Html.DisplayFor(model => model.Picture)" /></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="mb-3 mt-3">
-                    <h4 class="unitprice">@Html.DisplayFor(model => model.UnitPrice) ₫</h4>
-                    <h6 class="msrp"><span>@Html.DisplayFor(model => model.MSRP) ₫</span></h6>
-                </div>
-            </div>
-            <div class="col">
-                3 of 3
-            </div>
-        </div>
-    </div>
+	<div>
+		  <div class="row mt-2">
+			<div class="col">
+				<h5 class="mb-3">@Html.DisplayFor(model => model.ProductName)</h5>
+				<div class="product-slice">
+				   <div class="slider-for">
+					   <div><img src="@Html.DisplayFor(model => model.Picture)"/></div>
+					    <div><img src="@Html.DisplayFor(model => model.Picture)"/></div>
+						<div><img src="@Html.DisplayFor(model => model.Picture)"/></div>
+						<div><img src="@Html.DisplayFor(model => model.Picture)"/></div>
+					    <div><img src="@Html.DisplayFor(model => model.Picture)"/></div>
+						<div><img src="@Html.DisplayFor(model => model.Picture)"/></div>
+				   </div>
+			   </div>
+			   <div class="product-slice-nav">
+				   <div class="slider-nav">
+					   <div><img src="@Html.DisplayFor(model => model.Picture)"/></div>
+					    <div><img src="@Html.DisplayFor(model => model.Picture)"/></div>
+						<div><img src="@Html.DisplayFor(model => model.Picture)"/></div>
+						<div><img src="@Html.DisplayFor(model => model.Picture)"/></div>
+					    <div><img src="@Html.DisplayFor(model => model.Picture)"/></div>
+						<div><img src="@Html.DisplayFor(model => model.Picture)"/></div>
+				   </div>
+			   </div>
+			</div>
+			<div class="col">
+			  <div style="padding-top: 35px">
+				<h3 class="unitprice"><span id="price1"></span></h3> 
+				<h5 class="msrp" style="display: inline; margin-left: 20px"><span id="price2"></span></h5>
+			  </div>
+			  <div class="clickbuy">
+				@Html.ActionLink("MUA NGAY<p><i class='bi bi-cart-check-fill'></i>  Miễn phí vận chuyển toàn quốc</p>","AddCart","OrderDetails",new {productid = @Model.ProductId},null)
 
+			  </div>
+			  <div class="grouping" style="position: relative; top: 100px;">
+				  <div class="phienban">
+					  <h6>Phiên bản</h6>
+					  <a class="btn">128 GB</a>
+					  <a class="btn">256 GB</a>
+					  <a class="btn">512 GB</a>
+				  </div>
+				  <div class="mausac">
+					  <h6>Màu sắc</h6>
+					  <a class="btn">Trắng</a>
+					  <a class="btn">Đen</a>
+					  <a class="btn">Đỏ</a>
+				  </div>
+				  <div></div>
+			  </div>
+			  <div class="uudai" style="position: relative; top: 110px;">
+					<h6><i class="bi bi-gift-fill"></i> Ưu đãi</h6>
+					<div class="uudaicontent">
+						<ul>
+						<li>
+							Giảm thêm tới 1% cho thành viên Zmember
+						</li>
+						<li>
+							Mua kèm sạc dự phòng, giảm ngay 50% (tối đa 100.000)
+						</li>
+						<li>
+							Giảm 5% khi mua tai nghe Airpods (Chỉ áp dụng cho iPhone)
+						</li>
+						</ul>
+					</div>
+				</div>
+				<div class="quatangdikem" style="position: relative; top: 130px;">
+					<h6><i class="bi bi-gift-fill"></i> Quà tặng đi kèm</h6>
+					<div class="quatangcontent">
+						<ul>
+						<li>
+							Bộ sưu tập meme 90GB chính hãng từ Toan Dang
+						</li>
+						<li>
+							Sóc nâu tỉa cây 2019
+						</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="info">
+					<h6>THÔNG TIN BẢO HÀNH</h6>
+					<span style="font-size: 14px">
+						<i style="color: #be1e2d" class="bi bi-shield-fill-check"></i> Bảo hành 12 tháng chính hãng
+					</span>
+					<h6 class="mt-2">THÔNG SỐ KỸ THUẬT</h6>
+					<div>
+						<table style="width: 95%; margin: auto; font-size: 14px" class="table table-striped" >
+							<tbody>
+								<tr>
+									<td>Kích thước màn hình</td>
+									<td>
+										@Html.DisplayFor(model => model.Screen.Size) inches
+									</td>
+								</tr>
+								<tr>
+									<td>Công nghệ màn hình</td>
+									<td>
+										@Html.DisplayFor(model => model.Screen.Technology)
+									</td>
+								</tr>
+								<tr>
+									<td>Độ phân giải</td>
+									<td>
+										@Html.DisplayFor(model => model.Screen.Resolution)
+									</td>
+								</tr>
+								<tr>
+									<td>Tần số quét</td>
+									<td>
+										@Html.DisplayFor(model => model.Screen.HZ) Hz
+									</td>
+								</tr>
+								<tr>
+									<td>Camera trước</td>
+									<td>
+										@Html.DisplayFor(model => model.Camera.FCamRes)
+									</td>
+								</tr>
+								<tr>
+									<td>Camera sau</td>
+									<td>
+										@Html.DisplayFor(model => model.Camera.BCamRes)
+									</td>
+								</tr>
+								<tr>
+									<td>CPU</td>
+									<td>
+										@Html.DisplayFor(model => model.Processor.Name)
+									</td>
+								</tr>
+								<tr>
+									<td>RAM</td>
+									<td>
+										@Html.DisplayFor(model => model.Ram.Capacity) GB
+									</td>
+								</tr>
+								<tr>
+									<td>ROM</td>
+									<td>
+										@Html.DisplayFor(model => model.Rom.Capacity) GB
+									</td>
+								</tr>
+								<tr>
+									<td>Hệ điều hành</td>
+									<td>
+										@Html.DisplayFor(model => model.OS.Name) @Html.DisplayFor(model => model.OS.Version)
+									</td>
+								</tr>
+								<tr>
+									<td>PIN</td>
+									<td>
+										@Html.DisplayFor(model => model.Battery.Capacity) mAh
+									</td>
+								</tr>
+								<tr>
+									<td>SIM</td>
+									<td>
+										@Html.DisplayFor(model => model.Connection.Sim)
+									</td>
+								</tr>
+								<tr>
+									<td>Mạng di động</td>
+									<td>
+										@Html.DisplayFor(model => model.Connection.WirelessCard)
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+						<a class="btn" id="seemore" >Xem cấu hình chi tiết <i class="bi bi-chevron-down"></i>
+					</a>
+				</div>
+				<div class="thongtinmay" style="position: relative; top: 20px;">
+					<h6>Thông tin máy</h6>
+					<div class="thongtincontent">
+						<ul>
+						<li>
+							Mới, đầy đủ phụ kiện từ nhà sản xuất
+						</li>
+						<li>
+							Bảo hành chính hãng 12 tháng tại trung tâm bảo hành ủy quyền, 1 đổi 1 trong 30 ngày nếu có lỗi phần cứng từ NSX.
+						</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		  </div>
+	</div>
+	<div style="width: 60%;"  class="cauhinhchitiet hiding">
+		<div style="background-color: #be1e2d; color: white; border-radius: 10px 10px 0px 0px; margin: 0px">
+			<h5 class="p-4">Thông số kỹ thuật</h5>
+		</div>
+		<div id="manhinh">
+			<h6>MÀN HÌNH</h6>
+			<table style="margin: auto; font-size: 14px" class="table table-striped" >
+				<tbody>
+					<tr>
+						<td>
+							Công nghệ màn hình
+						</td>
+						<td>
+							@Html.DisplayFor(model => model.Screen.Technology)
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Độ phân giải
+						</td>
+						<td>
+							@Html.DisplayFor(model => model.Screen.Resolution)
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Kích thước
+						</td>
+						<td>
+							@Html.DisplayFor(model => model.Screen.Size) inches
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Tần số quét
+						</td>
+						<td>
+							@Html.DisplayFor(model => model.Screen.HZ) Hz
+						</td>
+					</tr>
+					<tr>
+					<td>
+						Độ sáng tối đa
+						</td>
+						<td id="bright">
+							
+						</td>
+					</tr>
+					<tr>
+					<td>
+						Màn hình
+						</td>
+						<td>
+							@Html.DisplayFor(model => model.Screen.Special)
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div id="camera">
+			<h6>CAMERA</h6>
+			<table style="margin: auto; font-size: 14px" class="table table-striped" >
+				<tbody>
+					<tr>
+						<td>
+							Camera trước
+						</td>
+						<td>
+							@Html.DisplayFor(model => model.Camera.FCamRes)
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Camera sau
+						</td>
+						<td>
+							@Html.DisplayFor(model =>  model.Camera.BCamRes)
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Đèn Flash (Camera sau)
+						</td>
+						<td>
+							@Html.DisplayFor(model => model.Camera.Flash)
+						</td>
+					</tr>
+					<tr>
+						<td >
+							Video (Camera sau)
+						</td>
+						<td id="e1">
+						</td>
+					</tr>
+					<tr>
+						<td>
+						Tính năng đặt biệt (Camera sau)
+						</td>
+						<td id="e2">
+							
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div id="os-cpu">
+			<h6>HỆ ĐIỀU HÀNH & CPU</h6>
+			<table style="margin: auto; font-size: 14px" class="table table-striped" >
+				<tbody>
+					<tr>
+						<td>
+							Hệ điều hành
+						</td>
+						<td>
+							@Html.DisplayFor(model => model.OS.Name) @Html.DisplayFor(model => model.OS.Version)
+						</td>
+					</tr>
+					<tr>
+						<td>
+							CPU
+						</td>
+						<td>
+							@Html.DisplayFor(model =>  model.Processor.Name)
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Tốc độ CPU
+						</td>
+						<td>
+							Cơ bản: @Html.DisplayFor(model => model.Processor.BaseSpeed) GHz - Tối đa: @Html.DisplayFor(model => model.Processor.MaxSpeed) GHz
+						</td>
+					</tr>
+					<tr>
+						<td >
+							GPU
+						</td>
+						<td id="video">
+							@Html.DisplayFor(model => model.Graphic.NameGPU) @Html.DisplayFor(model => model.Graphic.Core) nhân
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div id="ramrom">
+			<h6>BỘ NHỚ & LƯU TRỮ</h6>
+			<table style="margin: auto; font-size: 14px" class="table table-striped" >
+				<tbody>
+					<tr>
+						<td>
+							RAM
+						</td>
+						<td>
+							@Html.DisplayFor(model => model.Ram.Capacity) GB
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Bộ nhớ trong
+						</td>
+						<td>
+							@Html.DisplayFor(model =>  model.Rom.Capacity) GB
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Bộ nhớ trong (còn lại) khoảng
+						</td>
+						<td>
+							@Html.DisplayFor(model =>  model.Rom.MaxRom) GB
+						</td>
+					</tr>
+					<tr>
+						<td >
+							Danh bạ
+						</td>
+						<td id="video">
+							Không giới hạn
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div id="connection">
+			<h6>KẾT NỐI</h6>
+			<table style="margin: auto; font-size: 14px" class="table table-striped" >
+				<tbody>
+					<tr>
+						<td>
+							Mạng di động
+						</td>
+						<td>
+							@Html.DisplayFor(model => model.Connection.WirelessCard)
+						</td>
+					</tr>
+					<tr>
+						<td>
+							SIM
+						</td>
+						<td>
+							@Html.DisplayFor(model =>  model.Connection.Sim)
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Wifi
+						</td>
+						<td id="e3">
+							
+						</td>
+					</tr>
+					<tr>
+						<td >
+							GPS
+						</td>
+						<td id="e4">
+							
+						</td>
+					</tr>
+					<tr>
+						<td >
+							Bluetooth
+						</td>
+						<td id="e5">
+							
+						</td>
+					</tr>
+					<tr>
+						<td >
+							Cổng kết nối
+						</td>
+						<td >
+							@Html.DisplayFor(model =>  model.Connection.PhoneJack)
+						</td>
+					</tr>
+					<tr>
+						<td >
+							Nghe nhạc
+						</td>
+						<td id="e6">
+							
+						</td>
+					</tr>
+					<tr>
+						<td >
+							Kết nối khác
+						</td>
+						<td id="e7">
+							
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div id="battery">
+			<h6>PIN & SẠC</h6>
+			<table style="margin: auto; font-size: 14px" class="table table-striped" >
+				<tbody>
+					<tr>
+						<td>
+							Dung lượng pin
+						</td>
+						<td>
+							@Html.DisplayFor(model => model.Battery.Capacity) mAh
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Loại pin
+						</td>
+						<td>
+							@Html.DisplayFor(model =>  model.Battery.Type) 
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Tính năng
+						</td>
+						<td id="e8">
+							
+						</td>
+					</tr>
+					<tr>
+						<td >
+							Hỗ trợ sạc tối đa
+						</td>
+						<td id="video">
+							@Html.DisplayFor(model =>  model.Battery.Charge) W
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div id="structure">
+			<h6>THÔNG TIN CHUNG</h6>
+			<table style="margin: auto; font-size: 14px" class="table table-striped" >
+				<tbody>
+					<tr>
+						<td>
+							Thiết kế
+						</td>
+						<td>
+							@Html.DisplayFor(model => model.Structure.Design)
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Chất liệu
+						</td>
+						<td>
+							@Html.DisplayFor(model =>  model.Structure.Martirial) 
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Kích thước & khối lượng
+						</td>
+						<td>
+							Dài @Html.DisplayFor(model =>  model.Structure.Long) mm - Rộng @Html.DisplayFor(model =>  model.Structure.Wide) mm - Dày @Html.DisplayFor(model =>  model.Structure.High) mm - Nặng @Html.DisplayFor(model =>  model.Structure.Weight) g
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>	
+		<div style="margin-top: 10px; margin-left: 88%">
+			<a class="btn" style="background-color: #be1e2d; color: white !important; border-radius: 10px">ĐÓNG</a>
+		</div>
+	</div> 
+@*	<div>
+		
+		<dl class="dl-horizontal">
+			<dt>
+				@Html.DisplayNameFor(model => model.ProductName) 
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.ProductName)
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.UnitPrice)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.UnitPrice)
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.View)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.View)
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.ProductDetail) chi tiết 
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.ProductDetail)
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.MSRP) giá niêm yết
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.MSRP)
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.AvailableVersion) 
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.AvailableVersion) số lượng 
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.Version) phiên bản
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.Version) phiên bản
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.AvailableColor) màu sắc
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.AvailableColor) 
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.Color)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.Color)
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.UnitInStock)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.UnitInStock)
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.ProductAvailable)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.ProductAvailable)
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.UnitInOrder)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.UnitInOrder)
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.ReorderLevel)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.ReorderLevel)
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.CurrentOrder)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.CurrentOrder)
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.Note)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.Note)
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.Category)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.Category.CategoryId)
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.Inventory)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.Inventory.InventoryId)
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.Connection)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.Connection.ConnId)
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.Screen)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.Screen.ScreenId)
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.Structure)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.Structure.StructId)
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.Sound)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.Sound.SoundId)
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.Graphic)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.Graphic.GraphicId)
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.Battery)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.Battery.BatteryId)
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.Ram)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.Ram.RamId)
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.OS)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.OS.OsId)
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.Camera)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.Camera.CamId)
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.Processor)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.Processor.CpuId)
+			</dd>
+			<dt>
+				@Html.DisplayNameFor(model => model.Rom)
+			</dt>
+			<dd>
+				@Html.DisplayFor(model => model.Rom.RomId)
+			</dd>
+		</dl>
+	</div>*@
+@*    <div>
+		<a asp-action="Edit" asp-route-id="@Model.ProductId">Edit</a> |
+		<a asp-action="Index">Back to List</a>
+	</div>*@
+	<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+	<script>
+			$(document).ready(function () {
 
+				$("#phone").css({ "background-color": "white", "color": "#be1e2d"});
+				$('.slider-for').slick({
+				  infinite: true,
+				  speed: 500,
+				  autoplay: true,
+				  autoplaySpeed: 5000,
+				  asNavFor: '.slider-nav'
+				});
+				$('.slider-nav').slick({
+				  slidesToShow: 4,
+				  slidesToScroll: 1,
+				  asNavFor: '.slider-for',
+				  centerMode: false,
+				  focusOnSelect: true
+				});
+				$("#cate").attr("href", function(){
+					let cate = parseInt(@Html.DisplayFor(model => model.CategoryId));
+					if (cate <= 14){
+						return "/products/phone";
+					}
+				});
 
+				$("#cate").html(function(){
+					let cate = parseInt(@Html.DisplayFor(model => model.CategoryId));
+					if (cate <= 14){
+						return "Điện thoại";
+					}
+				});
+				function toHtml(str){
+					return str.replaceAll('&lt;', '<').replaceAll('&gt;', '>');
+				}
+				$("#e1").html(toHtml("@Html.DisplayFor(model => model.Camera.Video)"));
+				$("#e2").html(toHtml("@Html.DisplayFor(model => model.Camera.Special)"));
+				$("#e3").html(toHtml("@Html.DisplayFor(model =>  model.Connection.Wifi)"));
+				$("#e4").html(toHtml("@Html.DisplayFor(model =>  model.Connection.GPS)"));
+				$("#e5").html(toHtml("@Html.DisplayFor(model =>  model.Connection.Blutooth)"));
+				$("#e6").html(toHtml("@Html.DisplayFor(model =>  model.Sound.Technology)"));
+				$("#e7").html(toHtml("@Html.DisplayFor(model =>  model.Connection.Other)"));
+				$("#e8").html(toHtml("@Html.DisplayFor(model =>  model.Battery.Technology)"));
+				$("#bright").html(function(){
+					let br = "@Html.DisplayFor(model => model.Screen.MaxBright)";
+					if (br.localeCompare("Ha&#x303;ng kh&#xF4;ng c&#xF4;ng b&#xF4;&#x301;") == 0 ){
+						return br;
+					}
+					return br + " nits";
+				})
+				$(".clickbuy").children().html(function(){
+					let ch = $(".clickbuy").children().html();
+					return toHtml(ch);
+				});
+			});
+	</script>
+	<script>
+		window.onload = function() {
+			    function numberWithCommas(x) {
+				var parts = x.toString().split(".");
+				parts[0]=parts[0].replace(/\B(?=(\d{3})+(?!\d))/g,".");
+				return parts.join(",");
+				}
+			    let price1 = @Html.DisplayFor(model => model.UnitPrice);
+				let price2 = @Html.DisplayFor(model => model.MSRP);
+				document.getElementById("price1").innerHTML = numberWithCommas((price1).toFixed(0));
+				document.getElementById("price2").innerHTML = numberWithCommas((price2).toFixed(0));
+			}
+	</script>
 
-
-
-
-
-
-
-
-
-
-
-
-    <div>
-
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.ProductName)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.ProductName)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.UnitPrice)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.UnitPrice)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.View)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.View)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.ProductDetail) chi tiết
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.ProductDetail)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.MSRP) giá niêm yết
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.MSRP)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.AvailableVersion)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.AvailableVersion) số lượng
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Version) phiên bản
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Version) phiên bản
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.AvailableColor) màu sắc
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.AvailableColor)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Color)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Color)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.UnitInStock)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.UnitInStock)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.ProductAvailable)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.ProductAvailable)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.UnitInOrder)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.UnitInOrder)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.ReorderLevel)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.ReorderLevel)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.CurrentOrder)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.CurrentOrder)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Note)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Note)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Category)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Category.CategoryId)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Inventory)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Inventory.InventoryId)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Connection)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Connection.ConnId)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Screen)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Screen.HZ)
-                                @Html.DisplayFor(model => model.Screen.Size)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Structure)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Structure.StructId)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Sound)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Sound.SoundId)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Graphic)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Graphic.GraphicId)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Battery)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Battery.Capacity)
-                @Html.DisplayFor(model => model.Battery.Charge)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Ram)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Ram.Capacity)
-                @Html.DisplayFor(model => model.Ram.MaxRam)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.OS)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.OS.Name)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Camera)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Camera.CamId)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Processor)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Processor.CpuId)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Rom)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Rom.RomId)
-            </dd>
-        </dl>
-    </div>
-    @*    <div>
-        <a asp-action="Edit" asp-route-id="@Model.ProductId">Edit</a> |
-        <a asp-action="Index">Back to List</a>
-        </div>*@
-    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("#phone").css({ "background-color": "white", "color": "#be1e2d"});
-            $('.slider-for').slick({
-              infinite: true,
-              speed: 500,
-              autoplay: true,
-              autoplaySpeed: 5000,
-              prevArrow: '<button type="button" class="slick-prev btn btn-danger"></box-icon></button>',
-              nextArrow: '<button type="button" class="slick-next btn btn-danger"></box-icon></button>'
-            });
-
-        });
-    </script>
 </main>
-@Html.ActionLink("Thêm vào giỏ hàng","AddCart","OrderDetails",new {productid = @Model.ProductId},null)
-<a asp-action="">Cái gì đó</a>
+@*	@Html.ActionLink("Thêm vào giỏ hàng","AddCart","OrderDetails",new {productid = @Model.ProductId},null)
+	<a asp-action="">Cái gì đó</a>*@
