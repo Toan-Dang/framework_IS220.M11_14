@@ -1,90 +1,87 @@
 ﻿@model IEnumerable<WEB2.Models.OrderDetail>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Giỏ hàng";
 }
+<main class="container mt-5" style="height: 100vh">
 
-<h2>Gio hang</h2>
-
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Sản phẩm
-            </th>
-            <th>
-                tên sản phẩm
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantity)
-            </th>
-
-            <th>
-                @Html.DisplayNameFor(model => model.Color)
-            </th>
-
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Total)
-            </th>
-
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-              Boolean vis = true;
-
-        }     
-        @foreach (var item in Model) {
+<div class="colory-lg-3"">
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-              @Html.ActionLink("hình Sản phẩm", "Details","Products", new { id =item.ProductId},
-              new { @style ="background-image : src(@Html.DisplayFor(modelItem => item.Product.ProductId))" })
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Product.ProductName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Color)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.Total)
-                </td>
-                <td>
-                    @Html.ActionLink("Delete", "Delete", new { productid =item.ProductId, orderid = item.OrderId })
-
-
-
-                </td>
+                <th>
+                    Sản phẩm
+                </th>
+                <th>
+                    Tên sản phẩm
+                </th>
+                <th>
+                    Phiên bản
+                </th>
+                <th>
+                    Màu sắc
+                </th>
+                <th>
+                   Số lượng
+                </th>
+                <th>
+                    Đơn giá 
+                </th>
+                <th>
+                    Thành tiền
+                </th>
+                <th></th>
             </tr>
+        </thead>
+        <tbody>
+            @{
+                  Boolean vis = true;
+            }     
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                  @Html.ActionLink("hình Sản phẩm", "Details","Products", new { id =item.ProductId},
+                  new { @style ="background-image : src(@Html.DisplayFor(modelItem => item.Product.ProductId))" })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.ProductName)
+                    </td>
+                   <td>
+                        @Html.DisplayFor(modelItem => item.Product.Version)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Color)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
 
 
-            if( vis == true) {
-                @Html.ActionLink("Thanh toán","Pay",new {id = item.OrderId},null)
-                ;
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Total)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Xóa", "Delete", new { productid =item.ProductId, orderid = item.OrderId })
+                    </td>
+                </tr>
+                if( vis == true) {
+                    @Html.ActionLink("Thanh toán","Pay",new {id = item.OrderId},null)
+                    ;
+                    vis = false;
+                }  
+            }
+        </tbody>   
+    </table>
+</div>
+<script>
+    $(document).ready(function(){
+        $("#pagetitle").html("Giỏ hàng");
+    });
+</script>
+</main>
 
-                vis = false;
-
-            }  
-           
-           
-        }
-
-             
-    </tbody>
-           
-</table>
 
      

@@ -141,40 +141,35 @@ h4.d-inline{
         color: white;
     }
 .slick-prev, .slick-next {
-    background-color: rgb(255 255 255) !important;
+    background-color: transparent;
     z-index: 1;
     width: 40px !important;
     height: 70px !important;
     justify-content: center;
     border-radius: 5px;
     top: 49% !important;
+    box-shadow: none !important
 }
 h6.price{
     text-decoration: line-through 1px solid black;
 }
 .slick-prev {
-    border-radius: 4px 2px 2px 4px !important;
     left: 4px !important;
-    box-shadow: 6px 0px 4px rgb(0 0 0 / 10%), 4px 0 4px rgb(0 0 0 / 18%);
+    
 }
 .slick-next {
-    border-radius: 2px 4px 4px 2px !important;
     right: 4px !important;
-    box-shadow: -6px 0 4px rgb(0 0 0 / 10%), -4px 0 4px rgb(0 0 0 / 18%);
 }
     .slick-prev:before, .slick-next:before {
         color: rgb(158 158 158 / 0.5) !important;
-        font-size: 32px !important;
+        font-size: 36px !important;
+        box-shadow: none !important;
     }
-    .slick-prev:hover, .slick-next:hover {
-        transition: 1s ease-in-out;
+
+    .slick-prev:focus, .slick-next:focus {
+        background-color: transparent !important;
+        box-shadow: none !important;
     }
-    .slick-prev:focus {
-        box-shadow: 6px 1px 4px rgb(0 0 0 / 10%), 4px 0 4px rgb(0 0 0 / 18%);
-    }
-.slick-next:focus {
-    box-shadow: -6px 0 4px rgb(0 0 0 / 10%), -4px 0 4px rgb(0 0 0 / 18%);
-}
 .rating-checked {
     color: rgb(255, 81, 0);
 }

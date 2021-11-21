@@ -10,6 +10,14 @@
     margin-bottom: 0rem !important;
     background-color: white;
 }
+header {
+    border-bottom: 1px solid #D1D5DB;
+}
+#pagetitle {
+    margin-bottom: 0px; 
+    color: #be1e2d;
+    left: 0;
+}
 .logo {
     font-family: "Cabin", sans-serif;
     font-size: 200%;
