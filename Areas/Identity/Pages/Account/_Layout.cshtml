@@ -9,6 +9,7 @@
     <link href="@Url.Content("/css/areas/identity/pages/_Layout.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/lib/jquery/dist/jquery.min.js")"></script>
     @RenderSection("Styles", false)
 </head>
 <body>
@@ -18,6 +19,9 @@
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <p class="logo mb-0">Zer<span style="color: #be1e2d">o</span>ne.vn</p>
                 </a>
+                <h3 id="pagetitle">
+
+                </h3>
             </div>
         </nav>
     </header>

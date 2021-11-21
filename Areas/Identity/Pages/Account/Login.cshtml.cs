@@ -69,6 +69,7 @@ namespace WEB2.Areas.Identity.Pages.Account {
 
         public async Task<IActionResult> OnPostAsync( string returnUrl = null ) {
             returnUrl ??= Url.Content("~/");
+            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             // Đã đăng nhập nên chuyển hướng về Index
             if (_signInManager.IsSignedIn(User))
                 return Redirect("Index");
