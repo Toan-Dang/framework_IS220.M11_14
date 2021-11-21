@@ -28,10 +28,52 @@ namespace WEB2.Areas.Admin.Controllers {
                 .Include(o => o.Product)
                 .Where(p => p.Order.TransactStatus != "null")
                 .Where(p => p.Order.TransactStatus != "pending")
+                .Where(p => p.Order.TransactStatus != "done")
                 .Where(p => p.Status == "solved")
                 .ToListAsync();
+            if (order.Count == 0) {
+                return View();
+            }
+            OrderDetail od = new OrderDetail();
+            var reorder = new List<OrderDetail>();
+            bool check = false;
 
-            return View(order);
+            for (int i = 0 ; i < order.Count - 1 ; i++) {
+                if (check == false) {
+                    od = order[i];
+                }
+
+                if (order[i].OrderId == order[i + 1].OrderId) {
+                    od.Product.ProductName += "\n" + order[i + 1].Product.ProductName;
+                    check = true;
+                } else {
+                    reorder.Add(od);
+                    check = false;
+                }
+            }
+            if (check == false)
+                od = order[order.Count - 1];
+            reorder.Add(od);
+            return View(reorder);
+        }
+
+        public IActionResult Dashboard2() {
+            return View();
+        }
+
+        public async Task<ActionResult> Accecpt(int? id) {
+            if (id == null) {
+                return NotFound();
+            }
+            var order = await _context.Order.FindAsync(id);
+            order.TransactStatus = "shipping";
+            _context.Update(order);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Dashboard1));
+        }
+
+        public ActionResult Details(int orderid) {
+            return View();
         }
     }
 }

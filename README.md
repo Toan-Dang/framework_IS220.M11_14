@@ -75,7 +75,7 @@ update-database
 Cập nhật dữ liệu trong sql <xem phần dưới> 
 ## Note
 
--File database trong thư mục Data-> Database_Design (bản hiện tại: version 5 được cập nhật vào ngày 16/11)
+-File database trong thư mục Data-> Database_Design (bản hiện tại: version 5.2 được cập nhật vào ngày 00:50 22/11)
 
 -Dữ liệu được lưu dưới dạng .sql trong thư mục Data -> Script 
 

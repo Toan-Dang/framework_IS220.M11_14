@@ -18,9 +18,9 @@ namespace WEB2.Areas.Identity.Pages.Account {
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel( SignInManager<AppUser> signInManager,
+        public LoginModel(SignInManager<AppUser> signInManager,
             ILogger<LoginModel> logger,
-            UserManager<AppUser> userManager ) {
+            UserManager<AppUser> userManager) {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
@@ -52,7 +52,7 @@ namespace WEB2.Areas.Identity.Pages.Account {
             public bool RememberMe { get; set; }
         }
 
-        public async Task OnGetAsync( string returnUrl = null ) {
+        public async Task OnGetAsync(string returnUrl = null) {
             if (!string.IsNullOrEmpty(ErrorMessage)) {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
             }
@@ -67,8 +67,9 @@ namespace WEB2.Areas.Identity.Pages.Account {
             ReturnUrl = returnUrl;
         }
 
-        public async Task<IActionResult> OnPostAsync( string returnUrl = null ) {
+        public async Task<IActionResult> OnPostAsync(string returnUrl = null) {
             returnUrl ??= Url.Content("~/");
+            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             // Đã đăng nhập nên chuyển hướng về Index
             if (_signInManager.IsSignedIn(User))
                 return Redirect("Index");
@@ -108,8 +109,7 @@ namespace WEB2.Areas.Identity.Pages.Account {
                     _logger.LogWarning("Tài khoản bí tạm khóa.");
                     // Chuyển hướng đến trang Lockout - hiện thị thông báo
                     return RedirectToPage("./Lockout");
-                }
-                else {
+                } else {
                     ModelState.AddModelError(string.Empty, "Không đăng nhập được.");
                     return Page();
                 }
