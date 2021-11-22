@@ -5,14 +5,19 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using WEB2.Data;
 using WEB2.Models;
 
 namespace WEB2.Controllers {
+
     public class HomeController : Controller {
         private readonly ILogger<HomeController> _logger;
+        private readonly AppDbContext _context;
 
-        public HomeController( ILogger<HomeController> logger ) {
+        public HomeController(ILogger<HomeController> logger,
+            AppDbContext context) {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index() {
@@ -27,28 +32,32 @@ namespace WEB2.Controllers {
         public IActionResult Error() {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        public IActionResult Phone()
-        {
+
+        public IActionResult Phone() {
             return View();
         }
-        public IActionResult Laptop()
-        {
+
+        public IActionResult Laptop() {
             return View();
         }
-        public IActionResult Tablet()
-        {
+
+        public IActionResult Tablet() {
             return View();
         }
-        public IActionResult Watch()
-        {
+
+        public IActionResult Watch() {
             return View();
         }
-        public IActionResult Sound()
-        {
+
+        public IActionResult Sound() {
             return View();
         }
-        public IActionResult Accessories()
-        {
+
+        public IActionResult Accessories() {
+            return View();
+        }
+
+        public ActionResult Map() {
             return View();
         }
     }

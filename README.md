@@ -93,5 +93,5 @@ MIT
  [Bootstrap]: <https://getbootstrap.com/>
  [React]: <https://reactjs.org/>
 [Toan Dang]: <https://github.com/Toan-Dang>
- [Visual Studio 2019]: <https://visualstudio.microsoft.com/downloads/>
+ [Visual Studio 2022]: <https://visualstudio.microsoft.com/downloads/>
  [SQLServer]: <https://www.microsoft.com/en-us/sql-server/sql-server-downloads>
