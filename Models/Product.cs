@@ -9,26 +9,24 @@ namespace WEB2.Models {
         [Key]
         public int ProductId { get; set; }
 
-        public int InventoryId { get; set; }
         public int CategoryId { get; set; }
         public string ProductName { get; set; }
         public double UnitPrice { get; set; }
         public int View { get; set; }
         public string Picture { get; set; }
         public double RawPrice { get; set; }
-        public int VendorProductId { get; set; }
         public string ProductDetail { get; set; }
         public double MSRP { get; set; }
-        public int AvailableVersion { get; set; }
+
         public string Version { get; set; }
-        public int AvailableColor { get; set; }
+
         public string Color { get; set; }
-        public int UnitInStock { get; set; }
-        public int ProductAvailable { get; set; }
+
         public int UnitInOrder { get; set; }
         public int ReorderLevel { get; set; }
         public int CurrentOrder { get; set; }
         public string Note { get; set; }
+        public string Special { get; set; }
 
         //config
         public int ConnID { get; set; }
@@ -46,9 +44,6 @@ namespace WEB2.Models {
 
         [ForeignKey("CategoryId")]
         public virtual Category Category { get; set; }
-
-        [ForeignKey("InventoryId")]
-        public virtual Inventory Inventory { get; set; }
 
         //config ref
         [ForeignKey("ConnID")]
@@ -89,5 +84,7 @@ namespace WEB2.Models {
         public virtual ICollection<Feedback> ProductRankings { get; set; }
         public virtual ICollection<ProductDiscount> ProductDiscounts { get; set; }
         public virtual ICollection<Purchase> Purchases { get; set; }
+        public virtual ICollection<Content> Contents { get; set; }
+        public virtual ICollection<Invent_product> Invent_Products { get; set; }
     }
 }

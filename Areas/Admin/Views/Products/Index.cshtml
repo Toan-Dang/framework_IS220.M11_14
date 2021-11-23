@@ -18,9 +18,7 @@
                 <div class="welcome-text">
                     <h4>Hi, welcome back!</h4>
 
-                    <span class="ml-1">
-                        <a asp-action="Create">Thêm sản phẩm</a>
-                    </span>
+             
                 </div>
             </div>
             <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
@@ -37,7 +35,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title"> Products</h4>
+                              <a asp-action="Create"> <h4 class = "border-danger">Thêm sản phẩm</h4></a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -70,9 +68,7 @@
                                         <th>
                                             @Html.DisplayNameFor(model => model.Category)
                                         </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Inventory)
-                                        </th>
+                                     
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -105,12 +101,10 @@
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.Category.CategoryId)
                                             </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Inventory.InventoryId)
-                                            </td>
+                                     
                                             <td>
                                                 <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
-                                                <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
+                                                <a asp-action="Details" asp-area="" asp-controller = "Products" asp-route-id="@item.ProductId">Details</a> |
                                                 <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
                                             </td>
                                         </tr>
@@ -144,9 +138,7 @@
                                         <th>
                                             @Html.DisplayNameFor(model => model.Category)
                                         </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Inventory)
-                                        </th>
+                               
                                         <th></th>
                                     </tr>
                                 </tfoot>

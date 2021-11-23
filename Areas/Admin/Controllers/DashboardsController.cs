@@ -20,6 +20,10 @@ namespace WEB2.Areas.Admin.Controllers {
             _context = context;
         }
 
+        public IActionResult Dashboard() {
+            return View();
+        }
+
         public async Task<IActionResult> Dashboard1() {
             var order = await _context.OrderDetail
                 .Include(o => o.Order)
@@ -32,7 +36,7 @@ namespace WEB2.Areas.Admin.Controllers {
                 .Where(p => p.Status == "solved")
                 .ToListAsync();
             if (order.Count == 0) {
-                return View();
+                return RedirectToAction(nameof(Dashboard));
             }
             OrderDetail od = new OrderDetail();
             var reorder = new List<OrderDetail>();
@@ -41,18 +45,23 @@ namespace WEB2.Areas.Admin.Controllers {
             for (int i = 0 ; i < order.Count - 1 ; i++) {
                 if (check == false) {
                     od = order[i];
+                    od.IDSKU = od.Quantity.ToString();
                 }
 
                 if (order[i].OrderId == order[i + 1].OrderId) {
                     od.Product.ProductName += "\n" + order[i + 1].Product.ProductName;
+                    od.IDSKU += "\n" + order[i + 1].IDSKU;
                     check = true;
                 } else {
                     reorder.Add(od);
                     check = false;
                 }
             }
-            if (check == false)
+            if (check == false) {
                 od = order[order.Count - 1];
+                od.IDSKU = od.Quantity.ToString();
+            }
+
             reorder.Add(od);
             return View(reorder);
         }
@@ -70,10 +79,6 @@ namespace WEB2.Areas.Admin.Controllers {
             _context.Update(order);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Dashboard1));
-        }
-
-        public ActionResult Details(int orderid) {
-            return View();
         }
     }
 }

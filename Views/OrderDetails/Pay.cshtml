@@ -29,7 +29,7 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white topnav">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <p class="logo mb-0">Zer<span style="color: #be1e2d">o</span>ne.vn</p>
+                    <p class="logo mb-0 font-weight-bold ">Zer<span style="color: #be1e2d">o</span>ne.vn</p>
                 </a>
 
                 @await Html.PartialAsync("_LoginPartial")
@@ -101,7 +101,7 @@
                                                 <div class="col-lg-12 mb-4">
                                                     <div class="form-group">
                                                         <label class="text-label">Địa chỉ giao Hàng</label>
-                                                        <input id="shipadd" asp-for="@item.Order.Customer.ShipAddress"  type="text" name="place" class="form-control" required>
+                                                        <input id="shipadd" asp-for="@item.Order.Customer.ShipAddress" type="text" name="place" class="form-control" required>
 
                                                     </div>
                                                 </div>
@@ -157,6 +157,7 @@
                                                                     moneyItem += item.Total;
                                                                     pay = moneyItem;
                                                                     orderid = item.OrderId;
+
                                                                 }
 
 
@@ -208,99 +209,99 @@
                                         <div class="text-right text-danger card-title"> Tổng tiền: <span id="pay"></span><span>VND</span> </div>
 
                                     </section>
-                                    <h4>Hóa đơn</h4>
+                                    <h4>Khuyến mãi</h4>
                                     <section>
                                         <div>
                                             cảm ơn đã mua hàng
                                         </div>
-         
 
 
-                     
-                                         <a id = "paid" href="@Url.Action("Payment","Orders", new {id = orderid})" >Thanh toán</a>
+
+
+                                        <a id="paid" href="@Url.Action("Payment","Orders", new {id = orderid})">Thanh toán</a>
 
 
                                         <script type="text/javascript">
 
-                                           var ranarr = [];
-                                            for (let i = 1 ; i < 8 ; ++i){
-                                                    var ran =  Math.floor(Math.random() * 20000) + 10000;
-                                                    ranarr.push(ran);
-                                            }
-                                            ranarr[1] = 0;
-                                            var shipmoney =  0;
-                                            var total =  @pay;
-                                                                                                                       
-                                                var shipcom = 1;
-                                            var oid = @orderid;
-                                            document.getElementById("shipmoney").innerHTML = shipmoney;
-                                                document.getElementById("pay").innerHTML =  total;
-                                        $('#ship').change(function () {
-                                                                                                                       
-                                            var selectedValue = $(this).val();
-                                                shipcom =  selectedValue;
-                                                shipmoney =    ranarr[selectedValue];
-                                                total =  ranarr[selectedValue] + @pay;
-
-                                            document.getElementById("shipmoney").innerHTML = shipmoney;
-
-                                                document.getElementById("pay").innerHTML = total;
-
-
-                                        });
-                                        var address =  document.getElementById('shipadd').value ;
-                                        var types = $('#typepay').val();
-                                              $('#paid').hide();
-                                        //if(types != 1){
-                                        //            $('#paid').show();
-                                        //        }
-                                                    
-                                  
-                                            $('#typepay').change(function () {
-                                                types =  $(this).val();
-                                                                                                                       
-                                                //if(types != 1){
-                                                //    $('#paid').show();
-                                                //}
-                                                                                                                 
-                                        });
-                                                                                                                     
-                                                                                                                   
-                                        console.log(address);
-                                        $('#shipadd').change(function(){
-                                                address = $('#shipadd').val();
-                                                    console.log(address);
-                                        })  ;
-
-                                        function check(){
-                                                  if(types != 1){
-                                                    $('#paid').show();
+                                               var ranarr = [];
+                                                for (let i = 1 ; i < 8 ; ++i){
+                                                        var ran =  Math.floor(Math.random() * 20000) + 10000;
+                                                        ranarr.push(ran);
                                                 }
-                                                    
-                                        }
-                                        function submitForm() {
+                                                ranarr[1] = 0;
+                                                var shipmoney =  0;
+                                                var total =  @pay;
 
-                                        var model = new Object();
-                                        model.Orderid = oid;
-                                        model.Shipaddress = address;
-                                        model.Shippay = shipmoney;
-                                        model.Paid = total;
-                                        model.Shipcompany = shipcom;
-                                        model.TypePay = types;
-                                        jQuery.ajax({
-                                        type: "POST",
-                                        url: "@Url.Action("Payment","OrderDetails")",
-                                        dataType: "json",
-                                        contentType: "application/json; charset=utf-8",
-                                        data: JSON.stringify( model ),
-                                            processData: true,
-                                            cache: false,
-                                                   
+                                                    var shipcom = 1;
+                                                var oid = @orderid;
+                                                document.getElementById("shipmoney").innerHTML = shipmoney;
+                                                    document.getElementById("pay").innerHTML =  total;
+                                            $('#ship').change(function () {
+
+                                                var selectedValue = $(this).val();
+                                                    shipcom =  selectedValue;
+                                                    shipmoney =    ranarr[selectedValue];
+                                                    total =  ranarr[selectedValue] + @pay;
+
+                                                document.getElementById("shipmoney").innerHTML = shipmoney;
+
+                                                    document.getElementById("pay").innerHTML = total;
+
+
                                             });
-                                        }
+                                            var address =  document.getElementById('shipadd').value ;
+                                            var types = $('#typepay').val();
+                                                  $('#paid').hide();
+                                            //if(types != 1){
+                                            //            $('#paid').show();
+                                            //        }
 
-                                                                                                               
-                                                                              
+
+                                                $('#typepay').change(function () {
+                                                    types =  $(this).val();
+
+                                                    //if(types != 1){
+                                                    //    $('#paid').show();
+                                                    //}
+
+                                            });
+
+
+                                            console.log(address);
+                                            $('#shipadd').change(function(){
+                                                    address = $('#shipadd').val();
+                                                        console.log(address);
+                                            })  ;
+
+                                            function check(){
+                                                      if(types != 1){
+                                                        $('#paid').show();
+                                                    }
+
+                                            }
+                                            function submitForm() {
+
+                                            var model = new Object();
+                                            model.Orderid = oid;
+                                            model.Shipaddress = address;
+                                            model.Shippay = shipmoney;
+                                            model.Paid = total;
+                                            model.Shipcompany = shipcom;
+                                            model.TypePay = types;
+                                            jQuery.ajax({
+                                            type: "POST",
+                                            url: "@Url.Action("Payment","OrderDetails")",
+                                            dataType: "json",
+                                            contentType: "application/json; charset=utf-8",
+                                            data: JSON.stringify( model ),
+                                                processData: true,
+                                                cache: false,
+
+                                                });
+                                            }
+
+
+
                                         </script>
 
                                     </section>
@@ -312,13 +313,13 @@
             </div>
         </div>
     </div>
-   
 
- 
+
+
     <!-- Form validate init -->
     <script src="~/js/plugins-init/jquery.validate-init.js"></script>
 
-                                              <!-- Required vendors -->
+    <!-- Required vendors -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
             crossorigin="anonymous"></script>
@@ -331,7 +332,7 @@
     <!-- <script src="~/vendor/jquery-steps/build/step.js"></script>       -->
 
     <script type="text/javascript">
-                                                     
+
         !(function (a, b) {
             function c(a, b) {
                 o(a).push(b);
@@ -1038,7 +1039,7 @@
                     onFinished: function () {
                         submitForm();
                          check();
-                                                    
+
                     },
                     onContentLoaded: function () { },
                     onInit: function () { },
@@ -1058,7 +1059,7 @@
 
     </script>
 
-       <script src="~/vendor/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/vendor/jquery-validation/jquery.validate.min.js"></script>
 
     <!-- Form step init -->
     <script src="~/js/plugins-init/jquery-steps-init.js"></script>

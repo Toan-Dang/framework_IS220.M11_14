@@ -1,0 +1,120 @@
+﻿@model IEnumerable<WEB2.Models.OrderDetail>
+
+@{
+    ViewData["Title"] = "ProductBill";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ProductBill</title>
+      <!-- Datatable -->
+    <link href="~/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+    <!-- Custom Stylesheet -->
+    <link href="~/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="row page-titles mx-0">
+            <div class="col-sm-6 p-md-0">
+                <div class="welcome-text">
+                    <h4>Hi, welcome back!</h4>
+                </div>
+            </div>
+            <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Quản lý bán hàng</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Hóa đơn sản phẩm</a></li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- row -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title"> Hóa đơn sản phẩm</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example" class="display" style="min-width: 845px">
+                                   <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Tên</th>
+                                        <th>Đơn hàng</th>
+                                        <th>Sản phẩm</th>
+                                         <th>Số lượng</th>
+                                        <th>Tình trạng đơn hàng</th>
+                                        <th>Duyệt</th>
+                                    </tr>
+                                </thead>
+                             <tbody>
+                         
+                            @foreach (var item in Model){
+                                   
+                                        <tr>
+                                        <td>
+                                            <div class="round-img">
+                                                <a href=""><img width="35" src="~/images/avatar/1.png" alt=""></a>
+                                            </div>
+                                        </td>
+                                        <td>@Html.DisplayFor(model => item.Order.Customer.AppUser.FullName)</td>
+                                        <td><span>@Html.DisplayFor(model => item.OrderId)</span></td>
+                                        <td><span style= "white-space: pre-line;
+}">
+                                            @Html.DisplayFor(model => item.Product.ProductName)</span></td>
+                                         <td><span style= "white-space: pre-line;
+}">
+                                            @Html.DisplayFor(model => item.IDSKU)</span></td>
+                                      
+                                        @{string color = "badge badge-warning";    }
+
+                                        @if(item.Order.TransactStatus.Equals("done")){
+                                            color = "badge badge-success" ;
+                                        }
+                                        @if (item.Order.TransactStatus.Equals("shipping")) {
+                                            color = "badge badge-primary";
+                                        }
+
+                                        <td><span class= "@color" >@Html.DisplayFor(model => item.Order.TransactStatus)</span></td>
+                                           @{ color = "duyệt"; }
+
+                                        @if(item.Order.TransactStatus.Equals("shipping")){
+                                                color = "thanh toán";
+                                            } 
+                                          <td>
+                                             <a asp-action="Accecpt" asp-route-id="@item.OrderId" >@color</a>  |
+                                             <a asp-action="BillDetails" asp-route-id="@item.OrderId">Chi tiet</a>          
+          
+                                        </td>
+                                    </tr>   
+                               }
+                                </tbody>
+                               
+                             
+                            </table>
+                            <script type = "text/javascript">
+                                   $("#product").val().replace(/\n/g, '<br/>');
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Required vendors -->
+    <script src="~/vendor/global/global.min.js"></script>
+    <script src="~/js/quixnav-init.js"></script>
+    <script src="~/js/custom.min.js"></script>
+
+    <!-- Datatable -->
+    <script src="~/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/plugins-init/datatables.init.js"></script>
+</body>
+</html>

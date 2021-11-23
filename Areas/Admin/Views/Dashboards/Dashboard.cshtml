@@ -295,45 +295,7 @@
                                 </thead>
                              <tbody>
                          
-                            @foreach (var item in Model){
                                    
-                                        <tr>
-                                        <td>
-                                            <div class="round-img">
-                                                <a href=""><img width="35" src="~/images/avatar/1.png" alt=""></a>
-                                            </div>
-                                        </td>
-                                        <td>@Html.DisplayFor(model => item.Order.Customer.AppUser.FullName)</td>
-                                        <td><span>@Html.DisplayFor(model => item.OrderId)</span></td>
-                                        <td><span style= "white-space: pre-line;
-}">
-                                            @Html.DisplayFor(model => item.Product.ProductName)</span></td>
-                                         <td><span style= "white-space: pre-line;
-}">
-                                            @Html.DisplayFor(model => item.IDSKU)</span></td>
-                                      
-                                        @{string color = "badge badge-warning";    }
-
-                                        @if(item.Order.TransactStatus.Equals("shipping")){
-                                            color = "badge badge-success" ;
-                                        }
-                                         
-                                        <td><span class= "@color" >@Html.DisplayFor(model => item.Order.TransactStatus)</span></td>
-                                          @{ color = "duyệt"; }
-
-                                        @if(item.Order.TransactStatus.Equals("shipping")){
-                                                color = "thanh toán";
-                                            } 
-                                          <td>
-                                             <a asp-action="Accecpt" asp-route-id="@item.OrderId" >@color</a>  |
-                                
-                                             @Html.ActionLink("Chi tiết", "BillDetails", "SaleManagers",  new { id = item.ProductId}, null)
-                                        
-                                              
-                                            
-                                        </td>
-                                    </tr>   
-                               }
                                 </tbody>
                                
                              

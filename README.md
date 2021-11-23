@@ -75,7 +75,7 @@ update-database
 Cập nhật dữ liệu trong sql <xem phần dưới> 
 ## Note
 
--File database trong thư mục Data-> Database_Design (bản hiện tại: version 5.2 được cập nhật vào ngày 00:50 22/11)
+-File database trong thư mục Data-> Database_Design (bản hiện tại: version 5.3 được cập nhật vào ngày 00:50 22/11)
 
 -Dữ liệu được lưu dưới dạng .sql trong thư mục Data -> Script 
 
@@ -93,5 +93,5 @@ MIT
  [Bootstrap]: <https://getbootstrap.com/>
  [React]: <https://reactjs.org/>
 [Toan Dang]: <https://github.com/Toan-Dang>
- [Visual Studio 2019]: <https://visualstudio.microsoft.com/downloads/>
+ [Visual Studio 2022]: <https://visualstudio.microsoft.com/downloads/>
  [SQLServer]: <https://www.microsoft.com/en-us/sql-server/sql-server-downloads>
