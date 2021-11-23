@@ -12,9 +12,8 @@ namespace WEB2.Models {
         public string IDSKU { get; set; }
         public double Discount { get; set; }
         public double Total { get; set; }
-        public string Color { get; set; }
-        public string version { get; set; }
         public bool Fulfilled { get; set; }
+        public string Voucher { get; set; }
 
         [ForeignKey("OrderId")]
         public virtual Order Order { get; set; }

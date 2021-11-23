@@ -17,16 +17,17 @@ namespace WEB2.Models {
         public DateTime OrderDay { get; set; }
         public double Freight { get; set; }
         public DateTime ShipDate { get; set; }
-        public double SalesTax { get; set; }
-        public string TransactStatus { get; set; }
+        public double VoucherMoney { get; set; }
         public string Errlog { get; set; }
         public string Errmsg { get; set; }
         public bool Deleted { get; set; }
         public double Paid { get; set; }
         public DateTime PaymentDate { get; set; }
+        public string TransactStatus { get; set; }
         public string TransactionNo { get; set; }
         public string ResponseCode { get; set; }
         public string SecureHash { get; set; }
+        public string Voucher { get; set; }
 
         [ForeignKey("PaymentId")]
         public virtual Payment Payment { get; set; }

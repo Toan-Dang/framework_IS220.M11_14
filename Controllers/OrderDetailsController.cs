@@ -62,6 +62,7 @@ namespace WEB2.Controllers {
             .Where(o => o.Order.TransactStatus != "paid")
             .Where(o => o.Order.TransactStatus != "done")
             .Where(o => o.Order.TransactStatus != "pay by cash")
+             .Where(o => o.Order.TransactStatus != "shipping")
             .Where(o => o.Order.CustomerId == customer.CustomerID);
 
             return View(await appDbContext.ToListAsync());
@@ -78,6 +79,7 @@ namespace WEB2.Controllers {
                 .Where(o => o.TransactStatus != "paid")
                 .Where(o => o.TransactStatus != "done")
                 .Where(o => o.TransactStatus != "pay by cash")
+                 .Where(o => o.TransactStatus != "shipping")
                 .FirstOrDefaultAsync();
 
             if (ModelState.IsValid) {
@@ -107,8 +109,7 @@ namespace WEB2.Controllers {
                         Quantity = 1,
                         Status = "saved",
                         Price = product.UnitPrice,
-                        Color = product.Color,
-                        version = product.Version,
+
                         Fulfilled = false,
                         Total = product.UnitPrice,
                         Discount = 0,
@@ -139,8 +140,7 @@ namespace WEB2.Controllers {
                             Quantity = 1,
                             Status = "saved",
                             Price = product.UnitPrice,
-                            Color = product.Color,
-                            version = product.Version,
+
                             Fulfilled = false,
                             Total = product.UnitPrice,
                             Discount = 0,
@@ -212,10 +212,10 @@ namespace WEB2.Controllers {
                 .Include(o => o.Order.Customer)
                 .Include(o => o.Order.Customer.AppUser)
                 .Include(o => o.Product)
-                //.Include(o => o.Order.Customer.Voucher_Details)
-                .Where(o => o.Order.TransactStatus != "paid")
-                .Where(o => o.Order.TransactStatus != "done")
-                .Where(o => o.Order.TransactStatus != "pay by cash")
+                .Include(o => o.Product.ProductDiscounts)
+                // .Where(o => o.Order.TransactStatus != "paid") .Where(o => o.Order.TransactStatus
+                // != "done") .Where(o => o.Order.TransactStatus != "pay by cash") .Where(o =>
+                // o.Order.TransactStatus != "shipping")
                 .Where(o => o.OrderId == id)
                 .Where(o => o.Order.OrderId == id)
                 .Where(o => o.Order.Deleted == false)
@@ -272,6 +272,7 @@ namespace WEB2.Controllers {
                     _context.Update(item);
                     await _context.SaveChangesAsync();
                 }
+                return View();
             }
 
             if (ModelState.IsValid) {

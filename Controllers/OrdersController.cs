@@ -133,10 +133,7 @@ namespace WEB2.Controllers {
                     item.Status = "solved";
                     //update so luong san pham
                     var product = await _context.Product.Where(p => p.ProductId == item.ProductId).FirstAsync();
-                    product.AvailableVersion -= item.Quantity;
-                    product.AvailableColor -= item.Quantity;
-                    product.UnitInStock -= item.Quantity;
-                    product.ProductAvailable -= item.Quantity;
+                    //available here
                     product.CurrentOrder += item.Quantity;
                     product.UnitInOrder -= 1;
 

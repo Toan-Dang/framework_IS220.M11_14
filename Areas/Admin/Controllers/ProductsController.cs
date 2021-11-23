@@ -20,7 +20,7 @@ namespace WEB2.Areas.Admin.Controllers {
 
         // GET: Admin/Products
         public async Task<IActionResult> Index() {
-            var appDbContext = _context.Product.Include(p => p.Battery).Include(p => p.Camera).Include(p => p.Category).Include(p => p.Connection).Include(p => p.Graphic).Include(p => p.Inventory).Include(p => p.OS).Include(p => p.Processor).Include(p => p.Ram).Include(p => p.Rom).Include(p => p.Screen).Include(p => p.Sound).Include(p => p.Structure);
+            var appDbContext = _context.Product.Include(p => p.Battery).Include(p => p.Camera).Include(p => p.Category).Include(p => p.Connection).Include(p => p.Graphic).Include(p => p.OS).Include(p => p.Processor).Include(p => p.Ram).Include(p => p.Rom).Include(p => p.Screen).Include(p => p.Sound).Include(p => p.Structure);
             return View(await appDbContext.ToListAsync());
         }
 
@@ -36,7 +36,7 @@ namespace WEB2.Areas.Admin.Controllers {
                 .Include(p => p.Category)
                 .Include(p => p.Connection)
                 .Include(p => p.Graphic)
-                .Include(p => p.Inventory)
+
                 .Include(p => p.OS)
                 .Include(p => p.Processor)
                 .Include(p => p.Ram)
@@ -85,7 +85,7 @@ namespace WEB2.Areas.Admin.Controllers {
             ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryId", product.CategoryId);
             ViewData["ConnID"] = new SelectList(_context.Set<Connection>(), "ConnId", "ConnId", product.ConnID);
             ViewData["GraphicID"] = new SelectList(_context.Set<Graphic>(), "GraphicId", "GraphicId", product.GraphicID);
-            ViewData["InventoryId"] = new SelectList(_context.Inventory, "InventoryId", "InventoryId", product.InventoryId);
+
             ViewData["OSID"] = new SelectList(_context.Set<OS>(), "OsId", "OsId", product.OSID);
             ViewData["CPUID"] = new SelectList(_context.Set<Processor>(), "CpuId", "CpuId", product.CPUID);
             ViewData["RamID"] = new SelectList(_context.Set<Ram>(), "RamId", "RamId", product.RamID);
@@ -111,7 +111,7 @@ namespace WEB2.Areas.Admin.Controllers {
             ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryId", product.CategoryId);
             ViewData["ConnID"] = new SelectList(_context.Set<Connection>(), "ConnId", "ConnId", product.ConnID);
             ViewData["GraphicID"] = new SelectList(_context.Set<Graphic>(), "GraphicId", "GraphicId", product.GraphicID);
-            ViewData["InventoryId"] = new SelectList(_context.Inventory, "InventoryId", "InventoryId", product.InventoryId);
+
             ViewData["OSID"] = new SelectList(_context.Set<OS>(), "OsId", "OsId", product.OSID);
             ViewData["CPUID"] = new SelectList(_context.Set<Processor>(), "CpuId", "CpuId", product.CPUID);
             ViewData["RamID"] = new SelectList(_context.Set<Ram>(), "RamId", "RamId", product.RamID);
@@ -149,7 +149,7 @@ namespace WEB2.Areas.Admin.Controllers {
             ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryId", product.CategoryId);
             ViewData["ConnID"] = new SelectList(_context.Set<Connection>(), "ConnId", "ConnId", product.ConnID);
             ViewData["GraphicID"] = new SelectList(_context.Set<Graphic>(), "GraphicId", "GraphicId", product.GraphicID);
-            ViewData["InventoryId"] = new SelectList(_context.Inventory, "InventoryId", "InventoryId", product.InventoryId);
+
             ViewData["OSID"] = new SelectList(_context.Set<OS>(), "OsId", "OsId", product.OSID);
             ViewData["CPUID"] = new SelectList(_context.Set<Processor>(), "CpuId", "CpuId", product.CPUID);
             ViewData["RamID"] = new SelectList(_context.Set<Ram>(), "RamId", "RamId", product.RamID);
@@ -172,7 +172,7 @@ namespace WEB2.Areas.Admin.Controllers {
                 .Include(p => p.Category)
                 .Include(p => p.Connection)
                 .Include(p => p.Graphic)
-                .Include(p => p.Inventory)
+
                 .Include(p => p.OS)
                 .Include(p => p.Processor)
                 .Include(p => p.Ram)
