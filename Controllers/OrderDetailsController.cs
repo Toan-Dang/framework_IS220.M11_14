@@ -213,6 +213,7 @@ namespace WEB2.Controllers {
                 .Include(o => o.Order.Customer.AppUser)
                 .Include(o => o.Product)
                 .Include(o => o.Product.ProductDiscounts)
+
                 // .Where(o => o.Order.TransactStatus != "paid") .Where(o => o.Order.TransactStatus
                 // != "done") .Where(o => o.Order.TransactStatus != "pay by cash") .Where(o =>
                 // o.Order.TransactStatus != "shipping")

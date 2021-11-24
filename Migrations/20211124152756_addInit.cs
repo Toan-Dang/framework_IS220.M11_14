@@ -103,6 +103,23 @@ namespace WEB2.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Content",
+                columns: table => new
+                {
+                    ContentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Contents = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateRealease = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Author = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Special = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Content", x => x.ContentId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Discount",
                 columns: table => new
                 {
@@ -147,7 +164,9 @@ namespace WEB2.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Adress = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    State = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Latitude = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Longitude = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -538,6 +557,10 @@ namespace WEB2.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     ShipAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    State = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Latitude = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Longitude = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateEntered = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -662,29 +685,6 @@ namespace WEB2.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Content",
-                columns: table => new
-                {
-                    ContentId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Contents = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DateRealease = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Author = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Content", x => x.ContentId);
-                    table.ForeignKey(
-                        name: "FK_Content_Product_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Product",
-                        principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Feedback",
                 columns: table => new
                 {
@@ -748,6 +748,30 @@ namespace WEB2.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Invent_product_Product_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Product",
+                        principalColumn: "ProductId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductContent",
+                columns: table => new
+                {
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    ContentId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductContent", x => new { x.ProductId, x.ContentId });
+                    table.ForeignKey(
+                        name: "FK_ProductContent_Content_ContentId",
+                        column: x => x.ContentId,
+                        principalTable: "Content",
+                        principalColumn: "ContentId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProductContent_Product_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Product",
                         principalColumn: "ProductId",
@@ -923,11 +947,6 @@ namespace WEB2.Migrations
                 column: "ParentCategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Content_ProductId",
-                table: "Content",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Customer_UserId",
                 table: "Customer",
                 column: "UserId");
@@ -1033,6 +1052,11 @@ namespace WEB2.Migrations
                 column: "StructID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProductContent_ContentId",
+                table: "ProductContent",
+                column: "ContentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProductDiscount_DiscountId",
                 table: "ProductDiscount",
                 column: "DiscountId");
@@ -1103,9 +1127,6 @@ namespace WEB2.Migrations
                 name: "Calendar");
 
             migrationBuilder.DropTable(
-                name: "Content");
-
-            migrationBuilder.DropTable(
                 name: "Feedback");
 
             migrationBuilder.DropTable(
@@ -1119,6 +1140,9 @@ namespace WEB2.Migrations
 
             migrationBuilder.DropTable(
                 name: "OrderDetail");
+
+            migrationBuilder.DropTable(
+                name: "ProductContent");
 
             migrationBuilder.DropTable(
                 name: "ProductDiscount");
@@ -1149,6 +1173,9 @@ namespace WEB2.Migrations
 
             migrationBuilder.DropTable(
                 name: "Order");
+
+            migrationBuilder.DropTable(
+                name: "Content");
 
             migrationBuilder.DropTable(
                 name: "Discount");

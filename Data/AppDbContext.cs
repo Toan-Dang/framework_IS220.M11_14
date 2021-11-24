@@ -23,6 +23,7 @@ namespace WEB2.Data {
             builder.Entity<Purchase>().HasKey(p => new { p.ProductId, p.SupplierId });
             builder.Entity<ProductDiscount>().HasKey(p => new { p.ProductId, p.DiscountId });
             builder.Entity<Invent_product>().HasKey(p => new { p.ProductId, p.InventoryId });
+            builder.Entity<ProductContent>().HasKey(p => new { p.ProductId, p.ContentId });
         }
 
         public DbSet<WEB2.Models.Staff> Staff { get; set; }

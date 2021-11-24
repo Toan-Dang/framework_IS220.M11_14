@@ -60,5 +60,26 @@ namespace WEB2.Controllers {
         public ActionResult Map() {
             return View();
         }
+        public IActionResult Policy()
+        {
+            return View();
+        }
+        public IActionResult Insurance()
+        {
+            return View();
+        }
+        public IActionResult Refund()
+        {
+            return View();
+        }
+        public IActionResult Delivery()
+        {
+            return View();
+        }
+        public IActionResult Installment()
+        {
+            return View();
+        }
+
     }
 }

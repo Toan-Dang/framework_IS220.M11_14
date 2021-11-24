@@ -72,7 +72,6 @@ namespace WEB2.Controllers {
                 .Include(p => p.Category)
                 .Include(p => p.Connection)
                 .Include(p => p.Graphic)
-
                 .Include(p => p.OS)
                 .Include(p => p.Processor)
                 .Include(p => p.Ram)

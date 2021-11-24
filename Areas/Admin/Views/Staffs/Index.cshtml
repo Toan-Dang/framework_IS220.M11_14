@@ -45,13 +45,13 @@
                                 <thead>
                                     <tr>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.WorkingDay)
+                                           Tên nhân viên
                                         </th>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.AppUser)
+                                            Kho
                                         </th>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.Inventory)
+                                            Ngày vào làm
                                         </th>
                                         <th></th>
                                     </tr>
@@ -60,36 +60,24 @@
                                     @foreach (var item in Model) {
                                         <tr>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.WorkingDay)
+                                                @Html.DisplayFor(modelItem => item.AppUser.FullName)
                                             </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.AppUser.Id)
-                                            </td>
+                                    
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.Inventory.InventoryId)
                                             </td>
+                                                    <td>
+                                                @Html.DisplayFor(modelItem => item.WorkingDay)
+                                            </td>
                                             <td>
-                                                <a asp-action="Edit" asp-route-id="@item.StaffId">Edit</a> |
+
                                                 <a asp-action="Details" asp-route-id="@item.StaffId">Details</a> |
                                                 <a asp-action="Delete" asp-route-id="@item.StaffId">Delete</a>
                                             </td>
                                         </tr>
                                     }
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.WorkingDay)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.AppUser)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Inventory)
-                                        </th>
-                                        <th></th>
-                                    </tr>
-                                </tfoot>
+                              
                             </table>
                         </div>
                     </div>
