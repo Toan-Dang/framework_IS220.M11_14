@@ -10,12 +10,11 @@ namespace WEB2.Models {
         [Key]
         public int ContentId { get; set; }
 
-        public int ProductId { get; set; }
         public string Title { get; set; }
         public string Contents { get; set; }
         public DateTime DateRealease { get; set; }
         public string Author { get; set; }
         public string Special { get; set; }
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<ProductContent> ProductContents { get; set; }
     }
 }

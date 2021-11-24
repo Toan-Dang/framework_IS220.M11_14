@@ -10,7 +10,6 @@ namespace WEB2.Models {
         public int ProductId { get; set; }
 
         public int CategoryId { get; set; }
-        public int ContentId { get; set; }
         public string ProductName { get; set; }
         public double UnitPrice { get; set; }
         public int View { get; set; }
@@ -45,9 +44,6 @@ namespace WEB2.Models {
 
         [ForeignKey("CategoryId")]
         public virtual Category Category { get; set; }
-
-        [ForeignKey("ContentId")]
-        public virtual Content Content { get; set; }
 
         //config ref
         [ForeignKey("ConnID")]
@@ -89,5 +85,6 @@ namespace WEB2.Models {
         public virtual ICollection<ProductDiscount> ProductDiscounts { get; set; }
         public virtual ICollection<Purchase> Purchases { get; set; }
         public virtual ICollection<Invent_product> Invent_Products { get; set; }
+        public virtual ICollection<ProductContent> ProductContents { get; set; }
     }
 }
