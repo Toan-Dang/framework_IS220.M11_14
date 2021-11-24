@@ -111,12 +111,21 @@ namespace WEB2 {
                 options.AddPolicy("AdminDropdown", policy => {
                     policy.RequireRole("Admin");
                 });
+                options.AddPolicy("StaffDropdown", policy => {
+                    policy.RequireRole("Nhân viên");
+                });
+                options.AddPolicy("ManangerDropdown", policy => {
+                    policy.RequireRole("Quản Lý");
+                });
 
                 options.AddPolicy("Admin", policy => {
                     policy.RequireRole("Admin");
                 });
+                options.AddPolicy("Manager", policy => {
+                    policy.RequireRole("Admin", "Quản Lý");
+                });
                 options.AddPolicy("Staff", policy => {
-                    policy.RequireRole("Staff", "Admin");
+                    policy.RequireRole("Nhân viên", "Admin", "Quản Lý");
                 });
             });
             /* The relevant part for Forwarded Headers */

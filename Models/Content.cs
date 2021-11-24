@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -14,8 +15,7 @@ namespace WEB2.Models {
         public string Contents { get; set; }
         public DateTime DateRealease { get; set; }
         public string Author { get; set; }
-
-        [ForeignKey("ProductId")]
-        public virtual Product Product { get; set; }
+        public string Special { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }
