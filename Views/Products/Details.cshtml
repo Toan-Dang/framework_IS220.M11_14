@@ -190,7 +190,7 @@
 							</tbody>
 						</table>
 					</div>
-						<a class="btn" id="seemore" >Xem cấu hình chi tiết <i class="bi bi-chevron-down"></i>
+						<a class="btn" id="seemore"  data-toggle="modal" data-target="#exampleModalLong" >Xem cấu hình chi tiết <i class="bi bi-chevron-down"></i>
 					</a>
 				</div>
 				<div class="thongtinmay" style="position: relative; top: 20px;">
@@ -209,334 +209,386 @@
 			</div>
 		  </div>
 	</div>
-	<div style="width: 60%;"  class="cauhinhchitiet hiding">
-		<div style="background-color: #be1e2d; color: white; border-radius: 10px 10px 0px 0px; margin: 0px">
-			<h5 class="p-4">Thông số kỹ thuật</h5>
-		</div>
-		<div id="manhinh">
-			<h6>MÀN HÌNH</h6>
-			<table style="margin: auto; font-size: 14px" class="table table-striped" >
-				<tbody>
-					<tr>
-						<td>
-							Công nghệ màn hình
-						</td>
-						<td>
-							@Html.DisplayFor(model => model.Screen.Technology)
-						</td>
-					</tr>
-					<tr>
-						<td>
-							Độ phân giải
-						</td>
-						<td>
-							@Html.DisplayFor(model => model.Screen.Resolution)
-						</td>
-					</tr>
-					<tr>
-						<td>
-							Kích thước
-						</td>
-						<td>
-							@Html.DisplayFor(model => model.Screen.Size) inches
-						</td>
-					</tr>
-					<tr>
-						<td>
-							Tần số quét
-						</td>
-						<td>
-							@Html.DisplayFor(model => model.Screen.HZ) Hz
-						</td>
-					</tr>
-					<tr>
-					<td>
-						Độ sáng tối đa
-						</td>
-						<td id="bright">
+	<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content"  style="border-radius: 10px; ">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLongTitle">Thông số kỹ thuật</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		  </div>
+		  <div class="modal-body">
+			
+			<div class="cauhinhchitiet">
+				<div id="manhinh">
+					<h6>MÀN HÌNH</h6>
+					<table style="margin: auto; font-size: 14px" class="table table-striped" >
+						<tbody>
+							<tr>
+								<td>
+									Công nghệ màn hình
+								</td>
+								<td>
+									@Html.DisplayFor(model => model.Screen.Technology)
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Độ phân giải
+								</td>
+								<td>
+									@Html.DisplayFor(model => model.Screen.Resolution)
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Kích thước
+								</td>
+								<td>
+									@Html.DisplayFor(model => model.Screen.Size) inches
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Tần số quét
+								</td>
+								<td>
+									@Html.DisplayFor(model => model.Screen.HZ) Hz
+								</td>
+							</tr>
+							<tr>
+							<td>
+								Độ sáng tối đa
+								</td>
+								<td id="bright">
 							
-						</td>
-					</tr>
-					<tr>
-					<td>
-						Màn hình
-						</td>
-						<td>
-							@Html.DisplayFor(model => model.Screen.Special)
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div id="camera">
-			<h6>CAMERA</h6>
-			<table style="margin: auto; font-size: 14px" class="table table-striped" >
-				<tbody>
-					<tr>
-						<td>
-							Camera trước
-						</td>
-						<td>
-							@Html.DisplayFor(model => model.Camera.FCamRes)
-						</td>
-					</tr>
-					<tr>
-						<td>
-							Camera sau
-						</td>
-						<td>
-							@Html.DisplayFor(model =>  model.Camera.BCamRes)
-						</td>
-					</tr>
-					<tr>
-						<td>
-							Đèn Flash (Camera sau)
-						</td>
-						<td>
-							@Html.DisplayFor(model => model.Camera.Flash)
-						</td>
-					</tr>
-					<tr>
-						<td >
-							Video (Camera sau)
-						</td>
-						<td id="e1">
-						</td>
-					</tr>
-					<tr>
-						<td>
-						Tính năng đặt biệt (Camera sau)
-						</td>
-						<td id="e2">
+								</td>
+							</tr>
+							<tr>
+							<td>
+								Màn hình
+								</td>
+								<td>
+									@Html.DisplayFor(model => model.Screen.Special)
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div id="camera">
+					<h6>CAMERA</h6>
+					<table style="margin: auto; font-size: 14px" class="table table-striped" >
+						<tbody>
+							<tr>
+								<td>
+									Camera trước
+								</td>
+								<td>
+									@Html.DisplayFor(model => model.Camera.FCamRes)
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Camera sau
+								</td>
+								<td>
+									@Html.DisplayFor(model =>  model.Camera.BCamRes)
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Đèn Flash (Camera sau)
+								</td>
+								<td>
+									@Html.DisplayFor(model => model.Camera.Flash)
+								</td>
+							</tr>
+							<tr>
+								<td >
+									Video (Camera sau)
+								</td>
+								<td id="e1">
+								</td>
+							</tr>
+							<tr>
+								<td>
+								Tính năng đặt biệt (Camera sau)
+								</td>
+								<td id="e2">
 							
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div id="os-cpu">
-			<h6>HỆ ĐIỀU HÀNH & CPU</h6>
-			<table style="margin: auto; font-size: 14px" class="table table-striped" >
-				<tbody>
-					<tr>
-						<td>
-							Hệ điều hành
-						</td>
-						<td>
-							@Html.DisplayFor(model => model.OS.Name) @Html.DisplayFor(model => model.OS.Version)
-						</td>
-					</tr>
-					<tr>
-						<td>
-							CPU
-						</td>
-						<td>
-							@Html.DisplayFor(model =>  model.Processor.Name)
-						</td>
-					</tr>
-					<tr>
-						<td>
-							Tốc độ CPU
-						</td>
-						<td>
-							Cơ bản: @Html.DisplayFor(model => model.Processor.BaseSpeed) GHz - Tối đa: @Html.DisplayFor(model => model.Processor.MaxSpeed) GHz
-						</td>
-					</tr>
-					<tr>
-						<td >
-							GPU
-						</td>
-						<td id="video">
-							@Html.DisplayFor(model => model.Graphic.NameGPU) @Html.DisplayFor(model => model.Graphic.Core) nhân
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div id="ramrom">
-			<h6>BỘ NHỚ & LƯU TRỮ</h6>
-			<table style="margin: auto; font-size: 14px" class="table table-striped" >
-				<tbody>
-					<tr>
-						<td>
-							RAM
-						</td>
-						<td>
-							@Html.DisplayFor(model => model.Ram.Capacity) GB
-						</td>
-					</tr>
-					<tr>
-						<td>
-							Bộ nhớ trong
-						</td>
-						<td>
-							@Html.DisplayFor(model =>  model.Rom.Capacity) GB
-						</td>
-					</tr>
-					<tr>
-						<td>
-							Bộ nhớ trong (còn lại) khoảng
-						</td>
-						<td>
-							@Html.DisplayFor(model =>  model.Rom.MaxRom) GB
-						</td>
-					</tr>
-					<tr>
-						<td >
-							Danh bạ
-						</td>
-						<td id="video">
-							Không giới hạn
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div id="connection">
-			<h6>KẾT NỐI</h6>
-			<table style="margin: auto; font-size: 14px" class="table table-striped" >
-				<tbody>
-					<tr>
-						<td>
-							Mạng di động
-						</td>
-						<td>
-							@Html.DisplayFor(model => model.Connection.WirelessCard)
-						</td>
-					</tr>
-					<tr>
-						<td>
-							SIM
-						</td>
-						<td>
-							@Html.DisplayFor(model =>  model.Connection.Sim)
-						</td>
-					</tr>
-					<tr>
-						<td>
-							Wifi
-						</td>
-						<td id="e3">
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div id="os-cpu">
+					<h6>HỆ ĐIỀU HÀNH & CPU</h6>
+					<table style="margin: auto; font-size: 14px" class="table table-striped" >
+						<tbody>
+							<tr>
+								<td>
+									Hệ điều hành
+								</td>
+								<td>
+									@Html.DisplayFor(model => model.OS.Name) @Html.DisplayFor(model => model.OS.Version)
+								</td>
+							</tr>
+							<tr>
+								<td>
+									CPU
+								</td>
+								<td>
+									@Html.DisplayFor(model =>  model.Processor.Name)
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Tốc độ CPU
+								</td>
+								<td>
+									Cơ bản: @Html.DisplayFor(model => model.Processor.BaseSpeed) GHz - Tối đa: @Html.DisplayFor(model => model.Processor.MaxSpeed) GHz
+								</td>
+							</tr>
+							<tr>
+								<td >
+									GPU
+								</td>
+								<td id="video">
+									@Html.DisplayFor(model => model.Graphic.NameGPU) @Html.DisplayFor(model => model.Graphic.Core) nhân
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div id="ramrom">
+					<h6>BỘ NHỚ & LƯU TRỮ</h6>
+					<table style="margin: auto; font-size: 14px" class="table table-striped" >
+						<tbody>
+							<tr>
+								<td>
+									RAM
+								</td>
+								<td>
+									@Html.DisplayFor(model => model.Ram.Capacity) GB
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Bộ nhớ trong
+								</td>
+								<td>
+									@Html.DisplayFor(model =>  model.Rom.Capacity) GB
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Bộ nhớ trong (còn lại) khoảng
+								</td>
+								<td>
+									@Html.DisplayFor(model =>  model.Rom.MaxRom) GB
+								</td>
+							</tr>
+							<tr>
+								<td >
+									Danh bạ
+								</td>
+								<td id="video">
+									Không giới hạn
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div id="connection">
+					<h6>KẾT NỐI</h6>
+					<table style="margin: auto; font-size: 14px" class="table table-striped" >
+						<tbody>
+							<tr>
+								<td>
+									Mạng di động
+								</td>
+								<td>
+									@Html.DisplayFor(model => model.Connection.WirelessCard)
+								</td>
+							</tr>
+							<tr>
+								<td>
+									SIM
+								</td>
+								<td>
+									@Html.DisplayFor(model =>  model.Connection.Sim)
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Wifi
+								</td>
+								<td id="e3">
 							
-						</td>
-					</tr>
-					<tr>
-						<td >
-							GPS
-						</td>
-						<td id="e4">
+								</td>
+							</tr>
+							<tr>
+								<td >
+									GPS
+								</td>
+								<td id="e4">
 							
-						</td>
-					</tr>
-					<tr>
-						<td >
-							Bluetooth
-						</td>
-						<td id="e5">
+								</td>
+							</tr>
+							<tr>
+								<td >
+									Bluetooth
+								</td>
+								<td id="e5">
 							
-						</td>
-					</tr>
-					<tr>
-						<td >
-							Cổng kết nối
-						</td>
-						<td >
-							@Html.DisplayFor(model =>  model.Connection.PhoneJack)
-						</td>
-					</tr>
-					<tr>
-						<td >
-							Nghe nhạc
-						</td>
-						<td id="e6">
+								</td>
+							</tr>
+							<tr>
+								<td >
+									Cổng kết nối
+								</td>
+								<td >
+									@Html.DisplayFor(model =>  model.Connection.PhoneJack)
+								</td>
+							</tr>
+							<tr>
+								<td >
+									Nghe nhạc
+								</td>
+								<td id="e6">
 							
-						</td>
-					</tr>
-					<tr>
-						<td >
-							Kết nối khác
-						</td>
-						<td id="e7">
+								</td>
+							</tr>
+							<tr>
+								<td >
+									Kết nối khác
+								</td>
+								<td id="e7">
 							
-						</td>
-					</tr>
-				</tbody>
-			</table>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div id="battery">
+					<h6>PIN & SẠC</h6>
+					<table style="margin: auto; font-size: 14px" class="table table-striped" >
+						<tbody>
+							<tr>
+								<td>
+									Dung lượng pin
+								</td>
+								<td>
+									@Html.DisplayFor(model => model.Battery.Capacity) mAh
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Loại pin
+								</td>
+								<td>
+									@Html.DisplayFor(model =>  model.Battery.Type) 
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Tính năng
+								</td>
+								<td id="e8">
+							
+								</td>
+							</tr>
+							<tr>
+								<td >
+									Hỗ trợ sạc tối đa
+								</td>
+								<td id="video">
+									@Html.DisplayFor(model =>  model.Battery.Charge) W
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div id="structure">
+					<h6>THÔNG TIN CHUNG</h6>
+					<table style="margin: auto; font-size: 14px" class="table table-striped" >
+						<tbody>
+							<tr>
+								<td>
+									Thiết kế
+								</td>
+								<td>
+									@Html.DisplayFor(model => model.Structure.Design)
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Chất liệu
+								</td>
+								<td>
+									@Html.DisplayFor(model =>  model.Structure.Martirial) 
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Kích thước & khối lượng
+								</td>
+								<td>
+									Dài @Html.DisplayFor(model =>  model.Structure.Long) mm - Rộng @Html.DisplayFor(model =>  model.Structure.Wide) mm - Dày @Html.DisplayFor(model =>  model.Structure.High) mm - Nặng @Html.DisplayFor(model =>  model.Structure.Weight) g
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>	
+			</div> 
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+		  </div>
 		</div>
-		<div id="battery">
-			<h6>PIN & SẠC</h6>
-			<table style="margin: auto; font-size: 14px" class="table table-striped" >
-				<tbody>
-					<tr>
-						<td>
-							Dung lượng pin
-						</td>
-						<td>
-							@Html.DisplayFor(model => model.Battery.Capacity) mAh
-						</td>
-					</tr>
-					<tr>
-						<td>
-							Loại pin
-						</td>
-						<td>
-							@Html.DisplayFor(model =>  model.Battery.Type) 
-						</td>
-					</tr>
-					<tr>
-						<td>
-							Tính năng
-						</td>
-						<td id="e8">
-							
-						</td>
-					</tr>
-					<tr>
-						<td >
-							Hỗ trợ sạc tối đa
-						</td>
-						<td id="video">
-							@Html.DisplayFor(model =>  model.Battery.Charge) W
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div id="structure">
-			<h6>THÔNG TIN CHUNG</h6>
-			<table style="margin: auto; font-size: 14px" class="table table-striped" >
-				<tbody>
-					<tr>
-						<td>
-							Thiết kế
-						</td>
-						<td>
-							@Html.DisplayFor(model => model.Structure.Design)
-						</td>
-					</tr>
-					<tr>
-						<td>
-							Chất liệu
-						</td>
-						<td>
-							@Html.DisplayFor(model =>  model.Structure.Martirial) 
-						</td>
-					</tr>
-					<tr>
-						<td>
-							Kích thước & khối lượng
-						</td>
-						<td>
-							Dài @Html.DisplayFor(model =>  model.Structure.Long) mm - Rộng @Html.DisplayFor(model =>  model.Structure.Wide) mm - Dày @Html.DisplayFor(model =>  model.Structure.High) mm - Nặng @Html.DisplayFor(model =>  model.Structure.Weight) g
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>	
-		<div style="margin-top: 10px; margin-left: 88%">
-			<a class="btn" style="background-color: #be1e2d; color: white !important; border-radius: 10px">ĐÓNG</a>
-		</div>
-	</div> 
+	  </div>
+	</div>
+
+	<div class="relative">
+		<h5 class="p-3" >Sản phẩm tương tự</h5>
+		@for(int i = 0; i < 4; i++){
+		<div>
+		<a href="#">
+		   <div class="card" id="apple">
+			   <div class="lbsale"><span class="lbtragop">Trả góp 0%</span></div>
+				@*nhớ add id này để lọc *@
+				  <img class="card-img-top" src="@Html.DisplayFor(model => model.Picture)" alt="Iphone 13 Pro Max">
+				 <div class="card-body">
+					  <h5 class="card-title">@Html.DisplayFor(model => model.ProductName)</h5>
+					  <h5 class="card-title pricesale m-0">10.000.000</h5>
+					  <h6 class="card-title price text-muted mt-1">11.000.000</h6>
+					   <div>
+                            <p style="display:inline">
+                                <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                </svg>
+                                <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                </svg>
+                                <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                </svg>
+                                <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                </svg>
+                                <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-half" viewBox="0 0 16 16">
+                                    <path d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z" />
+                                </svg>
+                            </p>
+                        </div>
+					   </div>
+				 </div>
+		 </a>
+		 </div>
+		 }
+	</div>
+
 
 	<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 	<script>
@@ -581,12 +633,14 @@
 				$("#e6").html(toHtml("@Html.DisplayFor(model =>  model.Sound.Technology)"));
 				$("#e7").html(toHtml("@Html.DisplayFor(model =>  model.Connection.Other)"));
 				$("#e8").html(toHtml("@Html.DisplayFor(model =>  model.Battery.Technology)"));
+
 				$("#bright").html(function(){
 					let br = "@Html.DisplayFor(model => model.Screen.MaxBright)";
-					if (br.localeCompare("Ha&#x303;ng kh&#xF4;ng c&#xF4;ng b&#xF4;&#x301;") == 0 ){
-						return br;
+					let br1=  parseInt(br);
+					if (br1 - br1 == 0){
+						return br + " nits";
 					}
-					return br + " nits";
+					return br 
 				})
 				$(".clickbuy").children().html(function(){
 					let ch = $(".clickbuy").children().html();
