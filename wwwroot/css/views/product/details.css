@@ -35,8 +35,8 @@
     .slider-for {
         margin: 25px;
     }
-.col {
-    margin-bottom: 100px;
+.row {
+    margin-bottom: 50px;
 }
 
 .product-slice .slick-prev, .product-slice .slick-next {
@@ -121,7 +121,6 @@ h3.unitprice{
 .cauhinhchitiet {
     margin: auto;
     margin-bottom: 30px;
-    border: 1px solid #F2F2F2;
     border-radius: 10px;
     padding-bottom: 10px;
 }
@@ -268,10 +267,135 @@ table {
         border: 1px solid #e0e0e0;
         color: #333;
     }
-
-.showing {
-    display: block;
+.modal-footer > button {
+    background-color: #be1e2d;
+    border: none;
 }
-.hiding {
-    display: none;
+.modal-header {
+    background-color: #be1e2d;
+}
+.modal-title {
+    color: white;
+}
+.modal-header > button > span {
+    color: white;
+}
+#exampleModalLong button:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    background-color: #be1e2d;
+}
+#exampleModalLong button:hover {
+    outline: none !important;
+    box-shadow: none !important;
+    background-color: #be1e2d;
+}
+#exampleModalLong .modal-content {
+    border: none !important;
+}
+#exampleModalLong .modal-dialog {
+    max-width: 700px !important;
+}
+.relative::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.relative > div {
+    float: left;
+    width: 25%;
+    padding-top: 0px;
+}
+
+    .relative > div > a:hover {
+        text-decoration: none;
+        color: black;
+    }
+.relative > h5 {
+    background-color: #be1e2d;
+    color: white;
+    border-radius: 10px 10px 0px 0px;
+}
+.relative {
+    justify-content: center;
+}
+
+    .relative > div > a > div {
+        border-radius: 10px;
+        margin-left: 15px;
+        margin-right: 15px;
+        margin-bottom: 15px;
+        margin-top: 10px;
+    }
+        .relative > div > a > div:hover {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            transition: 0.4s ease-in-out;
+        }
+.card-img-top {
+    height: 65%;
+    width: 65%;
+    margin: auto;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+.card {
+    border: 1px solid white;
+    box-shadow: rgb(60 64 67 / 10%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 2px 6px 2px;
+}
+.card-body {
+    height: 175px;
+}
+h5.pricesale {
+    color: #be1e2d;
+}
+
+h6.price {
+    text-decoration: line-through 1px solid black;
+}
+.lbsale {
+    padding-top: 3px;
+    padding-left: 7px;
+}
+
+.lbtragop {
+    background-color: #be1e2d;
+    color: white;
+}
+.lbsale span {
+    border-radius: 4px;
+    font-size: 11px;
+    line-height: 12px;
+    display: inline-block;
+    padding: 4px;
+}
+.rating-checked {
+    color: rgb(255, 81, 0);
+}
+.relative {
+    box-shadow: rgb(60 64 67 / 10%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 2px 6px 2px;
+    border-radius: 10px;
+}
+.contentproduct, #danhgia {
+    padding: 15px;
+    border: 1px solid white;
+    box-shadow: rgb(60 64 67 / 10%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 2px 6px 2px;
+    border-radius: 10px;
+}
+.contentproduct > div > div > h5 {
+    color: #be1e2d;
+    text-align: center;
+}
+#blogcontent img {
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+}
+#blogcontent > p{
+    padding: 5px;
+    margin-bottom: 5px;
+}
+#danhgia > h5{
+    text-align: center;
+    color: #be1e2d;
 }
