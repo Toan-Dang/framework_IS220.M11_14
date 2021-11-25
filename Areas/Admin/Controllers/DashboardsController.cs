@@ -33,6 +33,7 @@ namespace WEB2.Areas.Admin.Controllers {
                 .Where(p => p.Order.TransactStatus != "null")
                 .Where(p => p.Order.TransactStatus != "pending")
                 .Where(p => p.Order.TransactStatus != "done")
+                .Where(p => p.Order.TransactStatus != "cancel")
                 .Where(p => p.Status == "solved")
                 .ToListAsync();
             if (order.Count == 0) {

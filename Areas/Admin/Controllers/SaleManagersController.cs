@@ -21,22 +21,17 @@ namespace WEB2.Areas.Admin.Controllers {
 
         // GET: SaleManager
         public async Task<ActionResult> Transaction() {
-            var order = await _context.Order.ToListAsync();
-            return View(order);
-        }
-
-        // GET: SaleManager
-        public async Task<ActionResult> ProductBill() {
             var order = await _context.OrderDetail
-              .Include(o => o.Order)
-              .Include(o => o.Order.Customer)
-              .Include(o => o.Order.Customer.AppUser)
-              .Include(o => o.Product)
-              .Where(p => p.Order.TransactStatus != "null")
-              .Where(p => p.Status == "solved")
-              .ToListAsync();
+             .Include(o => o.Order)
+             .Include(o => o.Order.Customer)
+             .Include(o => o.Order.Customer.AppUser)
+             .Include(o => o.Product)
+             .Where(p => p.Order.TransactStatus != "null")
+             .Where(p => p.Status == "solved")
+             .ToListAsync();
+
             if (order.Count == 0) {
-                return View();
+                return View(order);
             }
             OrderDetail od = new OrderDetail();
             var reorder = new List<OrderDetail>();
@@ -50,7 +45,52 @@ namespace WEB2.Areas.Admin.Controllers {
 
                 if (order[i].OrderId == order[i + 1].OrderId) {
                     od.Product.ProductName += "\n" + order[i + 1].Product.ProductName;
-                    od.IDSKU += "\n" + order[i + 1].IDSKU;
+                    od.IDSKU += "\n" + order[i + 1].Quantity.ToString();
+                    check = true;
+                } else {
+                    reorder.Add(od);
+                    check = false;
+                }
+            }
+            if (check == false) {
+                od = order[order.Count - 1];
+                od.IDSKU = od.Quantity.ToString();
+            }
+            reorder.Add(od);
+
+            return View( reorder);
+        }
+
+        // GET: SaleManager
+        public async Task<ActionResult> ProductBill() {
+            var order = await _context.OrderDetail
+              .Include(o => o.Order)
+              .Include(o => o.Order.Customer)
+              .Include(o => o.Order.Customer.AppUser)
+              .Include(o => o.Product)
+              .Where(p => p.Order.TransactStatus != "null")
+              .Where(p => p.Order.TransactStatus != "pending")
+              .Where(p => p.Order.TransactStatus != "done")
+              .Where(p => p.Order.TransactStatus != "cancel")
+              .Where(p => p.Order.TransactStatus != "shipping")
+              .Where(p => p.Status == "solved")
+              .ToListAsync();
+            if (order.Count == 0) {
+                return View(order);
+            }
+            OrderDetail od = new OrderDetail();
+            var reorder = new List<OrderDetail>();
+            bool check = false;
+
+            for (int i = 0 ; i < order.Count - 1 ; i++) {
+                if (check == false) {
+                    od = order[i];
+                    od.IDSKU = od.Quantity.ToString();
+                }
+
+                if (order[i].OrderId == order[i + 1].OrderId) {
+                    od.Product.ProductName += "\n" + order[i + 1].Product.ProductName;
+                    od.IDSKU += "\n" + order[i + 1].Quantity.ToString();
                     check = true;
                 } else {
                     reorder.Add(od);
@@ -63,6 +103,47 @@ namespace WEB2.Areas.Admin.Controllers {
             }
             reorder.Add(od);
             return View(reorder);
+        }
+
+        public async Task<IActionResult> Shipping() {
+            var order = await _context.OrderDetail
+           .Include(o => o.Order)
+           .Include(o => o.Order.Customer)
+           .Include(o => o.Order.Customer.AppUser)
+           .Include(o => o.Product)
+           .Where(p => p.Order.TransactStatus == "shipping")
+           .Where(p => p.Status == "solved")
+           .ToListAsync();
+
+            if (order.Count == 0) {
+                return View(order);
+            }
+            OrderDetail od = new OrderDetail();
+            var reorder = new List<OrderDetail>();
+            bool check = false;
+
+            for (int i = 0 ; i < order.Count - 1 ; i++) {
+                if (check == false) {
+                    od = order[i];
+                    od.IDSKU = od.Quantity.ToString();
+                }
+
+                if (order[i].OrderId == order[i + 1].OrderId) {
+                    od.Product.ProductName += "\n" + order[i + 1].Product.ProductName;
+                    od.IDSKU += "\n" + order[i + 1].Quantity.ToString();
+                    check = true;
+                } else {
+                    reorder.Add(od);
+                    check = false;
+                }
+            }
+            if (check == false) {
+                od = order[order.Count - 1];
+                od.IDSKU = od.Quantity.ToString();
+            }
+            reorder.Add(od);
+
+            return View( reorder);
         }
 
         public async Task<ActionResult> Accecpt(int? id) {
@@ -82,15 +163,6 @@ namespace WEB2.Areas.Admin.Controllers {
             return RedirectToAction(nameof(ProductBill));
         }
 
-        public ActionResult Profit() {
-            return View();
-        }
-
-        // GET: SaleManager/Details/5
-        public ActionResult TransactionDetails(int id) {
-            return View();
-        }
-
         // GET: SaleManager/Create
         public async Task<ActionResult> BillDetails(int id) {
             var order = await _context.OrderDetail
@@ -100,14 +172,19 @@ namespace WEB2.Areas.Admin.Controllers {
              .Include(o => o.Product)
              .Include(o => o.Order.Shipment)
              .Include(o => o.Order.Payment)
+             .Where(o => o.Order.Deleted == false)
              .Where(p => p.OrderId == id)
              .ToListAsync();
 
             return View(order);
         }
 
-        public ActionResult ProfitDetails(int id) {
-            return View();
+        public async Task<ActionResult> BillDel(int id) {
+            var order = await _context.Order.FindAsync(id);
+            order.TransactStatus = "cancel";
+            _context.Update(order);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(ProductBill));
         }
 
         // POST: SaleManager/Create
@@ -125,33 +202,6 @@ namespace WEB2.Areas.Admin.Controllers {
             _context.Update(order);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(ProductBill));
-        }
-
-        // POST: SaleManager/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection) {
-            try {
-                return RedirectToAction();
-            } catch {
-                return View();
-            }
-        }
-
-        // GET: SaleManager/Delete/5
-        public ActionResult Delete(int id) {
-            return View();
-        }
-
-        // POST: SaleManager/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection) {
-            try {
-                return RedirectToAction();
-            } catch {
-                return View();
-            }
         }
     }
 }

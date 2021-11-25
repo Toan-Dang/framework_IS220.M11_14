@@ -53,6 +53,8 @@ namespace WEB2.Data {
         public DbSet<WEB2.Models.OrderDetail> OrderDetail { get; set; }
         public DbSet<WEB2.Models.Payment> Payment { get; set; }
         public DbSet<WEB2.Models.Voucher_detail> Voucher_Details { get; set; }
-        public DbSet<WEB2.Models.Purchase> Purchases { get; set; }
+        public DbSet<WEB2.Models.Purchase> Purchase { get; set; }
+        public DbSet<WEB2.Models.Content> Content { get; set; }
+        public DbSet<WEB2.Models.ProductContent> ProductContent { get; set; }
     }
 }

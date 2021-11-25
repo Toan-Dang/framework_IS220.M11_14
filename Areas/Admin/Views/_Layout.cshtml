@@ -180,9 +180,9 @@
                             <i class="icon icon-payment"></i><span class="nav-text">Quản lý bán hàng </span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./ui-accordion.html">Tất cả giao dịch</a></li>
+                            <li><a asp-controller="SaleManagers" asp-action="Transaction" asp-area="Admin">Tất cả giao dịch</a></li>
                             <li><a asp-controller="SaleManagers" asp-action="ProductBill" asp-area="Admin">Đơn hàng sản phẩm </a></li>
-                            <li><a href="./ui-badge.html">Hóa đơn đang chờ</a></li>
+                            <li><a asp-controller="SaleManagers" asp-action="Shipping" asp-area="Admin">Đơn hàng đang vận chuyển</a></li>
                         </ul>
                     </li>
 

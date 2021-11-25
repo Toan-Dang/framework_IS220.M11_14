@@ -65,7 +65,7 @@
                                         </td>
                                         <td>@Html.DisplayFor(model => item.Order.Customer.AppUser.FullName)</td>
                                         <td><span>@Html.DisplayFor(model => item.OrderId)</span></td>
-                                        <td><span style= "white-space: pre-line;
+                                        <td><span style= "white-space: pre-line; 
 }">
                                             @Html.DisplayFor(model => item.Product.ProductName)</span></td>
                                          <td><span style= "white-space: pre-line;
@@ -89,7 +89,8 @@
                                             } 
                                           <td>
                                              <a asp-action="Accecpt" asp-route-id="@item.OrderId" >@color</a>  |
-                                             <a asp-action="BillDetails" asp-route-id="@item.OrderId">Chi tiet</a>          
+                                             <a asp-action="BillDetails" asp-route-id="@item.OrderId">Chi tiet</a> |    
+                                             <a asp-action="BillDel" asp-route-id="@item.OrderId">Hủy</a>   
           
                                         </td>
                                     </tr>   
