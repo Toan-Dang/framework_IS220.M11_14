@@ -376,3 +376,26 @@ h6.price {
     box-shadow: rgb(60 64 67 / 10%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 2px 6px 2px;
     border-radius: 10px;
 }
+.contentproduct, #danhgia {
+    padding: 15px;
+    border: 1px solid white;
+    box-shadow: rgb(60 64 67 / 10%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 2px 6px 2px;
+    border-radius: 10px;
+}
+.contentproduct > div > div > h5 {
+    color: #be1e2d;
+    text-align: center;
+}
+#blogcontent img {
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+}
+#blogcontent > p{
+    padding: 5px;
+    margin-bottom: 5px;
+}
+#danhgia > h5{
+    text-align: center;
+    color: #be1e2d;
+}
