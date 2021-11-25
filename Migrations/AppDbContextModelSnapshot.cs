@@ -399,15 +399,13 @@ namespace WEB2.Migrations
                     b.Property<DateTime>("DateRealease")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                    b.Property<string>("Special")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ContentId");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("Content");
                 });
@@ -420,10 +418,22 @@ namespace WEB2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerID"), 1L, 1);
 
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("DateEntered")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Latitude")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Longitude")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ShipAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
@@ -614,10 +624,16 @@ namespace WEB2.Migrations
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Country")
+                    b.Property<string>("Latitude")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Longitude")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TotalAmount")
@@ -925,6 +941,21 @@ namespace WEB2.Migrations
                     b.HasIndex("StructID");
 
                     b.ToTable("Product");
+                });
+
+            modelBuilder.Entity("WEB2.Models.ProductContent", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ContentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductId", "ContentId");
+
+                    b.HasIndex("ContentId");
+
+                    b.ToTable("ProductContent");
                 });
 
             modelBuilder.Entity("WEB2.Models.ProductDiscount", b =>
@@ -1306,17 +1337,6 @@ namespace WEB2.Migrations
                     b.Navigation("ParentCategory");
                 });
 
-            modelBuilder.Entity("WEB2.Models.Content", b =>
-                {
-                    b.HasOne("WEB2.Models.Product", "Product")
-                        .WithMany("Contents")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("WEB2.Models.Customer", b =>
                 {
                     b.HasOne("WEB2.Models.AppUser", "AppUser")
@@ -1523,6 +1543,25 @@ namespace WEB2.Migrations
                     b.Navigation("Structure");
                 });
 
+            modelBuilder.Entity("WEB2.Models.ProductContent", b =>
+                {
+                    b.HasOne("WEB2.Models.Content", "Content")
+                        .WithMany("ProductContents")
+                        .HasForeignKey("ContentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WEB2.Models.Product", "Product")
+                        .WithMany("ProductContents")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Content");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("WEB2.Models.ProductDiscount", b =>
                 {
                     b.HasOne("WEB2.Models.Discount", "Discount")
@@ -1617,6 +1656,11 @@ namespace WEB2.Migrations
                     b.Navigation("Products");
                 });
 
+            modelBuilder.Entity("WEB2.Models.Content", b =>
+                {
+                    b.Navigation("ProductContents");
+                });
+
             modelBuilder.Entity("WEB2.Models.Customer", b =>
                 {
                     b.Navigation("Orders");
@@ -1665,13 +1709,13 @@ namespace WEB2.Migrations
 
             modelBuilder.Entity("WEB2.Models.Product", b =>
                 {
-                    b.Navigation("Contents");
-
                     b.Navigation("Images");
 
                     b.Navigation("Invent_Products");
 
                     b.Navigation("OrderDetails");
+
+                    b.Navigation("ProductContents");
 
                     b.Navigation("ProductDiscounts");
 

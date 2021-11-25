@@ -23,6 +23,7 @@ namespace WEB2.Data {
             builder.Entity<Purchase>().HasKey(p => new { p.ProductId, p.SupplierId });
             builder.Entity<ProductDiscount>().HasKey(p => new { p.ProductId, p.DiscountId });
             builder.Entity<Invent_product>().HasKey(p => new { p.ProductId, p.InventoryId });
+            builder.Entity<ProductContent>().HasKey(p => new { p.ProductId, p.ContentId });
         }
 
         public DbSet<WEB2.Models.Staff> Staff { get; set; }
@@ -46,7 +47,8 @@ namespace WEB2.Data {
         public DbSet<WEB2.Models.Voucher> Voucher { get; set; }
 
         public DbSet<WEB2.Models.Product> Product { get; set; }
-
+        public DbSet<WEB2.Models.Content> Content { get; set; }
+        public DbSet<WEB2.Models.ProductContent> ProductContent { get; set; } 
         public DbSet<WEB2.Models.Ram> Ram { get; set; }
 
         public DbSet<WEB2.Models.OrderDetail> OrderDetail { get; set; }
