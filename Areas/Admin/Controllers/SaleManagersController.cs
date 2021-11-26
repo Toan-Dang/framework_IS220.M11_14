@@ -27,6 +27,7 @@ namespace WEB2.Areas.Admin.Controllers {
              .Include(o => o.Order.Customer.AppUser)
              .Include(o => o.Product)
              .Where(p => p.Order.TransactStatus != "null")
+             .Where(p => p.Order.TransactStatus != "pending")
              .Where(p => p.Status == "solved")
              .ToListAsync();
 
@@ -58,7 +59,7 @@ namespace WEB2.Areas.Admin.Controllers {
             }
             reorder.Add(od);
 
-            return View( reorder);
+            return View(reorder);
         }
 
         // GET: SaleManager
@@ -73,6 +74,7 @@ namespace WEB2.Areas.Admin.Controllers {
               .Where(p => p.Order.TransactStatus != "done")
               .Where(p => p.Order.TransactStatus != "cancel")
               .Where(p => p.Order.TransactStatus != "shipping")
+               .Where(p => p.Order.TransactStatus != "accept")
               .Where(p => p.Status == "solved")
               .ToListAsync();
             if (order.Count == 0) {
@@ -143,7 +145,7 @@ namespace WEB2.Areas.Admin.Controllers {
             }
             reorder.Add(od);
 
-            return View( reorder);
+            return View(reorder);
         }
 
         public async Task<ActionResult> Accecpt(int? id) {
@@ -154,9 +156,10 @@ namespace WEB2.Areas.Admin.Controllers {
 
             if (order.TransactStatus.Equals("shipping"))
                 order.TransactStatus = "done";
-
-            if (order.TransactStatus.Equals("pay by cash") || order.TransactStatus.Equals("paid"))
+            if (order.TransactStatus.Equals("accept"))
                 order.TransactStatus = "shipping";
+            if (order.TransactStatus.Equals("pay by cash") || order.TransactStatus.Equals("paid"))
+                order.TransactStatus = "accept";
 
             _context.Update(order);
             await _context.SaveChangesAsync();
@@ -195,9 +198,10 @@ namespace WEB2.Areas.Admin.Controllers {
 
             if (order.TransactStatus.Equals("shipping"))
                 order.TransactStatus = "done";
-
-            if (order.TransactStatus.Equals("pay by cash") || order.TransactStatus.Equals("paid"))
+            if (order.TransactStatus.Equals("accept"))
                 order.TransactStatus = "shipping";
+            if (order.TransactStatus.Equals("pay by cash") || order.TransactStatus.Equals("paid"))
+                order.TransactStatus = "accept";
 
             _context.Update(order);
             await _context.SaveChangesAsync();

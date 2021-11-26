@@ -26,7 +26,7 @@ Lớp thực hành .2
 
 - Giỏ hàng
 
-- Thanh toán
+- Thanh toán (tiền mặt/ VNpay) (chưa có ship và khuyến mãi)
 
 #### Admin
 
@@ -40,12 +40,15 @@ Lớp thực hành .2
 
 - Quản lý hàng hóa
 
+- Quản lý bán hàng 
+
+- Quản lý kho
+
 ## Tech
 - [C#] 
 - [ASP.Net] 
 - [ASP.Net Core MVC]
 - [Bootstrap] 
-- [React]
 
 ## Installation
 
@@ -91,7 +94,6 @@ MIT
  [ASP.Net]: <https://dotnet.microsoft.com/apps/aspnet>
  [ASP.Net Core MVC]: <https://docs.microsoft.com/vi-vn/aspnet/core/tutorials/first-mvc-app/start-mvc?view=aspnetcore-2.1&tabs=visual-studio>
  [Bootstrap]: <https://getbootstrap.com/>
- [React]: <https://reactjs.org/>
 [Toan Dang]: <https://github.com/Toan-Dang>
  [Visual Studio 2022]: <https://visualstudio.microsoft.com/downloads/>
  [SQLServer]: <https://www.microsoft.com/en-us/sql-server/sql-server-downloads>

@@ -191,11 +191,24 @@
                             <i class="icon icon-basket"></i><span class="nav-text">Quản lý kho hàng</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./uc-select2.html">Danh sách hàng tồn kho</a></li>
-                            <li><a href="./uc-nestable.html">Nhận hàng</a></li>
-                            <li><a href="./uc-noui-slider.html">Điều chuyển hàng</a></li>
-                            <li><a href="./uc-noui-slider.html">Kho phế liệu</a></li>
-                                    <li><a asp-controller="Categories" asp-action="Index" asp-area="Admin">Danh mục</a></li>
+                         
+                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Quản lý hàng </a>
+                                <ul aria-expanded="false">
+                                    <li><a asp-controller="InventoryManagers" asp-action="Index" asp-area="Admin">Kho vận</a></li>
+                                    <li><a href="./uc-nestable.html">Nhập/Xuất kho</a></li>
+                                    <li><a href="./uc-noui-slider.html">Điều chuyển hàng</a></li>
+                        
+          
+                                </ul>
+                            </li>
+                               <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Quản lý kho </a>
+                                <ul aria-expanded="false">
+                                   <li><a asp-controller="Products" asp-action="Index" asp-area="Admin">Danh sách hàng tồn kho</a></li>
+                                   <li><a asp-controller="Categories" asp-action="Index" asp-area="Admin">Danh mục</a></li>
+                                   <li><a href="./uc-noui-slider.html">Kho phế liệu</a></li>
+                                </ul>
+                            </li>
+                           
                         </ul>
                     </li>
 
@@ -204,8 +217,8 @@
                             <i class="icon icon-cart-simple"></i><span class="nav-text">Quản lý mua hàng</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a asp-controller="Products" asp-action="Index" asp-area="Admin">Yêu cầu báo giá</a></li>
-                            <li><a asp-controller="Categories" asp-action="Index" asp-area="Admin">Đơn mua hàng</a></li>
+                            <li><a >Yêu cầu báo giá</a></li>
+                            <li><a >Đơn mua hàng</a></li>
                             <li><a asp-controller="Suppliers" asp-action="Index" asp-area="Admin">Nhà cung cấp</a></li>
                         </ul>
                     </li>
@@ -218,17 +231,12 @@
                         <ul aria-expanded="false">
                             <li><a asp-controller="Staffs" asp-action="Index" asp-area="Admin">Nhân viên</a></li>
                             <li><a asp-controller="Customers" asp-action="Index" asp-area="Admin">Khách hàng</a></li>
+                            <li><a asp-controller="Vouchers" asp-action="Index" asp-area="Admin">Khuyến mãi</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon icon-cart-9"></i><span class="nav-text"> Hàng hóa</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a asp-controller="Inventories" asp-action="Index" asp-area="Admin">Kho vận</a></li>
-                            <li><a asp-controller="Vouchers" asp-action="Index" asp-area="Admin">Khuyến mãi</a></li>
-                            <li><a asp-controller="Shipments" asp-action="Index" asp-area="Admin">Vận chuyển</a></li>
-                        </ul>
+                
+             
                     </li>
                     <li class="nav-label">Content</li>
                     <li>
