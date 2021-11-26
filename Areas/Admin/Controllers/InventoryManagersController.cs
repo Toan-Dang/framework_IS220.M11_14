@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -36,20 +37,6 @@ namespace WEB2.Areas.Admin.Controllers {
         }
 
         // GET: InventoryManagersController/Create
-        public async Task<ActionResult> InvenProduct() {
-            var Product_in = await _context.Purchase
-                .Where(p => p.TransactStatus != "saved")
-                  .Where(p => p.TransactStatus != "sent")
-                    .Where(p => p.TransactStatus != "done")
-                      .Where(p => p.TransactStatus != "cancel")
-                .ToListAsync();
-
-            var Product_out = await _context.Order
-                .Where(p => p.TransactStatus == "accept")
-                .ToListAsync();
-
-            return View();
-        }
 
         public async Task<ActionResult> TransProduct() {
             var inven = await _context.Invent_Product.Include(p => p.Inventory)
@@ -60,14 +47,11 @@ namespace WEB2.Areas.Admin.Controllers {
         }
 
         // POST: InventoryManagersController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection) {
-            try {
-                return RedirectToAction(nameof(Index));
-            } catch {
-                return View();
-            }
+
+        public async Task<ActionResult> Create([FromBody] Inventory collection) {
+            _context.Add(collection);
+            await _context.SaveChangesAsync();
+            return Redirect(nameof(Index));
         }
 
         // GET: InventoryManagersController/Edit/5

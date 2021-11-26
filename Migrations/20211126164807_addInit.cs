@@ -579,9 +579,9 @@ namespace WEB2.Migrations
                 {
                     StaffId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    InventoryId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    WorkingDay = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    WorkingDay = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    InventoryId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -590,8 +590,7 @@ namespace WEB2.Migrations
                         name: "FK_Staff_Inventory_InventoryId",
                         column: x => x.InventoryId,
                         principalTable: "Inventory",
-                        principalColumn: "InventoryId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "InventoryId");
                     table.ForeignKey(
                         name: "FK_Staff_Users_UserId",
                         column: x => x.UserId,
@@ -728,7 +727,7 @@ namespace WEB2.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Invent_product",
+                name: "Invent_Product",
                 columns: table => new
                 {
                     ProductId = table.Column<int>(type: "int", nullable: false),
@@ -739,15 +738,15 @@ namespace WEB2.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Invent_product", x => new { x.ProductId, x.InventoryId });
+                    table.PrimaryKey("PK_Invent_Product", x => new { x.ProductId, x.InventoryId });
                     table.ForeignKey(
-                        name: "FK_Invent_product_Inventory_InventoryId",
+                        name: "FK_Invent_Product_Inventory_InventoryId",
                         column: x => x.InventoryId,
                         principalTable: "Inventory",
                         principalColumn: "InventoryId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Invent_product_Product_ProductId",
+                        name: "FK_Invent_Product_Product_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Product",
                         principalColumn: "ProductId",
@@ -799,40 +798,6 @@ namespace WEB2.Migrations
                         column: x => x.ProductId,
                         principalTable: "Product",
                         principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Purchases",
-                columns: table => new
-                {
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    SupplierId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    Received = table.Column<int>(type: "int", nullable: false),
-                    PurchaseDay = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TransactStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TransactionNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ResponseCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SecureHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Price = table.Column<double>(type: "float", nullable: false),
-                    TotalPrice = table.Column<double>(type: "float", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Purchases", x => new { x.ProductId, x.SupplierId });
-                    table.ForeignKey(
-                        name: "FK_Purchases_Product_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Product",
-                        principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Purchases_Supplier_SupplierId",
-                        column: x => x.SupplierId,
-                        principalTable: "Supplier",
-                        principalColumn: "SupplierId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -910,6 +875,40 @@ namespace WEB2.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Purchase",
+                columns: table => new
+                {
+                    PruchaseId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StaffId = table.Column<int>(type: "int", nullable: false),
+                    SupplierId = table.Column<int>(type: "int", nullable: false),
+                    PurchaseDay = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TransactStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TransactionNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ResponseCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecureHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Paid = table.Column<double>(type: "float", nullable: false),
+                    DateReiceive = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Purchase", x => x.PruchaseId);
+                    table.ForeignKey(
+                        name: "FK_Purchase_Staff_StaffId",
+                        column: x => x.StaffId,
+                        principalTable: "Staff",
+                        principalColumn: "StaffId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Purchase_Supplier_SupplierId",
+                        column: x => x.SupplierId,
+                        principalTable: "Supplier",
+                        principalColumn: "SupplierId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OrderDetail",
                 columns: table => new
                 {
@@ -941,6 +940,35 @@ namespace WEB2.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "PurchaseDetail",
+                columns: table => new
+                {
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    PurchaseId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Price = table.Column<double>(type: "float", nullable: false),
+                    IDSKU = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Total = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PurchaseDetail", x => new { x.ProductId, x.PurchaseId });
+                    table.ForeignKey(
+                        name: "FK_PurchaseDetail_Product_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Product",
+                        principalColumn: "ProductId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PurchaseDetail_Purchase_PurchaseId",
+                        column: x => x.PurchaseId,
+                        principalTable: "Purchase",
+                        principalColumn: "PruchaseId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Category_ParentCategoryId",
                 table: "Category",
@@ -967,8 +995,8 @@ namespace WEB2.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Invent_product_InventoryId",
-                table: "Invent_product",
+                name: "IX_Invent_Product_InventoryId",
+                table: "Invent_Product",
                 column: "InventoryId");
 
             migrationBuilder.CreateIndex(
@@ -1062,9 +1090,19 @@ namespace WEB2.Migrations
                 column: "DiscountId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Purchases_SupplierId",
-                table: "Purchases",
+                name: "IX_Purchase_StaffId",
+                table: "Purchase",
+                column: "StaffId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Purchase_SupplierId",
+                table: "Purchase",
                 column: "SupplierId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PurchaseDetail_PurchaseId",
+                table: "PurchaseDetail",
+                column: "PurchaseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoleClaims_RoleId",
@@ -1136,7 +1174,7 @@ namespace WEB2.Migrations
                 name: "Image");
 
             migrationBuilder.DropTable(
-                name: "Invent_product");
+                name: "Invent_Product");
 
             migrationBuilder.DropTable(
                 name: "OrderDetail");
@@ -1148,13 +1186,10 @@ namespace WEB2.Migrations
                 name: "ProductDiscount");
 
             migrationBuilder.DropTable(
-                name: "Purchases");
+                name: "PurchaseDetail");
 
             migrationBuilder.DropTable(
                 name: "RoleClaims");
-
-            migrationBuilder.DropTable(
-                name: "Staff");
 
             migrationBuilder.DropTable(
                 name: "UserClaims");
@@ -1184,10 +1219,7 @@ namespace WEB2.Migrations
                 name: "Product");
 
             migrationBuilder.DropTable(
-                name: "Supplier");
-
-            migrationBuilder.DropTable(
-                name: "Inventory");
+                name: "Purchase");
 
             migrationBuilder.DropTable(
                 name: "Roles");
@@ -1239,6 +1271,15 @@ namespace WEB2.Migrations
 
             migrationBuilder.DropTable(
                 name: "Structure");
+
+            migrationBuilder.DropTable(
+                name: "Staff");
+
+            migrationBuilder.DropTable(
+                name: "Supplier");
+
+            migrationBuilder.DropTable(
+                name: "Inventory");
 
             migrationBuilder.DropTable(
                 name: "Users");

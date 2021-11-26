@@ -20,7 +20,7 @@ namespace WEB2.Data {
             }
             builder.Entity<Voucher_detail>().HasKey(p => new { p.CustomerID, p.VoucherID });
             builder.Entity<OrderDetail>().HasKey(p => new { p.OrderId, p.ProductId });
-            builder.Entity<Purchase>().HasKey(p => new { p.ProductId, p.SupplierId });
+            builder.Entity<PurchaseDetail>().HasKey(p => new { p.ProductId, p.PurchaseId });
             builder.Entity<ProductDiscount>().HasKey(p => new { p.ProductId, p.DiscountId });
             builder.Entity<Invent_product>().HasKey(p => new { p.ProductId, p.InventoryId });
             builder.Entity<ProductContent>().HasKey(p => new { p.ProductId, p.ContentId });
@@ -54,7 +54,6 @@ namespace WEB2.Data {
         public DbSet<WEB2.Models.OrderDetail> OrderDetail { get; set; }
         public DbSet<WEB2.Models.Payment> Payment { get; set; }
         public DbSet<WEB2.Models.Voucher_detail> Voucher_Details { get; set; }
-        public DbSet<WEB2.Models.Purchase> Purchase { get; set; }
         public DbSet<WEB2.Models.Invent_product> Invent_Product { get; set; }
     }
 }
