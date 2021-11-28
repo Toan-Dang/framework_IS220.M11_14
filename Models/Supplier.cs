@@ -13,7 +13,6 @@ namespace WEB2.Models {
         public string Address { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-        public int CurrentOrder { get; set; }
         public string URL { get; set; }
         public string TypeGoods { get; set; }
         public string Notes { get; set; }

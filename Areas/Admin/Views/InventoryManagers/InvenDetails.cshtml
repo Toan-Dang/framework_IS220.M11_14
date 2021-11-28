@@ -35,7 +35,8 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <a> <h4 class="border-danger">Kho số <span id = "idinven"></span></h4></a>
+                        <a> <h4 class="border-danger">Kho số <span  id = "idinven"></span></h4></a>
+                        <div ><h4>Tình trạng:<span class="text-danger" id="acti"></span></h4> </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -58,7 +59,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @{ int productid = 0;}
+                                    @{ int productid = 0; }
                                     @foreach (var item in Model) {
                                         <tr>
                                             <td>
@@ -67,12 +68,7 @@
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.ProductAvailable)
                                             </td>
-                                                <td>
-                                                @Html.DisplayFor(modelItem => item.AvailableVersion)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.AvailableColor)
-                                            </td>
+                                   
                                             <td>
                                           
                                                 <a asp-action="Details" asp-area="" asp-controller = "Products" asp-route-id="@item.ProductId" class="btn btn-outline-primary">Chi tiết</a> 
@@ -81,7 +77,10 @@
                                             </td>
                                         </tr>
                                         productid = item.InventoryId;
+              
+                        
                                     }
+                    
                                 </tbody>
                                 <tfoot>
                                     <tr>
@@ -103,6 +102,9 @@
                             </table>
                             <script type= "text/javascript">
                                   document.getElementById("idinven").innerHTML = @productid;
+                       
+                  
+                                   
                             </script>
                         </div>
                     </div>

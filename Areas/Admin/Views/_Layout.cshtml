@@ -203,9 +203,9 @@
                             </li>
                                <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Quản lý kho </a>
                                 <ul aria-expanded="false">
-                                   <li><a asp-controller="Products" asp-action="Index" asp-area="Admin">Danh sách hàng tồn kho</a></li>
+                                   <li><a asp-controller="Products" asp-action="Index" asp-area="Admin">Sản phẩm</a></li>
                                    <li><a asp-controller="Categories" asp-action="Index" asp-area="Admin">Danh mục</a></li>
-                                   <li><a href="./uc-noui-slider.html">Kho phế liệu</a></li>
+                                   <li><a asp-controller="Products" asp-action="Recycle" asp-area="Admin">Kho phế liệu</a></li>
                                 </ul>
                             </li>
                            
@@ -217,9 +217,9 @@
                             <i class="icon icon-cart-simple"></i><span class="nav-text">Quản lý mua hàng</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a >Yêu cầu báo giá</a></li>
-                            <li><a >Đơn mua hàng</a></li>
-                            <li><a asp-action= "Index" asp-area= "admin" asp-controller="Purchases">Các giao dịch</a></li>
+                            <li><a asp-controller="PurchaseDetails" asp-action="Requests" asp-area="Admin">Yêu cầu báo giá</a></li>
+                            <li><a asp-controller="PurchaseDetails" asp-action="Receipt" asp-area="Admin">Đơn mua hàng</a></li>
+                            <li><a asp-controller="PurchaseDetails" asp-action="Transaction" asp-area="Admin">Tất cả giao dịch</a></li>
                             <li><a asp-controller="Suppliers" asp-action="Index" asp-area="Admin">Nhà cung cấp</a></li>
                         </ul>
                     </li>

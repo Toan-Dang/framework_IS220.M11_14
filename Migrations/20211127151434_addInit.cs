@@ -166,7 +166,8 @@ namespace WEB2.Migrations
                     City = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     State = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Latitude = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Longitude = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Longitude = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -341,7 +342,6 @@ namespace WEB2.Migrations
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CurrentOrder = table.Column<int>(type: "int", nullable: false),
                     URL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TypeGoods = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Notes = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -460,6 +460,7 @@ namespace WEB2.Migrations
                     CurrentOrder = table.Column<int>(type: "int", nullable: false),
                     Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Special = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDelete = table.Column<bool>(type: "bit", nullable: false),
                     ConnID = table.Column<int>(type: "int", nullable: false),
                     ScreenID = table.Column<int>(type: "int", nullable: false),
                     StructID = table.Column<int>(type: "int", nullable: false),
@@ -732,9 +733,7 @@ namespace WEB2.Migrations
                 {
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     InventoryId = table.Column<int>(type: "int", nullable: false),
-                    ProductAvailable = table.Column<int>(type: "int", nullable: false),
-                    AvailableVersion = table.Column<int>(type: "int", nullable: false),
-                    AvailableColor = table.Column<int>(type: "int", nullable: false)
+                    ProductAvailable = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

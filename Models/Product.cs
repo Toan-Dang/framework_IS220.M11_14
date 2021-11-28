@@ -27,6 +27,7 @@ namespace WEB2.Models {
         public int CurrentOrder { get; set; }
         public string Note { get; set; }
         public string Special { get; set; }
+        public bool IsDelete { get; set; }
 
         //config
         public int ConnID { get; set; }

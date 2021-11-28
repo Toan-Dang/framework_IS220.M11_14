@@ -26,9 +26,29 @@ namespace WEB2.Controllers {
 
         // GET: Phone
         public async Task<IActionResult> Phone() {
-            var appDbContext = _context.Product.Include(p => p.Battery).Include(p => p.Camera).Include(p => p.Category).Include(p => p.Connection).Include(p => p.Graphic).Include(p => p.OS).Include(p => p.Processor).Include(p => p.Ram).Include(p => p.Rom).Include(p => p.Screen).Include(p => p.Sound).Include(p => p.Structure)
-                .Where(p => p.Category.ParentCategoryId == 1);
-            return View(await appDbContext.ToListAsync());
+            var products = await _context.Product.Include(p => p.Battery).Include(p => p.Camera).Include(p => p.Category).Include(p => p.Connection).Include(p => p.Graphic).Include(p => p.OS).Include(p => p.Processor).Include(p => p.Ram).Include(p => p.Rom).Include(p => p.Screen).Include(p => p.Sound).Include(p => p.Structure)
+                .Where(p => p.Category.ParentCategoryId == 1).ToListAsync();
+            var pro = new List<Product>();
+            var protemp = new Product();
+            bool check = false;
+            for (int i = 0 ; i < products.Count - 1 ; i++) {
+                if (check == false) {
+                    protemp = products[i];
+                    protemp.ProductName = products[i].ProductName;
+                }
+                if (products[i].ProductName == products[i + 1].ProductName) {
+                    check = true;
+                    continue;
+                } else {
+                    pro.Add(protemp);
+                    check = false;
+                }
+            }
+            if (check == false) {
+                pro.Add(products[products.Count - 1]);
+            }
+            pro.Add(protemp);
+            return View(pro);
         }
 
         // GET: Tablet

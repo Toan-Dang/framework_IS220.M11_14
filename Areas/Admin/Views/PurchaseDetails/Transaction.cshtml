@@ -1,0 +1,143 @@
+﻿@model IEnumerable<WEB2.Models.PurchaseDetail>
+
+@{
+    ViewData["Title"] = "ProductBill";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ProductBill</title>
+      <!-- Datatable -->
+    <link href="~/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+    <!-- Custom Stylesheet -->
+    <link href="~/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="row page-titles mx-0">
+            <div class="col-sm-6 p-md-0">
+                <div class="welcome-text">
+                    <h4>Hi, welcome back!</h4>
+                </div>
+            </div>
+            <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Quản lý mua hàng</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Tất cả giao dịch</a></li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- row -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title"> Các giao dịch mua hàng</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example" class="display" style="min-width: 845px">
+                                   <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Tên công ty</th>
+                                        <th>Đơn hàng</th>
+                                        <th>Sản phẩm</th>
+                                         <th>Số lượng</th>
+                                        <th>Tình trạng đơn hàng</th>
+                                        <th>Duyệt</th>
+                                    </tr>
+                                </thead>
+                             <tbody>
+                         
+                            @foreach (var item in Model){
+                                   
+                                        <tr>
+                                        <td>
+                                            <div class="round-img">
+                                                <a href=""><img width="35" src="~/images/avatar/1.png" alt=""></a>
+                                            </div>
+                                        </td>
+                                        <td>@Html.DisplayFor(model => item.Purchase.Supplier.CompanyName)</td>
+                                        <td><span>@Html.DisplayFor(model => item.PurchaseId)</span></td>
+                                        <td><span style= "white-space: pre-line; 
+}">
+                                            @Html.DisplayFor(model => item.Product.ProductName)</span></td>
+                                         <td><span style= "white-space: pre-line;
+}">
+                                            @Html.DisplayFor(model => item.IDSKU)</span></td>
+                                      
+                                        @{string color = "badge badge-danger";    }
+
+                                        @if(item.Purchase.TransactStatus.Equals("done")){
+                                            color = "badge badge-success" ;
+                                        }
+                                        @if (item.Purchase.TransactStatus.Equals("receive")) {
+                                            color = "badge badge-secondary";
+                                        }
+                                        @if (item.Purchase.TransactStatus.Equals("saved")) {
+                                            color = "badge badge-warning";
+                                        }
+                                        @if(item.Purchase.TransactStatus.Equals("sent")){
+                                            color = "badge badge-info" ;
+                                        }
+
+                                        <td><span class= "@color" >@Html.DisplayFor(model => item.Purchase.TransactStatus)</span></td>
+                                           @{ string status = "Xác nhận"; color = "btn btn-outline-info"; string color_can = "btn btn-danger"; string text_can = "Hủy"; }
+
+                                         @if(item.Purchase.TransactStatus.Equals("saved")){
+                                                status = "gửi yêu cầu";
+                                                color = "btn btn-outline-info";
+                                            } 
+                                        @if(item.Purchase.TransactStatus.Equals("sent")){
+                                                status = "thanh toán";
+                                                color = "btn btn-outline-secondary";
+                                        } 
+                                              @if(item.Purchase.TransactStatus.Equals("done")){
+                                                status = "";
+                                                 color = "";
+                                                color_can = "";
+                                                text_can = "";
+                                            } 
+                                            @if (item.Purchase.TransactStatus.Equals("cancel")) {
+                                                status = "khôi phục";
+                                                 color = "btn btn-outline-warning";
+                                                color_can = "btn btn-warning";
+                                                text_can = "Khôi phục";
+                                            }
+                                            <td>
+                                             <a asp-action="Accecpt" asp-route-id="@item.PurchaseId" class = "@color" >@status</a>  
+                                             <a asp-action="BillDetails" asp-route-id="@item.PurchaseId" class = "btn btn-outline-primary">Chi tiết</a>    
+                                             <a asp-action="BillDel" asp-route-id="@item.PurchaseId" class = "@color_can">@text_can</a>   
+                                        </td>
+                                    </tr>   
+                               }
+                                </tbody>
+                               
+                             
+                            </table>
+                            <script type = "text/javascript">
+                                   $("#product").val().replace(/\n/g, '<br/>');
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Required vendors -->
+    <script src="~/vendor/global/global.min.js"></script>
+    <script src="~/js/quixnav-init.js"></script>
+    <script src="~/js/custom.min.js"></script>
+
+    <!-- Datatable -->
+    <script src="~/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/plugins-init/datatables.init.js"></script>
+</body>
+</html>

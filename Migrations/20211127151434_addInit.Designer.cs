@@ -12,7 +12,7 @@ using WEB2.Data;
 namespace WEB2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20211126164807_addInit")]
+    [Migration("20211127151434_addInit")]
     partial class addInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -596,12 +596,6 @@ namespace WEB2.Migrations
                     b.Property<int>("InventoryId")
                         .HasColumnType("int");
 
-                    b.Property<int>("AvailableColor")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AvailableVersion")
-                        .HasColumnType("int");
-
                     b.Property<int>("ProductAvailable")
                         .HasColumnType("int");
 
@@ -625,6 +619,9 @@ namespace WEB2.Migrations
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Latitude")
                         .HasColumnType("nvarchar(max)");
@@ -861,6 +858,9 @@ namespace WEB2.Migrations
 
                     b.Property<int>("GraphicID")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
 
                     b.Property<double>("MSRP")
                         .HasColumnType("float");
@@ -1244,9 +1244,6 @@ namespace WEB2.Migrations
 
                     b.Property<string>("ContactName")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CurrentOrder")
-                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
