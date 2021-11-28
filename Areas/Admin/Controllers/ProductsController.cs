@@ -20,7 +20,38 @@ namespace WEB2.Areas.Admin.Controllers {
 
         // GET: Admin/Products
         public async Task<IActionResult> Index() {
-            var appDbContext = _context.Product.Include(p => p.Battery).Include(p => p.Camera).Include(p => p.Category).Include(p => p.Connection).Include(p => p.Graphic).Include(p => p.OS).Include(p => p.Processor).Include(p => p.Ram).Include(p => p.Rom).Include(p => p.Screen).Include(p => p.Sound).Include(p => p.Structure);
+            var appDbContext = _context.Product
+                .Include(p => p.Battery)
+                .Include(p => p.Camera)
+                .Include(p => p.Category)
+                .Include(p => p.Connection)
+                .Include(p => p.Graphic)
+                .Include(p => p.OS)
+                .Include(p => p.Processor)
+                .Include(p => p.Ram)
+                .Include(p => p.Rom)
+                .Include(p => p.Screen)
+                .Include(p => p.Sound)
+                .Include(p => p.Structure)
+                .Where(p => p.IsDelete == false);
+            return View(await appDbContext.ToListAsync());
+        }
+
+        public async Task<IActionResult> Recycle() {
+            var appDbContext = _context.Product
+                .Include(p => p.Battery)
+                .Include(p => p.Camera)
+                .Include(p => p.Category)
+                .Include(p => p.Connection)
+                .Include(p => p.Graphic)
+                .Include(p => p.OS)
+                .Include(p => p.Processor)
+                .Include(p => p.Ram)
+                .Include(p => p.Rom)
+                .Include(p => p.Screen)
+                .Include(p => p.Sound)
+                .Include(p => p.Structure)
+                .Where(p => p.IsDelete == true);
             return View(await appDbContext.ToListAsync());
         }
 
@@ -193,7 +224,8 @@ namespace WEB2.Areas.Admin.Controllers {
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id) {
             var product = await _context.Product.FindAsync(id);
-            _context.Product.Remove(product);
+            product.IsDelete = true;
+            _context.Update(product);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

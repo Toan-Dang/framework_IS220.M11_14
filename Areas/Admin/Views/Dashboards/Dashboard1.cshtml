@@ -315,7 +315,7 @@
                                         @{string color = "badge badge-warning";    }
 
                                         @if(item.Order.TransactStatus.Equals("shipping")){
-                                            color = "badge badge-success" ;
+                                            color = "badge badge-primary" ;
                                         }
                                          
                                         <td><span class= "@color" >@Html.DisplayFor(model => item.Order.TransactStatus)</span></td>
@@ -327,9 +327,10 @@
                                           <td>
                                              <a asp-action="Accecpt" asp-route-id="@item.OrderId" >@color</a>  |
                                 
-                                             @Html.ActionLink("Chi tiết", "BillDetails", "SaleManagers",  new { id = item.ProductId}, null)
+                                             @Html.ActionLink("Chi tiết", "BillDetails", "SaleManagers",  new { id = item.OrderId}, null)  |
+                                             @Html.ActionLink("Hủy", "BillDel", "SaleManagers",  new { id = item.OrderId}, null)
                                         
-                                              
+                            
                                             
                                         </td>
                                     </tr>   

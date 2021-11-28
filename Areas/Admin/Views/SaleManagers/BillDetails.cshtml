@@ -28,6 +28,9 @@
                            @{
             int orderid = 0;
             string status = "";
+            string color = "";
+            string color_can = "btn btn-danger";
+            string text_can = "Hủy";
         }
         <!-- row -->
 
@@ -86,10 +89,28 @@
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => item.Order.TransactStatus)
                 </dd>
-                if (status.Equals("shipping"))
+                if (status.Equals("shipping")) {
                     status = "thanh toán";
-                if (status.Equals("paid") || status.Equals("pay by cash"))
+                    color = "btn btn-outline-success";
+                }
+
+                if (status.Equals("paid") || status.Equals("pay by cash")) {
                     status = "duyệt đơn";
+                    color = "btn btn-outline-info";
+                }
+
+                if (status.Equals("accept")) {
+                    status = "vận chuyển";
+                    color = "btn btn-outline-secondary";
+
+                }
+                if (status.Equals("done")) {
+                    status = "";
+                    color = "";
+                    color_can = "";
+                    text_can = "";
+                }
+                
                 break;
             
         }
@@ -144,8 +165,9 @@
     <br />
     <br />
     <div class= "container-fluid">
-        <a asp-action="Accecpt" class="btn btn-outline-primary " asp-route-id="@orderid">@status</a>
-        <a asp-action="ProductBill" class="btn btn-outline-danger ">Trở về</a>
+        <a asp-action="Accecpt" class="@color" asp-route-id="@orderid">@status</a>
+        <a asp-action="ProductBill" class="btn btn-outline-dark ">Trở về</a>
+        <a asp-action="BillDel" class="@color_can" asp-route-id="@orderid">@text_can</a>   
     </div>
     <!-- Required vendors -->
     <script src="~/vendor/global/global.min.js"></script>

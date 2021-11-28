@@ -36,7 +36,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <a asp-action="Create"> <h4 class = "border-danger">Tạo danh mục mới</h4></a>
+                        <a asp-action="Create"> <h4 class = "btn btn-outline-secondary">Tạo danh mục mới</h4></a>
                       
                     </div>
                     <div class="card-body">
@@ -81,9 +81,9 @@
                                                 @Html.DisplayFor(modelItem => item.ParentCategory.CategoryName)
                                             </td>
                                             <td>
-                                                <a asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a> |
-                                                <a asp-action="Details" asp-route-id="@item.CategoryId">Details</a> |
-                                                <a asp-action="Delete" asp-route-id="@item.CategoryId">Delete</a>
+                                                <a asp-action="Edit" asp-route-id="@item.CategoryId" class="btn btn-secondary">Edit</a> 
+                                                <a asp-action="Details" asp-route-id="@item.CategoryId"class="btn btn-outline-primary">Details</a> 
+                                                <a asp-action="Delete" asp-route-id="@item.CategoryId"class="btn btn-danger">Delete</a>
                                             </td>
                                         </tr>
                                     }
