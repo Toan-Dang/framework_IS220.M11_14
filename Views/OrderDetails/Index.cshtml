@@ -3,17 +3,21 @@
 @{
     ViewData["Title"] = "Giỏ hàng";
 }
+@section Styles {
+<link href="@Url.Content("/css/views/orderdetails/index.css")" rel="stylesheet" type="text/css" />
+
+}
 <main class="container mt-5" style="height: 100vh">
 
 <div class="colory-lg-3"">
-    <table class="table">
+    <table class="tbl">
         <thead>
             <tr>
                 <th>
-                    Sản phẩm
+                    
                 </th>
                 <th>
-                    Tên sản phẩm
+                    Sản phẩm
                 </th>
                 <th>
                     Phiên bản
@@ -40,45 +44,51 @@
             @foreach (var item in Model) {
                 <tr>
                     <td>
-                  @Html.ActionLink("hình Sản phẩm", "Details","Products", new { id =item.ProductId},
-                  new { @style ="background-image : src(@Html.DisplayFor(modelItem => item.Product.ProductId))" })
+                     <a href="/products/details/@item.ProductId">
+                         <img src="@Html.DisplayFor(modelItem => item.Product.Picture)" alt = "@Html.DisplayFor(modelItem => item.Product.ProductName)" />
+                     </a>   
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Product.ProductName)
+                        <a class="prd-link" href="/products/details/@item.ProductId">
+                            @Html.DisplayFor(modelItem => item.Product.ProductName)
+                        </a>
                     </td>
                    <td>
                         @Html.DisplayFor(modelItem => item.Product.Version)
                     </td>
-        
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.Color)
+                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Quantity)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-
-
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Total)
+                        <div class="root1">@Html.DisplayFor(modelItem => item.Price)</div>
+                        <span class="price-fld">@Html.DisplayFor(modelItem => item.Price)</span>
                     </td>
                     <td>
-                        @Html.ActionLink("Xóa", "Delete", new { productid =item.ProductId, orderid = item.OrderId })
+                        <span class="total-fld">@Html.DisplayFor(modelItem => item.Total)</span>
+                    </td>
+                    <td>
+                        <a class="btn del-btn" href="/orderdetails/delete?productid=@item.ProductId&orderid=@item.OrderId">Xóa</a>
                     </td>
                 </tr>
                 if( vis == true) {
-                    @Html.ActionLink("Thanh toán","Pay",new {id = item.OrderId},null)
-                    ;
+                    <div style="display: block" id="thanhtoan">
+                        <a href="/orderdetails/pay/@item.OrderId" class="btn btn-default" >Thanh toán</a>
+                    </div>
+                    
                     vis = false;
                 }  
             }
         </tbody>   
     </table>
 </div>
+<script src="@Url.Content("~/js/views/orderdetails/index.js")"></script>
 <script>
-    $(document).ready(function(){
-        $("#pagetitle").html("Giỏ hàng");
-    });
+
 </script>
+
 </main>
 
 

@@ -16,7 +16,6 @@ namespace WEB2.Controllers {
         public ProductsController(AppDbContext context) {
             _context = context;
         }
-
         // GET: Laptop
         public async Task<IActionResult> Laptop() {
             var appDbContext = _context.Product.Include(p => p.Battery).Include(p => p.Camera).Include(p => p.Category).Include(p => p.Connection).Include(p => p.Graphic).Include(p => p.OS).Include(p => p.Processor).Include(p => p.Ram).Include(p => p.Rom).Include(p => p.Screen).Include(p => p.Sound).Include(p => p.Structure)
@@ -26,7 +25,7 @@ namespace WEB2.Controllers {
 
         // GET: Phone
         public async Task<IActionResult> Phone() {
-            var appDbContext = _context.Product.Include(p => p.Battery).Include(p => p.Camera).Include(p => p.Category).Include(p => p.Connection).Include(p => p.Graphic).Include(p => p.OS).Include(p => p.Processor).Include(p => p.Ram).Include(p => p.Rom).Include(p => p.Screen).Include(p => p.Sound).Include(p => p.Structure)
+            var appDbContext = _context.Product.Include(p => p.Battery).Include(p => p.Camera).Include(p => p.Category).Include(p => p.Connection).Include(p => p.Graphic).Include(p => p.OS).Include(p => p.Processor).Include(p => p.Ram).Include(p => p.Rom).Include(p => p.Screen).Include(p => p.Sound).Include(p => p.Structure).Include(p => p.Category)
                 .Where(p => p.Category.ParentCategoryId == 1);
             return View(await appDbContext.ToListAsync());
         }
@@ -88,6 +87,16 @@ namespace WEB2.Controllers {
             _context.Update(product);
             await _context.SaveChangesAsync();
             return View(product);
+        }
+        public async Task<IActionResult> Category(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var appDbContext = _context.Product.Include(p => p.Battery).Include(p => p.Camera).Include(p => p.Category).Include(p => p.Connection).Include(p => p.Graphic).Include(p => p.OS).Include(p => p.Processor).Include(p => p.Ram).Include(p => p.Rom).Include(p => p.Screen).Include(p => p.Sound).Include(p => p.Structure).Include(p => p.Category)
+                            .Where(p => p.Category.CategoryId == id);
+            return View(await appDbContext.ToListAsync());
         }
         public async Task<IActionResult> Details(int? id) {
             if (id == null) {
