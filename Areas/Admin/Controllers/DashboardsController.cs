@@ -12,7 +12,7 @@ using WEB2.Models;
 namespace WEB2.Areas.Admin.Controllers {
 
     [Area("Admin")]
-    [Authorize("Admin")]
+    [Authorize("Staff")]
     public class DashboardsController : Controller {
         private readonly AppDbContext _context;
 

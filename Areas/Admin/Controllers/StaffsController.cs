@@ -57,10 +57,16 @@ namespace WEB2.Areas.Admin.Controllers {
         // properties you want to bind to. For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind(" AppUser")] Staff staff) {
+        public async Task<IActionResult> Create([Bind("AppUser")] Staff staff) {
             if (ModelState.IsValid) {
                 //tạo user
-                var user = new AppUser { UserName = staff.AppUser.UserName, Email = staff.AppUser.Email };
+                var user = new AppUser {
+                    UserName = staff.AppUser.UserName,
+                    Email = staff.AppUser.Email,
+                    FullName = staff.AppUser.FullName,
+                    PhoneNumber = staff.AppUser.PhoneNumber,
+                    Birthday = staff.AppUser.Birthday,
+                };
                 var pass = staff.AppUser.PasswordHash;
                 var result = await _userManager.CreateAsync(user, pass);
                 //tạo nhân viên
@@ -70,6 +76,7 @@ namespace WEB2.Areas.Admin.Controllers {
                 var role = await _context.Roles.FirstOrDefaultAsync(p => p.Name.Equals("Nhân viên"));
                 await _userManager.AddToRoleAsync(user, role.Name);
                 await _context.SaveChangesAsync();
+                //thêm tên nhân viên
 
                 return RedirectToAction(nameof(Index));
             }
