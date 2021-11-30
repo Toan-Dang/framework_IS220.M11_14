@@ -8,7 +8,7 @@ namespace WEB2.Models {
     public class Purchase {
 
         [Key]
-        public int PruchaseId { get; set; }
+        public int PurchaseId { get; set; }
 
         public int StaffId { get; set; }
         public int SupplierId { get; set; }

@@ -2,46 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using WEB2.Areas.Order;
 using WEB2.Data;
 using WEB2.Models;
-using System.Configuration;
-using WEB2.Areas.Order;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Cors;
 
-namespace WEB2.Controllers {
+namespace WEB2.Areas.Admin.Controllers {
 
-    [Authorize]
-    public class OrdersController : Controller {
+    [Area("Admin")]
+    public class PurchasesController : Controller {
         private readonly AppDbContext _context;
         private readonly UserManager<AppUser> _userManager;
         private readonly IOptions<MyConfig> _config;
 
-        public OrdersController(
-            AppDbContext context,
+        public PurchasesController(AppDbContext context,
              UserManager<AppUser> userManager,
              IOptions<MyConfig> config) {
             _context = context;
             _userManager = userManager;
             _config = config;
         }
-
-        // GET: Orders
-        [EnableCors]
-        public IActionResult Index(int id) {
-            return View();
-        }
-
-        // GET: Orders/Details/5
-
-        // GET: Orders/Edit/5
 
         public async Task<ActionResult> Payment(int id) {
             //string url = ConfigurationManager.AppSettings["Url"];
@@ -50,13 +34,13 @@ namespace WEB2.Controllers {
             //string hashSecret = ConfigurationManager.AppSettings["HashSecret"];
 
             string url = _config.Value.Url;
-            string returnUrl = _config.Value.Returnurl;
+            string returnUrl = _config.Value.Returnurlpur;
             string tmnCode = _config.Value.TmnCode;
             string hashSecret = _config.Value.HashSecret;
             PayLib pay = new();
 
-            var order = await _context.Order.FindAsync(id);
-            double money = order.Paid * 100;
+            var pur = await _context.Purchase.FindAsync(id);
+            double money = pur.Paid * 100;
 
             pay.AddRequestData("vnp_Version", "2.0.0"); //Phiên bản api mà merchant kết nối. Phiên bản hiện tại là 2.0.0
             pay.AddRequestData("vnp_Command", "pay"); //Mã API sử dụng, mã cho giao dịch thanh toán là 'pay'
@@ -70,7 +54,7 @@ namespace WEB2.Controllers {
             pay.AddRequestData("vnp_OrderInfo", "Thanh toan don hang"); //Thông tin mô tả nội dung thanh toán
             pay.AddRequestData("vnp_OrderType", "other"); //topup: Nạp tiền điện thoại - billpayment: Thanh toán hóa đơn - fashion: Thời trang - other: Thanh toán trực tuyến
             pay.AddRequestData("vnp_ReturnUrl", returnUrl); //URL thông báo kết quả giao dịch khi Khách hàng kết thúc thanh toán
-            pay.AddRequestData("vnp_TxnRef", order.OrderId.ToString()); //mã hóa đơn
+            pay.AddRequestData("vnp_TxnRef", pur.PurchaseId.ToString()); //mã hóa đơn
 
             string paymentUrl = pay.CreateRequestUrl(url, hashSecret);
             return Redirect(paymentUrl);
@@ -82,57 +66,56 @@ namespace WEB2.Controllers {
                 var vnpayData = Request.Query;
 
                 PayLib pay = new PayLib();
-                Console.WriteLine(vnpayData);
                 // lấy toàn bộ dữ liệu được trả về
                 foreach (var s in vnpayData) {
                     pay.AddResponseData(s.Key, s.Value);
                 }
 
-                int orderId = Convert.ToInt32(pay.GetResponseData("vnp_TxnRef")); //mã hóa đơn
+                int purId = Convert.ToInt32(pay.GetResponseData("vnp_TxnRef")); //mã hóa đơn
                 long vnpayTranId = Convert.ToInt64(pay.GetResponseData("vnp_TransactionNo")); //mã giao dịch tại hệ thống VNPAY
                 string vnp_ResponseCode = pay.GetResponseData("vnp_ResponseCode"); //response code: 00 - thành công, khác 00 - xem thêm https://sandbox.vnpayment.vn/apis/docs/bang-ma-loi/
                 string vnp_SecureHash = HttpContext.Request.Query["vnp_SecureHash"]; //hash của dữ liệu trả về
 
                 bool checkSignature = pay.ValidateSignature(vnp_SecureHash, hashSecret); //check chữ ký đúng hay không?
-                var order = await _context.Order.FindAsync(orderId);
+                var pur = await _context.Purchase.FindAsync(purId);
                 if (checkSignature) {
                     if (vnp_ResponseCode == "00") {
                         //Thanh toán thành công
-                        ViewBag.Message = "Thanh toán thành công hóa đơn " + orderId + " | Mã giao dịch: " + vnpayTranId;
+                        ViewBag.Message = "Thanh toán thành công hóa đơn " + purId + " | Mã giao dịch: " + vnpayTranId;
 
-                        order.OTP = "123456";
-
-                        order.TransactStatus = "paid";
-                        order.ResponseCode = vnp_ResponseCode;
-                        order.SecureHash = vnp_SecureHash;
-                        order.PaymentDate = DateTime.Now;
+                        pur.TransactStatus = "done";
+                        pur.ResponseCode = vnp_ResponseCode;
+                        pur.SecureHash = vnp_SecureHash;
+                        pur.PaymentDate = DateTime.Now;
                     } else {
                         //Thanh toán không thành công. Mã lỗi: vnp_ResponseCode
-                        ViewBag.Message = "Có lỗi xảy ra trong quá trình xử lý hóa đơn " + orderId + " | Mã giao dịch: " + vnpayTranId + " | Mã lỗi: " + vnp_ResponseCode;
-                        order.Errlog = vnp_ResponseCode;
+                        ViewBag.Message = "Có lỗi xảy ra trong quá trình xử lý hóa đơn " + purId + " | Mã giao dịch: " + vnpayTranId + " | Mã lỗi: " + vnp_ResponseCode;
                     }
                 } else {
                     ViewBag.Message = "Có lỗi xảy ra trong quá trình xử lý";
                 }
 
-                order.TransactionNo = vnpayTranId.ToString();
+                pur.TransactionNo = vnpayTranId.ToString();
 
                 //cap nhat order
-                _context.Update(order);
+                _context.Update(pur);
                 await _context.SaveChangesAsync();
-                //cap nhat tinh trang cua gio hang
-                var orderdetail = await _context.OrderDetail.Where(o => o.OrderId == orderId).ToListAsync();
+                //cap nhat tinh trang cua chi tiet hoa don
+                var purdetail = await _context.PurchaseDetail.Where(o => o.PurchaseId == purId).ToListAsync();
 
-                foreach (var item in orderdetail) {
-                    item.Status = "solved";
-                    //update so luong san pham
-                    var product = await _context.Product.Where(p => p.ProductId == item.ProductId).FirstAsync();
-                    //available here
-                    product.CurrentOrder += item.Quantity;
-                    product.UnitInOrder -= 1;
-
-                    _context.Update(product);
+                foreach (var item in purdetail) {
+                    item.Status = "received";
+                    //update so luong san pham trong kho
+                    var inv = await _context.Invent_Product.Where(p => p.InventoryId == 1).Where(p => p.ProductId == item.ProductId).FirstOrDefaultAsync();
+                    inv.ProductAvailable += item.Quantity;
+                    _context.Update(inv);
                     await _context.SaveChangesAsync();
+                    //update giá gốc của sản phẩm
+                    var pro = await _context.Product.FindAsync(item.ProductId);
+                    pro.RawPrice = item.Price;
+                    _context.Update(pro);
+                    await _context.SaveChangesAsync();
+
                     _context.Update(item);
                     await _context.SaveChangesAsync();
                 }

@@ -11,7 +11,7 @@ using WEB2.Models;
 namespace WEB2.Areas.Admin.Controllers {
 
     [Area("Admin")]
-    [Authorize("Admin")]
+    [Authorize("Staff")]
     public class SaleManagersController : Controller {
         private readonly AppDbContext _context;
 
@@ -104,6 +104,7 @@ namespace WEB2.Areas.Admin.Controllers {
                 od.IDSKU = od.Quantity.ToString();
             }
             reorder.Add(od);
+
             return View(reorder);
         }
 

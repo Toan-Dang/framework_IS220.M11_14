@@ -49,13 +49,8 @@
                                         <th>
                                             Số lượng còn trong kho
                                         </th>
-                                        <th>
-                                           Số lượng phiên bản
-                                        </th>
-                                        <th>
-                                            Số lượng màu sản phẩm 
-                                        </th>
-                                        <th></th>
+                     
+                                        <th>Thao tác</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -63,7 +58,7 @@
                                     @foreach (var item in Model) {
                                         <tr>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.Product.ProductName)
+                                                @Html.DisplayFor(modelItem => item.Product.ProductDetail)
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.ProductAvailable)
@@ -72,7 +67,7 @@
                                             <td>
                                           
                                                 <a asp-action="Details" asp-area="" asp-controller = "Products" asp-route-id="@item.ProductId" class="btn btn-outline-primary">Chi tiết</a> 
-                                                <a asp-action = "" class="btn btn-secondary" >Nhập hàng</a> 
+                                                <a asp-action = "CreateID" asp-area= "Admin" asp-controller ="PurchaseDetails" asp-route-id = "@item.ProductId" class="btn btn-secondary" >Nhập hàng</a> 
                                                 <a asp-action = "" class="btn btn-danger" >Điều chuyển hàng</a>
                                             </td>
                                         </tr>
@@ -90,13 +85,8 @@
                                         <th>
                                             Số lượng còn trong kho
                                         </th>
-                                        <th>
-                                           Số lượng phiên bản
-                                        </th>
-                                        <th>
-                                            Số lượng màu sản phẩm 
-                                        </th>
-                                        <th></th>
+                             
+                                        <th>Thao tác</th>
                                     </tr>
                                 </tfoot>
                             </table>

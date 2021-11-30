@@ -26,7 +26,7 @@
             <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="javascript:void(0)">Quản lý mua hàng</a></li>
-                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Yêu cầu báo giá</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Yêu cầu sản phẩm</a></li>
                 </ol>
             </div>
         </div>
@@ -37,6 +37,9 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
+                        <h4 class="card-title"> Các giao dịch mua hàng</h4>
+                    </div>
+                     <div class="card-header">
                              <a asp-action="Create"> <h4 class = "btn btn-outline-secondary">Tạo đơn mua hàng</h4></a>
                     </div>
                     <div class="card-body">
@@ -88,32 +91,24 @@
                                         }
 
                                         <td><span class= "@color" >@Html.DisplayFor(model => item.Purchase.TransactStatus)</span></td>
-                                           @{ string status = "Xác nhận"; color = "btn btn-outline-info"; string color_can = "btn btn-danger"; string text_can = "Hủy"; }
+                                           @{ string status = "Xác nhận"; color = "btn btn-outline-danger"; string color_can = "btn btn-danger"; string text_can = "Hủy"; }
 
-                                         @if(item.Purchase.TransactStatus.Equals("saved")){
+                                         @if(item.Purchase.TransactStatus.Equals("saved")){                 
                                                 status = "gửi yêu cầu";
                                                 color = "btn btn-outline-info";
                                             } 
-                                        @if(item.Purchase.TransactStatus.Equals("sent")){
-                                                status = "thanh toán";
-                                                color = "btn btn-outline-secondary";
-                                        } 
-                                              @if(item.Purchase.TransactStatus.Equals("done")){
+           
+                                            @if(item.Purchase.TransactStatus.Equals("sent") ||item.Purchase.TransactStatus.Equals("cancel") ){
                                                 status = "";
-                                                 color = "";
+                                                color = "";
                                                 color_can = "";
                                                 text_can = "";
                                             } 
-                                            @if (item.Purchase.TransactStatus.Equals("cancel")) {
-                                                status = "khôi phục";
-                                                 color = "btn btn-outline-warning";
-                                                color_can = "btn btn-warning";
-                                                text_can = "Khôi phục";
-                                            }
+                                       
                                             <td>
-                                             <a asp-action="Accecpt" asp-route-id="@item.PurchaseId" class = "@color" >@status</a>  
-                                             <a asp-action="BillDetails" asp-route-id="@item.PurchaseId" class = "btn btn-outline-primary">Chi tiết</a>    
-                                             <a asp-action="BillDel" asp-route-id="@item.PurchaseId" class = "@color_can">@text_can</a>   
+                                             <a asp-action="Accept" asp-route-id="@item.PurchaseId" class = "@color" >@status</a>  
+                                             <a asp-action="Details" asp-route-id="@item.PurchaseId" class = "btn btn-outline-primary">Chi tiết</a>    
+                                             <a asp-action="Delete" asp-route-id="@item.PurchaseId" class = "@color_can">@text_can</a>   
                                         </td>
                                     </tr>   
                                }

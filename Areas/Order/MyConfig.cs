@@ -5,5 +5,6 @@
         public string TmnCode { get; set; }
         public string HashSecret { get; set; }
         public string Returnurl { get; set; }
+        public string Returnurlpur { get; set; }
     }
 }

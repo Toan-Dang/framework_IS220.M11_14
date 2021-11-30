@@ -20,7 +20,7 @@ namespace WEB2.Data {
             }
             builder.Entity<Voucher_detail>().HasKey(p => new { p.CustomerID, p.VoucherID });
             builder.Entity<OrderDetail>().HasKey(p => new { p.OrderId, p.ProductId });
-            builder.Entity<PurchaseDetail>().HasKey(p => new { p.ProductId, p.PurchaseId });
+            builder.Entity<PurchaseDetail>().HasKey(p => new { p.PurchaseId, p.ProductId });
             builder.Entity<ProductDiscount>().HasKey(p => new { p.ProductId, p.DiscountId });
             builder.Entity<Invent_product>().HasKey(p => new { p.ProductId, p.InventoryId });
             builder.Entity<ProductContent>().HasKey(p => new { p.ProductId, p.ContentId });

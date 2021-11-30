@@ -3,8 +3,8 @@
 namespace WEB2.Models {
 
     public class PurchaseDetail {
-        public int ProductId { get; set; }
         public int PurchaseId { get; set; }
+        public int ProductId { get; set; }
         public int Quantity { get; set; }
         public string Status { get; set; }
         public double Price { get; set; }

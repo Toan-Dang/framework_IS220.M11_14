@@ -98,7 +98,7 @@
                                                 status = "thanh toán";
                                                 color = "btn btn-outline-success";
                                             } 
-                                              @if(item.Order.TransactStatus.Equals("done")){
+                                              @if(item.Order.TransactStatus.Equals("done") || item.Order.TransactStatus.Equals("cancel")){
                                                 status = "";
                                                  color = "";
                                                 color_can = "";
