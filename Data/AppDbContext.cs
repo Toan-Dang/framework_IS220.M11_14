@@ -56,5 +56,6 @@ namespace WEB2.Data {
         public DbSet<WEB2.Models.Voucher_detail> Voucher_Details { get; set; }
         public DbSet<WEB2.Models.Invent_product> Invent_Product { get; set; }
         public DbSet<WEB2.Models.PurchaseDetail> PurchaseDetail { get; set; }
+        public DbSet<WEB2.Models.Purchase> Purchase { get; set; }
     }
 }

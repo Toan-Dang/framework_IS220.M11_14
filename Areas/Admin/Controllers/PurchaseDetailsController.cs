@@ -3,20 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WEB2.Areas.Order;
 using WEB2.Data;
 using WEB2.Models;
 
 namespace WEB2.Areas.Admin.Controllers {
 
     [Area("Admin")]
-    [Authorize("Admin")]
     public class PurchaseDetailsController : Controller {
         private readonly AppDbContext _context;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
 
-        public PurchaseDetailsController(AppDbContext context) {
+        public PurchaseDetailsController(AppDbContext context,
+            UserManager<AppUser> userManager,
+            SignInManager<AppUser> signInManager) {
+            _userManager = userManager;
+            _signInManager = signInManager;
             _context = context;
         }
 
@@ -44,7 +51,36 @@ namespace WEB2.Areas.Admin.Controllers {
                 .Where(p => p.Purchase.TransactStatus != "cancel")
                 .Where(p => p.Purchase.TransactStatus != "receive")
                 .ToListAsync();
-            return View(pur);
+
+            if (pur.Count == 0) {
+                return View(pur);
+            }
+            PurchaseDetail od = new PurchaseDetail();
+            var reorder = new List<PurchaseDetail>();
+            bool check = false;
+
+            for (int i = 0 ; i < pur.Count - 1 ; i++) {
+                if (check == false) {
+                    od = pur[i];
+                    od.IDSKU = od.Quantity.ToString();
+                }
+
+                if (pur[i].PurchaseId == pur[i + 1].PurchaseId) {
+                    od.Product.ProductName += "\n" + pur[i + 1].Product.ProductName;
+                    od.IDSKU += "\n" + pur[i + 1].Quantity.ToString();
+                    check = true;
+                } else {
+                    reorder.Add(od);
+                    check = false;
+                }
+            }
+            if (check == false) {
+                od = pur[pur.Count - 1];
+                od.IDSKU = od.Quantity.ToString();
+            }
+            reorder.Add(od);
+
+            return View(reorder);
         }
 
         // GET: Admin/PurchaseDetails/Details/5
@@ -68,21 +104,51 @@ namespace WEB2.Areas.Admin.Controllers {
         // GET: Admin/PurchaseDetails/Create
         public IActionResult Create() {
             ViewData["ProductId"] = new SelectList(_context.Product, "ProductId", "ProductDetail");
+            ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "CompanyName");
 
             return View();
         }
 
         // POST: Admin/PurchaseDetails/Create To protect from overposting attacks, enable the
         // specific properties you want to bind to. For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductId,PurchaseId,Quantity,Status,Price,IDSKU,Total")] PurchaseDetail purchaseDetail) {
+
+        public async Task<IActionResult> CreateBill([FromBody] PurchaseItem purchaseDetail) {
+            var user = await _userManager.GetUserAsync(User);
+            var userid = await _userManager.GetUserIdAsync(user);
             if (ModelState.IsValid) {
-                _context.Add(purchaseDetail);
+                var staff = await _context.Staff.Where(p => p.UserId == userid).FirstOrDefaultAsync();
+                //tao hoa don mua hang
+                var purchase = new Purchase {
+                    SupplierId = purchaseDetail.SupplierId,
+                    StaffId = staff.StaffId,
+                    PurchaseDay = DateTime.Now,
+                    TransactStatus = "new",
+                    Paid = purchaseDetail.Paid
+                };
+                _context.Add(purchase);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //tap chi tiet hoa don mua hang
+                var pur = await _context.Purchase.FirstOrDefaultAsync(p => p.TransactStatus == "new");
+                for (int i = 0 ; i < purchaseDetail.Productid.Count ; i++) {
+                    var purdetail = new PurchaseDetail {
+                        PurchaseId = pur.PruchaseId,
+                        ProductId = purchaseDetail.Productid[i],
+                        Quantity = purchaseDetail.Quantity[i],
+                        Status = "saved",
+                        Price = purchaseDetail.Price[i],
+                        Total = purchaseDetail.Price[i] * purchaseDetail.Quantity[i]
+                    };
+                    _context.Add(purdetail);
+                    await _context.SaveChangesAsync();
+                }
+                //cap nhat lai status
+                pur.TransactStatus = "saved";
+                _context.Update(pur);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Requests));
             }
-            ViewData["ProductId"] = new SelectList(_context.Product, "ProductId", "ProductName", purchaseDetail.ProductId);
+
             return View(purchaseDetail);
         }
 
