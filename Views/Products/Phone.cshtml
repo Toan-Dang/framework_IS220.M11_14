@@ -29,7 +29,7 @@
     </div>*@
     <div class="highlight">
         @foreach (var item in Model) {
-            <div class="displaying @item.Category.CategoryName">
+            <div class="displaying">
                 @*class để hiển thị *@
                 <a asp-action="Details" asp-route-id="@item.ProductId">
                     <div class="card">
@@ -37,7 +37,7 @@
                         <div class="lbsale"><span class="lbtragop">Trả góp 0%</span></div>
                         <img class="card-img-top" src="@item.Picture" alt="@item.Color">
                         <div class="card-body">
-                            <h6 class="card-title">@item.ProductName</h6>
+                            <h6 class="card-title product-name">@item.ProductName</h6>
                             <h5 class="card-title pricesale m-0">@item.UnitPrice</h5>
                             <h6 class="card-title price text-muted mt-1">@item.MSRP</h6>
                             <div>
@@ -67,11 +67,11 @@
                                     @*chip*@
                                     <li id="chip"><p>Chip&nbsp<span id="chip-name">@item.Processor.Name</span></p></li>
                                     @*ram, rom*@
-                                    <li id="storage"><p>RAM&nbsp<span id="ram">6</span>&nbspGB,&nbspROM&nbsp<span id="rom">@item.Ram.Capacity</span>&nbspGB</p></li>
+                                    <li id="storage"><p>RAM&nbsp<span id="ram">@item.Ram.Capacity</span>&nbspGB,&nbspROM&nbsp<span id="rom">@item.Ram.Capacity</span>&nbspGB</p></li>
                                     @*camera trước*@
-                                    <li id="front-cam"><p>Camera trước:&nbsp<span id="cam1">12</span>&nbspMP</p></li>
+                                    <li id="front-cam"><p>Camera trước:&nbsp<span id="cam1">@item.Camera.FCamRes</span></p></li>
                                     @*camera sau*@
-                                    <li id="back-cam"><p>Camera sau:&nbsp<span id="cam2">12</span>&nbspMP</p></li>
+                                    <li id="back-cam"><p>Camera sau:&nbsp<span id="cam2">@item.Camera.BCamRes</span></p></li>
                                     @*pin*@
                                     <li id="battery"><p>Pin&nbsp<span id="capacity">@item.Battery.Capacity</span>&nbspmAh</p></li>
                                 </ul>
