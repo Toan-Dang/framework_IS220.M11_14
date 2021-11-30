@@ -1,35 +1,127 @@
 ﻿@model IEnumerable<WEB2.Models.Product>
 @{
-    ViewData["Title"] = "";
+    string categoryName = "";
+    int categoryId = 0;
+}
+@foreach (var items in Model)
+{
+    categoryName = items.Category.CategoryName;
+    categoryId = items.CategoryId;
+    break;
+}
+@{
+    if (categoryId <= 14) {
+        ViewData["Title"] = "Điện thoại " + categoryName;
+    }
+    else if (categoryId >= 16 && categoryId <= 22)
+    {
+        ViewData["Title"] = "Laptop " + categoryName;
+    }
+    else if (categoryId >= 23 && categoryId <= 28)
+    {
+        ViewData["Title"] = "Tablet " + categoryName;
+    }
+    else if (categoryId >= 38 && categoryId <= 45 || categoryId >= 58 && categoryId <= 60 )
+    {
+        ViewData["Title"] = categoryName;
+    }
+    else if (categoryId >= 46 && categoryId <= 57 || categoryId >= 61 && categoryId <= 66 )
+    {
+        ViewData["Title"] = "Phụ kiện " + categoryName;
+    }
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 @section Styles {
 <link href="@Url.Content("/css/views/home/productlist.css")" rel="stylesheet" type="text/css" />
 }
 <main>
     <script src="@Url.Content("/js/views/home/productlist.js")"></script>
+
+    @if (@categoryId <= 14) {
+
     @*1 vài sản phẩm để test bộ lọc  Jquery *@
     <div class="container" style="justify-content: center">
         <div class="mb-3">
-            <div class="d-inline filtering">
+            <div class="d-inline category-name">
                 <a class="btn" id="Apple" asp-controller="Products" asp-action="Category" asp-route-id="7"><img src="//cdn.tgdd.vn/Brand/1/logo-iphone-220x48.png" width="90" /></a>
                 <a class="btn" id="Samsung"  asp-controller="Products" asp-action="Category" asp-route-id="8"><img src="//cdn.tgdd.vn/Brand/1/samsungnew-220x48-1.png" width="90" /></a>
                 <a class="btn" id="Xiaomi"  asp-controller="Products" asp-action="Category" asp-route-id="9"><img src="//cdn.tgdd.vn/Brand/1/logo-xiaomi-220x48-5.png" width="90" /></a>
-                <a class="btn" id="Nokia"  asp-controller="Products" asp-action="Category" asp-route-id="10"><img src="//cdn.tgdd.vn/Brand/1/Nokia42-b_21.jpg" width="90" /></a>
+                <a class="btn" id="Vivo"  asp-controller="Products" asp-action="Category" asp-route-id="10"><img src="//cdn.tgdd.vn/Brand/1/Vivo42-b_50.jpg" width="90" /></a>
                 <a class="btn" id="Oneplus"  asp-controller="Products" asp-action="Category" asp-route-id="12"><img src="https://cdn.tgdd.vn/Brand/1/OnePlus42-b_36.jpg" width="90" /></a>
-                <a class="btn" id="Realme"  asp-controller="Products" asp-action="Category" asp-route-id="13"><img src="//cdn.tgdd.vn/Brand/1/Realme42-b_37.png" width="90" /></a>
-                <a class="btn" id="Vivo"  asp-controller="Products" asp-action="Category" asp-route-id="14"><img src="//cdn.tgdd.vn/Brand/1/Vivo42-b_50.jpg" width="90" /></a>
+                <a class="btn" id="Nokia"  asp-controller="Products" asp-action="Category" asp-route-id="13"><img src="//cdn.tgdd.vn/Brand/1/Nokia42-b_21.jpg" width="90" /></a>
+                <a class="btn" id="Realme"  asp-controller="Products" asp-action="Category" asp-route-id="14"><img src="//cdn.tgdd.vn/Brand/1/Realme42-b_37.png" width="90" /></a>
             </div>
         </div>
     </div>
-@*    <div class="filtering">
+    }
+    else if (@categoryId >= 16 && @categoryId <= 22)
+    {
+     <div class="container" style="justify-content: center">
+        <div class="mb-3">
+            <div class="d-inline">
+                <a class="btn" id="Apple" asp-controller="Products" asp-action="Category" asp-route-id="16"><img src="https://cdn.tgdd.vn/Brand/1/logo-macbook-149x40.png" width="90" /></a>
+                <a class="btn" id="Asus" asp-controller="Products" asp-action="Category" asp-route-id="17"><img src="https://cdn.tgdd.vn/Brand/1/logo-asus-149x40.png" width="90" /></a>
+                <a class="btn" id="Acer" asp-controller="Products" asp-action="Category" asp-route-id="18"><img src="https://cdn.tgdd.vn/Brand/1/logo-acer-149x40.png" width="90" /></a>
+                <a class="btn" id="Dell" asp-controller="Products" asp-action="Category" asp-route-id="19"><img src="https://cdn.tgdd.vn/Brand/1/logo-dell-149x40.png" width="90" /></a>
+                <a class="btn" id="Lenovo" asp-controller="Products" asp-action="Category" asp-route-id="20"><img src="https://cdn.tgdd.vn/Brand/1/logo-lenovo-149x40.png" width="90" /></a>
+                <a class="btn" id="HP" asp-controller="Products" asp-action="Category" asp-route-id="21"><img src="https://cdn.tgdd.vn/Brand/1/logo-hp-149x40-1.png" width="90" /></a>
+                <a class="btn" id="MSI" asp-controller="Products" asp-action="Category" asp-route-id="22"><img src="https://cdn.tgdd.vn/Brand/1/logo-msi-149x40.png" width="90" /></a>
+           </div>
+        </div>
+        </div>
+    }
+    else if (@categoryId >= 23 && @categoryId <= 28)
+    {
+     <div class="container" style="justify-content: center">
+        <div class="mb-3">
+            <div class="d-inline">
+                <a class="btn" id="Apple" asp-controller="Products" asp-action="Category" asp-route-id="23"><img src="https://cdn.tgdd.vn/Brand/1/iPad-(Apple)522-b_4.jpg" width="90" /></a>
+                <a class="btn" id="Samsung" asp-controller="Products" asp-action="Category" asp-route-id="24"><img src="https://cdn.tgdd.vn/Brand/1/samsungnew-220x48-3.png" width="90" /></a>
+                <a class="btn" id="Huawei" asp-controller="Products" asp-action="Category" asp-route-id="26"><img src="https://cdn.tgdd.vn/Brand/1/Huawei522-b_4.jpg" width="90" /></a>
+            </div>
+        </div>
+    </div>
+    }
+     else if (categoryId >= 38 && categoryId <= 45 || categoryId >= 58 && categoryId <= 60 )
+    {
+     <div class="container" style="justify-content: center">
+        <div class="mb-3">
+            <div class="d-inline">
+                <a class="btn" id="LG" asp-controller="Products" asp-action="Category" asp-route-id="39"><img src="https://cdn.tgdd.vn/Brand/1/LG54-b_17.png" width="90" /></a>
+                <a class="btn" id="Anker" asp-controller="Products" asp-action="Category" asp-route-id="45"><img src="https://cdn.tgdd.vn/Brand/1/Anker54-b_17.png" width="90" /></a>
+                <a class="btn" id="Jabra" asp-controller="Products" asp-action="Category" asp-route-id="58"><img src="https://cdn.tgdd.vn/Brand/1/Jabra54-b_17.jpg" width="90" /></a>
+                <a class="btn" id="Mozard" asp-controller="Products" asp-action="Category" asp-route-id="59"><img src="https://cdn.tgdd.vn/Brand/1/Mozard54-b_35.jpg" width="90" /></a>
+                <a class="btn" id="Xiaomi" asp-controller="Products" asp-action="Category" asp-route-id="60"><img src="//cdn.tgdd.vn/Brand/1/logo-xiaomi-220x48-5.png" width="90" /></a>
+            </div>
+        </div>
+    </div>
+    }
+    else if (categoryId >= 46 && categoryId <= 57 || categoryId >= 61 && categoryId <= 66 )
+    {
+         <div class="container" style="justify-content: center">
+            <div class="mb-3">
+                <div class="d-inline">
+                    <a class="btn" id="Apple" asp-controller="Products" asp-action="Category" asp-route-id="46"><img src="https://cdn.tgdd.vn/Brand/1/iPad-(Apple)522-b_4.jpg" width="90" /></a>
+                    <a class="btn" id="Razer" asp-controller="Products" asp-action="Category" asp-route-id="54"><img src="https://cdn.tgdd.vn/Brand/1/220-48-220x48-13.jpg" width="90" /></a>
+                    <a class="btn" id="Belkin" asp-controller="Products" asp-action="Category" asp-route-id="55"><img src="https://cdn.tgdd.vn/Brand/1/220-48-220x48-23.jpg" width="90" /></a>
+                    <a class="btn" id="Rapoo" asp-controller="Products" asp-action="Category" asp-route-id="61"><img src="https://cdn.tgdd.vn/Brand/1/Rapoo86-s56-160x40-2.png" width="90" /></a>
+                    <a class="btn" id="HyperX" asp-controller="Products" asp-action="Category" asp-route-id="62"><img src="https://cdn.tgdd.vn/Brand/1/logo-hyperx-1-220x48-1.jpg" width="90" /></a>
+                    <a class="btn" id="Logitech" asp-controller="Products" asp-action="Category" asp-route-id="63"><img src="https://cdn.tgdd.vn/Brand/1/Logitech86-b_41.jpg" width="90" /></a>
+                    <a class="btn" id="Energizer" asp-controller="Products" asp-action="Category" asp-route-id="65"><img src="https://cdn.tgdd.vn/Brand/1/Energizer57-b_50.jpg" width="90" /></a>
+                    <a class="btn" id="Xmobile" asp-controller="Products" asp-action="Category" asp-route-id="66"><img src="https://cdn.tgdd.vn/Brand/1/Xmobile57-b_42.jpg" width="90" /></a>
+                </div>
+            </div>
+        </div>
+    }
+    @*    <div class="filtering">
         <div>
             <h4></h4>
         </div>
     </div>*@
     <div class="highlight">
         @foreach (var item in Model) {
-            <div class="displaying @item.Category.CategoryName">
+            <div class="displaying">
                 @*class để hiển thị *@
                 <a asp-action="Details" asp-route-id="@item.ProductId">
                     <div class="card">
@@ -85,5 +177,9 @@
 </main>
 <script src="@Url.Content("~/js/views/product/general.js")"></script>
 <script src="@Url.Content("~/js/views/product/phone.js")"></script>
-
+<script>
+    $(document).ready(function () {
+       $("#@categoryName").css("border", "1px solid #be1e2d");
+    });
+</script>
 

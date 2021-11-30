@@ -23,11 +23,41 @@ namespace WEB2.Controllers
         // GET: Laptop
         public async Task<IActionResult> Laptop()
         {
-            var appDbContext = _context.Product.Include(p => p.Battery).Include(p => p.Camera).Include(p => p.Category).Include(p => p.Connection).Include(p => p.Graphic).Include(p => p.OS).Include(p => p.Processor).Include(p => p.Ram).Include(p => p.Rom).Include(p => p.Screen).Include(p => p.Sound).Include(p => p.Structure)
-                .Where(p => p.Category.ParentCategoryId == 2);
-            return View(await appDbContext.ToListAsync());
+            var products = await _context.Product.Include(p => p.Battery).Include(p => p.Camera).Include(p => p.Category).Include(p => p.Connection).Include(p => p.Graphic).Include(p => p.OS).Include(p => p.Processor).Include(p => p.Ram).Include(p => p.Rom).Include(p => p.Screen).Include(p => p.Sound).Include(p => p.Structure)
+                .Where(p => p.Category.ParentCategoryId == 2).ToListAsync();
+            var pro = new List<Product>();
+            var protemp = new Product();
+            bool check = false;
+            if (products.Count == 1)
+            {
+                return View(products);
+            }
+            for (int i = 0; i < products.Count - 1; i++)
+            {
+                if (check == false)
+                {
+                    protemp = products[i];
+                    protemp.ProductName = products[i].ProductName;
+                }
+                if (products[i].ProductName == products[i + 1].ProductName)
+                {
+                    check = true;
+                    continue;
+                }
+                else
+                {
+                    pro.Add(protemp);
+                    check = false;
+                }
+            }
+            if (check == false)
+            {
+                pro.Add(products[products.Count - 1]);
+            }
+            pro.Add(protemp);
+            return View(pro);
         }
-
+        
         // GET: Phone
         public async Task<IActionResult> Phone()
         {
@@ -36,6 +66,10 @@ namespace WEB2.Controllers
             var pro = new List<Product>();
             var protemp = new Product();
             bool check = false;
+            if (products.Count == 1)
+            {
+                return View(products);
+            }
             for (int i = 0; i < products.Count - 1; i++)
             {
                 if (check == false)
@@ -65,33 +99,118 @@ namespace WEB2.Controllers
         // GET: Tablet
         public async Task<IActionResult> Tablet()
         {
-            var appDbContext = _context.Product.Include(p => p.Battery).Include(p => p.Camera).Include(p => p.Category).Include(p => p.Connection).Include(p => p.Graphic).Include(p => p.OS).Include(p => p.Processor).Include(p => p.Ram).Include(p => p.Rom).Include(p => p.Screen).Include(p => p.Sound).Include(p => p.Structure)
-                .Where(p => p.Category.ParentCategoryId == 3);
-            return View(await appDbContext.ToListAsync());
+            var products = await _context.Product.Include(p => p.Battery).Include(p => p.Camera).Include(p => p.Category).Include(p => p.Connection).Include(p => p.Graphic).Include(p => p.OS).Include(p => p.Processor).Include(p => p.Ram).Include(p => p.Rom).Include(p => p.Screen).Include(p => p.Sound).Include(p => p.Structure)
+                .Where(p => p.Category.ParentCategoryId == 3).ToListAsync();
+            var pro = new List<Product>();
+            var protemp = new Product();
+            bool check = false;
+            if (products.Count == 1)
+            {
+                return View(products);
+            }
+            for (int i = 0; i < products.Count - 1; i++)
+            {
+                if (check == false)
+                {
+                    protemp = products[i];
+                    protemp.ProductName = products[i].ProductName;
+                }
+                if (products[i].ProductName == products[i + 1].ProductName)
+                {
+                    check = true;
+                    continue;
+                }
+                else
+                {
+                    pro.Add(protemp);
+                    check = false;
+                }
+            }
+            if (check == false)
+            {
+                pro.Add(products[products.Count - 1]);
+            }
+            pro.Add(protemp);
+            return View(pro);
         }
 
         // GET: Watch
-        public async Task<IActionResult> Watch()
-        {
-            var appDbContext = _context.Product.Include(p => p.Battery).Include(p => p.Camera).Include(p => p.Category).Include(p => p.Connection).Include(p => p.Graphic).Include(p => p.OS).Include(p => p.Processor).Include(p => p.Ram).Include(p => p.Rom).Include(p => p.Screen).Include(p => p.Sound).Include(p => p.Structure)
-                .Where(p => p.Category.ParentCategoryId == 4);
-            return View(await appDbContext.ToListAsync());
-        }
+
 
         // GET: Sound
         public async Task<IActionResult> Sound()
         {
-            var appDbContext = _context.Product.Include(p => p.Battery).Include(p => p.Camera).Include(p => p.Category).Include(p => p.Connection).Include(p => p.Graphic).Include(p => p.OS).Include(p => p.Processor).Include(p => p.Ram).Include(p => p.Rom).Include(p => p.Screen).Include(p => p.Sound).Include(p => p.Structure)
-                .Where(p => p.Category.ParentCategoryId == 5);
-            return View(await appDbContext.ToListAsync());
+            var products = await _context.Product.Include(p => p.Battery).Include(p => p.Camera).Include(p => p.Category).Include(p => p.Connection).Include(p => p.Graphic).Include(p => p.OS).Include(p => p.Processor).Include(p => p.Ram).Include(p => p.Rom).Include(p => p.Screen).Include(p => p.Sound).Include(p => p.Structure)
+                .Where(p => p.Category.ParentCategoryId == 5).ToListAsync();
+            var pro = new List<Product>();
+            var protemp = new Product();
+            bool check = false;
+            if (products.Count == 1)
+            {
+                return View(products);
+            }
+            for (int i = 0; i < products.Count - 1; i++)
+            {
+                if (check == false)
+                {
+                    protemp = products[i];
+                    protemp.ProductName = products[i].ProductName;
+                }
+                if (products[i].ProductName == products[i + 1].ProductName)
+                {
+                    check = true;
+                    continue;
+                }
+                else
+                {
+                    pro.Add(protemp);
+                    check = false;
+                }
+            }
+            if (check == false)
+            {
+                pro.Add(products[products.Count - 1]);
+            }
+            pro.Add(protemp);
+            return View(pro);
         }
 
         // GET: Accessories
         public async Task<IActionResult> Accessories()
         {
-            var appDbContext = _context.Product.Include(p => p.Battery).Include(p => p.Camera).Include(p => p.Category).Include(p => p.Connection).Include(p => p.Graphic).Include(p => p.OS).Include(p => p.Processor).Include(p => p.Ram).Include(p => p.Rom).Include(p => p.Screen).Include(p => p.Sound).Include(p => p.Structure)
-                .Where(p => p.Category.ParentCategoryId == 6);
-            return View(await appDbContext.ToListAsync());
+            var products = await _context.Product.Include(p => p.Battery).Include(p => p.Camera).Include(p => p.Category).Include(p => p.Connection).Include(p => p.Graphic).Include(p => p.OS).Include(p => p.Processor).Include(p => p.Ram).Include(p => p.Rom).Include(p => p.Screen).Include(p => p.Sound).Include(p => p.Structure)
+                .Where(p => p.Category.ParentCategoryId == 6).ToListAsync();
+            var pro = new List<Product>();
+            var protemp = new Product();
+            bool check = false;
+            if (products.Count == 1)
+            {
+                return View(products);
+            }
+            for (int i = 0; i < products.Count - 1; i++)
+            {
+                if (check == false)
+                {
+                    protemp = products[i];
+                    protemp.ProductName = products[i].ProductName;
+                }
+                if (products[i].ProductName == products[i + 1].ProductName)
+                {
+                    check = true;
+                    continue;
+                }
+                else
+                {
+                    pro.Add(protemp);
+                    check = false;
+                }
+            }
+            if (check == false)
+            {
+                pro.Add(products[products.Count - 1]);
+            }
+            pro.Add(protemp);
+            return View(pro);
         }
         public async Task<IActionResult> Category(int? id)
         {
@@ -99,9 +218,39 @@ namespace WEB2.Controllers
             {
                 return NotFound();
             }
-            var appDbContext = _context.Product.Include(p => p.Battery).Include(p => p.Camera).Include(p => p.Category).Include(p => p.Connection).Include(p => p.Graphic).Include(p => p.OS).Include(p => p.Processor).Include(p => p.Ram).Include(p => p.Rom).Include(p => p.Screen).Include(p => p.Sound).Include(p => p.Structure).Include(p => p.Category)
-                            .Where(p => p.Category.CategoryId == id);
-            return View(await appDbContext.ToListAsync());
+            var products = await _context.Product.Include(p => p.Battery).Include(p => p.Camera).Include(p => p.Category).Include(p => p.Connection).Include(p => p.Graphic).Include(p => p.OS).Include(p => p.Processor).Include(p => p.Ram).Include(p => p.Rom).Include(p => p.Screen).Include(p => p.Sound).Include(p => p.Structure)
+                            .Where(p => p.Category.CategoryId == id).ToListAsync();
+            var pro = new List<Product>();
+            var protemp = new Product();
+            bool check = false;
+            if (products.Count == 1)
+            {
+                return View(products);
+            }
+            for (int i = 0; i < products.Count - 1; i++)
+            {
+                if (check == false)
+                {
+                    protemp = products[i];
+                    protemp.ProductName = products[i].ProductName;
+                }
+                if (products[i].ProductName == products[i + 1].ProductName)
+                {
+                    check = true;
+                    continue;
+                }
+                else
+                {
+                    pro.Add(protemp);
+                    check = false;
+                }
+            }
+            if (check == false)
+            {
+                pro.Add(products[products.Count - 1]);
+            }
+            pro.Add(protemp);
+            return View(pro);
         }
         public async Task<IActionResult> ExDetails(int? id)
         {
