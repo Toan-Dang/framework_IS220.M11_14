@@ -140,24 +140,6 @@ namespace WEB2.Areas.Admin.Controllers {
             return View(reorder);
         }
 
-        // GET: Admin/PurchaseDetails/Details/5
-        public async Task<IActionResult> Details(int? id) {
-            if (id == null) {
-                return NotFound();
-            }
-
-            var pur = await _context.PurchaseDetail
-                .Include(p => p.Purchase)
-                .Include(p => p.Purchase.Staff)
-                .Include(p => p.Purchase.Supplier)
-                .Include(p => p.Product)
-                .Include(p => p.Purchase.Staff.AppUser)
-                .Where(p => p.PurchaseId == id)
-                .ToListAsync();
-
-            return View(pur);
-        }
-
         // GET: Admin/PurchaseDetails/Create
         public IActionResult Create() {
             ViewData["ProductId"] = new SelectList(_context.Product, "ProductId", "ProductDetail");
@@ -217,7 +199,12 @@ namespace WEB2.Areas.Admin.Controllers {
             return View(purchaseDetail);
         }
 
-        public async Task<IActionResult> Accept(int id) {
+        /// <summary>
+        /// transaction
+        /// </summary>
+        /// <param name="id"> </param>
+        /// <returns> </returns>
+        public async Task<IActionResult> Accept_T(int id) {
             var pur = await _context.Purchase.FindAsync(id);
             if (pur.TransactStatus.Equals("receive") || pur.TransactStatus.Equals("left")) {
                 var purdetail = await _context.PurchaseDetail
@@ -242,8 +229,25 @@ namespace WEB2.Areas.Admin.Controllers {
             return RedirectToAction(nameof(Transaction));
         }
 
+        public async Task<IActionResult> Details_T(int? id) {
+            if (id == null) {
+                return NotFound();
+            }
+
+            var pur = await _context.PurchaseDetail
+                .Include(p => p.Purchase)
+                .Include(p => p.Purchase.Staff)
+                .Include(p => p.Purchase.Supplier)
+                .Include(p => p.Product)
+                .Include(p => p.Purchase.Staff.AppUser)
+                .Where(p => p.PurchaseId == id)
+                .ToListAsync();
+
+            return View(pur);
+        }
+
         // GET: Admin/PurchaseDetails/Delete/5
-        public async Task<IActionResult> Delete(int? id) {
+        public async Task<IActionResult> Delete_T(int? id) {
             if (id == null) {
                 return NotFound();
             }
@@ -260,46 +264,134 @@ namespace WEB2.Areas.Admin.Controllers {
             return RedirectToAction(nameof(Transaction));
         }
 
-        // GET: Admin/PurchaseDetails/Edit/5
-        public async Task<IActionResult> Edit(int? id) {
+        /// <summary>
+        /// request
+        /// </summary>
+        /// <param name="id"> </param>
+        /// <returns> </returns>
+        public async Task<IActionResult> Accept_RQ(int id) {
+            var pur = await _context.Purchase.FindAsync(id);
+            if (pur.TransactStatus.Equals("receive") || pur.TransactStatus.Equals("left")) {
+                var purdetail = await _context.PurchaseDetail
+                    .Include(p => p.Product)
+                    .Include(p => p.Purchase)
+                    .Include(p => p.Purchase.Staff)
+                    .Include(p => p.Purchase.Supplier)
+                    .Include(p => p.Purchase.Staff.AppUser)
+                    .Where(p => p.PurchaseId == id)
+                    .Where(p => p.Purchase.TransactStatus == "receive")
+                    .ToListAsync();
+                return View(purdetail);
+            }
+
+            if (pur.TransactStatus.Equals("sent"))
+                pur.TransactStatus = "receive";
+            if (pur.TransactStatus.Equals("saved"))
+                pur.TransactStatus = "sent";
+
+            _context.Update(pur);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Requests));
+        }
+
+        public async Task<IActionResult> Details_RQ(int? id) {
             if (id == null) {
                 return NotFound();
             }
 
-            var purchaseDetail = await _context.PurchaseDetail.FindAsync(id);
+            var pur = await _context.PurchaseDetail
+                .Include(p => p.Purchase)
+                .Include(p => p.Purchase.Staff)
+                .Include(p => p.Purchase.Supplier)
+                .Include(p => p.Product)
+                .Include(p => p.Purchase.Staff.AppUser)
+                .Where(p => p.PurchaseId == id)
+                .ToListAsync();
+
+            return View(pur);
+        }
+
+        // GET: Admin/PurchaseDetails/Delete/5
+        public async Task<IActionResult> Delete_RQ(int? id) {
+            if (id == null) {
+                return NotFound();
+            }
+
+            var purchaseDetail = await _context.Purchase.FindAsync(id);
+
             if (purchaseDetail == null) {
                 return NotFound();
             }
-            ViewData["ProductId"] = new SelectList(_context.Product, "ProductId", "ProductId", purchaseDetail.ProductId);
-            ViewData["PurchaseId"] = new SelectList(_context.Set<Purchase>(), "PruchaseId", "PruchaseId", purchaseDetail.PurchaseId);
-            return View(purchaseDetail);
+            purchaseDetail.TransactStatus = "cancel";
+
+            _context.Update(purchaseDetail);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Requests));
         }
 
-        // POST: Admin/PurchaseDetails/Edit/5 To protect from overposting attacks, enable the
-        // specific properties you want to bind to. For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductId,PurchaseId,Quantity,Status,Price,IDSKU,Total")] PurchaseDetail purchaseDetail) {
-            if (id != purchaseDetail.ProductId) {
+        /// <summary>
+        /// receipt
+        /// </summary>
+        /// <param name="id"> </param>
+        /// <returns> </returns>
+        public async Task<IActionResult> Accept_R(int id) {
+            var pur = await _context.Purchase.FindAsync(id);
+            if (pur.TransactStatus.Equals("receive") || pur.TransactStatus.Equals("left")) {
+                var purdetail = await _context.PurchaseDetail
+                    .Include(p => p.Product)
+                    .Include(p => p.Purchase)
+                    .Include(p => p.Purchase.Staff)
+                    .Include(p => p.Purchase.Supplier)
+                    .Include(p => p.Purchase.Staff.AppUser)
+                    .Where(p => p.PurchaseId == id)
+                    .Where(p => p.Purchase.TransactStatus == "receive")
+                    .ToListAsync();
+                return View(purdetail);
+            }
+
+            if (pur.TransactStatus.Equals("sent"))
+                pur.TransactStatus = "receive";
+            if (pur.TransactStatus.Equals("saved"))
+                pur.TransactStatus = "sent";
+
+            _context.Update(pur);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Receipt));
+        }
+
+        public async Task<IActionResult> Details_R(int? id) {
+            if (id == null) {
                 return NotFound();
             }
 
-            if (ModelState.IsValid) {
-                try {
-                    _context.Update(purchaseDetail);
-                    await _context.SaveChangesAsync();
-                } catch (DbUpdateConcurrencyException) {
-                    if (!PurchaseDetailExists(purchaseDetail.ProductId)) {
-                        return NotFound();
-                    } else {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+            var pur = await _context.PurchaseDetail
+                .Include(p => p.Purchase)
+                .Include(p => p.Purchase.Staff)
+                .Include(p => p.Purchase.Supplier)
+                .Include(p => p.Product)
+                .Include(p => p.Purchase.Staff.AppUser)
+                .Where(p => p.PurchaseId == id)
+                .ToListAsync();
+
+            return View(pur);
+        }
+
+        // GET: Admin/PurchaseDetails/Delete/5
+        public async Task<IActionResult> Delete_R(int? id) {
+            if (id == null) {
+                return NotFound();
             }
-            ViewData["ProductId"] = new SelectList(_context.Product, "ProductId", "ProductId", purchaseDetail.ProductId);
-            ViewData["PurchaseId"] = new SelectList(_context.Set<Purchase>(), "PruchaseId", "PruchaseId", purchaseDetail.PurchaseId);
-            return View(purchaseDetail);
+
+            var purchaseDetail = await _context.Purchase.FindAsync(id);
+
+            if (purchaseDetail == null) {
+                return NotFound();
+            }
+            purchaseDetail.TransactStatus = "cancel";
+
+            _context.Update(purchaseDetail);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Receipt));
         }
 
         private bool PurchaseDetailExists(int id) {

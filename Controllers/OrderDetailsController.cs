@@ -116,7 +116,6 @@ namespace WEB2.Controllers {
                         Total = product.UnitPrice,
                         Discount = 0,
                     };
-                    product.UnitInOrder += 1;
 
                     _context.Add(cart);
                     await _context.SaveChangesAsync();
@@ -149,8 +148,6 @@ namespace WEB2.Controllers {
                         };
                         _context.Add(cart);
                         await _context.SaveChangesAsync();
-
-                        product.UnitInOrder += 1;
 
                         _context.Update(product);
                         await _context.SaveChangesAsync();
@@ -185,11 +182,6 @@ namespace WEB2.Controllers {
             var orderDetail = await _context.OrderDetail.Where(o => o.OrderId == orderid)
                 .Where(o => o.ProductId == productid).FirstOrDefaultAsync();
             _context.OrderDetail.Remove(orderDetail);
-            await _context.SaveChangesAsync();
-
-            var product = await _context.Product.FindAsync(productid);
-            product.UnitInOrder -= 1;
-            _context.Update(product);
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
@@ -266,7 +258,11 @@ namespace WEB2.Controllers {
                 var orderdetail = await _context.OrderDetail.Where(p => p.OrderId == orderid).Where(p => p.Status == "saved").ToListAsync();
                 foreach (var item in orderdetail) {
                     item.Status = "solved";
-
+                    var pro = await _context.Product.Where(p => p.ProductId == item.ProductId).FirstAsync();
+                    pro.CurrentOrder += item.Quantity;
+                    pro.UnitInOrder += 1;
+                    _context.Update(pro);
+                    await _context.SaveChangesAsync();
                     _context.Update(item);
                     await _context.SaveChangesAsync();
                 }
@@ -286,7 +282,7 @@ namespace WEB2.Controllers {
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToAction("Payment", "Orders", new { id = orderid });
+            return View();
         }
 
         private bool CustomerExists(int id) {

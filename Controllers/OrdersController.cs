@@ -129,7 +129,7 @@ namespace WEB2.Controllers {
                     var product = await _context.Product.Where(p => p.ProductId == item.ProductId).FirstAsync();
                     //available here
                     product.CurrentOrder += item.Quantity;
-                    product.UnitInOrder -= 1;
+                    product.UnitInOrder += 1;
 
                     _context.Update(product);
                     await _context.SaveChangesAsync();

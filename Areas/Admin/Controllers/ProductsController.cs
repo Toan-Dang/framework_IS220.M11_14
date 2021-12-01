@@ -229,6 +229,17 @@ namespace WEB2.Areas.Admin.Controllers {
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        public async Task<IActionResult> Recover(int? id) {
+            if (id == null) {
+                return NotFound();
+            }
+
+            var pro = await _context.Product.FindAsync(id);
+            pro.IsDelete = false;
+            _context.Update(pro);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
 
         private bool ProductExists(int id) {
             return _context.Product.Any(e => e.ProductId == id);

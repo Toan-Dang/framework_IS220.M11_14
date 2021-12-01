@@ -105,9 +105,9 @@
                                                 text_can = "";
                                             } 
                                           <td>
-                                             <a asp-action="Accecpt" asp-route-id="@item.OrderId" class = "@color" >@status</a>  
-                                             <a asp-action="BillDetails" asp-route-id="@item.OrderId" class = "btn btn-outline-primary">Chi tiết</a>    
-                                             <a asp-action="BillDel" asp-route-id="@item.OrderId" class = "@color_can">@text_can</a>   
+                                             <a asp-action="Accept_S" asp-route-id="@item.OrderId" class = "@color" >@status</a>  
+                                             <a asp-action="BillDetails_S" asp-route-id="@item.OrderId" class = "btn btn-outline-primary">Chi tiết</a>    
+                                             <a asp-action="BillDel_S" asp-route-id="@item.OrderId" class = "@color_can">@text_can</a>   
                                         </td>
                                     </tr>   
                                }

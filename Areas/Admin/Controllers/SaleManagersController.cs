@@ -149,10 +149,27 @@ namespace WEB2.Areas.Admin.Controllers {
             return View(reorder);
         }
 
-        public async Task<ActionResult> Accecpt(int? id) {
-            if (id == null) {
-                return NotFound();
-            }
+        // POST: SaleManager/Create
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> Accecpt(int id) {
+        //    var order = await _context.Order.FindAsync(id);
+
+        // if (order.TransactStatus.Equals("shipping")) order.TransactStatus = "done"; if
+        // (order.TransactStatus.Equals("accept")) order.TransactStatus = "shipping"; if
+        // (order.TransactStatus.Equals("pay by cash") || order.TransactStatus.Equals("paid"))
+        // order.TransactStatus = "accept";
+
+        //    _context.Update(order);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(ProductBill));
+        //}
+        /// <summary>
+        /// transaction
+        /// </summary>
+        /// <param name="id"> </param>
+        /// <returns> </returns>
+        public async Task<ActionResult> Accept_T(int id) {
             var order = await _context.Order.FindAsync(id);
 
             if (order.TransactStatus.Equals("shipping"))
@@ -164,11 +181,10 @@ namespace WEB2.Areas.Admin.Controllers {
 
             _context.Update(order);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(ProductBill));
+            return RedirectToAction(nameof(Transaction));
         }
 
-        // GET: SaleManager/Create
-        public async Task<ActionResult> BillDetails(int id) {
+        public async Task<ActionResult> BillDetails_T(int id) {
             var order = await _context.OrderDetail
              .Include(o => o.Order)
              .Include(o => o.Order.Customer)
@@ -183,22 +199,87 @@ namespace WEB2.Areas.Admin.Controllers {
             return View(order);
         }
 
-        public async Task<ActionResult> BillDel(int id) {
+        public async Task<ActionResult> BillDel_T(int id) {
             var order = await _context.Order.FindAsync(id);
             order.TransactStatus = "cancel";
             _context.Update(order);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(ProductBill));
+            var orderdetail = await _context.OrderDetail.Where(p => p.OrderId == id).ToListAsync();
+            foreach (var item in orderdetail) {
+                item.Status = "";
+
+                var pro = await _context.Product.Where(p => p.ProductId == item.ProductId).FirstAsync();
+                pro.UnitInOrder -= 1;
+                pro.CurrentOrder -= item.Quantity;
+                _context.Update(pro);
+                await _context.SaveChangesAsync();
+                _context.Update(item);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction(nameof(Transaction));
         }
 
-        // POST: SaleManager/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Accecpt(int id) {
+        /// <summary>
+        /// shipping
+        /// </summary>
+        /// <param name="id"> </param>
+        /// <returns> </returns>
+
+        public async Task<ActionResult> Accept_S(int id) {
             var order = await _context.Order.FindAsync(id);
 
             if (order.TransactStatus.Equals("shipping"))
                 order.TransactStatus = "done";
+
+            _context.Update(order);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Shipping));
+        }
+
+        public async Task<ActionResult> BillDetails_S(int id) {
+            var order = await _context.OrderDetail
+             .Include(o => o.Order)
+             .Include(o => o.Order.Customer)
+             .Include(o => o.Order.Customer.AppUser)
+             .Include(o => o.Product)
+             .Include(o => o.Order.Shipment)
+             .Include(o => o.Order.Payment)
+             .Where(o => o.Order.Deleted == false)
+             .Where(p => p.OrderId == id)
+             .ToListAsync();
+
+            return View(order);
+        }
+
+        public async Task<ActionResult> BillDel_S(int id) {
+            var order = await _context.Order.FindAsync(id);
+            order.TransactStatus = "cancel";
+            _context.Update(order);
+            await _context.SaveChangesAsync();
+            var orderdetail = await _context.OrderDetail.Where(p => p.OrderId == id).ToListAsync();
+            foreach (var item in orderdetail) {
+                item.Status = "";
+
+                var pro = await _context.Product.Where(p => p.ProductId == item.ProductId).FirstAsync();
+                pro.UnitInOrder -= 1;
+                pro.CurrentOrder -= item.Quantity;
+                _context.Update(pro);
+                await _context.SaveChangesAsync();
+                _context.Update(item);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction(nameof(Shipping));
+        }
+
+        /// <summary>
+        /// billdetail
+        /// </summary>
+        /// <param name="id"> </param>
+        /// <returns> </returns>
+
+        public async Task<ActionResult> Accept_B(int id) {
+            var order = await _context.Order.FindAsync(id);
+
             if (order.TransactStatus.Equals("accept"))
                 order.TransactStatus = "shipping";
             if (order.TransactStatus.Equals("pay by cash") || order.TransactStatus.Equals("paid"))
@@ -206,6 +287,41 @@ namespace WEB2.Areas.Admin.Controllers {
 
             _context.Update(order);
             await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(ProductBill));
+        }
+
+        public async Task<ActionResult> BillDetails_B(int id) {
+            var order = await _context.OrderDetail
+             .Include(o => o.Order)
+             .Include(o => o.Order.Customer)
+             .Include(o => o.Order.Customer.AppUser)
+             .Include(o => o.Product)
+             .Include(o => o.Order.Shipment)
+             .Include(o => o.Order.Payment)
+             .Where(o => o.Order.Deleted == false)
+             .Where(p => p.OrderId == id)
+             .ToListAsync();
+
+            return View(order);
+        }
+
+        public async Task<ActionResult> BillDel_B(int id) {
+            var order = await _context.Order.FindAsync(id);
+            order.TransactStatus = "cancel";
+            _context.Update(order);
+            await _context.SaveChangesAsync();
+            var orderdetail = await _context.OrderDetail.Where(p => p.OrderId == id).ToListAsync();
+            foreach (var item in orderdetail) {
+                item.Status = "";
+
+                var pro = await _context.Product.Where(p => p.ProductId == item.ProductId).FirstAsync();
+                pro.UnitInOrder -= 1;
+                pro.CurrentOrder -= item.Quantity;
+                _context.Update(pro);
+                await _context.SaveChangesAsync();
+                _context.Update(item);
+                await _context.SaveChangesAsync();
+            }
             return RedirectToAction(nameof(ProductBill));
         }
     }
