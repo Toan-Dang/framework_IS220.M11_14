@@ -114,28 +114,7 @@
 
             });
 
-            $('#sub').click(function(){
-              var suppierid = $('#supplierid').val();
-
-              var model = new Object();
-              model.Productid = product;
-              model.Price = price;
-              model.Quantity = quantity;
-              model.Paid = total;
-              model.SupplierId = suppierid;
-              console.log(model);
-             jQuery.ajax({
-              type: "POST",
-              url: "@Url.Action("CreateBill","PurchaseDetails")",
-              dataType: "json",
-              contentType: "application/json; charset=utf-8",
-              data: JSON.stringify( model ),
-              processData: true,
-              cache: false,
-            
-
-                  });
-               });
+           
 
           });
 
@@ -170,9 +149,32 @@
             // Decreasing total number of rows by 1.
             rowIdx--;
           });
+               $('#sub').click(function(){
+              var suppierid = $('#supplierid').val();
 
+              var model = new Object();
+              model.Productid = product;
+              model.Price = price;
+              model.Quantity = quantity;
+              model.Paid = total;
+              model.SupplierId = suppierid;
+              console.log(model);
+             jQuery.ajax({
+              type: "POST",
+              url: "@Url.Action("CreateBill","PurchaseDetails")",
+              dataType: "json",
+              contentType: "application/json; charset=utf-8",
+              data: JSON.stringify( model ),
+              processData: true,
+              cache: false,
+            
+
+                  });
+               });
 
         });
+
+     
     </script>
 </head>
 <body>

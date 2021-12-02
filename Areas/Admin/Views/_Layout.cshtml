@@ -195,10 +195,8 @@
                             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Quản lý hàng </a>
                                 <ul aria-expanded="false">
                                     <li><a asp-controller="InventoryManagers" asp-action="Index" asp-area="Admin">Kho vận</a></li>
-                                    <li><a href="./uc-nestable.html">Nhập/Xuất kho</a></li>
-                                    <li><a href="./uc-noui-slider.html">Điều chuyển hàng</a></li>
-                        
-          
+                                    <li><a asp-controller = "InventoryManagers" asp-action = "Product" asp-area= "Admin">Nhập/Xuất kho</a></li>
+                                    <li><a asp-controller="InventoryManagers" asp-action="TransProduct" asp-area="Admin">Điều chuyển hàng</a></li>
                                 </ul>
                             </li>
                                <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Quản lý kho </a>

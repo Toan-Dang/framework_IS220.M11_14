@@ -64,6 +64,7 @@ namespace WEB2.Controllers {
             .Where(o => o.Order.TransactStatus != "pay by cash")
              .Where(o => o.Order.TransactStatus != "shipping")
              .Where(o => o.Order.TransactStatus != "cancel")
+               .Where(o => o.Order.TransactStatus != "accept")
             .Where(o => o.Order.CustomerId == customer.CustomerID);
 
             return View(await appDbContext.ToListAsync());

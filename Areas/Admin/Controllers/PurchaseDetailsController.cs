@@ -65,7 +65,6 @@ namespace WEB2.Areas.Admin.Controllers {
             var pur = await _context.PurchaseDetail.Include(p => p.Product).Include(p => p.Purchase)
                 .Where(p => p.Purchase.TransactStatus != "saved")
                 .Where(p => p.Purchase.TransactStatus != "sent")
-                .Where(p => p.Purchase.TransactStatus != "receive")
                 .Where(p => p.Purchase.TransactStatus != "left").ToListAsync();
             if (pur.Count == 0) {
                 return View(pur);

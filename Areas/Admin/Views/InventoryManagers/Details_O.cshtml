@@ -34,7 +34,7 @@
         }
         <!-- row -->
 
-          <dl class="row card">
+          <dl class="row">
     
         @foreach (var item in Model) {
           
@@ -165,9 +165,9 @@
     <br />
     <br />
     <div class= "container-fluid">
-        <a asp-action="Accept_S" class="@color" asp-route-id="@orderid">@status</a>
-        <a asp-action="Shipping" class="btn btn-outline-dark ">Trở về</a>
-        <a asp-action="BillDel_S" class="@color_can" asp-route-id="@orderid">@text_can</a>   
+        <a asp-action="Accept_O" class="@color" asp-route-id="@orderid">@status</a>
+        <a asp-action="Product" class="btn btn-outline-dark ">Trở về</a>
+        <a asp-action="BillDel_O" class="@color_can" asp-route-id="@orderid">@text_can</a>   
     </div>
     <!-- Required vendors -->
     <script src="~/vendor/global/global.min.js"></script>

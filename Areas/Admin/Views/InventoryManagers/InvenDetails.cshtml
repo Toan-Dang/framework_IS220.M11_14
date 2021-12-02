@@ -68,7 +68,10 @@
                                           
                                                 <a asp-action="Details" asp-area="" asp-controller = "Products" asp-route-id="@item.ProductId" class="btn btn-outline-primary">Chi tiết</a> 
                                                 <a asp-action = "CreateID" asp-area= "Admin" asp-controller ="PurchaseDetails" asp-route-id = "@item.ProductId" class="btn btn-secondary" >Nhập hàng</a> 
-                                                <a asp-action = "" class="btn btn-danger" >Điều chuyển hàng</a>
+                                               
+                                                <div class="btn btn-outline-danger">   @Html.ActionLink("Chuyển hàng","TransProductID", "InventoryManagers", new{invenid = item.InventoryId, proid = item.ProductId},null)</div>
+                                             
+                                                
                                             </td>
                                         </tr>
                                         productid = item.InventoryId;

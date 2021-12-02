@@ -75,8 +75,16 @@
                 <dt class="col-sm-2">
                     Ngày tạo
                 </dt>
+           
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => item.Purchase.PurchaseDay)
+                </dd>
+                 <dt class="col-sm-2">
+                    Ngày thanh toán
+                </dt>
+           
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => item.Purchase.PaymentDate)
                 </dd>
                 <dt class="col-sm-2">
                     Tình trạng đơn hàng
@@ -90,7 +98,7 @@
                 }
 
 
-                if (status.Equals("receive")) {
+                if (status.Equals("sent")) {
                     status = "nhận hàng";
                     color = "btn btn-outline-success";
 
