@@ -19,8 +19,52 @@
         $(document).ready(function () {
           // Denotes total number of rows
           var rowIdx = 0;
+           $("#tbody").append(
+              `<tr id="R${++rowIdx}">
+                   <td class="row-index text-center">
+                   <p> ${rowIdx}</p>
+                   </td>
+                   <td class= "text-center">
+        @{
+                          <select   class="form-control" asp-items="ViewBag.ProductDemo" id="pro${rowIdx}"></select>
 
+        }
+                     </td>
+                   <td class= "text-center">
+        @{
+            <input type = "text" class="form-control" id="pri${rowIdx}"/>
+        }
+                      </td>
+                   <td class= "text-center">
+        @{
+            <input class="form-control" type="text" id="qua${rowIdx}" />
+        }
+                      </td>
+                   <td class= "text-center">
+                      <p id="tol${rowIdx}"></p>
+                      </td>
+                    <td class="text-center">
+                      <button class="btn btn-danger remove"
+                        type="button">Remove</button>
+                      </td>
+                    </tr>`
+            );
+          $(`#qua${rowIdx}`).change(function(){
+                var pri = $(`#pri${rowIdx}`).val();
+                var qua = $(`#qua${rowIdx}`).val();
+                var name = $(`#pro${rowIdx}`).val();
+                   //  $(`#tol${rowIdx}`).val(pri * qua);
+                   document.getElementById(`tol${rowIdx}`).innerHTML = pri * qua;
+                   total +=pri * qua;
 
+                   document.getElementById("pay").innerHTML = total;
+
+                   product.push(name);
+                   price.push(pri);
+                   quantity.push(qua);
+
+            });
+           
           // jQuery button click event to add a row
           $("#addBtn").on("click", function () {
             // Adding a row inside the tbody.
@@ -70,30 +114,7 @@
 
             });
 
-            $('#sub').click(function(){
-              var suppierid = $('#supplierid').val();
-
-              var model = new Object();
-              model.Productid = product;
-              model.Price = price;
-              model.Quantity = quantity;
-              model.Paid = total;
-              model.SupplierId = suppierid;
-              console.log(model);
-             jQuery.ajax({
-              type: "POST",
-              url: "@Url.Action("CreateBill","PurchaseDetails")",
-              dataType: "json",
-              contentType: "application/json; charset=utf-8",
-              data: JSON.stringify( model ),
-              processData: true,
-              cache: false,
-            
-
-                  });
-               });
-
-
+           
 
           });
 
@@ -128,9 +149,32 @@
             // Decreasing total number of rows by 1.
             rowIdx--;
           });
+               $('#sub').click(function(){
+              var suppierid = $('#supplierid').val();
 
+              var model = new Object();
+              model.Productid = product;
+              model.Price = price;
+              model.Quantity = quantity;
+              model.Paid = total;
+              model.SupplierId = suppierid;
+              console.log(model);
+             jQuery.ajax({
+              type: "POST",
+              url: "@Url.Action("CreateBill","PurchaseDetails")",
+              dataType: "json",
+              contentType: "application/json; charset=utf-8",
+              data: JSON.stringify( model ),
+              processData: true,
+              cache: false,
+            
+
+                  });
+               });
 
         });
+
+     
     </script>
 </head>
 <body>

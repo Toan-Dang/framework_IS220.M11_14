@@ -10,7 +10,7 @@ using WEB2.Models;
 namespace WEB2.Areas.Admin.Controllers {
 
     [Area("Admin")]
-    [Authorize("Admin")]
+    [Authorize("Staff")]
     public class CategoriesController : Controller {
         private readonly AppDbContext _context;
 

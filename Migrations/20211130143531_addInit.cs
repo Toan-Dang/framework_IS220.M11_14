@@ -877,7 +877,7 @@ namespace WEB2.Migrations
                 name: "Purchase",
                 columns: table => new
                 {
-                    PruchaseId = table.Column<int>(type: "int", nullable: false)
+                    PurchaseId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StaffId = table.Column<int>(type: "int", nullable: false),
                     SupplierId = table.Column<int>(type: "int", nullable: false),
@@ -892,7 +892,7 @@ namespace WEB2.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Purchase", x => x.PruchaseId);
+                    table.PrimaryKey("PK_Purchase", x => x.PurchaseId);
                     table.ForeignKey(
                         name: "FK_Purchase_Staff_StaffId",
                         column: x => x.StaffId,
@@ -943,8 +943,8 @@ namespace WEB2.Migrations
                 name: "PurchaseDetail",
                 columns: table => new
                 {
-                    ProductId = table.Column<int>(type: "int", nullable: false),
                     PurchaseId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<double>(type: "float", nullable: false),
@@ -953,7 +953,7 @@ namespace WEB2.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PurchaseDetail", x => new { x.ProductId, x.PurchaseId });
+                    table.PrimaryKey("PK_PurchaseDetail", x => new { x.PurchaseId, x.ProductId });
                     table.ForeignKey(
                         name: "FK_PurchaseDetail_Product_ProductId",
                         column: x => x.ProductId,
@@ -964,7 +964,7 @@ namespace WEB2.Migrations
                         name: "FK_PurchaseDetail_Purchase_PurchaseId",
                         column: x => x.PurchaseId,
                         principalTable: "Purchase",
-                        principalColumn: "PruchaseId",
+                        principalColumn: "PurchaseId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -1099,9 +1099,9 @@ namespace WEB2.Migrations
                 column: "SupplierId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PurchaseDetail_PurchaseId",
+                name: "IX_PurchaseDetail_ProductId",
                 table: "PurchaseDetail",
-                column: "PurchaseId");
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoleClaims_RoleId",

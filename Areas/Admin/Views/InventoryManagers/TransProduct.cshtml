@@ -1,7 +1,7 @@
-﻿@model WEB2.Models.PurchaseDetail
+﻿@model WEB2.Models.Invent_product
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "TransProduct";
 }
 
 <head>
@@ -13,9 +13,9 @@
 
     <script type="text/javascript">
           var product = [];
-          var price = [];
+
           var quantity = [];
-          var total = 0;
+
         $(document).ready(function () {
           // Denotes total number of rows
           var rowIdx = 0;
@@ -31,23 +31,17 @@
                    </td>
                    <td class= "text-center">
         @{
-                          <select   class="form-control" asp-items="ViewBag.ProductId" id="pro${rowIdx}"></select>
+                      <select   class="form-control" asp-items="ViewBag.ProductId" id="pro${rowIdx}"></select>
 
         }
                      </td>
+              
                    <td class= "text-center">
         @{
-            <input type = "text" class="form-control" id="pri${rowIdx}"/>
+                    <input class="form-control" type="text" id="qua${rowIdx}" />
         }
                       </td>
-                   <td class= "text-center">
-        @{
-            <input class="form-control" type="text" id="qua${rowIdx}" />
-        }
-                      </td>
-                   <td class= "text-center">
-                      <p id="tol${rowIdx}"></p>
-                      </td>
+
                     <td class="text-center">
                       <button class="btn btn-danger remove"
                         type="button">Remove</button>
@@ -55,45 +49,37 @@
                     </tr>`
             );
             $(`#qua${rowIdx}`).change(function(){
-                var pri = $(`#pri${rowIdx}`).val();
+  
                 var qua = $(`#qua${rowIdx}`).val();
                 var name = $(`#pro${rowIdx}`).val();
-                   //  $(`#tol${rowIdx}`).val(pri * qua);
-                   document.getElementById(`tol${rowIdx}`).innerHTML = pri * qua;
-                   total +=pri * qua;
-
-                   document.getElementById("pay").innerHTML = total;
+ 
 
                    product.push(name);
-                   price.push(pri);
                    quantity.push(qua);
 
             });
 
             $('#sub').click(function(){
-              var suppierid = $('#supplierid').val();
-
+              var first = $('#first').val();
+              var second = $('#second').val();
               var model = new Object();
               model.Productid = product;
-              model.Price = price;
               model.Quantity = quantity;
-              model.Paid = total;
-              model.SupplierId = suppierid;
+              model.FirstInvent = first;
+              model.SecondInvent = second;
               console.log(model);
              jQuery.ajax({
               type: "POST",
-              url: "@Url.Action("CreateBill","PurchaseDetails")",
+              url: "@Url.Action("Trans","InventoryManagers")",
               dataType: "json",
               contentType: "application/json; charset=utf-8",
               data: JSON.stringify( model ),
               processData: true,
               cache: false,
-            
+
 
                   });
                });
-
-
 
           });
 
@@ -151,19 +137,34 @@
         </div>
 
         <div class="container-fluid">
-            <div class="form-group">
-                <label class="control-label">Chọn nhà cung cấp</label>
-                <select class="form-control" asp-items="ViewBag.SupplierId" id = "supplierid"></select>
+            <div class="row">
+                <div class="col-xl-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <label class="control-label">Chọn Kho ban dau</label>
+                            <select class="form-control" asp-items="ViewBag.InventoryId" id="first"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <label class="control-label">Chọn Kho dich</label>
+                            <select class="form-control" asp-items="ViewBag.InventoryId" id="second"></select>
+                        </div>
+                    </div>
+                </div>
             </div>
+
             <div class="table-responsive card">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th class="text-center">STT</th>
                             <th class="text-center">Sản phẩm</th>
-                            <th class="text-center">Giá</th>
+        
                             <th class="text-center">Số lượng</th>
-                            <th class="text-center">Thanh toán</th>
+
                             <th class="text-center">Xóa</th>
                         </tr>
                     </thead>
@@ -175,10 +176,10 @@
                     Thêm sản phẩm
                 </button>
                 <div class="float-right">
-                    <h4 class="text-primary "> Tổng: <span id="pay"></span> <span>VND</span></h4>
+                   
 
                     <button class="btn btn-success" id="sub" type="button">
-                        Mua hàng
+                        Điều chuyển hàng
                     </button>
                 </div>
 

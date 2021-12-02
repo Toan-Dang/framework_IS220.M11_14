@@ -975,11 +975,11 @@ namespace WEB2.Migrations
 
             modelBuilder.Entity("WEB2.Models.Purchase", b =>
                 {
-                    b.Property<int>("PruchaseId")
+                    b.Property<int>("PurchaseId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PruchaseId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PurchaseId"), 1L, 1);
 
                     b.Property<DateTime>("DateReiceive")
                         .HasColumnType("datetime2");
@@ -1011,7 +1011,7 @@ namespace WEB2.Migrations
                     b.Property<string>("TransactionNo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("PruchaseId");
+                    b.HasKey("PurchaseId");
 
                     b.HasIndex("StaffId");
 
@@ -1022,10 +1022,10 @@ namespace WEB2.Migrations
 
             modelBuilder.Entity("WEB2.Models.PurchaseDetail", b =>
                 {
-                    b.Property<int>("ProductId")
+                    b.Property<int>("PurchaseId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PurchaseId")
+                    b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<string>("IDSKU")
@@ -1043,9 +1043,9 @@ namespace WEB2.Migrations
                     b.Property<double>("Total")
                         .HasColumnType("float");
 
-                    b.HasKey("ProductId", "PurchaseId");
+                    b.HasKey("PurchaseId", "ProductId");
 
-                    b.HasIndex("PurchaseId");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("PurchaseDetail");
                 });

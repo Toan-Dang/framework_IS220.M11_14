@@ -23,7 +23,7 @@
 
 
 </head>
-<body>
+<body>                                                                                                              
 
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white topnav">
@@ -294,9 +294,11 @@
                                             dataType: "json",
                                             contentType: "application/json; charset=utf-8",
                                             data: JSON.stringify( model ),
-                                                processData: true,
-                                                cache: false,
-
+                                            processData: true,
+                                            cache: false,
+                                            success: function(){
+                                                alert("succ");
+                                            }
                                                 });
                                             }
 

@@ -98,16 +98,16 @@
                                                 status = "thanh toán";
                                                 color = "btn btn-outline-success";
                                             } 
-                                              @if(item.Order.TransactStatus.Equals("done")){
+                                              @if(item.Order.TransactStatus.Equals("done") || item.Order.TransactStatus.Equals("cancel")){
                                                 status = "";
                                                  color = "";
                                                 color_can = "";
                                                 text_can = "";
                                             } 
                                           <td>
-                                             <a asp-action="Accecpt" asp-route-id="@item.OrderId" class = "@color" >@status</a>  
-                                             <a asp-action="BillDetails" asp-route-id="@item.OrderId" class = "btn btn-outline-primary">Chi tiết</a>    
-                                             <a asp-action="BillDel" asp-route-id="@item.OrderId" class = "@color_can">@text_can</a>   
+                                             <a asp-action="Accept_T" asp-route-id="@item.OrderId" class = "@color" >@status</a>  
+                                             <a asp-action="BillDetails_T" asp-route-id="@item.OrderId" class = "btn btn-outline-primary">Chi tiết</a>    
+                                             <a asp-action="BillDel_T" asp-route-id="@item.OrderId" class = "@color_can">@text_can</a>   
                                         </td>
                                     </tr>   
                                }
