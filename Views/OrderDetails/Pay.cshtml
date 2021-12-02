@@ -279,6 +279,23 @@
                                                     }
 
                                             }
+                                            //di sản của thiện 
+
+                                               function numberWithCommas(x) {
+                                                var parts = x.toString().split(".");
+                                                parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                                                return parts.join(",");
+                                            }
+                                            function updatetotal() {
+                                                let totalPoints = 0;
+                                                $("tr").find(".total-fld").each(function () {
+                                                    let splited = $(this).html().split('.').join("");
+                                                    totalPoints += parseInt(splited);
+                                                });
+                                                $("#m_total").html(numberWithCommas(totalPoints));
+                                            }
+
+                                            ///
                                             function submitForm() {
 
                                             var model = new Object();
@@ -295,14 +312,13 @@
                                             contentType: "application/json; charset=utf-8",
                                             data: JSON.stringify( model ),
                                             processData: true,
-                                            cache: false,
-                                            success: function(){
-                                                alert("succ");
-                                            }
-                                                });
-                                            }
-
-
+                                                    cache: false,
+                                          }).done(function(data){
+                                             alert("Thanh toán thành công");
+                                             window.location.replace(data.newUrl);
+                                          });
+                               
+                                           }
 
                                         </script>
 

@@ -192,7 +192,10 @@ namespace WEB2.Areas.Admin.Controllers {
                 _context.Update(pur);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction(nameof(Requests));
+                // return RedirectToAction(nameof(Requests));
+                return Json(new {
+                    newUrl = Url.Action("Requests", "PurchaseDetails")
+                });
             }
 
             return View(purchaseDetail);

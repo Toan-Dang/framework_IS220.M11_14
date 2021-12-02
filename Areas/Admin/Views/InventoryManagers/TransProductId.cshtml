@@ -145,9 +145,10 @@
               contentType: "application/json; charset=utf-8",
               data: JSON.stringify( model ),
               processData: true,
-              cache: false,
-
-
+                      cache: false,
+                  }).done(function(data){
+                     alert("Tạo phiếu mua hàng thành công");
+                     window.location.replace(data.newUrl);
                   });
                });
 

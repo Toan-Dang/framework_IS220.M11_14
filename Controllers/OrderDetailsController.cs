@@ -273,7 +273,9 @@ namespace WEB2.Controllers {
                 _context.Update(order);
                 await _context.SaveChangesAsync();
 
-                return View();
+                return Json(new {
+                    newUrl = Url.Action("Thank", "OrderDetails")
+                });
             }
 
             if (ModelState.IsValid) {
@@ -283,6 +285,12 @@ namespace WEB2.Controllers {
                 await _context.SaveChangesAsync();
             }
 
+            return Json(new {
+                newUrl = Url.Action("Payment", "Orders")
+            });
+        }
+
+        public IActionResult Thank() {
             return View();
         }
 
