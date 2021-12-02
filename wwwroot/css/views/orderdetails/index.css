@@ -27,25 +27,38 @@ tr > td {
         box-shadow: none;
     }
 table {
-    margin-top: 10px;
     border-collapse: collapse;
-    border-radius: 1em;
-    overflow: hidden;
+    border-radius: 10px !important;
+    border-style: hidden; /* hide standard table (collapsed) border */
+    box-shadow: rgb(60 64 67 / 10%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 2px 6px 2px; /* this draws the table border  */
+    margin-top: 10px;
 }
+
+
+
+table tr:first-child th:first-child {
+    border-top-left-radius: 10px;
+}
+table tr:first-child th:last-child {
+    border-top-right-radius: 10px;
+}
+table tr:last-child td:first-child {
+    border-top-right-radius: 10px !important;
+}
+
+table tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+
 th {
-    background: #be1e2d !important;
+    background: #be1e2d;
     color: white;
 }
 th, td {
     padding: 1em;
-    background: white;
+    border-bottom: 0.5px solid rgb(60 64 67 / 17.5%);
 }
-td {
-    text-align: center;
-}
-tr:nth-child(even) {
-    background: #f2f2f2;
-}
+
 body {
     background: white;
 }
@@ -95,4 +108,66 @@ body {
 }
 .root1 {
     display: none !important;
+}
+.total {
+    margin-top: 20px;
+    float: right;
+}
+
+.quantity-d {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+}
+.eLoUcd {
+    display: flex;
+    align-items: center;
+}
+._2sBbZC {
+    outline: none;
+    cursor: pointer;
+    border: 0;
+    font-size: .875rem;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: 0;
+    align-items: center;
+    justify-content: center;
+    transition: background-color .1s cubic-bezier(.4,0,.6,1);
+    border: 1px solid rgba(0,0,0,.09);
+    border-radius: 2px;
+    background: transparent;
+    color: rgba(0,0,0,.8);
+    width: 32px;
+    height: 32px;
+}
+    ._2sBbZC:first-child {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+.k-s4Da {
+    width: 50px;
+    height: 32px;
+    border-left: 0;
+    border-right: 0;
+    font-size: 16px;
+    font-weight: 400;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: center;
+    cursor: text;
+    border-radius: 0;
+    -webkit-appearance: none;
+}
+.svg-icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+    position: relative;
+}
+button:focus {
+    outline: none;
 }

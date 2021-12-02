@@ -10,6 +10,16 @@
 <main class="container mt-5" style="height: 100vh">
 
 <div class="colory-lg-3"">
+    @if (Model.Count() == 0){
+        <div style="display: grid; justify-content:center; align-items:center">
+                <p>Oh nooo ! giỏ hàng của bạn trống trơn T.T  !!</p>
+                <p>Hãy cùng chú mèo vui vẻ hạnh phúc yêu đời này đi lựa vài món nhé </p>
+                <a style="margin:auto;" href="/">
+                    <img style="width:100%; height: 100%" src="https://media.discordapp.net/attachments/871653685023891457/915250284320673832/248025594_350168303553137_898236470416803569_n.jpg"/>
+                </a>
+        </div>
+    }
+     else {
     <table class="tbl">
         <thead>
             <tr>
@@ -59,11 +69,28 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Product.Color)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Quantity)
+                    <td class="quantity">
+                        <div class="quantity-d">
+                            <div class="eLoUcd input-quantity">
+                                <button class="_2sBbZC minus">
+                                    <svg enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0" class="svg-icon">
+                                        <polygon points="4.5 4.5 3.5 4.5 0 4.5 0 5.5 3.5 5.5 4.5 5.5 10 5.5 10 4.5">
+                                        </polygon>
+                                        </svg>
+                                        </button>
+                                <input class="_2sBbZC k-s4Da quantity_v" type="text" role="spinbutton" value="@Html.DisplayFor(modelItem => item.Quantity)" disabled />
+                                <button class="_2sBbZC add">
+                                    <svg enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0" class="svg-icon icon-plus-sign">
+                                        <polygon points="10 4.5 5.5 4.5 5.5 0 4.5 0 4.5 4.5 0 4.5 0 5.5 4.5 5.5 4.5 10 5.5 10 5.5 5.5 10 5.5">
+                                        </polygon>
+                                        </svg>
+                               </button>
+                           </div>
+                           </div>
                     </td>
                     <td>
                         <div class="root1">@Html.DisplayFor(modelItem => item.Price)</div>
+                        <div class="root2" style="display: none"></div>
                         <span class="price-fld">@Html.DisplayFor(modelItem => item.Price)</span>
                     </td>
                     <td>
@@ -83,12 +110,15 @@
             }
         </tbody>   
     </table>
+    <div class="total"> 
+        <h5>Tạm tính: <span id="m_total"></span></h5>
+    </div>
+
+    }
 </div>
 <script src="@Url.Content("~/js/views/orderdetails/index.js")"></script>
 <script>
-
 </script>
-
 </main>
 
 

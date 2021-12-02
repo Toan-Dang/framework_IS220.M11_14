@@ -36,7 +36,7 @@
         margin: 25px;
     }
 .row {
-    margin-bottom: 50px;
+    margin-bottom: 100px !important;
 }
 
 .product-slice .slick-prev, .product-slice .slick-next {

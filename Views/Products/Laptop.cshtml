@@ -11,36 +11,20 @@
 <main>
     <script src="@Url.Content("/js/views/home/productlist.js")"></script>
     @*1 vài sản phẩm để test bộ lọc  Jquery *@
-    <style>
-        .rom-ram {
-            margin: 0px;
-            font-size: 12px;
-            text-align:center;
-            margin-bottom: 10px;
-            font-weight: 500;
-        }
-        .rom-ram > span {
-            padding: 5px;
-            border: 1px solid black;
-            border-radius: 3px;
-            margin-left: 3px;
-            margin-right: 3px;
-            color: black;
-        }
-    </style>
-    <div class="container" style="justify-content: center">
+
+     <div class="container" style="justify-content: center">
         <div class="mb-3">
             <div class="d-inline">
-                <a class="btn" id="macbook"><img src="https://cdn.tgdd.vn/Brand/1/logo-macbook-149x40.png" width="90" /></a>
-                <a class="btn" id="asus"><img src="https://cdn.tgdd.vn/Brand/1/logo-asus-149x40.png" width="90" /></a>
-                <a class="btn" id="acer"><img src="https://cdn.tgdd.vn/Brand/1/logo-acer-149x40.png" width="90" /></a>
-                <a class="btn" id="dell"><img src="https://cdn.tgdd.vn/Brand/1/logo-dell-149x40.png" width="90" /></a>
-                <a class="btn" id="lenovo"><img src="https://cdn.tgdd.vn/Brand/1/logo-lenovo-149x40.png" width="90" /></a>
-                <a class="btn" id="hp"><img src="https://cdn.tgdd.vn/Brand/1/logo-hp-149x40-1.png" width="90" /></a>
-                <a class="btn" id="msi"><img src="https://cdn.tgdd.vn/Brand/1/logo-msi-149x40.png" width="90" /></a>
+                <a class="btn" id="Apple" asp-controller="Products" asp-action="Category" asp-route-id="16"><img src="https://cdn.tgdd.vn/Brand/1/logo-macbook-149x40.png" width="90" /></a>
+                <a class="btn" id="Asus" asp-controller="Products" asp-action="Category" asp-route-id="17"><img src="https://cdn.tgdd.vn/Brand/1/logo-asus-149x40.png" width="90" /></a>
+                <a class="btn" id="Acer" asp-controller="Products" asp-action="Category" asp-route-id="18"><img src="https://cdn.tgdd.vn/Brand/1/logo-acer-149x40.png" width="90" /></a>
+                <a class="btn" id="Dell" asp-controller="Products" asp-action="Category" asp-route-id="19"><img src="https://cdn.tgdd.vn/Brand/1/logo-dell-149x40.png" width="90" /></a>
+                <a class="btn" id="Lenovo" asp-controller="Products" asp-action="Category" asp-route-id="20"><img src="https://cdn.tgdd.vn/Brand/1/logo-lenovo-149x40.png" width="90" /></a>
+                <a class="btn" id="HP" asp-controller="Products" asp-action="Category" asp-route-id="21"><img src="https://cdn.tgdd.vn/Brand/1/logo-hp-149x40-1.png" width="90" /></a>
+                <a class="btn" id="MSI" asp-controller="Products" asp-action="Category" asp-route-id="22"><img src="https://cdn.tgdd.vn/Brand/1/logo-msi-149x40.png" width="90" /></a>
            </div>
         </div>
-    </div>
+        </div>
 
      <div class="highlight">
         @foreach (var item in Model) {
@@ -53,7 +37,7 @@
                         <img class="card-img-top" src="@item.Picture" alt="@item.Color">
                         <div class="card-body">
                              <p class="rom-ram">
-                                 <span id="ram">RAM&nbsp
+                                 <span id="ram">RAM
                                      <span id="ram-detail">@item.Ram.Capacity</span>&nbspGB&nbsp</span>
                                  <span id="rom">SSD @if (@item.Rom.Capacity == 1024) {<span>1 TB</span>}
                                     else if (@item.Rom.Capacity == 2048)
@@ -65,7 +49,7 @@
                                         <span>@item.Rom.Capacity GB</span>
                                     }
                                      </span>
-                             </p>
+                                </p>
                             <h6 class="card-title product-name">@item.ProductName</h6>
                             <h5 class="card-title pricesale m-0">@item.UnitPrice</h5>
                             <h6 class="card-title price text-muted mt-1">@item.MSRP</h6>
@@ -94,13 +78,35 @@
                                     @*màn hình*@
                                     <li id="screen"><p>Màn hình&nbsp<span id="inch">@item.Screen.Size</span>&nbspinch</p></li>
                                     @*chip*@
-                                    <li id="chip"><p>Chip&nbsp<span id="chip-name">@item.Processor.Name</span></p></li>
+                                    <li id="chip"><p>Chip <span id="chip-name">@item.Processor.Name</span></p></li>
                                     @*ram, rom*@
-                                    <li id="storage"><p><span id="ram">@item.Ram.Capacity</span>&nbspGB,&nbspROM&nbsp<span id="rom">@item.Rom.Capacity</span>&nbspGB</p></li>
-                                    @*camera trước*@
-                                    <li id="front-cam"><p>Webcam:&nbsp<span id="cam1">@item.Camera.FCamRes</span></p></li>
+                                    <li id="storage"><p><span id="ram">@item.Ram.Capacity</span>&nbspGB,&nbspSSD<span id="rom">
+                                        @if (@item.Rom.Capacity == 1024) {<span>1 TB</span>}
+                                        else if (@item.Rom.Capacity == 2048)
+                                        {
+                                            <span>1 TB</span>
+                                        }
+                                        else
+                                        {
+                                            <span>@item.Rom.Capacity GB</span>
+                                        }
+                                    </span></p></li>  
                                     @*pin*@
-                                    <li id="battery"><p>Pin&nbsp<span id="capacity">@item.Battery.Capacity@item.Battery.Type</span></p></li>
+                                    <li id="battery">
+                                        <p>Pin
+                                            <span id="capacity">
+                                                @if (@item.Battery.Capacity == 10)
+                                                {
+                                                    <span>khoảng 10 tiếng</span>
+                                                }
+                                                else if (@item.Battery.Capacity == 0)
+                                                {
+                                                    <span>@item.Battery.Charge W @item.Battery.Type  </span>
+                                                }
+                                                else {<span>@item.Battery.Capacity@item.Battery.Type</span>}
+                                            </span>
+                                        </p>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -114,5 +120,6 @@
             $("#laptop").css({ "background-color": "white", "color": "#be1e2d" })
         });
     </script>
+    <script src="@Url.Content("~/js/views/product/general.js")"></script>
 </main>
 
