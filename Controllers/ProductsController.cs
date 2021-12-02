@@ -249,6 +249,7 @@ namespace WEB2.Controllers {
                 .Include(p => p.Product.Screen)
                 .Include(p => p.Product.Sound)
                 .Include(p => p.Product.Structure)
+                 .Include(p => p.Product.Feedbacks)
                 .FirstOrDefaultAsync(m => m.Product.ProductId == id);
             if (product == null) {
                 return RedirectToAction("ExDetails", new { id = id });

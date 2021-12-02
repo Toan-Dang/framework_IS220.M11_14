@@ -1512,54 +1512,22 @@
             </div>
             <div class="commentpannel">
                 <h5>Nhận xét về sản phẩm</h5>
-                <div class="m-3 cmt">
+                @foreach (var item in Model.Product.Feedbacks)
+               {
+                   <div class="m-3 cmt">
                     <div class="individual mt-4">
                         <div class="first-character"><span class="first-character1"></span></div>
-                        <div class="fullname"><span class="fullname1">Mhiba Meo Meo</span></div>
-                        <div class="timeofcmt"><span><i class="bi bi-clock"></i> 25-12-2020 15:31:42</span></div>
+                        <div class="fullname"><span class="fullname1">@item.Rank</span></div>
+                        <div class="timeofcmt"><span><i class="bi bi-clock"></i> @item.FeedbackDay</span></div>
                     </div>
                     <div class="contentofcmt">
                         <p>
-                            Sản phẩm mlem mlem
+                            @item.Comment
                         </p>
                     </div>
-                </div>
-                <div class="m-3 cmt">
-                    <div class="individual mt-4">
-                        <div class="first-character"><span class="first-character1"></span></div>
-                        <div class="fullname"><span class="fullname1">Lhiba Meo Meo</span></div>
-                        <div class="timeofcmt"><span><i class="bi bi-clock"></i> 25-12-2020 15:31:42</span></div>
-                    </div>
-                    <div class="contentofcmt">
-                        <p>
-                            Sản phẩm mlem mlem
-                        </p>
-                    </div>
-                </div>
-                <div class="m-3 cmt">
-                    <div class="individual mt-4">
-                        <div class="first-character"><span class="first-character1"></span></div>
-                        <div class="fullname"><span class="fullname1">Qhiba Meo Meo</span></div>
-                        <div class="timeofcmt"><span><i class="bi bi-clock"></i> 25-12-2020 15:31:42</span></div>
-                    </div>
-                    <div class="contentofcmt">
-                        <p>
-                            Sản phẩm mlem mlem
-                        </p>
-                    </div>
-                </div>
-                <div class="m-3 cmt">
-                    <div class="individual mt-4">
-                        <div class="first-character"><span class="first-character1"></span></div>
-                        <div class="fullname"><span class="fullname1">Toan Dang</span></div>
-                        <div class="timeofcmt"><span><i class="bi bi-clock"></i> 25-12-2020 15:31:42</span></div>
-                    </div>
-                    <div class="contentofcmt">
-                        <p>
-                            Sản phẩm vừa miệng :3
-                        </p>
-                    </div>
-                </div>
+                </div> 
+               }
+               
             </div>
         </div>
         <div class="col-md-4">
