@@ -98,17 +98,16 @@
     </div>
     <div class="phone mt-4">
         <div class="mb-3">
-            <h4 class="d-inline"><a href="/phone">ĐIỆN THOẠI NỔI BẬT</a></h4>
-            <div class="d-inline" style="float: right">
-                <button type="button" class="btn" onclick="window.location.href='#'">Apple</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">Samsung</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">Xiaomi</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">Huawei</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">Nokia</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">Sony</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">Realme</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">OPPO</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">Xem tất cả</button>
+            <h4 class="d-inline"><a asp-controller="Products" asp-action="Phone">ĐIỆN THOẠI NỔI BẬT</a></h4>
+            <div class="d-inline d-l2" style="float: right">
+                <a class="btn" asp-controller="Products" asp-action="Category" asp-route-id="7">Apple</a>
+                <a class="btn" asp-controller="Products" asp-action="Category" asp-route-id="8">Samsung</a>
+                <a class="btn" asp-controller="Products" asp-action="Category" asp-route-id="9">Xiaomi</a>
+                <a class="btn" asp-controller="Products" asp-action="Category" asp-route-id="10">Vivo</a>
+                <a class="btn" asp-controller="Products" asp-action="Category" asp-route-id="12">Nokia</a>
+                <a class="btn" asp-controller="Products" asp-action="Category" asp-route-id="13">Sony</a>
+                <a class="btn" asp-controller="Products" asp-action="Category" asp-route-id="14">Realme</a>
+                <a class="btn" asp-controller="Products" asp-action="Phone" >Xem tất cả</a>
             </div>
         </div>
 
@@ -152,15 +151,16 @@
 
     <div class="laptop mt-4">
         <div class="mb-3">
-            <h4 class="d-inline"><a href="/phone">LAPTOP NỔI BẬT</a></h4>
-            <div class="d-inline" style="float: right">
-                <button type="button" class="btn" onclick="window.location.href='#'">Mac</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">Asus</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">HP</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">MSI</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">Dell</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">Acer</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">Xem tất cả</button>
+            <h4 class="d-inline"><a asp-controller="Products" asp-action="Laptop">LAPTOP NỔI BẬT</a></h4>
+            <div class="d-l2" style="float: right">
+                <a class="btn" asp-controller="Products" asp-action="Category" asp-route-id="16">Mac</a>
+                <a class="btn" asp-controller="Products" asp-action="Category" asp-route-id="17">Asus</a>
+                <a class="btn" asp-controller="Products" asp-action="Category" asp-route-id="18">Acer</a>
+                <a class="btn" asp-controller="Products" asp-action="Category" asp-route-id="19">Dell</a>
+                <a class="btn" asp-controller="Products" asp-action="Category" asp-route-id="20">Lenovo</a>
+                <a class="btn" asp-controller="Products" asp-action="Category" asp-route-id="21">HP</a>
+                <a class="btn" asp-controller="Products" asp-action="Category" asp-route-id="22">MSI</a>
+                <a class="btn" asp-controller="Products" asp-action="Laptop">Xem tất cả</a>
             </div>
         </div>
         <div class="highlight">
@@ -202,15 +202,12 @@
     </div>
     <div class="tablet mt-4">
         <div class="mb-3">
-            <h4 class="d-inline"><a href="/tablet">TABLET NỔI BẬT</a></h4>
-            <div class="d-inline" style="float: right">
-                <button type="button" class="btn" onclick="window.location.href='#'">Apple</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">Samsung</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">Xiaomi</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">Huawei</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">Lenovo</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">Masstel</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">Xem tất cả</button>
+            <h4 class="d-inline"><a asp-controller="Products" asp-action="Tablet">TABLET NỔI BẬT</a></h4>
+            <div class="d-l2" style="float: right">
+                <a class="btn" asp-controller="Products" asp-action="Category" asp-route-id="23">iPad</a>
+                <a class="btn" asp-controller="Products" asp-action="Category" asp-route-id="24">Samsung</a>
+                <a class="btn" asp-controller="Products" asp-action="Category" asp-route-id="26">Huawei</a>
+                <a class="btn" asp-controller="Products" asp-action="Tablet">Xem tất cả</a>
             </div>
         </div>
         <div class="highlight">
@@ -257,14 +254,15 @@
     </div>
     <div class="sound mt-4">
         <div class="mb-3">
-            <h4 class="d-inline"><a href="/sound">ÂM THANH</a></h4>
-            <div class="d-inline" style="float: right">
-                <button type="button" class="btn" onclick="window.location.href='#'">Energizer</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">LG</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">Tekin</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">JBL</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">Sony</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">Xem tất cả</button>
+            <h4 class="d-inline"><a asp-controller="Products" asp-action="Sound">ÂM THANH</a></h4>
+            <div class="d-l2" style="float: right">
+                <a class="btn" asp-controller="Products" asp-action="Category" asp-route-id="44">Apple</a>
+                <a class="btn" asp-controller="Products" asp-action="Category" asp-route-id="39">LG</a>
+                <a class="btn" asp-controller="Products" asp-action="Category" asp-route-id="58">Jabra</a>
+                <a class="btn" asp-controller="Products" asp-action="Category" asp-route-id="59">Mozard</a>
+                <a class="btn" asp-controller="Products" asp-action="Category" asp-route-id="60">Xiaomi</a>
+                <a class="btn" asp-controller="Products" asp-action="Category" asp-route-id="67">Belkin</a>
+                <a class="btn" asp-controller="Products" asp-action="Sound">Xem tất cả</a>
             </div>
         </div>
         <div class="highlight">
@@ -311,7 +309,7 @@
     <div class="/accessories mt-4">
         <div class="mb-3">
             <h4 class="d-inline"><a href="/accessories">PHỤ KIỆN</a></h4>
-            <div class="d-inline" style="float: right">
+            <div class="d-l2" style="float: right">
                 <button type="button" class="btn" onclick="window.location.href='#'">AVA</button>
                 <button type="button" class="btn" onclick="window.location.href='#'">Pisen</button>
                 <button type="button" class="btn" onclick="window.location.href='#'">Razer</button>
