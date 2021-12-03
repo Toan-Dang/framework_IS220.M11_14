@@ -221,8 +221,22 @@ namespace WEB2.Areas.Admin.Controllers {
                 return View(purdetail);
             }
 
-            if (pur.TransactStatus.Equals("sent"))
+            if (pur.TransactStatus.Equals("sent")) {
                 pur.TransactStatus = "receive";
+                var purdetail = await _context.PurchaseDetail
+                    .Include(p => p.Product)
+                    .Include(p => p.Purchase)
+                    .Where(p => p.PurchaseId == id)
+                    .Where(p => p.Purchase.TransactStatus == "sent")
+                    .ToListAsync();
+                foreach (var item in purdetail) {
+                    var pro = await _context.Product.Where(p => p.ProductId == item.ProductId).FirstOrDefaultAsync();
+                    pro.ReorderLevel += item.Quantity;
+                    _context.Update(pro);
+                    await _context.SaveChangesAsync();
+                }
+            }
+
             if (pur.TransactStatus.Equals("saved"))
                 pur.TransactStatus = "sent";
 
@@ -286,8 +300,21 @@ namespace WEB2.Areas.Admin.Controllers {
                 return View(purdetail);
             }
 
-            if (pur.TransactStatus.Equals("sent"))
+            if (pur.TransactStatus.Equals("sent")) {
                 pur.TransactStatus = "receive";
+                var purdetail = await _context.PurchaseDetail
+                    .Include(p => p.Product)
+                    .Include(p => p.Purchase)
+                    .Where(p => p.PurchaseId == id)
+                    .Where(p => p.Purchase.TransactStatus == "sent")
+                    .ToListAsync();
+                foreach (var item in purdetail) {
+                    var pro = await _context.Product.Where(p => p.ProductId == item.ProductId).FirstOrDefaultAsync();
+                    pro.ReorderLevel += item.Quantity;
+                    _context.Update(pro);
+                    await _context.SaveChangesAsync();
+                }
+            }
             if (pur.TransactStatus.Equals("saved"))
                 pur.TransactStatus = "sent";
 
@@ -351,8 +378,21 @@ namespace WEB2.Areas.Admin.Controllers {
                 return View(purdetail);
             }
 
-            if (pur.TransactStatus.Equals("sent"))
+            if (pur.TransactStatus.Equals("sent")) {
                 pur.TransactStatus = "receive";
+                var purdetail = await _context.PurchaseDetail
+                    .Include(p => p.Product)
+                    .Include(p => p.Purchase)
+                    .Where(p => p.PurchaseId == id)
+                    .Where(p => p.Purchase.TransactStatus == "sent")
+                    .ToListAsync();
+                foreach (var item in purdetail) {
+                    var pro = await _context.Product.Where(p => p.ProductId == item.ProductId).FirstOrDefaultAsync();
+                    pro.ReorderLevel += item.Quantity;
+                    _context.Update(pro);
+                    await _context.SaveChangesAsync();
+                }
+            }
             if (pur.TransactStatus.Equals("saved"))
                 pur.TransactStatus = "sent";
 
