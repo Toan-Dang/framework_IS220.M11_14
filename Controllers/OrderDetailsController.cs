@@ -286,7 +286,7 @@ namespace WEB2.Controllers {
             }
 
             return Json(new {
-                newUrl = Url.Action("Payment", "Orders", new { id = orderid })
+                newUrl = Url.Action("Payment", "Orders", new {id = orderid})
             });
         }
 
