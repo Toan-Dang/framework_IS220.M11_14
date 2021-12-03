@@ -7,7 +7,8 @@
 <link href="@Url.Content("/css/views/product/details.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css")" rel="stylesheet" type="text/css" />
-}
+}       
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 @foreach (var items in Model.Product.Feedbacks)
 {
     if (items.Rate == 1)
@@ -31,6 +32,7 @@
         rating[4] += 1;
     }
 }
+
 <div class="headerpath pb-2">
     <span>
         <a href="/">Trang chủ</a>
@@ -76,20 +78,17 @@
                     @Html.ActionLink("<p><i class='bi bi-cart-check-fill'></i> MUA NGAY</p>","AddCart","OrderDetails",new {productid = @Model.ProductId},null)
                 </div>
                 <div class="grouping" style="position: relative; top: 100px;">
-                    <div class="phienban">
+                    <div class="phienban" id = "verpro">
                         <h6>Phiên bản</h6>
-                        <a class="btn">128 GB</a>
-                        <a class="btn">256 GB</a>
-                        <a class="btn">512 GB</a>
+   
                     </div>
-                    <div class="mausac">
+                    <div class="mausac" id = "colopro">
                         <h6>Màu sắc</h6>
-                        <a class="btn">Trắng</a>
-                        <a class="btn">Đen</a>
-                        <a class="btn">Đỏ</a>
+           
                     </div>
                     <div></div>
                 </div>
+
                 <div class="uudai" style="position: relative; top: 110px;">
                     <h6><i class="bi bi-gift-fill"></i> Ưu đãi</h6>
                     <div class="uudaicontent">
@@ -1764,7 +1763,7 @@
         </div>
     </div>
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <script>
+    <script type="text/javascript">
         $(document).ready(function () {
              var rate;
 
@@ -1924,7 +1923,60 @@
                      window.location.replace(data.newUrl);
                   });
                });
+               //////////////
+              
 
+                  var ver = "@Model.Product.Version";
+                  var spver = ver.split("-");
+              
+        
+                  var col = "@Model.Product.Color";
+                  var spcol = col.split("-");
+            
+                  
+             
+               
+                var proVer = [];
+                var protemp;
+                var check = false;
+           
+                for (let i = 1; i < spver.length - 1; ++i) {
+                  if (check == false) {
+                    protemp = spver[i];
+                  }
+                  if (spver[i] == spver[i + 1]) {
+                    
+                      check = true;
+                    continue;
+                 
+                  } else {
+                          proVer.push(protemp);
+                    check = false;
+                  }
+                }
+                if (check == false) {
+                  proVer.push(spver[spver.length - 1]);
+                }
+                proVer.push(protemp);
+        
+
+                 for(let i =0; i< proVer.length; ++i){
+                    $('#verpro').append(`
+                    <a class="btn" id="${proVer[i]}" href="/products/detailversion?productid=@Model.Product.ProductName&version=${proVer[i]}" >${proVer[i]} </a>
+                    `);
+                 
+
+                 }
+
+                 for(let i =1; i< spcol.length; ++i){
+                    $('#colopro').append(`
+                    <a class="btn" id="${spcol[i]}"  href="/products/detailcolor?productid=@Model.Product.ProductName&version=@Model.Product.Version&color=${spcol[i]}">${spcol[i]} </a>
+                    `);
+                 }
+              
+               /////////////////////////////////////////
+               
+       
 
         });
 
@@ -1940,6 +1992,8 @@
             let price2 = @Html.DisplayFor(model => model.Product.MSRP);
             document.getElementById("price1").innerHTML = numberWithCommas((price1).toFixed(0));
             document.getElementById("price2").innerHTML = numberWithCommas((price2).toFixed(0));
+
+         
         }
     </script>
 </main>

@@ -25,7 +25,7 @@ namespace WEB2.Controllers {
             var pro = new List<Product>();
             var protemp = new Product();
             bool check = false;
-            if (products.Count == 1) {
+            if (products.Count <= 1) {
                 return View(products);
             }
             for (int i = 0 ; i < products.Count - 1 ; i++) {
@@ -55,7 +55,7 @@ namespace WEB2.Controllers {
             var pro = new List<Product>();
             var protemp = new Product();
             bool check = false;
-            if (products.Count == 1) {
+            if (products.Count <= 1) {
                 return View(products);
             }
             for (int i = 0 ; i < products.Count - 1 ; i++) {
@@ -85,7 +85,7 @@ namespace WEB2.Controllers {
             var pro = new List<Product>();
             var protemp = new Product();
             bool check = false;
-            if (products.Count == 1) {
+            if (products.Count <= 1) {
                 return View(products);
             }
             for (int i = 0 ; i < products.Count - 1 ; i++) {
@@ -117,7 +117,7 @@ namespace WEB2.Controllers {
             var pro = new List<Product>();
             var protemp = new Product();
             bool check = false;
-            if (products.Count == 1) {
+            if (products.Count <= 1) {
                 return View(products);
             }
             for (int i = 0 ; i < products.Count - 1 ; i++) {
@@ -147,7 +147,7 @@ namespace WEB2.Controllers {
             var pro = new List<Product>();
             var protemp = new Product();
             bool check = false;
-            if (products.Count == 1) {
+            if (products.Count <= 1) {
                 return View(products);
             }
             for (int i = 0 ; i < products.Count - 1 ; i++) {
@@ -179,7 +179,7 @@ namespace WEB2.Controllers {
             var pro = new List<Product>();
             var protemp = new Product();
             bool check = false;
-            if (products.Count == 1) {
+            if (products.Count <= 1) {
                 return View(products);
             }
             for (int i = 0 ; i < products.Count - 1 ; i++) {
@@ -252,10 +252,41 @@ namespace WEB2.Controllers {
                 .Include(p => p.Product.Structure)
                 .Include(p => p.Product.Feedbacks)
                 .FirstOrDefaultAsync(m => m.Product.ProductId == id);
+
             if (product == null) {
                 return RedirectToAction("ExDetails", new { id = id });
             }
             ++product.Product.View;
+            _context.Update(product);
+            await _context.SaveChangesAsync();
+            var pro = await _context.Product
+                .Where(p => p.ProductName == product.Product.ProductName)
+                .ToListAsync();
+            var col = await _context.Product.Where(p => p.ProductName == product.Product.ProductName)
+                .Where(p => p.Version == product.Product.Version).ToListAsync();
+            string color = "";
+            foreach (var item in col) {
+                color += "-" + item.Color;
+            }
+
+            string version = "";
+
+            foreach (var item in pro) {
+                version += "-" + item.Version;
+            }
+
+            product.Product.Version = version;
+            product.Product.Color = color;
+
+            return View(product);
+        }
+
+        public async Task<IActionResult> DetailsVersion(string name, string version) {
+            string product = "";
+            if (product == null) {
+                return RedirectToAction("ExDetails", new { id = 0 });
+            }
+            // nho mo comment ++product.Product.View;
             _context.Update(product);
             await _context.SaveChangesAsync();
             return View(product);

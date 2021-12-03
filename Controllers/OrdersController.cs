@@ -110,6 +110,7 @@ namespace WEB2.Controllers {
                         //Thanh toán không thành công. Mã lỗi: vnp_ResponseCode
                         ViewBag.Message = "Có lỗi xảy ra trong quá trình xử lý hóa đơn " + orderId + " | Mã giao dịch: " + vnpayTranId + " | Mã lỗi: " + vnp_ResponseCode;
                         order.Errlog = vnp_ResponseCode;
+                        return View();
                     }
                 } else {
                     ViewBag.Message = "Có lỗi xảy ra trong quá trình xử lý";

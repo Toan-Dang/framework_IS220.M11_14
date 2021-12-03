@@ -10,7 +10,9 @@
             <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Xin chào @UserManager.GetUserName(User)!</a>
         </li>
         <li class="nav-item">
-            <a id="manage" class="nav-link text-dark" asp-controller="OrderDetails" asp-action="Index"><i class="bi bi-cart" style="font-size: 18px; vertical-align: middle;"></i> Giỏ hàng</a>
+            <a id="cart" class="nav-link text-dark" asp-controller="OrderDetails" asp-area ="" asp-action="Index"><i class="bi bi-cart" style="font-size: 18px; vertical-align: middle;"></i> Giỏ hàng
+            </a>
+          
         </li>
         <li class="nav-item">
             <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
