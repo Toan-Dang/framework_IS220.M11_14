@@ -6,22 +6,25 @@
         Layout = "/Views/Shared/_Layout.cshtml";
     }
 }
-
-<h2>Quản lý tài khoản</h2>
-
+@section Styles {
+    <link href="@Url.Content("/css/areas/identity/pages/accounts/manage/_layout.css")" rel="stylesheet" type="text/css" />
+}
+<h5>Quản lý tài khoản</h5>
 <div>
-    <h4>Thay đổi thông tin tài khoản</h4>
     <hr />
     <div class="row">
         <div class="col-md-3">
-            <partial name="_ManageNav" />
+            <div>
+                <partial name="_ManageNav" />
+            </div>
         </div>
         <div class="col-md-9">
-            @RenderBody()
+            <div>
+                @RenderBody()
+            </div>
         </div>
     </div>
 </div>
-
 @section Scripts {
     @RenderSection("Scripts", required: false)
 }

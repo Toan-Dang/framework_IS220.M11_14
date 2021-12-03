@@ -14,7 +14,9 @@ a.navbar-brand {
   word-break: break-all;
 }
 
-
+.layoutmain {
+    min-height: 100vh;
+}
 /*nav*/
 .topnav {
     margin-bottom: 0rem !important;

@@ -221,6 +221,7 @@ namespace WEB2.Controllers {
                 .Include(p => p.Screen)
                 .Include(p => p.Sound)
                 .Include(p => p.Structure)
+                .Include(p => p.Feedbacks)
                 .FirstOrDefaultAsync(m => m.ProductId == id);
             if (product == null) {
                 return NotFound();
@@ -249,7 +250,7 @@ namespace WEB2.Controllers {
                 .Include(p => p.Product.Screen)
                 .Include(p => p.Product.Sound)
                 .Include(p => p.Product.Structure)
-                 .Include(p => p.Product.Feedbacks)
+                .Include(p => p.Product.Feedbacks)
                 .FirstOrDefaultAsync(m => m.Product.ProductId == id);
             if (product == null) {
                 return RedirectToAction("ExDetails", new { id = id });
