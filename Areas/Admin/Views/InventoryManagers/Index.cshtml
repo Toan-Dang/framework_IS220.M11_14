@@ -130,10 +130,12 @@
                         contentType: "application/json; charset=utf-8",
                         data: JSON.stringify( model ),
                         processData: true,
-                        cache: false,
-
-                            });
+                               cache: false,
+                        }).done(function(data){
+                            alert("Thêm kho hàng thành công");
+                            window.location.replace(data.newUrl);
                         });
+                    });
                    
                     </script>
                 </form>    

@@ -31,18 +31,18 @@
                    </td>
                    <td class= "text-center">
         @{
-                          <select   class="form-control" asp-items="ViewBag.ProductId" id="pro${rowIdx}"></select>
+                              <select   class="form-control" asp-items="ViewBag.ProductId" id="pro${rowIdx}"></select>
 
         }
                      </td>
                    <td class= "text-center">
         @{
-            <input type = "text" class="form-control" id="pri${rowIdx}"/>
+                <input type = "text" class="form-control" id="pri${rowIdx}"/>
         }
                       </td>
                    <td class= "text-center">
         @{
-            <input class="form-control" type="text" id="qua${rowIdx}" />
+                <input class="form-control" type="text" id="qua${rowIdx}" />
         }
                       </td>
                    <td class= "text-center">
@@ -80,7 +80,7 @@
               model.Paid = total;
               model.SupplierId = suppierid;
               console.log(model);
-             jQuery.ajax({
+              jQuery.ajax({
               type: "POST",
               url: "@Url.Action("CreateBill","PurchaseDetails")",
               dataType: "json",
@@ -88,8 +88,9 @@
               data: JSON.stringify( model ),
               processData: true,
               cache: false,
-            
-
+                  }).done(function(data){
+                     alert("Tạo phiếu mua hàng thành công");
+                     window.location.replace(data.newUrl);
                   });
                });
 
@@ -153,7 +154,7 @@
         <div class="container-fluid">
             <div class="form-group">
                 <label class="control-label">Chọn nhà cung cấp</label>
-                <select class="form-control" asp-items="ViewBag.SupplierId" id = "supplierid"></select>
+                <select class="form-control" asp-items="ViewBag.SupplierId" id="supplierid"></select>
             </div>
             <div class="table-responsive card">
                 <table class="table table-bordered">

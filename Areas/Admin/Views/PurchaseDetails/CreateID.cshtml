@@ -167,8 +167,9 @@
               data: JSON.stringify( model ),
               processData: true,
               cache: false,
-            
-
+                  }).done(function(data){
+                     alert("Tạo phiếu mua hàng thành công");
+                     window.location.replace(data.newUrl);
                   });
                });
 

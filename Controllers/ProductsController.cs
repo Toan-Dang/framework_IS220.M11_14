@@ -267,10 +267,14 @@ namespace WEB2.Controllers {
                 feedback.FeedbackDay = DateTime.Now;
                 _context.Add(feedback);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Phone));
+                return Json(new {
+                    newUrl = Url.Action("Details", "Products", new { id = feedback.ProductId })
+                });
             }
 
-            return RedirectToAction(nameof(Phone));
+            return Json(new {
+                newUrl = Url.Action("Details", "Products", new { id = feedback.ProductId })
+            });
         }
     }
 }

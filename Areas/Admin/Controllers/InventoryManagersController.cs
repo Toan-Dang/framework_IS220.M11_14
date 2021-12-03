@@ -80,7 +80,9 @@ namespace WEB2.Areas.Admin.Controllers {
                 } else {
                 }
             }
-            return View();
+            return Json(new {
+                newUrl = Url.Action("Index", "InventoryManagers")
+            });
         }
 
         // POST: InventoryManagersController/Create
@@ -88,7 +90,10 @@ namespace WEB2.Areas.Admin.Controllers {
         public async Task<ActionResult> Create([FromBody] Inventory collection) {
             _context.Add(collection);
             await _context.SaveChangesAsync();
-            return Redirect(nameof(Index));
+            //add sp here
+            return Json(new {
+                newUrl = Url.Action("Index", "InventoryManagers")
+            });
         }
 
         public async Task<ActionResult> Product() {
