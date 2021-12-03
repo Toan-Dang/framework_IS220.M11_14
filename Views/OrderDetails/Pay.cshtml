@@ -5,30 +5,190 @@
 }
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Zerone-Thanh toán</title>
-    <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="~/images~/images/GoTech.vn_logo.png">
+    <title>Thanh toán</title>
+    <!-- Favico::afterfter icon -->
+    <link recolorpe="image/png" sizes="16x16" href="~/images~/images/GoTech.vn_logo.png">
 
-    <!-- Form step -->
+    <!--.step-form-horizontalForm step -->
     <link href="~/vendor/jquery-steps/css/jquery.steps.css" rel="stylesheet">
     <!-- Datatable -->
     <link href="~/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- Custom Stylesheet -->
+    <link href="@Url.Content("/css/views/orderdetails/pay.css")" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <script src="@Url.Content("~/lib/jquery/dist/jquery.min.js")"></script>
+    <script src="@Url.Content("~/lib/bootstrap/dist/js/bootstrap.bundle.min.js")"></script>
+    <link href="@Url.Content("https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css")" rel="stylesheet" type="text/css" />
     <link href="~/css/style.css" rel="stylesheet">
-</head>
-<body>                                                                                                              
+        <style>
+        li[aria-disabled="false"] span.number {
+            color: white !important;
+            border: 2px solid #be1e2d !important;
+            background-color: #be1e2d !important;
+        }
 
+        li[aria-disabled="true"] span.number {
+            color: #be1e2d !important;
+        }
+
+        .welcome-text > h4 {
+            color: #be1e2d;
+        }
+
+        .step-form-horizontal .wizard .steps li:not(:last-child)::after {
+            background-color: #be1e2d;
+        }
+
+        a[href="#next"], a[href="#finish"] {
+            background-color: #be1e2d !important;
+            border-radius: 30px !important;
+        }
+
+        a[href="#previous"] {
+            color: #454545 !important;
+            background: #F7FAFC !important;
+            border: 1px solid #EEEEEE;
+            border-radius: 30px !important;
+        }
+
+        .text-label {
+            color: rgba(85,85,85,.8) !important;
+        }
+
+        table {
+            border-collapse: collapse !important;
+            border-radius: 10px !important;
+            border-style: hidden !important; /* hide standard table (collapsed) border */
+
+            box-shadow: rgb(60 64 67 / 10%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 2px 6px 2px !important;
+        }
+
+        tr > td:first-child {
+            text-align: center;
+            padding: 10px;
+        }
+
+        tr {
+            color: #454545 !important;
+        }
+
+        table tr:first-child th:first-child {
+            border-top-left-radius: 10px;
+        }
+
+        table tr:first-child th:last-child {
+            border-top-right-radius: 10px;
+        }
+
+        table tr:last-child td:first-child {
+            border-top-right-radius: 10px !important;
+        }
+
+        table tr:last-child td:last-child {
+            border-bottom-right-radius: 10px;
+        }
+
+        th {
+            background: #be1e2d;
+            color: white;
+        }
+
+        th, td {
+            padding: 1em;
+            border-bottom: 0.5px solid rgb(60 64 67 / 17.5%);
+        }
+
+        tbody img {
+            width: 72px !important;
+            height: 72px !important;
+            max-width: 72px !important;
+            max-height: 72px !important;
+        }
+
+        .producttable {
+            background-color: transparent !important;
+            border-radius: 10px;
+        }
+
+        .card {
+            box-shadow: none;
+        }
+
+        .stronger {
+            font-weight: bold;
+        }
+
+
+
+            .phuongthucthanhtoan > div > div {
+                display: inline-block;
+            }
+
+                .phuongthucthanhtoan > div > div:last-child {
+                    min-width: 200px !important;
+                }
+        .page-titles {
+            margin-top: 30px;
+            background: #be1e2d;
+            border-radius: 10px;
+        }
+
+            .page-titles h4 {
+                color: white;
+            }
+
+        .breadcrumb a {
+            color: white !important;
+        }
+
+        .breadcrumb-item + .breadcrumb-item::before {
+            color: #ffffff !important;
+        }
+
+        .mainload > div > div {
+            border-radius: 30px !important;
+            box-shadow: rgb(60 64 67 / 10%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 2px 6px 2px !important;
+        }
+        body {
+            font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji" !important;
+        }
+        .logo {
+            font-family: "Cabin", sans-serif;
+            font-size: 200%;
+            justify-content: center;
+            display: flex;
+            color: black;
+        }
+        header {
+            border-bottom: 1px solid #D1D5DB;
+        }
+            .logo span {
+                color: #be1e2d;
+                display: inline-block;
+            }
+
+        .logo {
+            display: inline-block;
+            word-wrap: normal;
+        }
+    </style>
+</head>
+<body> 
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white topnav">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <p class="logo mb-0 font-weight-bold ">Zer<span style="color: #be1e2d">o</span>ne.vn</p>
+                    <p class="logo mb-0">Zer<span style="color: #be1e2d">o</span>ne.vn</p>
                 </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
         </nav>
@@ -40,7 +200,6 @@
                 <div class="col-sm-6 p-md-0">
                     <div class="welcome-text">
                         <h4>Thanh toán</h4>
-
                     </div>
                 </div>
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
@@ -51,73 +210,63 @@
                 </div>
             </div>
             <!-- row -->
-            <div class="row">
+            <div class="row mainload">
                 <div class="col-xl-12 col-xxl-12">
                     <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Form step</h4>
-                        </div>
                         <div class="card-body">
                             <form asp-action="Payment" id="step-form-horizontal" class="step-form-horizontal">
                                 <div>
-                                    <h4>Thông tin cá nhân</h4>
-                                    <section>
-
+                                    <h4>Thông tin giao hàng</h4>
+                                    <section class="thongtincanhan">
                                         @foreach (var item in Model) {
                                             <div class="row">
                                                 <div class="col-lg-6 mb-4">
                                                     <div class="form-group">
-                                                        <label class="text-label">Họ tên đầy đủ</label>
-                                                        <input asp-for="@item.Order.Customer.AppUser.FullName" class="form-control" disabled />
+                                                        <label class="text-label">Họ & Tên người nhận</label>
+                                                        <input asp-for="@item.Order.Customer.AppUser.FullName" style="width: 50%;" class="form-control" disabled />
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 mb-4">
                                                     <div class="form-group">
-                                                        <label class="text-label">Username</label>
-                                                        <input asp-for="@item.Order.Customer.AppUser.UserName" class="form-control" disabled />
+                                                        <label class="text-label">Tên tài khoản</label>
+                                                        <input asp-for="@item.Order.Customer.AppUser.UserName"  style="width: 50%;" class="form-control" disabled />
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-12 mb-4">
+                                                <div class="col-lg-6 mb-4">
                                                     <div class="form-group">
-                                                        <label class="text-label">Địa chỉ email</label>
+                                                        <label class="text-label">Email</label>
                                                         <div class="input-group">
-
-                                                            <input asp-for="@item.Order.Customer.AppUser.Email" type="email" class="form-control" placeholder="example@example.com.com" />
+                                                            <input asp-for="@item.Order.Customer.AppUser.Email" type="email" class="form-control" placeholder="email@domain.com" />
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-12 mb-4">
+                                                <div class="col-lg-6 mb-4">
                                                     <div class="form-group">
-                                                        <label class="text-label">Số điện thoại</label>
+                                                        <label class="text-label">Số điện thoại nhận hàng</label>
                                                         <div class="input-group">
-                                                            <input asp-for="@item.Order.Customer.AppUser.PhoneNumber" id="phonenumber" type="text" name="phoneNumber" class="form-control" placeholder="(+1)408-657-9007" required>
-
+                                                            <input asp-for="@item.Order.Customer.AppUser.PhoneNumber" id="phonenumber" type="text" name="phoneNumber" class="form-control" placeholder="(+84) 123-456-789" required>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-12 mb-4">
+                                                <div class="col-lg-6 mb-4">
                                                     <div class="form-group">
-                                                        <label class="text-label">Địa chỉ giao Hàng</label>
+                                                        <label class="text-label">Địa chỉ giao hàng</label>
                                                         <input id="shipadd" asp-for="@item.Order.Customer.ShipAddress" type="text" name="place" class="form-control" required>
-
                                                     </div>
                                                 </div>
                                             </div>
                                             break;
                                         }
-
                                     </section>
                                     <h4>Sản phẩm</h4>
                                     <section>
-                                        <div class="col-12">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="table-responsive">
-                                                        <table class="display" style="width:100%">
+                                        <div class="col-12 producttable">
+
+                                                        <table class="display producttable1" style="width:100%">
                                                             <thead>
                                                                 <tr>
+                                                                    <th></th>
                                                                     <th>Sản phẩm</th>
-                                                                    <th>Tên sản phẩm</th>
                                                                     <th>Giá</th>
                                                                     <th>Số lượng</th>
                                                                     <th>Thành tiền</th>
@@ -129,7 +278,6 @@
                                                                     // double shipMoney = 0;
                                                                     double pay = 0;
                                                                     int orderid = 0;
-
                                                                 }
                                                                 @foreach (var item in Model) {
                                                                     <tr>
@@ -139,85 +287,69 @@
                                                                         <td>
                                                                             @Html.DisplayFor(modelItem => item.Product.ProductName)
                                                                         </td>
-                                                                        <td>
-                                                                            @Html.DisplayFor(modelItem => item.Price)
-                                                                        </td>
-                                                                        <td>
+                                                                        <td class="stronger">
                                                                             @Html.DisplayFor(modelItem => item.Quantity)
                                                                         </td>
-
-                                                                        <td>
-                                                                            @Html.DisplayFor(modelItem  => item.Total)
+                                                                        <td  class="stronger pricecing0">
+                                                                             @Html.DisplayFor(modelItem => item.Price)
                                                                         </td>
 
+                                                                        <td  class="stronger pricecing1">
+                                                                            @Html.DisplayFor(modelItem  => item.Total)
+                                                                        </td>
                                                                     </tr>
                                                                     moneyItem += item.Total;
                                                                     pay = moneyItem;
                                                                     orderid = item.OrderId;
-
                                                                 }
-
-
                                                             </tbody>
-
                                                         </table>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
-
-                                        <div class="text-right text-primary card-title"> Tiền sản phẩm: @moneyItem<span>VND</span> </div>
-                                        <div class="text-right text-danger card-title"> Tổng tiền: @pay<span>VND</span> </div>
-
-
+                                        <div class="text-right tr" style="margin-right: 15px; margin-top: 35px; "><label class="text-label">Tạm tính:&nbsp;</label><span class="labels"><span class="tamtinh">@moneyItem</span><span>&nbsp;&#8363;</span></span></div>
+                                        @*<div class="text-right text-danger card-title"> Tổng tiền: @pay<span>VND</span> </div>*@
                                     </section>
                                     <h4>Phương thức thanh toán</h4>
                                     <section>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                            @foreach (var item in Model) {
 
-                                        @foreach (var item in Model) {
+                                                <div class="form-group">
+                                                    <label class="control-label">Đơn vị vận chuyển</label>
+                                                    <select id="ship" asp-for="@item.Order.Shipment.ShipperId" class="form-control" asp-items="ViewBag.ShipperId">
+                                                    </select>
+                                                    <span asp-validation-for="@item.Order.Shipment.ShipperId" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Voucher</label>
+                                                    <input asp-for="@item.Order.Customer.Voucher_Details" class="form-control" />
+                                                    <span asp-validation-for="@item.Order.Customer.Voucher_Details" class="text-danger"></span>
+                                                </div>
 
-                                            <div class="form-group">
-                                                <label class="control-label">Chọn công ty vận chuyển</label>
-                                                <select id="ship" asp-for="@item.Order.Shipment.ShipperId" class="form-control" asp-items="ViewBag.ShipperId">
-                                                </select>
-                                                <span asp-validation-for="@item.Order.Shipment.ShipperId" class="text-danger"></span>
+                                                <div class="form-group">
+                                                    <label class="control-label">Phương thức thanh toán</label>
+                                                    <select id="typepay" asp-for="@item.Order.Payment.PaymentId" class="form-control" asp-items="ViewBag.PaymentId"></select>
+                                                    <span asp-validation-for="@item.Order.Payment.PaymentId" class="text-danger"></span>
+                                                </div>
+                                                break;
+                                            }
                                             </div>
-                                            <div class="form-group">
-                                                <label class="control-label">Nhập mã khuyến mãi</label>
-                                                <input asp-for="@item.Order.Customer.Voucher_Details" class="form-control" />
-                                                <span asp-validation-for="@item.Order.Customer.Voucher_Details" class="text-danger"></span>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label">Chọn phương thức thanh toán</label>
-                                                <select id="typepay" asp-for="@item.Order.Payment.PaymentId" class="form-control" asp-items="ViewBag.PaymentId"></select>
-                                                <span asp-validation-for="@item.Order.Payment.PaymentId" class="text-danger"></span>
-                                            </div>
-
-
-
-
-                                            break;
-                                        }
-                                        <div class="text-right text-primary card-title"> Tiền sản phẩm: @moneyItem<span>VND</span> </div>
-
-                                        <div class="text-right text-primary card-title"> Tiền vận chuyển:<span id="shipmoney"></span><span>VND</span></div>
-                                        <div class="text-right text-primary card-title"> Tiền khuyến mãi:<span id="voucher"></span>0<span>VND</span></div>
-                                        <div class="text-right text-danger card-title"> Tổng tiền: <span id="pay"></span><span>VND</span> </div>
-
+                                            <div class="col-md-6">
+                                                <div class="phuongthucthanhtoan">
+                                                    <div class="text-right tr"><div><label class="text-label">Tổng tiền hàng</label></div><div><span class="tamtinh1">@moneyItem</span><span>&nbsp;&#8363;</span></div></div>
+                                                    <div class="text-right tr"><div><label class="text-label">Phí vận chuyển</label></div><div><span id="shipmoney"></span><span>&nbsp;&#8363;</span></div></div>
+                                                    <div class="text-right tr"><div><label class="text-label">Voucher từ Zerone</label></div><div><span id="voucher"></span>0<span>&nbsp;&#8363;</span></div></div>
+                                                    <div class="text-right"><div><label class="text-label">Tổng Số tiền</label></div><div><span class="labels"><span id="pay"></span><span>&nbsp;&#8363;</span></span></div></div>
+                                                </div>
+                                        </div>
+                                    </div>
                                     </section>
                                     <h4>Khuyến mãi</h4>
                                     <section>
                                         <div>
                                             cảm ơn đã mua hàng
                                         </div>
-
-
-
-
                                         <a id="paid" href="@Url.Action("Payment","Orders", new {id = orderid})">Thanh toán</a>
-
-
                                         <script type="text/javascript">
 
                                                var ranarr = [];
@@ -231,8 +363,8 @@
 
                                                     var shipcom = 1;
                                                 var oid = @orderid;
-                                                document.getElementById("shipmoney").innerHTML = shipmoney;
-                                                    document.getElementById("pay").innerHTML =  total;
+                                                document.getElementById("shipmoney").innerHTML = numberWithCommas(shipmoney);
+                                                    document.getElementById("pay").innerHTML =  numberWithCommas(total);
                                             $('#ship').change(function () {
 
                                                 var selectedValue = $(this).val();
@@ -240,9 +372,9 @@
                                                     shipmoney =    ranarr[selectedValue];
                                                     total =  ranarr[selectedValue] + @pay;
 
-                                                document.getElementById("shipmoney").innerHTML = shipmoney;
+                                                document.getElementById("shipmoney").innerHTML = numberWithCommas(shipmoney);
 
-                                                    document.getElementById("pay").innerHTML = total;
+                                                    document.getElementById("pay").innerHTML = numberWithCommas(total);
 
 
                                             });
@@ -347,6 +479,17 @@
     <!-- <script src="~/vendor/jquery-steps/build/step.js"></script>       -->
 
     <script type="text/javascript">
+        $(document).ready(function(){
+            $(".producttable1").ready(function(){
+                $(this).find("tr").each(function () {
+                    $(this).find(".pricecing0").html(numberWithCommas($(this).find(".pricecing0").text()))
+                    $(this).find(".pricecing1").html(numberWithCommas($(this).find(".pricecing1").text()))
+                })
+            })
+            $(".tamtinh").html(numberWithCommas($(".tamtinh").text()));
+            $(".tamtinh1").html(numberWithCommas($(".tamtinh1").text()));
+        })
+
 
         !(function (a, b) {
             function c(a, b) {
@@ -1026,7 +1169,7 @@
                     cssClass: "wizard",
                     clearFixCssClass: "clearfix",
                     stepsOrientation: _.horizontal,
-                    titleTemplate: '<span class="number">#index#.</span> #title#',
+                    titleTemplate: '<span class="number">#index#</span> #title#',
                     loadingTemplate: '<span class="spinner"></span> #text#',
                     autoFocus: !1,
                     enableAllSteps: !1,
@@ -1059,13 +1202,13 @@
                     onContentLoaded: function () { },
                     onInit: function () { },
                     labels: {
-                        cancel: "Cancel",
-                        current: "current step:",
+                        cancel: "Hủy",
+                        current: "Hiện tại",
                         pagination: "Pagination",
-                        finish: "Finish",
-                        next: "Next",
-                        previous: "Previous",
-                        loading: "Loading ...",
+                        finish: "Hoàn Tất",
+                        next: "Tiếp theo",
+                        previous: "Quay lại",
+                        loading: "Đang tải...",
                     },
                 });
         })(jQuery);
