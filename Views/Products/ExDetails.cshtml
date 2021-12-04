@@ -48,21 +48,17 @@
                 <div class="product-slice">
                     <div class="slider-for">
                         <div><img src="@Html.DisplayFor(model => model.Picture)" /></div>
-                        <div><img src="@Html.DisplayFor(model => model.Picture)" /></div>
-                        <div><img src="@Html.DisplayFor(model => model.Picture)" /></div>
-                        <div><img src="@Html.DisplayFor(model => model.Picture)" /></div>
-                        <div><img src="@Html.DisplayFor(model => model.Picture)" /></div>
-                        <div><img src="@Html.DisplayFor(model => model.Picture)" /></div>
+                        @foreach (var items in Model.Images){
+                            <div><img src="@items.URL" /></div>
+                        }
                     </div>
                 </div>
                 <div class="product-slice-nav">
                     <div class="slider-nav">
                         <div><img src="@Html.DisplayFor(model => model.Picture)" /></div>
-                        <div><img src="@Html.DisplayFor(model => model.Picture)" /></div>
-                        <div><img src="@Html.DisplayFor(model => model.Picture)" /></div>
-                        <div><img src="@Html.DisplayFor(model => model.Picture)" /></div>
-                        <div><img src="@Html.DisplayFor(model => model.Picture)" /></div>
-                        <div><img src="@Html.DisplayFor(model => model.Picture)" /></div>
+                        @foreach (var items in Model.Images){
+                            <div><img src="@items.URL" /></div>
+                        }
                     </div>
                 </div>
             </div>
