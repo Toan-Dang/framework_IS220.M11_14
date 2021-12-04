@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<WEB2.Models.Product>
+@{
     ViewData["Title"] = "Trang chủ";
 }
 @section Styles {
@@ -50,31 +51,31 @@
             <div id="log"></div>
         </div>
         <div class="hotsale mt-1" style="padding-left: 2.5px; padding-right: 2.5px">
-            @for (int i = 0; i < 10; i++) {
+            @for (int i = 0; i < 7; i++) {
                 <div>
-                    <a href="#">
+                    <a asp-controller="Products" asp-action="Details" asp-route-id="@Model.ElementAt(i).ProductId">
                         <div class="card">
                             <div class="lbsale"><span class="lbtragop">Trả góp 0%</span></div>
-                            <img class="card-img-top" src="https://lh3.googleusercontent.com/VFfOoovEyLn0xzp0H0h3Xmyw2jBCadUohYQ6wAY15bbT6WGtI0EeUFux4MrgR3PKJhgpzvKKoLpqmQJE_tAmK7mzhGn9aSyJfh0ZJ09zDPCwIEsmjPd4YdVFf0bEQA94aNWIbn756mKJPYkOIDNtp4RWKvgOI42AgT47ICRNr2Qm2NAA0rc0gzV9LmPAYHnXKYgEknAngyIcF22YY5_Ubz9hpkK4-Jxo4S0sAz6fylL4KKom_FT_3iEfKQ8ag-9TIuKvlqwmERbkLw5As722vYMvL_hVsAnWkMvYsqt3WFSRZkwRpUk5SGhUTrssFpV57Sl6WAYFZccq4JG2vmIt89dLSkoMqf1N_uXBTr3DU2IKG1F-MCclv7qpOUSZi1OnLli8WCjX5zoX14Xv5dWACUN1lvl4ZW9AkwmdOd_0u0PS_j6Zx2RCgxsvwj9Rw2NA1uHlHGlyPCF576c4xI1oMHRbPTPjfQJlc2lxkkBDUZTYtOwmjCxKLDRTUhhaMi415TOM4x-V6_zvxr3N2MoOxhir1iF7VoLBWbhExIAnqb2-FdkVVh_7WT3AOzZrmAgJypA21stwLAr--V3G4oC8MQRyphNOSOETB7PiPlc25VT7Pitkb4WX4fSsm6fRcptop8BT8twulk5j_7M_Lh4qKkYYUODjGyQa-OLEi0kVK225mQMgVjy3kB-gHO9FE0JD2zVO3NkrXEGTfd5r74UCt45G=s600-no?authuser=1" alt="Iphone 13 Pro Max">
+                            <img class="card-img-top" src="@Model.ElementAt(i).Picture" alt="@Model.ElementAt(i).ProductName">
                             <div class="card-body">
-                                <h5 class="card-title">Iphone 13 Pro Max 128GB</h5>
-                                <h5 class="card-title pricesale m-0">33.990.000</h5>
-                                <h6 class="card-title price text-muted mt-1">35.990.000</h6>
+                                <h6 class="card-title product-name">@Model.ElementAt(i).ProductName</h6>
+                                <h5 class="card-title pricesale m-0">@Model.ElementAt(i).UnitPrice</h5>
+                                <h6 class="card-title price text-muted mt-1">@Model.ElementAt(i).MSRP</h6>
                                 <div>
                                     <p style="display:inline">
-                                        <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <svg class="rating-checked bi bi-star-fill" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                         </svg>
-                                        <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <svg class="rating-checked bi bi-star-fill" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                         </svg>
-                                        <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <svg class="rating-checked bi bi-star-fill" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                         </svg>
-                                        <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <svg class="rating-checked bi bi-star-fill" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                         </svg>
-                                        <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-half" viewBox="0 0 16 16">
+                                        <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z" />
                                         </svg>
                                     </p>
@@ -112,31 +113,31 @@
         </div>
 
         <div class="highlight">
-            @for (int i = 0; i < 8; i++) {
+            @for (int i = 7; i < 15; i++) {
                 <div>
-                    <a href="#">
+                    <a asp-controller="Products" asp-action="Details" asp-route-id="@Model.ElementAt(i).ProductId">
                         <div class="card">
                             <div class="lbsale"><span class="lbtragop">Trả góp 0%</span></div>
-                            <img class="card-img-top" src="https://lh3.googleusercontent.com/VFfOoovEyLn0xzp0H0h3Xmyw2jBCadUohYQ6wAY15bbT6WGtI0EeUFux4MrgR3PKJhgpzvKKoLpqmQJE_tAmK7mzhGn9aSyJfh0ZJ09zDPCwIEsmjPd4YdVFf0bEQA94aNWIbn756mKJPYkOIDNtp4RWKvgOI42AgT47ICRNr2Qm2NAA0rc0gzV9LmPAYHnXKYgEknAngyIcF22YY5_Ubz9hpkK4-Jxo4S0sAz6fylL4KKom_FT_3iEfKQ8ag-9TIuKvlqwmERbkLw5As722vYMvL_hVsAnWkMvYsqt3WFSRZkwRpUk5SGhUTrssFpV57Sl6WAYFZccq4JG2vmIt89dLSkoMqf1N_uXBTr3DU2IKG1F-MCclv7qpOUSZi1OnLli8WCjX5zoX14Xv5dWACUN1lvl4ZW9AkwmdOd_0u0PS_j6Zx2RCgxsvwj9Rw2NA1uHlHGlyPCF576c4xI1oMHRbPTPjfQJlc2lxkkBDUZTYtOwmjCxKLDRTUhhaMi415TOM4x-V6_zvxr3N2MoOxhir1iF7VoLBWbhExIAnqb2-FdkVVh_7WT3AOzZrmAgJypA21stwLAr--V3G4oC8MQRyphNOSOETB7PiPlc25VT7Pitkb4WX4fSsm6fRcptop8BT8twulk5j_7M_Lh4qKkYYUODjGyQa-OLEi0kVK225mQMgVjy3kB-gHO9FE0JD2zVO3NkrXEGTfd5r74UCt45G=s600-no?authuser=1" alt="Iphone 13 Pro Max">
+                            <img class="card-img-top" src="@Model.ElementAt(i).Picture" alt="@Model.ElementAt(i).ProductName">
                             <div class="card-body">
-                                <h5 class="card-title">Iphone 13 Pro Max 128GB</h5>
-                                <h5 class="card-title pricesale m-0">33.990.000</h5>
-                                <h6 class="card-title price text-muted mt-1">35.990.000</h6>
+                                <h6 class="card-title product-name">@Model.ElementAt(i).ProductName</h6>
+                                <h5 class="card-title pricesale m-0">@Model.ElementAt(i).UnitPrice</h5>
+                                <h6 class="card-title price text-muted mt-1">@Model.ElementAt(i).MSRP</h6>
                                 <div>
                                     <p style="display:inline">
-                                        <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <svg class="rating-checked bi bi-star-fill" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                         </svg>
-                                        <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <svg class="rating-checked bi bi-star-fill" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                         </svg>
-                                        <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <svg class="rating-checked bi bi-star-fill" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                         </svg>
-                                        <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <svg class="rating-checked bi bi-star-fill" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                         </svg>
-                                        <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-half" viewBox="0 0 16 16">
+                                        <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z" />
                                         </svg>
                                     </p>
@@ -164,31 +165,31 @@
             </div>
         </div>
         <div class="highlight">
-            @for (int i = 0; i < 8; i++) {
+            @for (int i = 15; i < 23; i++) {
                 <div>
-                    <a href="#">
+                    <a asp-controller="Products" asp-action="Details" asp-route-id="@Model.ElementAt(i).ProductId">
                         <div class="card">
                             <div class="lbsale"><span class="lbtragop">Trả góp 0%</span></div>
-                            <img class="card-img-top" src="https://lh3.googleusercontent.com/pw/AM-JKLWQX67INaGdM5WL8vhyq26jCa0k6cuDiYYlLOWSIN54ND-ie4niYp2Bj0UQov3YziQxFzMTU88L4aU1arM0_i7QUu-aftHTiHRBX_PTYj9wxczh16eSmXhpSA5d9tW2FroX8oLexSniEAox7WXeDW0A=w600-h400-no?authuser=1" alt="Iphone 13 Pro Max">
+                            <img class="card-img-top" src="@Model.ElementAt(i).Picture" alt="@Model.ElementAt(i).ProductName">
                             <div class="card-body">
-                                <h5 class="card-title">Laptop Apple MacBook Pro M1 2020 16GB/512GB (Z11C)</h5>
-                                <h5 class="card-title pricesale m-0">42.990.000</h5>
-                                <h6 class="card-title price text-muted mt-1">44.990.000</h6>
+                                <h6 class="card-title product-name">@Model.ElementAt(i).ProductName</h6>
+                                <h5 class="card-title pricesale m-0">@Model.ElementAt(i).UnitPrice</h5>
+                                <h6 class="card-title price text-muted mt-1">@Model.ElementAt(i).MSRP</h6>
                                 <div>
                                     <p style="display:inline">
-                                        <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <svg class="rating-checked bi bi-star-fill" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                         </svg>
-                                        <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <svg class="rating-checked bi bi-star-fill" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                         </svg>
-                                        <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <svg class="rating-checked bi bi-star-fill" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                         </svg>
-                                        <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <svg class="rating-checked bi bi-star-fill" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                         </svg>
-                                        <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-half" viewBox="0 0 16 16">
+                                        <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z" />
                                         </svg>
                                     </p>
@@ -211,31 +212,31 @@
             </div>
         </div>
         <div class="highlight">
-            @for (int i = 0; i < 8; i++) {
+            @for (int i = 23; i < 27; i++) {
                 <div>
-                    <a href="#">
+                    <a asp-controller="Products" asp-action="Details" asp-route-id="@Model.ElementAt(i).ProductId">
                         <div class="card">
                             <div class="lbsale"><span class="lbtragop">Trả góp 0%</span></div> @*Hơn 4 triệu thì cho trả góp*@
-                            <img class="card-img-top" src="https://lh3.googleusercontent.com/M0vxC6b-vJKtFQLknTLgIQ2tnML1Q2fNAqFdSmOmRzWv3DHqGFltl5mrM9eB5UeiJxdxrS9lkb_VJ8G077wB5DgU2VIUp_F7V3Po7sal98wOArOTebb4_wlyTC8y4gW4Ec1WKa31QU7012yWfAsjwFCRZWqcaZej-UTQuHnD1IkbzFzM5l5FqBE16WeL7MRpk3di0HHjFuVPCYlPWcTyri_Nb5czG_-aLdsH0-KMwYQeh4Uh6_I3GiE3bkhKL2BfUga4ZAm5dcN_x1EhUxCyxydIejg6vYFgs4XehWJJakrk6FbpZj_VD0ZEaiCmUn8AlS_d5ZQ37t35w2KGcWjaSEBwrJZhRcTDoBpeStKT5iDltUqP9gUYXRcE9ZXKWgYOJBK9TeXj2ca4fOEGTGzOvp7I2vA1Ip2LFXzhbjjlAJ27UTNvcW4ezzd6kmxYeykjXjAkQBimVw2itFxUkgbdlNEbFWaOPHW4NVCHohjHlgdZplKoZCbv-Jt5QxOjHaRmzkwg13EbL_KX32deDNpTyw7OOuIXfox9ydKynr2uPZkFiLwIarobAVzC6COL3udVUGRtbi_n8W2DSG9mxsX5DhHuXcDQdaPDXCLpppC_C7NXkrkGYMOGbJoQa780X7XY8mCLOAL4hNUA0cebEbC79RYjlEDCH1mz_5BZPfkrWdyydWqsRkeGdBD4wbJtrdoPC-CjQLa3a_BnAETUWqaY6I23=s600-no?authuser=1" alt="Iphone 13 Pro Max">
+                            <img class="card-img-top" src="@Model.ElementAt(i).Picture" alt="@Model.ElementAt(i).ProductName">
                             <div class="card-body">
-                                <h5 class="card-title">Máy tính bảng iPad mini 6 WiFi Cellular 256GB</h5> @*tên sản phẩm*@
-                                <h5 class="card-title pricesale m-0">24.990.000</h5> @*Giá sau giảm*@
-                                <h6 class="card-title price text-muted mt-1">26.990.000</h6> @*Giá trước giảm*@
+                                <h6 class="card-title  product-name">@Model.ElementAt(i).ProductName</h6>
+                                <h5 class="card-title pricesale m-0">@Model.ElementAt(i).UnitPrice</h5>
+                                <h6 class="card-title price text-muted mt-1">@Model.ElementAt(i).MSRP</h6>
                                 <div>
                                     <p style="display:inline">
-                                        <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <svg class="rating-checked bi bi-star-fill" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                         </svg>
-                                        <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <svg class="rating-checked bi bi-star-fill" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                         </svg>
-                                        <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <svg class="rating-checked bi bi-star-fill" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                         </svg>
-                                        <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <svg class="rating-checked bi bi-star-fill" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                         </svg>
-                                        <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-half" viewBox="0 0 16 16">
+                                        <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z" />
                                         </svg>
                                     </p>
@@ -266,30 +267,30 @@
             </div>
         </div>
         <div class="highlight">
-            @for (int i = 0; i < 4; i++) {
+            @for (int i = 27; i < 31; i++) {
                 <div>
-                    <a href="#">
+                    <a asp-controller="Products" asp-action="Details" asp-route-id="@Model.ElementAt(i).ProductId">
                         <div class="card">
-                            <img class="card-img-top" src="https://lh3.googleusercontent.com/56T_z_hOipPqOp64HqChcZrWoXaMYoJo5vdSYgI-DUB8smdx01eiz0AFQLaSuKiNbIM67Kq_PvUYkygQJU7bfJ6exgmgBc6zL_dQvtjYwnBglVjMBncn58_Ew5cc3kNB0R-uotwcU7kBHa_dWa8t1K8C2M689QCEXRf-SeslYC_0qZqHkSZuYoLsqRU1n89xYpHNM3W42xgG_6IAVG8KOsDLb4v4FSxbxzrmifBzjqRq1Ob1sS3RikXVCcbCJHH8Y32960ZbKmHI5lYT8Gbv9vNoWmld96KA6nVjN2WdUMPFA5a9ZqhsugadsajRbX3C3ffCSpRql2_ND_SpPEQHwP-AGiXfevEvJmq5G7Wd9hYxOEUSEeiaXXVKSwwOOxn2zVu1T9WBzz8Au4_7t2U8JggEB8otG9lHVDmlZ3NXkKoya7NqFiUwTm1AHYN4qSCKSvTUv2qGXCbf3rum1cGWFnZ-h5_gwIk_ILcPBlnDpNXL3BKADvenQET0Z0uFqxLChL8iE0NedrEuqAXzxM09j-Cgdglb04l1CS9Bb9tpzg8Ap_gysCBvL_mwavNJfDLcJTExMoFbuJ4mHNefxa-Cr93wmCD-S8isy4TjdmNuBPhIeDTC7yPRmDiPeRpY7pd884sUNinZzsMAHPp4xXVvgRvWlUZs_7HSlI_dSlhraEjWP5p-qlPkz9lXXte3QO--y3yNPC16uOLRyIE68i-UHhMp=s600-no?authuser=1" alt="Iphone 13 Pro Max">
+                            <img class="card-img-top" src="@Model.ElementAt(i).Picture" alt="@Model.ElementAt(i).ProductName">
                             <div class="card-body">
-                                <h5 class="card-title">Tai nghe Bluetooth AirPods 2 Apple MV7N2</h5>
-                                <h5 class="card-title pricesale m-0">3.470.000</h5>
-                                <h6 class="card-title price text-muted mt-1">4.390.000</h6>
+                                <h6 class="card-title product-name">@Model.ElementAt(i).ProductName</h6>
+                                <h5 class="card-title pricesale m-0">@Model.ElementAt(i).UnitPrice</h5>
+                                <h6 class="card-title price text-muted mt-1">@Model.ElementAt(i).MSRP</h6>
                                 <div>
                                     <p style="display:inline">
-                                        <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <svg class="rating-checked bi bi-star-fill" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                         </svg>
-                                        <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <svg class="rating-checked bi bi-star-fill" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                         </svg>
-                                        <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <svg class="rating-checked bi bi-star-fill" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                         </svg>
-                                        <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <svg class="rating-checked bi bi-star-fill" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                         </svg>
-                                        <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-half" viewBox="0 0 16 16">
+                                        <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z" />
                                         </svg>
                                     </p>
@@ -301,51 +302,46 @@
             }
         </div>
     </div>
-    <div class="container banner">
-        <a href="#">
-            <img src="https://hoanghamobile.com/Uploads/2021/11/03/ezgif-com-gif-maker.gif" />
-        </a>
-    </div>
     <div class="/accessories mt-4">
         <div class="mb-3">
-            <h4 class="d-inline"><a href="/accessories">PHỤ KIỆN</a></h4>
+            <h4 class="d-inline"><a asp-controller="Products" asp-action="Accessories" >PHỤ KIỆN</a></h4>
             <div class="d-l2" style="float: right">
-                <button type="button" class="btn" onclick="window.location.href='#'">AVA</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">Pisen</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">Razer</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">Tenda</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">Xiaomi</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">Anker</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">Aukey</button>
-                <button type="button" class="btn" onclick="window.location.href='#'">Xem tất cả</button>
+               <a class="btn" id="Apple" asp-controller="Products" asp-action="Category" asp-route-id="46">Apple</a>
+               <a class="btn" id="Razer" asp-controller="Products" asp-action="Category" asp-route-id="54">Razer</a>
+               <a class="btn" id="Rapoo" asp-controller="Products" asp-action="Category" asp-route-id="61">Rapoo</a>
+               <a class="btn" id="HyperX" asp-controller="Products" asp-action="Category" asp-route-id="62">HyperX</a>
+               <a class="btn" id="Logitech" asp-controller="Products" asp-action="Category" asp-route-id="63">Logitech</a>
+               <a class="btn" id="Energizer" asp-controller="Products" asp-action="Category" asp-route-id="65">Energizer</a>
+               <a class="btn" id="Xmobile" asp-controller="Products" asp-action="Category" asp-route-id="66">Xmobile</a>
+                <a class="btn" id="Xmobile" asp-controller="Products" asp-action="Accessories" >Xem tất cả</a>
             </div>
         </div>
 
         <div class="highlight">
-            @for (int i = 0; i < 4; i++) {
+            @for (int i = 31; i < 35; i++) {
                 <div>
-                    <a href="#">
+                    <a asp-controller="Products" asp-action="Details" asp-route-id="@Model.ElementAt(i).ProductId">
                         <div class="card">
-                            <img class="card-img-top" src="https://lh3.googleusercontent.com/E4_7eUFQ2Yc4iP7nDyj9fUq3lEL-TZJIep6BB3--WgzZwe9qk-flg1nzo4U-dbCrKItNFXpdxak3Sk4sx-FxPjXCI9R4JpYXGN0pacQ14h6mEGCWuLd7ufv-0HJPEHJOyjFalg-KdL6XGHk1F4vjmGemtoit_LzEw_SAk_42kC-NYurnSYnGhrbL8_hORd_E6Rpjug_qv3NyUKSRBga69PtHdjvic8ZQzLvyAoBOekoo_Zbmpg4dj6CpmcOT7khbPRKE5vSC5y-8T94RQNylFmYWsbgJU9Ty7BjVRX-jRFgH41xW4dStJo-IvKNKRF1eN6WAnGEuaJpQ41OnQerYtGGzEMmJZ2m0DeXadM_uNfyJtZqpL501dbrSDo3Gs7MLbSdCaVG86v2sCiZEpsGW6jOMdKO9uEO9xq40dXDcuQnqeC7byna-uwosHepl9PE-jMdIJKZ4OSBoDFcob9CjRSZHLfOdiy_OqKajapCs-Efhlk2zRAW8eOljAHYXrBHne7l3UF5ZkIEgNnYMWEn8ZA9xKWI3YkhDyHfnbbdfFEVwdymJdOo6WoigQSbBpzu2I1i-UVxkL1-xUQTq42YwQ8_TXpg4QASTzrwktHIB_AYqHHY2XKBxNuJN_J2GFntA4-DzDLTrFvOBL-CZD9DqVyF-llSSw9zuS_MTtEG7-aO4kAcSBCjSy6wx9Sdn4rZwzCp1gHVgxstZPplcWuthgZTn=s600-no?authuser=1" alt="Iphone 13 Pro Max">
+                            <img class="card-img-top" src="@Model.ElementAt(i).Picture" alt="@Model.ElementAt(i).ProductName">
                             <div class="card-body">
-                                <h5 class="card-title">Sạc AVA ASUC62a</h5>
-                                <h5 class="card-title pricesale m-0">70.000</h5>
-                                <h6 class="card-title price text-muted  mt-1">90.000</h6>
+                                <h6 class="card-title product-name">@Model.ElementAt(i).ProductName</h6>
+                                <h5 class="card-title pricesale m-0">@Model.ElementAt(i).UnitPrice</h5>
+                                <h6 class="card-title price text-muted mt-1">@Model.ElementAt(i).MSRP</h6>
                                 <div>
                                     <p style="display:inline">
-                                        <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <svg class="rating-checked bi bi-star-fill" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                         </svg>
-                                        <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <svg class="rating-checked bi bi-star-fill" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                         </svg>
-                                        <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <svg class="rating-checked bi bi-star-fill" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                         </svg>
-                                        <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                        <svg class="rating-checked bi bi-star-fill" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                         </svg>
-                                        <svg class="rating-checked" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-half" viewBox="0 0 16 16">
+                                        <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z" />
                                         </svg>
                                     </p>
@@ -375,9 +371,19 @@
                 autoplay: true,
                 autoplaySpeed: 3000,
             });
-
+            $(".highlight").ready(function () {
+                $(this).find(".card-body").each(function () {
+                    $(this).find(".pricesale").html(numberWithCommas($(this).find(".pricesale").text()))
+                    $(this).find(".price").html(numberWithCommas($(this).find(".price").text()))
+                })
+            })
         });
 
+         function numberWithCommas(x) {
+            var parts = x.toString().split(".");
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            return parts.join(",");
+        }
         function countDown() {
             var currDate = new Date()
             var endTime = new Date(currDate.getFullYear(), currDate.getMonth(), currDate.getDate() + 2, 23, 59, 59);;
