@@ -66,6 +66,7 @@ namespace WEB2.Areas.Admin.Controllers {
                     FullName = staff.AppUser.FullName,
                     PhoneNumber = staff.AppUser.PhoneNumber,
                     Birthday = staff.AppUser.Birthday,
+                    EmailConfirmed = true
                 };
                 var pass = staff.AppUser.PasswordHash;
                 var result = await _userManager.CreateAsync(user, pass);

@@ -1,0 +1,63 @@
+﻿@page
+@model WEB2.Areas.Identity.Pages.Account.Manage.BillModel
+
+@{
+    ViewData["Title"] = "Bills";
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                mã hóa đơn
+            </th>
+            <th>
+               ngày hóa đơn
+            </th>
+            <th>
+               tổng tiền
+            </th>
+
+             <th>
+                 tên sản phẩm
+             </th>
+             <th>số lượng</th>
+  
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.orderdetail) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+       
+
+        </tr>
+     @*   <tr>
+            1 hóa đơn là 1 bảng, 1 hóa đơn có nhiều sản phẩm
+            nếu khách hàng mua nhiều hóa đơn thì tách thành nhiều bảng 
+            ví dụ khách hàng a có 2 hóa đơn, hóa đơn đầu tiên mua 2 điện thoại, hóa đơn thứ 2 mua 3 cái lap top 
+            thì bảng sẽ là 
+            ------------------------------------------------
+            hóa đơn | sản phẩm | số lượng| thành tiền     | ngày mua hàng|
+                1   | dt1      |   1     |   100k (100*1) |   dd\mm\yyyy |
+                    | dt2      |   2     |   100k (50*2)  |              |
+            ----------------------------------------------------
+            ----------------------------------------------------------
+            hóa đơn | sản phẩm | số lượng| thành tiền     | ngày mua hàng|
+                2   | lt1      |   1     |   100k (100*1) |   dd\mm\yyyy |
+                    | lt2      |   2     |   100k (50*2)  |              |
+                    | lt3      |   3     |   200k         |              |
+            ----------------------------------------------------
+        </tr>    *@
+}
+    </tbody>
+</table>

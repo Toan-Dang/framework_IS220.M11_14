@@ -275,21 +275,28 @@ namespace WEB2.Controllers {
                 version += "-" + item.Version;
             }
 
-            product.Product.Version = version;
-            product.Product.Color = color;
+            product.Product.Category.Active = version;
+            product.Product.Category.Picture = color;
 
             return View(product);
         }
 
-        public async Task<IActionResult> DetailsVersion(string name, string version) {
-            string product = "";
-            if (product == null) {
-                return RedirectToAction("ExDetails", new { id = 0 });
-            }
-            // nho mo comment ++product.Product.View;
+        public async Task<IActionResult> DetailVersion(string productname, string version) {
+            var product = await _context.Product.Where(p => p.ProductName == productname)
+                .Where(p => p.Version == version).FirstOrDefaultAsync();
+            ++product.View;
             _context.Update(product);
             await _context.SaveChangesAsync();
-            return View(product);
+            return RedirectToAction("Details", new { id = product.ProductId });
+        }
+
+        public async Task<IActionResult> DetailColor(string productname, string version, string color) {
+            var product = await _context.Product.Where(p => p.ProductName == productname)
+          .Where(p => p.Version == version).Where(p => p.Color == color).FirstOrDefaultAsync();
+            ++product.View;
+            _context.Update(product);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Details", new { id = product.ProductId });
         }
 
         [HttpPost]

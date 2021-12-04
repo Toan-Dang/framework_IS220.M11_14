@@ -250,7 +250,7 @@
                                                 </div>
                                                 <div class="col-lg-6 mb-4">
                                                     <div class="form-group">
-                                                        <label class="text-label">Địa chỉ giao hàng</label>
+                                                        <label class="text-label">Địa chỉ giao hàng<span><a asp-action= "ShipMoney" asp-area="" asp-controller="OrderDetails" asp-route-id="@item.OrderId">Cập nhật địa chỉ</a></span></label>
                                                         <input id="shipadd" asp-for="@item.Order.Customer.ShipAddress" type="text" name="place" class="form-control" required>
                                                     </div>
                                                 </div>
@@ -275,7 +275,7 @@
                                                             <tbody>
                                                                 @{
                                                                     double moneyItem = 0;
-                                                                    // double shipMoney = 0;
+                                                                     double shipMoney = 0;
                                                                     double pay = 0;
                                                                     int orderid = 0;
                                                                 }
@@ -297,11 +297,12 @@
                                                                         <td  class="stronger pricecing1">
                                                                             @Html.DisplayFor(modelItem  => item.Total)
                                                                         </td>
-                                                                    </tr>
-                                                                    moneyItem += item.Total;
-                                                                    pay = moneyItem;
-                                                                    orderid = item.OrderId;
-                                                                }
+                                                        </tr>
+                                                        moneyItem += item.Total;
+                                                        pay = moneyItem;
+                                                        orderid = item.OrderId;
+                                                        shipMoney = item.Order.Freight;
+                                                    }
                                                             </tbody>
                                                         </table>
                                         </div>
@@ -354,11 +355,11 @@
 
                                                var ranarr = [];
                                                 for (let i = 1 ; i < 8 ; ++i){
-                                                        var ran =  Math.floor(Math.random() * 20000) + 10000;
+                                                        var ran =  Math.floor(Math.random() * 3000) + 2000;
                                                         ranarr.push(ran);
                                                 }
                                                 ranarr[1] = 0;
-                                                var shipmoney =  0;
+                                                var shipmoney =  @shipMoney;
                                                 var total =  @pay;
 
                                                     var shipcom = 1;
@@ -369,7 +370,7 @@
 
                                                 var selectedValue = $(this).val();
                                                     shipcom =  selectedValue;
-                                                    shipmoney =    ranarr[selectedValue];
+                                                    shipmoney =  @shipMoney+  ranarr[selectedValue];
                                                     total =  ranarr[selectedValue] + @pay;
 
                                                 document.getElementById("shipmoney").innerHTML = numberWithCommas(shipmoney);

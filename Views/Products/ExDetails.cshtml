@@ -1868,9 +1868,11 @@
                     $(this).find(".first-character1").html($(this).find(".fullname1").text().charAt(0).toUpperCase());
                 })
             })
+            //up data
             var name;
             var sdt;
             var cmt;
+
             $('#exampleInputEmail1').change(function(){
                 name = $(this).val();
                 console.log(name);
@@ -1888,6 +1890,7 @@
                 model.Rank = name;
                 model.Comment = cmt;
                 model.Rate = rate;
+
                 console.log(model);
                 jQuery.ajax({
                 type: "POST",
@@ -1896,9 +1899,82 @@
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify( model ),
                 processData: true,
-                cache: false,
-                    });
-              });
+                    cache: false,
+                  }).done(function(data){
+                     alert("Đánh giá thành công");
+                     window.location.replace(data.newUrl);
+                  });
+               });
+               //////////////
+              
+
+                  var ver = "@Model.Category.Active";
+                  var spver = ver.split("-");
+              
+        
+                  var col = "@Model.Category.Picture";
+                  var spcol = col.split("-");
+            
+                  
+                  var actualver = "@Model.Version";
+                  var actualcol = "@Model.Color";
+               
+                var proVer = [];
+                var protemp;
+                var check = false;
+           
+                for (let i = 1; i < spver.length - 1; ++i) {
+                  if (check == false) {
+                    protemp = spver[i];
+                  }
+                  if (spver[i] == spver[i + 1]) {
+                    
+                      check = true;
+                    continue;
+                 
+                  } else {
+                          proVer.push(protemp);
+                    check = false;
+                  }
+                }
+                if (check == false) {
+                  proVer.push(spver[spver.length - 1]);
+                }
+                proVer.push(protemp);
+        
+
+                 for(let i =0; i< proVer.length; ++i){
+                   if(actualver == proVer[i]){
+                        $('#verpro').append(`
+                    <a class="btn btn-outline-primary" id="${proVer[i]}" href="/products/detailversion?productname=@Model.ProductName&version=${proVer[i]}" >${proVer[i]} </a>
+                    `);
+                   }else{
+                      $('#verpro').append(`
+                    <a class="btn" id="${proVer[i]}" href="/products/detailversion?productname=@Model.ProductName&version=${proVer[i]}" >${proVer[i]} </a>
+                    `);
+                   }
+                  
+                 
+
+                 }
+            
+
+                 for(let i =1; i< spcol.length; ++i){
+                     if(actualcol == spcol[i]){
+                          $('#colopro').append(`
+                    <a class="btn btn-outline-primary" id="${spcol[i]}"  href="/products/detailcolor?productname=@Model.ProductName&version=@Model.Version&color=${spcol[i]}">${spcol[i]} </a>
+                    `);
+                     } else{
+                           $('#colopro').append(`
+                    <a class="btn" id="${spcol[i]}"  href="/products/detailcolor?productname=@Model.ProductName&version=@Model.Version&color=${spcol[i]}">${spcol[i]} </a>
+                    `);
+                     }
+                  
+                 }
+              
+              
+               /////////////////////////////////////////
+               
         });
     </script>
     <script>

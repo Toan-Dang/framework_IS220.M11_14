@@ -10,6 +10,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using WEB2.Data;
 using WEB2.Models;
 using WEB2.Views.Shared.Components;
 
@@ -21,16 +22,19 @@ namespace WEB2.Areas.Identity.Pages.Account {
         private readonly UserManager<AppUser> _userManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger<ExternalLoginModel> _logger;
+        private readonly AppDbContext _context;
 
         public ExternalLoginModel(
             SignInManager<AppUser> signInManager,
             UserManager<AppUser> userManager,
             ILogger<ExternalLoginModel> logger,
-            IEmailSender emailSender ) {
+            IEmailSender emailSender,
+            AppDbContext context) {
             _signInManager = signInManager;
             _userManager = userManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
         }
 
         [BindProperty]
@@ -55,19 +59,18 @@ namespace WEB2.Areas.Identity.Pages.Account {
             return RedirectToPage("./Login");
         }
 
-        // Post yêu cầu login bằng dịch vụ ngoài
-        // Provider = Google, Facebook ...
-        public async Task<IActionResult> OnPost( string provider, string returnUrl = null ) {
+        // Post yêu cầu login bằng dịch vụ ngoài Provider = Google, Facebook ...
+        public async Task<IActionResult> OnPost(string provider, string returnUrl = null) {
             // Kiểm tra yêu cầu dịch vụ provider tồn tại
             var listprovider = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            var provider_process = listprovider.Find(( m ) => m.Name == provider);
+            var provider_process = listprovider.Find((m) => m.Name == provider);
             if (provider_process == null) {
                 return NotFound("Dịch vụ không chính xác: " + provider);
             }
 
-            // redirectUrl - là Url sẽ chuyển hướng đến - sau khi CallbackPath (/dang-nhap-tu-google) thi hành xong
-            // nó bằng identity/account/externallogin?handler=Callback
-            // tức là gọi OnGetCallbackAsync
+            // redirectUrl - là Url sẽ chuyển hướng đến - sau khi CallbackPath
+            // (/dang-nhap-tu-google) thi hành xong nó bằng
+            // identity/account/externallogin?handler=Callback tức là gọi OnGetCallbackAsync
             var redirectUrl = Url.Page("./ExternalLogin", pageHandler: "Callback", values: new { returnUrl });
 
             // Cấu hình
@@ -77,7 +80,7 @@ namespace WEB2.Areas.Identity.Pages.Account {
             return new ChallengeResult(provider, properties);
         }
 
-        public async Task<IActionResult> OnGetCallbackAsync( string returnUrl = null, string remoteError = null ) {
+        public async Task<IActionResult> OnGetCallbackAsync(string returnUrl = null, string remoteError = null) {
             returnUrl = returnUrl ?? Url.Content("~/");
             if (remoteError != null) {
                 ErrorMessage = $"Lỗi provider: {remoteError}";
@@ -91,9 +94,9 @@ namespace WEB2.Areas.Identity.Pages.Account {
                 return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
             }
 
-            // Đăng nhập bằng thông tin LoginProvider, ProviderKey từ info cung cấp bởi dịch vụ ngoài
-            // User nào có 2 thông tin này sẽ được đăng nhập - thông tin này lưu tại bảng UserLogins của Database
-            // Trường LoginProvider và ProviderKey ---> tương ứng UserId
+            // Đăng nhập bằng thông tin LoginProvider, ProviderKey từ info cung cấp bởi dịch vụ
+            // ngoài User nào có 2 thông tin này sẽ được đăng nhập - thông tin này lưu tại bảng
+            // UserLogins của Database Trường LoginProvider và ProviderKey ---> tương ứng UserId
             var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
 
             if (result.Succeeded) {
@@ -104,17 +107,16 @@ namespace WEB2.Areas.Identity.Pages.Account {
             if (result.IsLockedOut) {
                 // Bị tạm khóa
                 return RedirectToPage("./Lockout");
-            }
-            else {
+            } else {
                 var userExisted = await _userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
                 if (userExisted != null) {
-                    // Đã có Acount, đã liên kết với tài khoản ngoài - nhưng không đăng nhập được
-                    // có thể do chưa kích hoạt email
+                    // Đã có Acount, đã liên kết với tài khoản ngoài - nhưng không đăng nhập được có
+                    // thể do chưa kích hoạt email
                     return RedirectToPage("./RegisterConfirmation", new { Email = userExisted.Email });
                 }
 
-                // Chưa có Account liên kết với tài khoản ngoài
-                // Hiện thị form để thực hiện bước tiếp theo ở OnPostConfirmationAsync
+                // Chưa có Account liên kết với tài khoản ngoài Hiện thị form để thực hiện bước tiếp
+                // theo ở OnPostConfirmationAsync
                 ReturnUrl = returnUrl;
                 ProviderDisplayName = info.ProviderDisplayName;
                 if (info.Principal.HasClaim(c => c.Type == ClaimTypes.Email)) {
@@ -128,7 +130,7 @@ namespace WEB2.Areas.Identity.Pages.Account {
             }
         }
 
-        public async Task<IActionResult> OnPostConfirmationAsync( string returnUrl = null ) {
+        public async Task<IActionResult> OnPostConfirmationAsync(string returnUrl = null) {
             returnUrl = returnUrl ?? Url.Content("~/");
             // Lấy lại Info
             var info = await _signInManager.GetExternalLoginInfoAsync();
@@ -144,8 +146,8 @@ namespace WEB2.Areas.Identity.Pages.Account {
                 }
                 var userWithexternalMail = (externalMail != null) ? (await _userManager.FindByEmailAsync(externalMail)) : null;
 
-                // Xử lý khi có thông tin về email từ info, đồng thời có user với email đó
-                // trường hợp này sẽ thực hiện liên kết tài khoản ngoài + xác thực email luôn
+                // Xử lý khi có thông tin về email từ info, đồng thời có user với email đó trường
+                // hợp này sẽ thực hiện liên kết tài khoản ngoài + xác thực email luôn
                 if ((userWithexternalMail != null) && (Input.Email == externalMail)) {
                     // xác nhận email luôn nếu chưa xác nhận
                     if (!userWithexternalMail.EmailConfirmed) {
@@ -162,8 +164,7 @@ namespace WEB2.Areas.Identity.Pages.Account {
                             urlredirect = returnUrl,
                             htmlcontent = $"Liên kết tài khoản {userWithexternalMail.UserName} với {info.ProviderDisplayName} thành công"
                         });
-                    }
-                    else {
+                    } else {
                         return ViewComponent(MessagePage.COMPONENTNAME, new MessagePage.Message() {
                             title = "LIÊN KẾT TÀI KHOẢN",
                             urlredirect = Url.Page("Index"),
@@ -175,6 +176,9 @@ namespace WEB2.Areas.Identity.Pages.Account {
                 // Tài khoản chưa có, tạo tài khoản mới
                 var user = new AppUser { UserName = Input.Email, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user);
+                var customer = new Customer { UserId = user.Id };
+                _context.Add(customer);
+                await _context.SaveChangesAsync();
                 if (result.Succeeded) {
                     // Liên kết tài khoản ngoài với tài khoản vừa tạo
                     result = await _userManager.AddLoginAsync(user, info);
@@ -192,8 +196,8 @@ namespace WEB2.Areas.Identity.Pages.Account {
                             });
                         }
 
-                        // Trường hợp này Email tạo User khác với Email từ info (hoặc info không có email)
-                        // sẽ gửi email xác để người dùng xác thực rồi mới có thể đăng nhập
+                        // Trường hợp này Email tạo User khác với Email từ info (hoặc info không có
+                        // email) sẽ gửi email xác để người dùng xác thực rồi mới có thể đăng nhập
                         var userId = await _userManager.GetUserIdAsync(user);
                         var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));

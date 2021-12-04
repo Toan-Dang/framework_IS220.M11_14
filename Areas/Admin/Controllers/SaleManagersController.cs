@@ -41,11 +41,12 @@ namespace WEB2.Areas.Admin.Controllers {
             for (int i = 0 ; i < order.Count - 1 ; i++) {
                 if (check == false) {
                     od = order[i];
+                    od.Voucher = od.Product.ProductName;
                     od.IDSKU = od.Quantity.ToString();
                 }
 
                 if (order[i].OrderId == order[i + 1].OrderId) {
-                    od.Product.ProductName += "\n" + order[i + 1].Product.ProductName;
+                    od.Voucher += "\n" + order[i + 1].Product.ProductName;
                     od.IDSKU += "\n" + order[i + 1].Quantity.ToString();
                     check = true;
                 } else {
@@ -55,6 +56,7 @@ namespace WEB2.Areas.Admin.Controllers {
             }
             if (check == false) {
                 od = order[order.Count - 1];
+                od.Voucher = od.Product.ProductName;
                 od.IDSKU = od.Quantity.ToString();
             }
             reorder.Add(od);
@@ -87,11 +89,12 @@ namespace WEB2.Areas.Admin.Controllers {
             for (int i = 0 ; i < order.Count - 1 ; i++) {
                 if (check == false) {
                     od = order[i];
+                    od.Voucher = od.Product.ProductName;
                     od.IDSKU = od.Quantity.ToString();
                 }
 
                 if (order[i].OrderId == order[i + 1].OrderId) {
-                    od.Product.ProductName += "\n" + order[i + 1].Product.ProductName;
+                    od.Voucher += "\n" + order[i + 1].Product.ProductName;
                     od.IDSKU += "\n" + order[i + 1].Quantity.ToString();
                     check = true;
                 } else {
@@ -101,6 +104,7 @@ namespace WEB2.Areas.Admin.Controllers {
             }
             if (check == false) {
                 od = order[order.Count - 1];
+                od.Voucher = od.Product.ProductName;
                 od.IDSKU = od.Quantity.ToString();
             }
             reorder.Add(od);
@@ -128,11 +132,12 @@ namespace WEB2.Areas.Admin.Controllers {
             for (int i = 0 ; i < order.Count - 1 ; i++) {
                 if (check == false) {
                     od = order[i];
+                    od.Voucher = od.Product.ProductName;
                     od.IDSKU = od.Quantity.ToString();
                 }
 
                 if (order[i].OrderId == order[i + 1].OrderId) {
-                    od.Product.ProductName += "\n" + order[i + 1].Product.ProductName;
+                    od.Voucher += "\n" + order[i + 1].Product.ProductName;
                     od.IDSKU += "\n" + order[i + 1].Quantity.ToString();
                     check = true;
                 } else {
@@ -142,6 +147,7 @@ namespace WEB2.Areas.Admin.Controllers {
             }
             if (check == false) {
                 od = order[order.Count - 1];
+                od.Voucher = od.Product.ProductName;
                 od.IDSKU = od.Quantity.ToString();
             }
             reorder.Add(od);

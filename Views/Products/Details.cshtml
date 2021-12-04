@@ -7,6 +7,7 @@
 <link href="@Url.Content("/css/views/product/details.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css")" rel="stylesheet" type="text/css" />
+
 }       
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 @foreach (var items in Model.Product.Feedbacks)
@@ -1926,15 +1927,16 @@
                //////////////
               
 
-                  var ver = "@Model.Product.Version";
+                  var ver = "@Model.Product.Category.Active";
                   var spver = ver.split("-");
               
         
-                  var col = "@Model.Product.Color";
+                  var col = "@Model.Product.Category.Picture";
                   var spcol = col.split("-");
             
                   
-             
+                  var actualver = "@Model.Product.Version";
+                  var actualcol = "@Model.Product.Color";
                
                 var proVer = [];
                 var protemp;
@@ -1961,18 +1963,34 @@
         
 
                  for(let i =0; i< proVer.length; ++i){
-                    $('#verpro').append(`
-                    <a class="btn" id="${proVer[i]}" href="/products/detailversion?productid=@Model.Product.ProductName&version=${proVer[i]}" >${proVer[i]} </a>
+                   if(actualver == proVer[i]){
+                        $('#verpro').append(`
+                    <a class="btn btn-outline-primary" id="${proVer[i]}" href="/products/detailversion?productname=@Model.Product.ProductName&version=${proVer[i]}" >${proVer[i]} </a>
                     `);
+                   }else{
+                      $('#verpro').append(`
+                    <a class="btn" id="${proVer[i]}" href="/products/detailversion?productname=@Model.Product.ProductName&version=${proVer[i]}" >${proVer[i]} </a>
+                    `);
+                   }
+                  
                  
 
                  }
+            
 
                  for(let i =1; i< spcol.length; ++i){
-                    $('#colopro').append(`
-                    <a class="btn" id="${spcol[i]}"  href="/products/detailcolor?productid=@Model.Product.ProductName&version=@Model.Product.Version&color=${spcol[i]}">${spcol[i]} </a>
+                     if(actualcol == spcol[i]){
+                          $('#colopro').append(`
+                    <a class="btn btn-outline-primary" id="${spcol[i]}"  href="/products/detailcolor?productname=@Model.Product.ProductName&version=@Model.Product.Version&color=${spcol[i]}">${spcol[i]} </a>
                     `);
+                     } else{
+                           $('#colopro').append(`
+                    <a class="btn" id="${spcol[i]}"  href="/products/detailcolor?productname=@Model.Product.ProductName&version=@Model.Product.Version&color=${spcol[i]}">${spcol[i]} </a>
+                    `);
+                     }
+                  
                  }
+              
               
                /////////////////////////////////////////
                
