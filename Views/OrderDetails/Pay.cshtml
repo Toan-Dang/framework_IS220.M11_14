@@ -360,7 +360,7 @@
                                                 }
                                                 ranarr[1] = 0;
                                                 var shipmoney =  @shipMoney;
-                                                var total =  @pay;
+                                                var total =  @pay + shipmoney;
 
                                                     var shipcom = 1;
                                                 var oid = @orderid;
@@ -371,7 +371,7 @@
                                                 var selectedValue = $(this).val();
                                                     shipcom =  selectedValue;
                                                     shipmoney =  @shipMoney+  ranarr[selectedValue];
-                                                    total =  ranarr[selectedValue] + @pay;
+                                                    total =  ranarr[selectedValue] + @pay + shipmoney;
 
                                                 document.getElementById("shipmoney").innerHTML = numberWithCommas(shipmoney);
 
