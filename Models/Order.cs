@@ -28,6 +28,7 @@ namespace WEB2.Models {
         public string ResponseCode { get; set; }
         public string SecureHash { get; set; }
         public string Voucher { get; set; }
+        public int InventoryId { get; set; }
 
         [ForeignKey("PaymentId")]
         public virtual Payment Payment { get; set; }

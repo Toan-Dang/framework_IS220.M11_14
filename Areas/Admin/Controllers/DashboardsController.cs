@@ -36,7 +36,7 @@ namespace WEB2.Areas.Admin.Controllers {
                 .Where(p => p.Order.TransactStatus != "cancel")
                 .Where(p => p.Status == "solved")
                 .ToListAsync();
-            if (order.Count == 0) {
+            if (order.Count < 1 || order == null) {
                 return RedirectToAction(nameof(Dashboard));
             }
             OrderDetail od = new OrderDetail();
@@ -76,7 +76,14 @@ namespace WEB2.Areas.Admin.Controllers {
                 return NotFound();
             }
             var order = await _context.Order.FindAsync(id);
-            order.TransactStatus = "shipping";
+
+            if (order.TransactStatus.Equals("shipping"))
+                order.TransactStatus = "done";
+            if (order.TransactStatus.Equals("accept"))
+                order.TransactStatus = "shipping";
+            if (order.TransactStatus.Equals("pay by cash") || order.TransactStatus.Equals("paid"))
+                order.TransactStatus = "accept";
+
             _context.Update(order);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Dashboard1));

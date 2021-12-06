@@ -255,6 +255,7 @@ namespace WEB2.Controllers {
             double latpos = Convert.ToDouble(cus.Latitude);
             double lonpos = Convert.ToDouble(cus.Longitude);
             double max = 9999999999;
+            int invenid = 0;
             // max : khoảng cách
             var inven = await _context.Inventory.ToListAsync();
             foreach (var item in inven) {
@@ -263,11 +264,13 @@ namespace WEB2.Controllers {
                 double res = Math.Abs(Math.Sqrt(Math.Pow(latpos - lat, 2) + Math.Pow(lonpos - lon, 2)));
                 if (res <= max) {
                     max = res;
+                    invenid = item.InventoryId;
                 }
             }
             var ordership = await _context.Order.FindAsync(id);
             ///tính tiền ship
             max *= 100000;
+            ordership.InventoryId = invenid;
             ordership.Freight = Math.Round(max, 2);
             _context.Update(ordership);
             await _context.SaveChangesAsync();
