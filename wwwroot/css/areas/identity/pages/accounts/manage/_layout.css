@@ -135,3 +135,57 @@
 .exlogin button {
     width: 100%;
 }
+.chosen {
+    border-radius: 30px 0px 30px 30px;
+}
+.chosen1 {
+    border-radius: 0px 30px 30px 30px;
+}
+.chosen, .chosen1 {
+    background-color: #be1e2d;
+    color: white;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+    .chosen > a, .chosen1 > a {
+        color: white !important;
+    }
+        .chosen > a:link, .chosen1 > a:link {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* visited link */
+        .chosen > a:visited, .chosen1 > a:visited {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* mouse over link */
+        .chosen > a:hover, .chosen1 > a:hover {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* selected link */
+        .chosen > a:active, .chosen1 > a:active {
+            color: white;
+            text-decoration: none;
+        }
+#mininav a:link {
+    text-decoration: none;
+    color: black;
+}
+#mininav a:visited {
+    text-decoration: none;
+    color: black;
+}
+#mininav a:hover {
+    text-decoration: none;
+    color: black;
+}
+#mininav a:active {
+    text-decoration: none;
+    color: black;
+}

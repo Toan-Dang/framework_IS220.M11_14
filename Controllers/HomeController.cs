@@ -74,7 +74,55 @@ namespace WEB2.Controllers {
             pro.Add(accessL[7]);
             return View(pro);
         }
-
+        public async Task<IActionResult> Search(string searchString)
+        {
+            /*var cute = await _context.Category.ToListAsync();
+            foreach (var item in cute)
+            {
+                if (item.CategoryName.Equals("Điện thoại"))
+                {
+                    item.CategoryName = "Điện thoại";
+                }
+            }*/
+            var products = await _context.Product.Include(p => p.Battery).Include(p => p.Camera).Include(p => p.Category).Include(p => p.Connection).Include(p => p.Graphic).Include(p => p.OS).Include(p => p.Processor).Include(p => p.Ram).Include(p => p.Rom).Include(p => p.Screen).Include(p => p.Sound).Include(p => p.Structure)
+                    .Where(p => p.ProductName.ToLower().Contains(searchString.ToLower()) == true || p.Category.CategoryName.ToLower().Contains(searchString.ToLower()) == true || p.Category.ParentCategory.CategoryName.ToLower().Contains(searchString.ToLower()) == true).ToListAsync();
+            if (searchString.ToLower().Equals("điện thoại"))
+            {
+                products = await _context.Product.Include(p => p.Battery).Include(p => p.Camera).Include(p => p.Category).Include(p => p.Connection).Include(p => p.Graphic).Include(p => p.OS).Include(p => p.Processor).Include(p => p.Ram).Include(p => p.Rom).Include(p => p.Screen).Include(p => p.Sound).Include(p => p.Structure)
+                        .Where(p => p.Category.ParentCategoryId == 1).ToListAsync();
+            }
+            var pro = new List<Product>();
+            var protemp = new Product();
+            bool check = false;
+            if (products.Count <= 1)
+            {
+                return View(products);
+            }
+            for (int i = 0; i < products.Count - 1; i++)
+            {
+                if (check == false)
+                {
+                    protemp = products[i];
+                    protemp.ProductName = products[i].ProductName;
+                }
+                if (products[i].ProductName == products[i + 1].ProductName)
+                {
+                    check = true;
+                    continue;
+                }
+                else
+                {
+                    pro.Add(protemp);
+                    check = false;
+                }
+            }
+            if (check == false)
+            {
+                pro.Add(products[products.Count - 1]);
+            }
+            pro.Add(protemp);
+            return View(pro);
+        }
         public IActionResult Privacy() {
             return View();
         }

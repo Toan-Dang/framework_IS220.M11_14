@@ -22,7 +22,7 @@ namespace WEB2.Areas.Identity.Pages.Account.Manage {
         public static string PersonalData => "PersonalData";
 
         public static string TwoFactorAuthentication => "TwoFactorAuthentication";
-        public static string Bill => "Bill";
+        /*public static string Bill => "Bill";*/
 
         public static string IndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, Index);
 
@@ -40,7 +40,7 @@ namespace WEB2.Areas.Identity.Pages.Account.Manage {
 
         public static string TwoFactorAuthenticationNavClass(ViewContext viewContext) => PageNavClass(viewContext, TwoFactorAuthentication);
 
-        public static string BillNavClass(ViewContext viewContext) => PageNavClass(viewContext, Bill);
+        /*public static string BillNavClass(ViewContext viewContext) => PageNavClass(viewContext, Bill);*/
 
         private static string PageNavClass(ViewContext viewContext, string page) {
             var activePage = viewContext.ViewData["ActivePage"] as string

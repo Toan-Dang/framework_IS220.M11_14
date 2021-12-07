@@ -4,8 +4,6 @@
 @{
     ViewData["Title"] = "Bills";
 }
-
-
 <table class="table">
     <thead>
         <tr>
@@ -23,7 +21,6 @@
                  tên sản phẩm
              </th>
              <th>số lượng</th>
-  
         </tr>
     </thead>
     <tbody>
@@ -58,6 +55,11 @@
                     | lt3      |   3     |   200k         |              |
             ----------------------------------------------------
         </tr>    *@
-}
+    }
     </tbody>
 </table>
+<script>
+    $(document).ready(function(){
+        $("#history").addClass("chosen1");
+    })
+</script>

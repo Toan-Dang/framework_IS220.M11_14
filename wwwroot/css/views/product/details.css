@@ -51,7 +51,15 @@
 .product-slice .slick-prev {
     box-shadow: none !important;
 }
-
+.product-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    width: 100%;
+}
 .product-slice .slick-next {
     box-shadow: none !important;
 }

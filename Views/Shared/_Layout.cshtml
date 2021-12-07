@@ -26,18 +26,32 @@
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <p class="logo mb-0">Zer<span style="color: #be1e2d">o</span>ne.vn</p>
                 </a>
-                <div class="input-group mb-0" style="width: 30%">
-                    <input type="text" class="form-control" placeholder="Bạn muốn tìm sản phẩm nào ?" aria-label="search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon1">
-                            <i class='bx bx-search'></i>
-                        </button>
+                <form id="f_search" method="get" method="get" asp-controller="Home" asp-action="Search" style="width: 30%" >
+                    <div class="input-group mb-0" style="width: 100%">
+                        <input id="ipt_search" type="text" class="form-control" name="searchString" placeholder="Bạn muốn tìm sản phẩm nào ?" aria-label="search" aria-describedby="basic-addon2" />
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon1">
+                                <i class='bx bx-search'></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </form>
+@*                <form id="f_search" method="get" asp-action="Search">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input id="ipt_search" type="search" class="form-control" name="SearchTerm" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default">
+                                Search
+                            </button>
+                        </span>
                     </div>
                 </div>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+            </form>*@
                 @await Html.PartialAsync("_LoginPartial")
             </div>
         </nav>
@@ -270,6 +284,24 @@
                 e.preventDefault();
                 $('html, body').animate({ scrollTop: 0 }, '300');
             });
+            $('#f_search input').keydown(function (e) {
+                    var searchTerm = $("#ipt_search").val();
+                    if (searchTerm == "" && event.keyCode === 13) {
+                        e.preventDefault();
+                        return false;
+                    }
+                    
+            });
+            $('#button-addon1').click(function (e){
+                    var searchTerm = $("#ipt_search").val();
+                    if (searchTerm == "") {
+                        e.preventDefault();
+                        return false;
+                    }
+                    else {
+                        $("#f_search").submit();
+                    }
+            })
         });
     </script>
     @await RenderSectionAsync("Scripts", required: false)
