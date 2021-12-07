@@ -51,6 +51,29 @@ namespace WEB2.Controllers {
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Add([FromBody] OrderDetail orderDetail) {
+            var order = await _context.OrderDetail.Where(p => p.OrderId == orderDetail.OrderId)
+                .Where(p => p.ProductId == orderDetail.ProductId).FirstOrDefaultAsync();
+            var reorder = await _context.Order.FindAsync(orderDetail.OrderId);
+
+            order.Quantity = orderDetail.Quantity;
+            order.Total = orderDetail.Quantity * order.Price;
+            var detail = await _context.OrderDetail.Where(p => p.OrderId == orderDetail.OrderId).ToListAsync();
+            var max = 0.0;
+            foreach (var item in detail) {
+                max += item.Price * item.Quantity;
+            }
+            reorder.Paid = max;
+            _context.Update(reorder);
+            await _context.SaveChangesAsync();
+
+            _context.Update(order);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
         public async Task<IActionResult> Index() {
             var user = await _userManager.GetUserAsync(User);
             var userid = await _userManager.GetUserIdAsync(user);
@@ -77,12 +100,12 @@ namespace WEB2.Controllers {
 
             var order = await _context.Order.Include(o => o.Customer)
                 .Where(o => o.Customer.UserId == userid)
-                .Where(o => o.Deleted == false)
                 .Where(o => o.TransactStatus != "paid")
                 .Where(o => o.TransactStatus != "done")
                 .Where(o => o.TransactStatus != "pay by cash")
                  .Where(o => o.TransactStatus != "shipping")
                  .Where(o => o.TransactStatus != "cancel")
+                   .Where(o => o.TransactStatus != "accept")
                 .FirstOrDefaultAsync();
 
             if (ModelState.IsValid) {
@@ -95,7 +118,8 @@ namespace WEB2.Controllers {
                         ShipperId = 1,
                         PaymentId = 1,
                         TransactStatus = "null",
-                        Deleted = false
+                        Deleted = false,
+                        Paid = product.UnitPrice
                     };
 
                     _context.Add(neworder);
@@ -119,9 +143,6 @@ namespace WEB2.Controllers {
                     };
 
                     _context.Add(cart);
-                    await _context.SaveChangesAsync();
-
-                    _context.Update(product);
                     await _context.SaveChangesAsync();
                 } else {
                     int orderid = order.OrderId;
@@ -149,8 +170,8 @@ namespace WEB2.Controllers {
                         };
                         _context.Add(cart);
                         await _context.SaveChangesAsync();
-
-                        _context.Update(product);
+                        order.Paid += cart.Total;
+                        _context.Update(order);
                         await _context.SaveChangesAsync();
                     } else {
                     }
@@ -169,6 +190,7 @@ namespace WEB2.Controllers {
                 .Include(o => o.Product)
                 .Where(o => o.ProductId == productid)
                .FirstOrDefaultAsync(m => m.OrderId == orderid);
+
             if (orderDetail == null) {
                 return NotFound();
             }
@@ -182,6 +204,11 @@ namespace WEB2.Controllers {
         public async Task<IActionResult> DeleteConfirmed(int productid, int orderid) {
             var orderDetail = await _context.OrderDetail.Where(o => o.OrderId == orderid)
                 .Where(o => o.ProductId == productid).FirstOrDefaultAsync();
+
+            var order = await _context.Order.FindAsync(orderid);
+            order.Paid -= orderDetail.Total;
+            _context.Update(order);
+            await _context.SaveChangesAsync();
             _context.OrderDetail.Remove(orderDetail);
             await _context.SaveChangesAsync();
 
@@ -228,7 +255,8 @@ namespace WEB2.Controllers {
             double latpos = Convert.ToDouble(cus.Latitude);
             double lonpos = Convert.ToDouble(cus.Longitude);
             double max = 9999999999;
-
+            int invenid = 0;
+            // max : khoảng cách
             var inven = await _context.Inventory.ToListAsync();
             foreach (var item in inven) {
                 double lat = Convert.ToDouble(item.Latitude);
@@ -236,10 +264,13 @@ namespace WEB2.Controllers {
                 double res = Math.Abs(Math.Sqrt(Math.Pow(latpos - lat, 2) + Math.Pow(lonpos - lon, 2)));
                 if (res <= max) {
                     max = res;
+                    invenid = item.InventoryId;
                 }
             }
             var ordership = await _context.Order.FindAsync(id);
+            ///tính tiền ship
             max *= 100000;
+            ordership.InventoryId = invenid;
             ordership.Freight = Math.Round(max, 2);
             _context.Update(ordership);
             await _context.SaveChangesAsync();
@@ -309,6 +340,7 @@ namespace WEB2.Controllers {
                     break;
                 }
             }
+            // cus.Latitude = ""; cus.Longitude = "";
             _context.Update(cus);
             await _context.SaveChangesAsync();
 

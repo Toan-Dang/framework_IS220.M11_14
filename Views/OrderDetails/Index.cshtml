@@ -99,6 +99,9 @@
                     <td>
                         <a class="btn del-btn" href="/orderdetails/delete?productid=@item.ProductId&orderid=@item.OrderId">Xóa</a>
                     </td>
+                    
+                         <td class="show">@Html.DisplayFor(modelItem => item.ProductId)</td>
+                    <td class="show">@Html.DisplayFor(modelItem => item.OrderId)</td>
                 </tr>
                 if( vis == true) {
                     <div style="display: block" id="thanhtoan">
@@ -118,6 +121,40 @@
 </div>
 <script src="@Url.Content("~/js/views/orderdetails/index.js")"></script>
 <script>
+                    $('.show').hide();
+        var table = document.getElementsByTagName("table")[0];
+        var tbody = table.getElementsByTagName("tbody")[0];
+        var cells;
+        var quan;
+           tbody.onclick = function (e) {
+
+            e = e || window.event;
+            var target = e.srcElement || e.target;
+            while (target && target.nodeName !== "TR") {
+                target = target.parentNode;
+            }
+            if (target) {
+                 cells = target.getElementsByTagName("td");
+                 quan = cells[4].getElementsByTagName('input')[0].value;
+                 console.log(quan);
+            }
+
+             var model = new Object();
+            model.Orderid =  cells[9].innerHTML;
+            model.ProductId = cells[8].innerHTML;
+            model.Quantity = quan;
+            console.log(model);
+            jQuery.ajax({
+            type: "POST",
+            url: "@Url.Action("Add","OrderDetails")",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify( model ),
+            processData: true,
+                    cache: false,
+            });
+
+        };
 </script>
 </main>
 
