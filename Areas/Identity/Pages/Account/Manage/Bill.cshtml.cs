@@ -54,7 +54,6 @@ namespace WEB2.Areas.Identity.Pages.Account.Manage {
                     orderdetail.Add(pro);
                 }
             }
-
             if (orderdetail == null) {
                 return NotFound();
             }

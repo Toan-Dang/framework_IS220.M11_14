@@ -1,65 +1,121 @@
 ﻿@page
 @model WEB2.Areas.Identity.Pages.Account.Manage.BillModel
-
 @{
     ViewData["Title"] = "Lịch sử mua hàng";
+    int ID_index = 0;
 }
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                mã hóa đơn
-            </th>
-            <th>
-               ngày hóa đơn
-            </th>
-            <th>
-               tổng tiền
-            </th>
 
-             <th>
-                 tên sản phẩm
-             </th>
-             <th>số lượng</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.orderdetail) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-       
-
-        </tr>
-     @*   <tr>
-            1 hóa đơn là 1 bảng, 1 hóa đơn có nhiều sản phẩm
-            nếu khách hàng mua nhiều hóa đơn thì tách thành nhiều bảng 
-            ví dụ khách hàng a có 2 hóa đơn, hóa đơn đầu tiên mua 2 điện thoại, hóa đơn thứ 2 mua 3 cái lap top 
-            thì bảng sẽ là 
-            ------------------------------------------------
-            hóa đơn | sản phẩm | số lượng| thành tiền     | ngày mua hàng|
-                1   | dt1      |   1     |   100k (100*1) |   dd\mm\yyyy |
-                    | dt2      |   2     |   100k (50*2)  |              |
-            ----------------------------------------------------
-            ----------------------------------------------------------
-            hóa đơn | sản phẩm | số lượng| thành tiền     | ngày mua hàng|
-                2   | lt1      |   1     |   100k (100*1) |   dd\mm\yyyy |
-                    | lt2      |   2     |   100k (50*2)  |              |
-                    | lt3      |   3     |   200k         |              |
-            ----------------------------------------------------
-        </tr>    *@
+@{
+    List<int> orderID = new List<int>();
+    bool checkList(int number)
+    {
+        if (orderID.Count == 0)
+        {
+            return true;
+        }
+        foreach (var item in orderID)
+        {
+            if (item == number)
+            {
+                return false;
+            }
+        }
+        return true;
     }
-    </tbody>
-</table>
-<script>
-    $(document).ready(function(){
-        $("#history").addClass("chosen1");
-    })
-</script>
+    bool ADD(int x)
+    {
+        orderID.Add(x);
+        return true;
+    }
+}
+<main>
+<div class="mt-3">
+    
+        <link href="@Url.Content("/css/areas/identity/pages/accounts/manage/bill.css")" rel="stylesheet" type="text/css" />
+        @foreach(var it in Model.orderdetail){
+            <div class="mt-5 tblcontent" id="@it.OrderId">
+                @if(checkList(it.OrderId) == true){
+
+                    {
+                        ID_index = it.OrderId;
+                    }
+
+                    <table class="tbl @it.OrderId">
+                    <thead>
+                        <tr>
+                            <th>
+                               <div class="iddonhang">
+                                    <span><span class="iddonhang">@Html.DisplayFor(modelItem => it.OrderId)</span></span>
+                                </div>
+                            </th>
+                            <th>
+                                Sản phẩm
+                            </th>
+                            <th>
+                                Phiên bản
+                            </th>
+                            <th>
+                                Màu sắc
+                            </th>
+                            <th>
+                                Số lượng
+                            </th>
+                            <th>
+                                Đơn giá
+                            </th>
+                            <th>
+                                Thành tiền
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                @foreach (var item in Model.orderdetail) {
+                    @if (item.OrderId == ID_index){
+                    <tr>
+                        <td>
+                            <a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@item.Product.ProductId">
+                                <img src="@Html.DisplayFor(modelItem => item.Product.Picture)" alt="@Html.DisplayFor(modelItem => item.Product.ProductName)" />
+                            </a>
+                        </td>
+                        <td>
+                            <a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@item.Product.ProductId">
+                                @Html.DisplayFor(modelItem => item.Product.ProductName)
+                           </a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Product.Version)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Product.Color)
+                        </td>
+                       <td >
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                        <td class="price">
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                       <td class="total">
+                            @Html.DisplayFor(modelItem => item.Total)
+                        </td>
+                    </tr>
+                        }
+                    }
+                    </tbody>
+                    </table>
+                    {
+                        if (@ADD(ID_index)) {};
+                    }
+                    <div class="text-right">Tổng thanh toán&nbsp;&nbsp;<span class="tongthanhtoan"></span></div>
+                    <hr />
+                }
+            </div>
+        }
+    <script src="@Url.Content("/js/areas/identity/pages/accounts/manage/bill.js")"></script>
+
+@*    <script>
+        window.onload = function() {
+
+        }
+    </script>*@
+</div>
+</main>
