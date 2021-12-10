@@ -108,7 +108,7 @@ h3.unitprice{
     }
 
 .info {
-    margin-top: 35px;
+
     border-radius: 10px;
     text-align: center;
     padding-top: 10px;
@@ -601,4 +601,39 @@ h6.price {
 }
 .reply-form input[type="submit"] {
     float:right;
+}
+
+    .phienban > .btn-outline-primary, .mausac > .btn-outline-primary {
+        border: 1px solid rgb(26, 148, 255) !important;
+        color: rgb(26, 148, 255);
+    }
+        .phienban > .btn, .mausac > .btn {
+            margin-top: 5px;
+        }
+        .phienban > .btn-outline-primary:link, .mausac > .btn-outline-primary:link {
+            background-color: white;
+            color: rgb(26, 148, 255);
+        }
+/* visited link */
+    .phienban > .btn-outline-primary:visited, .mausac > .btn-outline-primary:visited {
+        background-color: white;
+        color: rgb(26, 148, 255);
+    }
+/* mouse over link */
+    .phienban > .btn-outline-primary:hover, .mausac > .btn-outline-primary:hover {
+        background-color: white;
+        color: rgb(26, 148, 255);
+    }
+/* selected link */
+    .phienban > .btn-outline-primary:active, .mausac > .btn-outline-primary:active {
+        background-color: white;
+        color: rgb(26, 148, 255);
+    }
+    .phienban > .btn-outline-primary:focus, .mausac > .btn-outline-primary:focus {
+        background-color: white !important;
+        color: rgb(26, 148, 255) !important;
+    }
+.phienban > .btn:focus, .mausac > .btn:focus {
+    outline: none !important;
+    box-shadow: none !important;
 }

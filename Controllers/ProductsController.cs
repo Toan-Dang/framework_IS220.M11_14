@@ -13,7 +13,6 @@ namespace WEB2.Controllers {
 
     public class ProductsController : Controller {
         private readonly AppDbContext _context;
-
         public ProductsController(AppDbContext context) {
             _context = context;
         }
@@ -230,6 +229,28 @@ namespace WEB2.Controllers {
             ++product.View;
             _context.Update(product);
             await _context.SaveChangesAsync();
+
+            var pro = await _context.Product
+            .Where(p => p.ProductName == product.ProductName)
+            .ToListAsync();
+            var col = await _context.Product.Where(p => p.ProductName == product.ProductName)
+                .Where(p => p.Version == product.Version).ToListAsync();
+            string color = "";
+            foreach (var item in col)
+            {
+                color += "-" + item.Color;
+            }
+
+            string version = "";
+
+            foreach (var item in pro)
+            {
+                version += "-" + item.Version;
+            }
+
+            product.Category.Active = version;
+            product.Category.Picture = color;
+
             return View(product);
         }
 
@@ -253,6 +274,7 @@ namespace WEB2.Controllers {
                 .Include(p => p.Product.Structure)
                 .Include(p => p.Product.Feedbacks)
                 .Include(p => p.Product.Images)
+                .Include(p => p.Product.ProductDiscounts)
                 .FirstOrDefaultAsync(m => m.Product.ProductId == id);
 
             if (product == null) {

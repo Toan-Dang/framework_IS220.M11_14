@@ -79,16 +79,32 @@ img {
     font-weight: bold;
 }
 .text-right{
-    margin-top: 20px;
-    margin-right: 45px;
+    margin-top:10px;
+    margin-right: 23px;
 }
-    .text-right > span {
-        background-color: #FFC0C7;
-        padding-left: 7.5px;
-        padding-right: 7.5px;
-        padding-top: 4px;
-        padding-bottom: 4px;
-        color: black;
-        font-weight: bold;
-        border-radius: 30px 30px 30px 30px;
-    }
+.result-pannel > div span {
+    padding-left: 7.5px;
+    padding-right: 7.5px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    color: black;
+    font-weight: bold;
+    border-radius: 30px 30px 30px 30px;
+}
+.result-pannel > div:last-child span {
+    background-color: #FFC0C7;
+    padding-left: 7.5px;
+    padding-right: 7.5px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    color: black;
+    font-weight: bold;
+    border-radius: 30px 30px 30px 30px;
+}
+.text-right1 {
+    width: 100px;
+}
+.result-pannel > .text-right > .text-right {
+    display: inline-block !important;
+}
+

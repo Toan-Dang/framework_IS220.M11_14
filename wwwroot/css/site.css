@@ -309,3 +309,17 @@ body a{
         opacity: 1;
         visibility: visible;
     }
+#f_search .input-group-append {
+    z-index: 10;
+    align-items: center;
+    margin-left: -13%;
+}
+#f_search button {
+    border-radius: 100px;
+    width: 100%;
+    height: 85%;
+    text-align: center !important;
+}
+#f_search input {
+    border-radius: 30px;
+}

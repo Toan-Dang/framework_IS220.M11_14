@@ -66,7 +66,7 @@
                 </div>
             </div>
             <div class="col">
-                <div style="padding-top: 35px">
+                <div>
                     <h3 class="unitprice"><span id="price1"></span></h3>
                     <h5 class="msrp" style="display: inline; margin-left: 20px"><span id="price2"></span></h5>
                 </div>
@@ -74,12 +74,14 @@
                    
                     @Html.ActionLink("<p><i class='bi bi-cart-check-fill'></i> MUA NGAY</p>","AddCart","OrderDetails",new {productid = @Model.ProductId},null)
                 </div>
-                @if (Model.Product.Category.ParentCategoryId < 5){
+                
                 <div class="grouping" style="position: relative; top: 100px;">
+                    @if (Model.Product.Category.ParentCategoryId < 5){
                     <div class="phienban" id = "verpro">
                         <h6>Phiên bản</h6>
    
                     </div>
+                     }
                     <div class="mausac" id = "colopro">
                         <h6>Màu sắc</h6>
            
@@ -88,7 +90,7 @@
 
                     </div>
                 </div>
-                }
+
                 <div class="uudai" style="position: relative; top: 110px;">
                     <h6><i class="bi bi-gift-fill"></i> Ưu đãi</h6>
                     <div class="uudaicontent">
@@ -1964,11 +1966,11 @@
                  for(let i =0; i< proVer.length; ++i){
                    if(actualver == proVer[i]){
                         $('#verpro').append(`
-                    <a class="btn btn-outline-primary" id="${proVer[i]}" href="/products/detailversion?productname=@Model.Product.ProductName&version=${proVer[i]}" >${proVer[i]} </a>
+                    <a class="btn btn-outline-primary" id="${proVer[i]}" href="/products/detailversion?productname=@Model.Product.ProductName&version=${proVer[i]}" >${proVer[i]}</a>
                     `);
                    }else{
                       $('#verpro').append(`
-                    <a class="btn" id="${proVer[i]}" href="/products/detailversion?productname=@Model.Product.ProductName&version=${proVer[i]}" >${proVer[i]} </a>
+                    <a class="btn" id="${proVer[i]}" href="/products/detailversion?productname=@Model.Product.ProductName&version=${proVer[i]}" >${proVer[i]}</a>
                     `);
                    }
                   
@@ -1980,17 +1982,18 @@
                  for(let i =1; i< spcol.length; ++i){
                      if(actualcol == spcol[i]){
                           $('#colopro').append(`
-                    <a class="btn btn-outline-primary" id="${spcol[i]}"  href="/products/detailcolor?productname=@Model.Product.ProductName&version=@Model.Product.Version&color=${spcol[i]}">${spcol[i]} </a>
+                    <a class="btn btn-outline-primary" id="${spcol[i]}"  href="/products/detailcolor?productname=@Model.Product.ProductName&version=@Model.Product.Version&color=${spcol[i]}">${spcol[i]}</a>
                     `);
                      } else{
                            $('#colopro').append(`
-                    <a class="btn" id="${spcol[i]}"  href="/products/detailcolor?productname=@Model.Product.ProductName&version=@Model.Product.Version&color=${spcol[i]}">${spcol[i]} </a>
+                    <a class="btn" id="${spcol[i]}"  href="/products/detailcolor?productname=@Model.Product.ProductName&version=@Model.Product.Version&color=${spcol[i]}">${spcol[i]}</a>
                     `);
                      }
                   
                  }
               
-              
+                $("a#undefined").css({"display" : "none"});
+                $("a#undefined").attr("href", "#");
                /////////////////////////////////////////
                
        

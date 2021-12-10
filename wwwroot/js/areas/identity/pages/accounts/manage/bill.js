@@ -7,13 +7,14 @@ $(document).ready(function () {
     $(".tblcontent").each(function () {
         let totalPoints = 0;
         $(this).find("tr").each(function () {
-    
             $(this).find(".total").each(function () {
                 let splited = $(this).html().split('.').join("");
                 totalPoints += parseInt(splited);
             });
         })
-        $(this).find(".tongthanhtoan").html(numberWithCommas(totalPoints));
+        $(this).find(".phivanchuyen").html(numberWithCommas(parseInt($(this).find(".tongthanhtoan").text() - totalPoints)));
+        $(this).find(".tongthanhtoan").html(numberWithCommas(parseInt($(this).find(".tongthanhtoan").text())));
+
     })
 
     $("#history").addClass("chosen1");
