@@ -6,7 +6,7 @@
 @inject Microsoft.AspNetCore.Authorization.IAuthorizationService authorizationService
 
 @if (SignInManager.IsSignedIn(User)
-&& (await authorizationService.AuthorizeAsync(User, "AdminDropdown")).Succeeded) {
+&& (await authorizationService.AuthorizeAsync(User, "StaffDropdown")).Succeeded) {
 <style>
     #admin-item > div > a:hover {
         background-color: #be1e2d;
@@ -28,7 +28,7 @@
             <i class='bx bx-user-plus bx-xs'></i>
             <span class="ml-2">Gán quyền cho User</span>
         </a>
-        <a class="dropdown-item" asp-area="Admin" asp-page="/Manage/Dashboard1">
+        <a class="dropdown-item" asp-area="Admin" asp-controller = "Dashboards" asp-action = "Dashboard1">
             <i class='bx bx-slider-alt bx-xs'></i>
             <span class="ml-2">Trang quản trị </span>
         </a>

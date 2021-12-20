@@ -10,6 +10,9 @@
 }
 <main>
     <style>
+        .card-body {
+            height: 225px;
+        }
         .card-body > p {
             text-align: center;
             font-size: 12px;
@@ -25,38 +28,32 @@
                 font-weight: 500;
             }
     </style>
-    <div class="container" style="justify-content: center">
+     <div class="container" style="justify-content: center">
         <div class="mb-3">
             <div class="d-inline">
-                <a class="btn" id="energizer"><img src="https://cdn.tgdd.vn/Brand/1/Energizer482-b_44.jpg" width="90" /></a>
-                <a class="btn" id="lg"><img src="https://cdn.tgdd.vn/Brand/1/logo-lg-149x40-1.png" width="90" /></a>
-                <a class="btn" id="samsung"><img src="https://cdn.tgdd.vn/Brand/1/samsungnew-220x48-1.png" width="90" /></a>
-                <a class="btn" id="huawei"><img src="https://cdn.tgdd.vn/Brand/1/Huawei522-b_4.jpg" width="90" /></a>
-                <a class="btn" id="jbl"><img src="https://cdn.tgdd.vn/Brand/1/JBL482-b_46.jpg" width="90" /></a>
-                <a class="btn" id="sony"><img src="https://cdn.tgdd.vn/Brand/1/Sony482-b_41.jpg" width="90" /></a>
-                <a class="btn" id="apple"><img src="https://cdn.tgdd.vn/Brand/1/Apple482-b_37.jpg" width="90" /></a>
-                <a class="btn" id="anker"><img src="https://cdn.tgdd.vn/Brand/1/Anker482-b_18.png" width="90" /></a> 
+                <a class="btn" id="Apple" asp-controller="Products" asp-action="Category" asp-route-id="44"><img src="https://cdn.tgdd.vn/Brand/1/Apple9499-b_28.jpg" width="90" /></a>
+                <a class="btn" id="LG" asp-controller="Products" asp-action="Category" asp-route-id="39"><img src="https://cdn.tgdd.vn/Brand/1/LG54-b_17.png" width="90" /></a>
+                <a class="btn" id="Jabra" asp-controller="Products" asp-action="Category" asp-route-id="58"><img src="https://cdn.tgdd.vn/Brand/1/Jabra54-b_17.jpg" width="90" /></a>
+                <a class="btn" id="Mozard" asp-controller="Products" asp-action="Category" asp-route-id="59"><img src="https://cdn.tgdd.vn/Brand/1/Mozard54-b_35.jpg" width="90" /></a>
+                <a class="btn" id="Xiaomi" asp-controller="Products" asp-action="Category" asp-route-id="60"><img src="//cdn.tgdd.vn/Brand/1/logo-xiaomi-220x48-5.png" width="90" /></a>
+                <a class="btn" id="Belkin" asp-controller="Products" asp-action="Category" asp-route-id="67"><img src="https://cdn.tgdd.vn/Brand/1/Belkin54-b_57.jpg" width="90" /></a>
+
             </div>
         </div>
     </div>
-    <div class="highlight">
-        @for (int i = 0; i < 52; i++)
-        {
+   <div class="highlight">
+        @foreach (var item in Model) {
             <div class="displaying">
                 @*class để hiển thị *@
-                <a href="#">
-                    <div class="card" id="apple">
+                <a asp-action="Details" asp-route-id="@item.ProductId">
+                    <div class="card">
                         @*nhớ add id này để lọc *@
-                        <div class="lbsale"><span class="lbtragop">Trả góp 0%</span></div>
-                        <img class="card-img-top" src="https://cdn.tgdd.vn/Products/Images/54/236025/airpods-2-wireless-charge-apple-mrxj2-ava-600x600.jpg" alt="Tai nghe Bluetooth AirPods 2 Wireless charge Apple MRXJ2">
+                        <img class="card-img-top" src="@item.Picture" alt="@item.Color">
                         <div class="card-body">
-                            @*quà tặng*@
-                            @*<p><span>Quà tặng 500.000đ</span></p>*@
-                            <h5 class="card-title">Tai nghe Bluetooth AirPods 2 Wireless charge Apple MRXJ2</h5>
-                            <h5 class="card-title pricesale m-0">4.470.000</h5>
-                            <h6 class="card-title price text-muted mt-1">5.590.000</h6>
+                            <h6 class="card-title product-name">@item.ProductName</h6>
+                            <h5 class="card-title pricesale m-0">@item.UnitPrice</h5>
+                            <h6 class="card-title price text-muted mt-1">@item.MSRP</h6>
                             <div>
-
                                 <p style="display:inline">
                                     <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                         <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
@@ -80,11 +77,12 @@
                 </a>
             </div>
         }
-    </div>
+    </div>    
     <script>
         $(document).ready(function () {
             $("#sound").css({ "background-color": "white", "color": "#be1e2d" })
         });
     </script>
+<script src="@Url.Content("~/js/views/product/general.js")"></script>
 </main>
 

@@ -1,11 +1,15 @@
-﻿@model IEnumerable<WEB2.Models.Order>
+﻿@model IEnumerable<WEB2.Models.OrderDetail>
 
 @{
-    ViewData["Title"] = "Transaction";
+    ViewData["Title"] = "ProductBill";
 }
+<!DOCTYPE html>
 
+<html>
 <head>
-    <!-- Datatable -->
+    <meta name="viewport" content="width=device-width" />
+    <title>ProductBill</title>
+      <!-- Datatable -->
     <link href="~/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- Custom Stylesheet -->
     <link href="~/css/style.css" rel="stylesheet">
@@ -17,14 +21,12 @@
             <div class="col-sm-6 p-md-0">
                 <div class="welcome-text">
                     <h4>Hi, welcome back!</h4>
-
-              
                 </div>
             </div>
             <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="javascript:void(0)">Quản lý bán hàng</a></li>
-                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Giao dịch</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Tất cả giao dịch</a></li>
                 </ol>
             </div>
         </div>
@@ -34,44 +36,88 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-         
+                    <div class="card-header">
+                        <h4 class="card-title"> Hóa đơn sản phẩm</h4>
+                    </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="example" class="display" style="min-width: 845px">
-                                <thead>
+                                   <thead>
                                     <tr>
-                                        <th>
-                                            đơn hàng
-                                        </th>
-                                        <th>
-                                           mã giao dịch
-                                        </th>
-                                   
-                                        <th>
-
-                                        </th>
+                                        <th>#</th>
+                                        <th>Tên</th>
+                                        <th>Đơn hàng</th>
+                                        <th>Sản phẩm</th>
+                                         <th>Số lượng</th>
+                                        <th>Tình trạng đơn hàng</th>
+                                        <th>Duyệt</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @foreach (var item in Model) {
+                             <tbody>
+                         
+                            @foreach (var item in Model){
+                                   
                                         <tr>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Customer)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Customer)
-                                            </td>
-                                          
-                                            <td>
-                                                <a asp-action="Edit" asp-route-id="@item.ShipperId">Edit</a> |
-                                                <a asp-action="Details" asp-route-id="@item.ShipperId">Details</a> |
-                                                <a asp-action="Delete" asp-route-id="@item.ShipperId">Delete</a>
-                                            </td>
-                                        </tr>
-                                    }
+                                        <td>
+                                            <div class="round-img">
+                                                <a href=""><img width="35" src="~/images/avatar/1.png" alt=""></a>
+                                            </div>
+                                        </td>
+                                        <td>@Html.DisplayFor(model => item.Order.Customer.AppUser.FullName)</td>
+                                        <td><span>@Html.DisplayFor(model => item.OrderId)</span></td>
+                                        <td><span style= "white-space: pre-line; 
+}">
+                                            @Html.DisplayFor(model => item.Voucher)</span></td>
+                                         <td><span style= "white-space: pre-line;
+}">
+                                            @Html.DisplayFor(model => item.IDSKU)</span></td>
+                                      
+                                        @{string color = "badge badge-warning";    }
+
+                                        @if(item.Order.TransactStatus.Equals("done")){
+                                            color = "badge badge-success" ;
+                                        }
+                                        @if (item.Order.TransactStatus.Equals("shipping")) {
+                                            color = "badge badge-secondary";
+                                        }
+                                        @if (item.Order.TransactStatus.Equals("cancel")) {
+                                            color = "badge badge-danger";
+                                        }
+                                        @if(item.Order.TransactStatus.Equals("accept")){
+                                            color = "badge badge-info" ;
+                                        }
+
+                                        <td><span class= "@color" >@Html.DisplayFor(model => item.Order.TransactStatus)</span></td>
+                                           @{ string status = "Xác nhận"; color = "btn btn-outline-info"; string color_can = "btn btn-danger"; string text_can = "Hủy"; }
+
+                                         @if(item.Order.TransactStatus.Equals("accept")){
+                                                status = "vận chuyển";
+                                                color = "btn btn-outline-secondary";
+                                            } 
+                                        @if(item.Order.TransactStatus.Equals("shipping")){
+                                                status = "thanh toán";
+                                                color = "btn btn-outline-success";
+                                            } 
+                                              @if(item.Order.TransactStatus.Equals("done") || item.Order.TransactStatus.Equals("cancel")){
+                                                status = "";
+                                                 color = "";
+                                                color_can = "";
+                                                text_can = "";
+                                            } 
+                                          <td>
+                                             <a asp-action="Accept_T" asp-route-id="@item.OrderId" class = "@color" >@status</a>  
+                                             <a asp-action="BillDetails_T" asp-route-id="@item.OrderId" class = "btn btn-outline-primary">Chi tiết</a>    
+                                             <a asp-action="BillDel_T" asp-route-id="@item.OrderId" class = "@color_can">@text_can</a>   
+                                        </td>
+                                    </tr>   
+                               }
                                 </tbody>
-                                
+                               
+                             
                             </table>
+                            <script type = "text/javascript">
+                                   $("#product").val().replace(/\n/g, '<br/>');
+                            </script>
                         </div>
                     </div>
                 </div>
@@ -88,3 +134,4 @@
     <script src="~/vendor/datatables/js/jquery.dataTables.min.js"></script>
     <script src="~/js/plugins-init/datatables.init.js"></script>
 </body>
+</html>

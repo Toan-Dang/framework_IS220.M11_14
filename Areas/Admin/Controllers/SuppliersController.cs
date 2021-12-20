@@ -12,11 +12,11 @@ using WEB2.Models;
 namespace WEB2.Areas.Admin.Controllers {
 
     [Area("Admin")]
-    [Authorize("Admin")]
+    [Authorize("Staff")]
     public class SuppliersController : Controller {
         private readonly AppDbContext _context;
 
-        public SuppliersController( AppDbContext context ) {
+        public SuppliersController(AppDbContext context) {
             _context = context;
         }
 
@@ -26,7 +26,7 @@ namespace WEB2.Areas.Admin.Controllers {
         }
 
         // GET: Admin/Suppliers/Details/5
-        public async Task<IActionResult> Details( int? id ) {
+        public async Task<IActionResult> Details(int? id) {
             if (id == null) {
                 return NotFound();
             }
@@ -45,12 +45,11 @@ namespace WEB2.Areas.Admin.Controllers {
             return View();
         }
 
-        // POST: Admin/Suppliers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Admin/Suppliers/Create To protect from overposting attacks, enable the specific
+        // properties you want to bind to. For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( [Bind("SupplierId,CompanyName,ContactName,Address,Phone,Email,PaymentMethod,DiscountType,DiscountAvailable,CurrentOrder,CustomerId,PostalCode,URL,TypeGoods,Notes")] Supplier supplier ) {
+        public async Task<IActionResult> Create([Bind("SupplierId,CompanyName,ContactName,Address,Phone,Email,PaymentMethod,DiscountType,DiscountAvailable,CurrentOrder,CustomerId,PostalCode,URL,TypeGoods,Notes")] Supplier supplier) {
             if (ModelState.IsValid) {
                 _context.Add(supplier);
                 await _context.SaveChangesAsync();
@@ -60,7 +59,7 @@ namespace WEB2.Areas.Admin.Controllers {
         }
 
         // GET: Admin/Suppliers/Edit/5
-        public async Task<IActionResult> Edit( int? id ) {
+        public async Task<IActionResult> Edit(int? id) {
             if (id == null) {
                 return NotFound();
             }
@@ -72,12 +71,11 @@ namespace WEB2.Areas.Admin.Controllers {
             return View(supplier);
         }
 
-        // POST: Admin/Suppliers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Admin/Suppliers/Edit/5 To protect from overposting attacks, enable the specific
+        // properties you want to bind to. For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit( int id, [Bind("SupplierId,CompanyName,ContactName,Address,Phone,Email,PaymentMethod,DiscountType,DiscountAvailable,CurrentOrder,CustomerId,PostalCode,URL,TypeGoods,Notes")] Supplier supplier ) {
+        public async Task<IActionResult> Edit(int id, [Bind("SupplierId,CompanyName,ContactName,Address,Phone,Email,PaymentMethod,DiscountType,DiscountAvailable,CurrentOrder,CustomerId,PostalCode,URL,TypeGoods,Notes")] Supplier supplier) {
             if (id != supplier.SupplierId) {
                 return NotFound();
             }
@@ -86,12 +84,10 @@ namespace WEB2.Areas.Admin.Controllers {
                 try {
                     _context.Update(supplier);
                     await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException) {
+                } catch (DbUpdateConcurrencyException) {
                     if (!SupplierExists(supplier.SupplierId)) {
                         return NotFound();
-                    }
-                    else {
+                    } else {
                         throw;
                     }
                 }
@@ -101,7 +97,7 @@ namespace WEB2.Areas.Admin.Controllers {
         }
 
         // GET: Admin/Suppliers/Delete/5
-        public async Task<IActionResult> Delete( int? id ) {
+        public async Task<IActionResult> Delete(int? id) {
             if (id == null) {
                 return NotFound();
             }
@@ -118,14 +114,14 @@ namespace WEB2.Areas.Admin.Controllers {
         // POST: Admin/Suppliers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed( int id ) {
+        public async Task<IActionResult> DeleteConfirmed(int id) {
             var supplier = await _context.Supplier.FindAsync(id);
             _context.Supplier.Remove(supplier);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool SupplierExists( int id ) {
+        private bool SupplierExists(int id) {
             return _context.Supplier.Any(e => e.SupplierId == id);
         }
     }

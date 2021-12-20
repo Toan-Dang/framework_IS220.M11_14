@@ -11,36 +11,32 @@
     @*1 vài sản phẩm để test bộ lọc  Jquery *@
     <div class="container" style="justify-content: center">
         <div class="mb-3">
-            <div class="d-inline">
-                <a class="btn" id="apple"><img src="//cdn.tgdd.vn/Brand/1/logo-iphone-220x48.png" width="90" /></a>
-                <a class="btn" id="samsung"><img src="//cdn.tgdd.vn/Brand/1/samsungnew-220x48-1.png" width="90" /></a>
-                <a class="btn" id="xiaomi"><img src="//cdn.tgdd.vn/Brand/1/logo-xiaomi-220x48-5.png" width="90" /></a>
-                <a class="btn" id="huawei"><img src="//cdn.tgdd.vn/Brand/1/Huawei522-b_4.jpg" width="90" /></a>
-                <a class="btn" id="nokia"><img src="//cdn.tgdd.vn/Brand/1/Nokia42-b_21.jpg" width="90" /></a>
-                <a class="btn" id="oneplus"><img src="https://cdn.tgdd.vn/Brand/1/OnePlus42-b_36.jpg" width="90" /></a>
-                <a class="btn" id="realme"><img src="//cdn.tgdd.vn/Brand/1/Realme42-b_37.png" width="90" /></a>
-                <a class="btn" id="oppo"><img src="//cdn.tgdd.vn/Brand/1/OPPO42-b_5.jpg" width="90" /></a>
-                <a class="btn" id="vivo"><img src="//cdn.tgdd.vn/Brand/1/Vivo42-b_50.jpg" width="90" /></a>
+            <div class="d-inline filtering">
+                <a class="btn" id="Apple" asp-controller="Products" asp-action="Category" asp-route-id="7"><img src="//cdn.tgdd.vn/Brand/1/logo-iphone-220x48.png" width="90" /></a>
+                <a class="btn" id="Samsung"  asp-controller="Products" asp-action="Category" asp-route-id="8"><img src="//cdn.tgdd.vn/Brand/1/samsungnew-220x48-1.png" width="90" /></a>
+                <a class="btn" id="Xiaomi"  asp-controller="Products" asp-action="Category" asp-route-id="9"><img src="//cdn.tgdd.vn/Brand/1/logo-xiaomi-220x48-5.png" width="90" /></a>
+                <a class="btn" id="Nokia"  asp-controller="Products" asp-action="Category" asp-route-id="10"><img src="//cdn.tgdd.vn/Brand/1/Nokia42-b_21.jpg" width="90" /></a>
+                <a class="btn" id="Oneplus"  asp-controller="Products" asp-action="Category" asp-route-id="12"><img src="https://cdn.tgdd.vn/Brand/1/OnePlus42-b_36.jpg" width="90" /></a>
+                <a class="btn" id="Realme"  asp-controller="Products" asp-action="Category" asp-route-id="13"><img src="//cdn.tgdd.vn/Brand/1/Realme42-b_37.png" width="90" /></a>
+                <a class="btn" id="Vivo"  asp-controller="Products" asp-action="Category" asp-route-id="14"><img src="//cdn.tgdd.vn/Brand/1/Vivo42-b_50.jpg" width="90" /></a>
             </div>
         </div>
     </div>
-    <div class="filtering">
+@*    <div class="filtering">
         <div>
             <h4></h4>
         </div>
-    </div>
+    </div>*@
     <div class="highlight">
         @foreach (var item in Model) {
             <div class="displaying">
                 @*class để hiển thị *@
-
                 <a asp-action="Details" asp-route-id="@item.ProductId">
-                    <div class="card" id="apple">
+                    <div class="card">
                         @*nhớ add id này để lọc *@
-                        <div class="lbsale"><span class="lbtragop">Trả góp 0%</span></div>
                         <img class="card-img-top" src="@item.Picture" alt="@item.Color">
                         <div class="card-body">
-                            <h5 class="card-title">@item.ProductName (@item.Color)</h5>
+                            <h6 class="card-title product-name">@item.ProductName</h6>
                             <h5 class="card-title pricesale m-0">@item.UnitPrice</h5>
                             <h6 class="card-title price text-muted mt-1">@item.MSRP</h6>
                             <div>
@@ -70,11 +66,11 @@
                                     @*chip*@
                                     <li id="chip"><p>Chip&nbsp<span id="chip-name">@item.Processor.Name</span></p></li>
                                     @*ram, rom*@
-                                    <li id="storage"><p>RAM&nbsp<span id="ram">6</span>&nbspGB,&nbspROM&nbsp<span id="rom">@item.Ram.Capacity</span>&nbspGB</p></li>
+                                    <li id="storage"><p>RAM&nbsp<span id="ram">@item.Ram.Capacity</span>&nbspGB,&nbspROM&nbsp<span id="rom">@item.Rom.Capacity</span>&nbspGB</p></li>
                                     @*camera trước*@
-                                    <li id="front-cam"><p>Camera trước:&nbsp<span id="cam1">12</span>&nbspMP</p></li>
+                                    <li id="front-cam"><p>Camera trước:&nbsp<span id="cam1">@item.Camera.FCamRes</span></p></li>
                                     @*camera sau*@
-                                    <li id="back-cam"><p>Camera sau:&nbsp<span id="cam2">12</span>&nbspMP</p></li>
+                                    <li id="back-cam"><p>Camera sau:&nbsp<span id="cam2">@item.Camera.BCamRes</span></p></li>
                                     @*pin*@
                                     <li id="battery"><p>Pin&nbsp<span id="capacity">@item.Battery.Capacity</span>&nbspmAh</p></li>
                                 </ul>
@@ -84,14 +80,9 @@
                 </a>
             </div>
         }
-
-
-
     </div>
 </main>
-<script>
-    $(document).ready(function () {
-        $("#phone").css({ "background-color": "white", "color": "#be1e2d"})
-    });
-</script>
+<script src="@Url.Content("~/js/views/product/general.js")"></script>
+<script src="@Url.Content("~/js/views/product/phone.js")"></script>
+
 

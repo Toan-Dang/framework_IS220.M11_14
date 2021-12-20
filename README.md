@@ -26,7 +26,7 @@ Lớp thực hành .2
 
 - Giỏ hàng
 
-- Thanh toán
+- Thanh toán (tiền mặt/ VNpay) (chưa có ship và khuyến mãi)
 
 #### Admin
 
@@ -40,12 +40,15 @@ Lớp thực hành .2
 
 - Quản lý hàng hóa
 
+- Quản lý bán hàng 
+
+- Quản lý kho
+
 ## Tech
 - [C#] 
 - [ASP.Net] 
 - [ASP.Net Core MVC]
 - [Bootstrap] 
-- [React]
 
 ## Installation
 
@@ -75,7 +78,7 @@ update-database
 Cập nhật dữ liệu trong sql <xem phần dưới> 
 ## Note
 
--File database trong thư mục Data-> Database_Design (bản hiện tại: version 5.3 được cập nhật vào ngày 00:50 22/11)
+-File database trong thư mục Data-> Database_Design (bản hiện tại: version 6 được cập nhật vào ngày 23:53 26/11)
 
 -Dữ liệu được lưu dưới dạng .sql trong thư mục Data -> Script 
 
@@ -91,7 +94,6 @@ MIT
  [ASP.Net]: <https://dotnet.microsoft.com/apps/aspnet>
  [ASP.Net Core MVC]: <https://docs.microsoft.com/vi-vn/aspnet/core/tutorials/first-mvc-app/start-mvc?view=aspnetcore-2.1&tabs=visual-studio>
  [Bootstrap]: <https://getbootstrap.com/>
- [React]: <https://reactjs.org/>
 [Toan Dang]: <https://github.com/Toan-Dang>
  [Visual Studio 2022]: <https://visualstudio.microsoft.com/downloads/>
  [SQLServer]: <https://www.microsoft.com/en-us/sql-server/sql-server-downloads>

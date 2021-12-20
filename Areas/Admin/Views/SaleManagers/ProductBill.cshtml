@@ -26,7 +26,7 @@
             <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="javascript:void(0)">Quản lý bán hàng</a></li>
-                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Hóa đơn sản phẩm</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Đơn hàng sản phẩm</a></li>
                 </ol>
             </div>
         </div>
@@ -65,9 +65,9 @@
                                         </td>
                                         <td>@Html.DisplayFor(model => item.Order.Customer.AppUser.FullName)</td>
                                         <td><span>@Html.DisplayFor(model => item.OrderId)</span></td>
-                                        <td><span style= "white-space: pre-line;
+                                        <td><span style= "white-space: pre-line; 
 }">
-                                            @Html.DisplayFor(model => item.Product.ProductName)</span></td>
+                                            @Html.DisplayFor(model => item.Voucher)</span></td>
                                          <td><span style= "white-space: pre-line;
 }">
                                             @Html.DisplayFor(model => item.IDSKU)</span></td>
@@ -78,19 +78,36 @@
                                             color = "badge badge-success" ;
                                         }
                                         @if (item.Order.TransactStatus.Equals("shipping")) {
-                                            color = "badge badge-primary";
+                                            color = "badge badge-secondary";
+                                        }
+                                        @if (item.Order.TransactStatus.Equals("cancel")) {
+                                            color = "badge badge-danger";
+                                        }
+                                        @if(item.Order.TransactStatus.Equals("accept")){
+                                            color = "badge badge-info" ;
                                         }
 
                                         <td><span class= "@color" >@Html.DisplayFor(model => item.Order.TransactStatus)</span></td>
-                                           @{ color = "duyệt"; }
+                                           @{ string status = "Xác nhận"; color = "btn btn-outline-info"; string color_can = "btn btn-danger"; string text_can = "Hủy"; }
 
+                                         @if(item.Order.TransactStatus.Equals("accept")){
+                                                status = "vận chuyển";
+                                                color = "btn btn-outline-secondary";
+                                            } 
                                         @if(item.Order.TransactStatus.Equals("shipping")){
-                                                color = "thanh toán";
+                                                status = "thanh toán";
+                                                color = "btn btn-outline-success";
+                                            } 
+                                              @if(item.Order.TransactStatus.Equals("done") || item.Order.TransactStatus.Equals("cancel")){
+                                                status = "";
+                                                 color = "";
+                                                color_can = "";
+                                                text_can = "";
                                             } 
                                           <td>
-                                             <a asp-action="Accecpt" asp-route-id="@item.OrderId" >@color</a>  |
-                                             <a asp-action="BillDetails" asp-route-id="@item.OrderId">Chi tiet</a>          
-          
+                                             <a asp-action="Accept_B" asp-route-id="@item.OrderId" class = "@color" >@status</a>  
+                                             <a asp-action="BillDetails_B" asp-route-id="@item.OrderId" class = "btn btn-outline-primary">Chi tiết</a>    
+                                             <a asp-action="BillDel_B" asp-route-id="@item.OrderId" class = "@color_can">@text_can</a>   
                                         </td>
                                     </tr>   
                                }

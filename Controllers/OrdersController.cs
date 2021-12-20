@@ -74,12 +74,6 @@ namespace WEB2.Controllers {
 
             string paymentUrl = pay.CreateRequestUrl(url, hashSecret);
             return Redirect(paymentUrl);
-
-            // return RedirectToAction("Pay",new { url = paymentUrl });
-        }
-
-        public ActionResult Pay(string url) {
-            return Redirect(url);
         }
 
         public async Task<ActionResult> PaymentConfirm() {
@@ -116,6 +110,7 @@ namespace WEB2.Controllers {
                         //Thanh toán không thành công. Mã lỗi: vnp_ResponseCode
                         ViewBag.Message = "Có lỗi xảy ra trong quá trình xử lý hóa đơn " + orderId + " | Mã giao dịch: " + vnpayTranId + " | Mã lỗi: " + vnp_ResponseCode;
                         order.Errlog = vnp_ResponseCode;
+                        return View();
                     }
                 } else {
                     ViewBag.Message = "Có lỗi xảy ra trong quá trình xử lý";
@@ -135,15 +130,13 @@ namespace WEB2.Controllers {
                     var product = await _context.Product.Where(p => p.ProductId == item.ProductId).FirstAsync();
                     //available here
                     product.CurrentOrder += item.Quantity;
-                    product.UnitInOrder -= 1;
+                    product.UnitInOrder += 1;
 
                     _context.Update(product);
                     await _context.SaveChangesAsync();
                     _context.Update(item);
                     await _context.SaveChangesAsync();
                 }
-
-                //cap nhat so luong san pham
             }
 
             return View();

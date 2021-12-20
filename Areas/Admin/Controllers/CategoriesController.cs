@@ -10,7 +10,7 @@ using WEB2.Models;
 namespace WEB2.Areas.Admin.Controllers {
 
     [Area("Admin")]
-    [Authorize("Admin")]
+    [Authorize("Staff")]
     public class CategoriesController : Controller {
         private readonly AppDbContext _context;
 
@@ -21,7 +21,7 @@ namespace WEB2.Areas.Admin.Controllers {
         // GET: Admin/Categories
 
         public async Task<IActionResult> Index() {
-            var appDbContext = _context.Category.Include(c => c.ParentCategory);
+            var appDbContext = _context.Category.Include(c => c.ParentCategory).Where(p => p.Active != "false");
             return View(await appDbContext.ToListAsync());
         }
 
@@ -122,7 +122,8 @@ namespace WEB2.Areas.Admin.Controllers {
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id) {
             var category = await _context.Category.FindAsync(id);
-            _context.Category.Remove(category);
+            category.Active = "false";
+            _context.Update(category);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

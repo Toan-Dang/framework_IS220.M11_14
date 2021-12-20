@@ -51,6 +51,29 @@ namespace WEB2.Controllers {
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Add([FromBody] OrderDetail orderDetail) {
+            var order = await _context.OrderDetail.Where(p => p.OrderId == orderDetail.OrderId)
+                .Where(p => p.ProductId == orderDetail.ProductId).FirstOrDefaultAsync();
+            var reorder = await _context.Order.FindAsync(orderDetail.OrderId);
+
+            order.Quantity = orderDetail.Quantity;
+            order.Total = orderDetail.Quantity * order.Price;
+            var detail = await _context.OrderDetail.Where(p => p.OrderId == orderDetail.OrderId).ToListAsync();
+            var max = 0.0;
+            foreach (var item in detail) {
+                max += item.Price * item.Quantity;
+            }
+            reorder.Paid = max;
+            _context.Update(reorder);
+            await _context.SaveChangesAsync();
+
+            _context.Update(order);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
         public async Task<IActionResult> Index() {
             var user = await _userManager.GetUserAsync(User);
             var userid = await _userManager.GetUserIdAsync(user);
@@ -63,6 +86,8 @@ namespace WEB2.Controllers {
             .Where(o => o.Order.TransactStatus != "done")
             .Where(o => o.Order.TransactStatus != "pay by cash")
              .Where(o => o.Order.TransactStatus != "shipping")
+             .Where(o => o.Order.TransactStatus != "cancel")
+               .Where(o => o.Order.TransactStatus != "accept")
             .Where(o => o.Order.CustomerId == customer.CustomerID);
 
             return View(await appDbContext.ToListAsync());
@@ -75,11 +100,12 @@ namespace WEB2.Controllers {
 
             var order = await _context.Order.Include(o => o.Customer)
                 .Where(o => o.Customer.UserId == userid)
-                .Where(o => o.Deleted == false)
                 .Where(o => o.TransactStatus != "paid")
                 .Where(o => o.TransactStatus != "done")
                 .Where(o => o.TransactStatus != "pay by cash")
                  .Where(o => o.TransactStatus != "shipping")
+                 .Where(o => o.TransactStatus != "cancel")
+                   .Where(o => o.TransactStatus != "accept")
                 .FirstOrDefaultAsync();
 
             if (ModelState.IsValid) {
@@ -92,7 +118,8 @@ namespace WEB2.Controllers {
                         ShipperId = 1,
                         PaymentId = 1,
                         TransactStatus = "null",
-                        Deleted = false
+                        Deleted = false,
+                        Paid = product.UnitPrice
                     };
 
                     _context.Add(neworder);
@@ -114,12 +141,8 @@ namespace WEB2.Controllers {
                         Total = product.UnitPrice,
                         Discount = 0,
                     };
-                    product.UnitInOrder += 1;
 
                     _context.Add(cart);
-                    await _context.SaveChangesAsync();
-
-                    _context.Update(product);
                     await _context.SaveChangesAsync();
                 } else {
                     int orderid = order.OrderId;
@@ -147,10 +170,8 @@ namespace WEB2.Controllers {
                         };
                         _context.Add(cart);
                         await _context.SaveChangesAsync();
-
-                        product.UnitInOrder += 1;
-
-                        _context.Update(product);
+                        order.Paid += cart.Total;
+                        _context.Update(order);
                         await _context.SaveChangesAsync();
                     } else {
                     }
@@ -169,6 +190,7 @@ namespace WEB2.Controllers {
                 .Include(o => o.Product)
                 .Where(o => o.ProductId == productid)
                .FirstOrDefaultAsync(m => m.OrderId == orderid);
+
             if (orderDetail == null) {
                 return NotFound();
             }
@@ -182,12 +204,12 @@ namespace WEB2.Controllers {
         public async Task<IActionResult> DeleteConfirmed(int productid, int orderid) {
             var orderDetail = await _context.OrderDetail.Where(o => o.OrderId == orderid)
                 .Where(o => o.ProductId == productid).FirstOrDefaultAsync();
-            _context.OrderDetail.Remove(orderDetail);
-            await _context.SaveChangesAsync();
 
-            var product = await _context.Product.FindAsync(productid);
-            product.UnitInOrder -= 1;
-            _context.Update(product);
+            var order = await _context.Order.FindAsync(orderid);
+            order.Paid -= orderDetail.Total;
+            _context.Update(order);
+            await _context.SaveChangesAsync();
+            _context.OrderDetail.Remove(orderDetail);
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
@@ -213,15 +235,10 @@ namespace WEB2.Controllers {
                 .Include(o => o.Order.Customer.AppUser)
                 .Include(o => o.Product)
                 .Include(o => o.Product.ProductDiscounts)
-
-                // .Where(o => o.Order.TransactStatus != "paid") .Where(o => o.Order.TransactStatus
-                // != "done") .Where(o => o.Order.TransactStatus != "pay by cash") .Where(o =>
-                // o.Order.TransactStatus != "shipping")
                 .Where(o => o.OrderId == id)
                 .Where(o => o.Order.OrderId == id)
                 .Where(o => o.Order.Deleted == false)
                 .Where(o => o.Status == "saved")
-                // .Where(o => o.Fulfilled == false)
                 .Where(o => o.Order.Customer.UserId == userid)
                 .ToListAsync();
 
@@ -233,10 +250,103 @@ namespace WEB2.Controllers {
             if (order == null) {
                 return NotFound();
             }
+            var cus = await _context.Customer.Include(p => p.AppUser)
+                .FirstOrDefaultAsync(p => p.UserId == userid);
+            double latpos = Convert.ToDouble(cus.Latitude);
+            double lonpos = Convert.ToDouble(cus.Longitude);
+            double max = 9999999999;
+            int invenid = 0;
+            // max : khoảng cách
+            var inven = await _context.Inventory.ToListAsync();
+            foreach (var item in inven) {
+                double lat = Convert.ToDouble(item.Latitude);
+                double lon = Convert.ToDouble(item.Longitude);
+                double res = Math.Abs(Math.Sqrt(Math.Pow(latpos - lat, 2) + Math.Pow(lonpos - lon, 2)));
+                if (res <= max) {
+                    max = res;
+                    invenid = item.InventoryId;
+                }
+            }
+            var ordership = await _context.Order.FindAsync(id);
+            ///tính tiền ship
+            max *= 100000;
+            ordership.InventoryId = invenid;
+            ordership.Freight = Math.Round(max, 2);
+            _context.Update(ordership);
+            await _context.SaveChangesAsync();
+
+            order[0].Order.Customer.ShipAddress = order[0].Order.Customer.ShipAddress + ", " + order[0].Order.Customer.State + ", " + order[0].Order.Customer.City;
             ViewData["ShipperId"] = new SelectList(_context.Shipment, "ShipperId", "CompanyName", reorder.Shipment.CompanyName);
             ViewData["PaymentId"] = new SelectList(_context.Payment.Where(o => o.Allowed == true), "PaymentId", "PaymentType", reorder.Payment.PaymentType);
             // ViewData["VoucherId"] = new SelectList(_context.Voucher, "VoucherId", "VoucherName", voucher.Voucher.VoucherName);
             return View(order);
+        }
+
+        public async Task<IActionResult> ShipMoney(int id) {
+            var order = await _context.Order
+                .Include(p => p.Customer)
+                .Where(p => p.OrderId == id)
+                .FirstOrDefaultAsync();
+            return View(order);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ShipAddress([FromBody] LatLong customer) {
+            var cus = await _context.Customer.FindAsync(customer.CustomerID);
+            cus.ShipAddress = customer.ShipAddress;
+            cus.City = customer.City;
+            cus.State = customer.State;
+            _context.Update(cus);
+            await _context.SaveChangesAsync();
+
+            if (cus.City.Equals("TP Hồ Chí Minh")) {
+                switch (cus.State) {
+                    case "Quận 1": {
+                        cus.Latitude = "10.7748455";
+                        cus.Longitude = "106.6993497";
+                        break;
+                    }
+                    case "Quận 12": {
+                        cus.Latitude = "10.8672335";
+                        cus.Longitude = "106.6539304";
+                        break;
+                    }
+                    case "Quận Thủ Đức": {
+                        cus.Latitude = "10.85142";
+                        cus.Longitude = "106.74727";
+                        break;
+                    }
+                    case "Quận 9": {
+                        cus.Latitude = "10.5024";
+                        cus.Longitude = "106.4615";
+                        break;
+                    }
+                    case "Quận Gò Vấp": {
+                        cus.Latitude = "10.84015";
+                        cus.Longitude = "106.6710828";
+                        break;
+                    }
+                    case "Quận Bình Thạnh": {
+                        cus.Latitude = "10.8046591";
+                        cus.Longitude = "106.7078477";
+                        break;
+                    }
+                    case "Quận Tân Bình": {
+                        cus.Latitude = "10.7979794";
+                        cus.Longitude = "106.6538054";
+                        break;
+                    }
+                    default:
+                    break;
+                }
+            }
+            // cus.Latitude = ""; cus.Longitude = "";
+            _context.Update(cus);
+            await _context.SaveChangesAsync();
+
+            return Json(new {
+                newUrl = Url.Action("Pay", "OrderDetails", new { id = customer.OrderId })
+            });
         }
 
         [HttpPost("payment")]
@@ -269,11 +379,23 @@ namespace WEB2.Controllers {
                 var orderdetail = await _context.OrderDetail.Where(p => p.OrderId == orderid).Where(p => p.Status == "saved").ToListAsync();
                 foreach (var item in orderdetail) {
                     item.Status = "solved";
-
+                    var pro = await _context.Product.Where(p => p.ProductId == item.ProductId).FirstAsync();
+                    pro.CurrentOrder += item.Quantity;
+                    pro.UnitInOrder += 1;
+                    _context.Update(pro);
+                    await _context.SaveChangesAsync();
                     _context.Update(item);
                     await _context.SaveChangesAsync();
                 }
-                return View();
+
+                _context.Update(customer);
+                await _context.SaveChangesAsync();
+                _context.Update(order);
+                await _context.SaveChangesAsync();
+
+                return Json(new {
+                    newUrl = Url.Action("Thank", "OrderDetails")
+                });
             }
 
             if (ModelState.IsValid) {
@@ -283,7 +405,13 @@ namespace WEB2.Controllers {
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToAction("Payment", "Orders", new { id = orderid });
+            return Json(new {
+                newUrl = Url.Action("Payment", "Orders", new { id = orderid })
+            });
+        }
+
+        public IActionResult Thank() {
+            return View();
         }
 
         private bool CustomerExists(int id) {

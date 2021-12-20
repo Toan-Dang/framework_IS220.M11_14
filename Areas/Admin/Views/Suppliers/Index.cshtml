@@ -35,7 +35,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                           <a asp-action="Create"> <h4 class = "border-danger">Thêm nhà cung cấp</h4></a>
+                           <a asp-action="Create"> <h4 class = "btn btn-outline-secondary">Thêm nhà cung cấp</h4></a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -61,9 +61,7 @@
                                             @Html.DisplayNameFor(model => model.TypeGoods)
                                         </th>
 
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.CurrentOrder)
-                                        </th>
+                            
 
                                         <th></th>
                                     </tr>
@@ -89,17 +87,14 @@
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.TypeGoods)
                                             </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.CurrentOrder)
-                                            </td>
 
 
 
 
                                             <td>
-                                                <a asp-action="Edit" asp-route-id="@item.SupplierId">Edit</a> |
-                                                <a asp-action="Details" asp-route-id="@item.SupplierId">Details</a> |
-                                                <a asp-action="Delete" asp-route-id="@item.SupplierId">Delete</a>
+                                                     <a asp-action="Edit" asp-route-id="@item.SupplierId" class="btn btn-secondary">Edit</a> 
+                                                <a asp-action="Details" asp-route-id="@item.SupplierId"class="btn btn-outline-primary">Details</a> 
+                                                <a asp-action="Delete" asp-route-id="@item.SupplierId"class="btn btn-danger">Delete</a>
                                             </td>
                                         </tr>
                                     }
@@ -125,9 +120,7 @@
                                             @Html.DisplayNameFor(model => model.TypeGoods)
                                         </th>
 
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.CurrentOrder)
-                                        </th>
+                                    
                                         <th></th>
                                     </tr>
                                 </tfoot>

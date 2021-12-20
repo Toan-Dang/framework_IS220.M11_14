@@ -15,6 +15,7 @@ namespace WEB2.Models {
         public string State { get; set; }
         public string Latitude { get; set; }
         public string Longitude { get; set; }
+        public bool IsActive { get; set; }
 
         public virtual ICollection<Invent_product> Invent_Products { get; set; }
         public virtual ICollection<Staff> Staffs { get; set; }

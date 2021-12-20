@@ -3,17 +3,31 @@
 @{
     ViewData["Title"] = "Giỏ hàng";
 }
+@section Styles {
+<link href="@Url.Content("/css/views/orderdetails/index.css")" rel="stylesheet" type="text/css" />
+
+}
 <main class="container mt-5" style="height: 100vh">
 
 <div class="colory-lg-3"">
-    <table class="table">
+    @if (Model.Count() == 0){
+        <div style="display: grid; justify-content:center; align-items:center">
+                <p>Oh nooo ! giỏ hàng của bạn trống trơn T.T  !!</p>
+                <p>Hãy cùng chú mèo vui vẻ hạnh phúc yêu đời này đi lựa vài món nhé </p>
+                <a style="margin:auto;" href="/">
+                    <img style="width:100%; height: 100%" src="https://media.discordapp.net/attachments/871653685023891457/915250284320673832/248025594_350168303553137_898236470416803569_n.jpg"/>
+                </a>
+        </div>
+    }
+     else {
+    <table class="tbl">
         <thead>
             <tr>
                 <th>
-                    Sản phẩm
+                    
                 </th>
                 <th>
-                    Tên sản phẩm
+                    Sản phẩm
                 </th>
                 <th>
                     Phiên bản
@@ -40,44 +54,107 @@
             @foreach (var item in Model) {
                 <tr>
                     <td>
-                  @Html.ActionLink("hình Sản phẩm", "Details","Products", new { id =item.ProductId},
-                  new { @style ="background-image : src(@Html.DisplayFor(modelItem => item.Product.ProductId))" })
+                     <a href="/products/details/@item.ProductId">
+                         <img src="@Html.DisplayFor(modelItem => item.Product.Picture)" alt = "@Html.DisplayFor(modelItem => item.Product.ProductName)" />
+                     </a>   
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Product.ProductName)
+                        <a class="prd-link" href="/products/details/@item.ProductId">
+                            @Html.DisplayFor(modelItem => item.Product.ProductName)
+                        </a>
                     </td>
                    <td>
                         @Html.DisplayFor(modelItem => item.Product.Version)
                     </td>
-        
                     <td>
-                        @Html.DisplayFor(modelItem => item.Quantity)
+                        @Html.DisplayFor(modelItem => item.Product.Color)
+                    </td>
+                    <td class="quantity">
+                        <div class="quantity-d">
+                            <div class="eLoUcd input-quantity">
+                                <button class="_2sBbZC minus">
+                                    <svg enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0" class="svg-icon">
+                                        <polygon points="4.5 4.5 3.5 4.5 0 4.5 0 5.5 3.5 5.5 4.5 5.5 10 5.5 10 4.5">
+                                        </polygon>
+                                        </svg>
+                                        </button>
+                                <input class="_2sBbZC k-s4Da quantity_v" type="text" role="spinbutton" value="@Html.DisplayFor(modelItem => item.Quantity)" disabled />
+                                <button class="_2sBbZC add">
+                                    <svg enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0" class="svg-icon icon-plus-sign">
+                                        <polygon points="10 4.5 5.5 4.5 5.5 0 4.5 0 4.5 4.5 0 4.5 0 5.5 4.5 5.5 4.5 10 5.5 10 5.5 5.5 10 5.5">
+                                        </polygon>
+                                        </svg>
+                               </button>
+                           </div>
+                           </div>
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-
-
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Total)
+                        <div class="root1">@Html.DisplayFor(modelItem => item.Price)</div>
+                        <div class="root2" style="display: none"></div>
+                        <span class="price-fld">@Html.DisplayFor(modelItem => item.Price)</span>
                     </td>
                     <td>
-                        @Html.ActionLink("Xóa", "Delete", new { productid =item.ProductId, orderid = item.OrderId })
+                        <span class="total-fld">@Html.DisplayFor(modelItem => item.Total)</span>
                     </td>
+                    <td>
+                        <a class="btn del-btn" href="/orderdetails/delete?productid=@item.ProductId&orderid=@item.OrderId">Xóa</a>
+                    </td>
+                    
+                         <td class="show">@Html.DisplayFor(modelItem => item.ProductId)</td>
+                    <td class="show">@Html.DisplayFor(modelItem => item.OrderId)</td>
                 </tr>
                 if( vis == true) {
-                    @Html.ActionLink("Thanh toán","Pay",new {id = item.OrderId},null)
-                    ;
+                    <div style="display: block" id="thanhtoan">
+                        <a href="/orderdetails/pay/@item.OrderId" class="btn btn-default" >Thanh toán</a>
+                    </div>
+                    
                     vis = false;
                 }  
             }
         </tbody>   
     </table>
+    <div class="total"> 
+        <h5>Tạm tính: <span id="m_total"></span></h5>
+    </div>
+
+    }
 </div>
+<script src="@Url.Content("~/js/views/orderdetails/index.js")"></script>
 <script>
-    $(document).ready(function(){
-        $("#pagetitle").html("Giỏ hàng");
-    });
+                    $('.show').hide();
+        var table = document.getElementsByTagName("table")[0];
+        var tbody = table.getElementsByTagName("tbody")[0];
+        var cells;
+        var quan;
+           tbody.onclick = function (e) {
+
+            e = e || window.event;
+            var target = e.srcElement || e.target;
+            while (target && target.nodeName !== "TR") {
+                target = target.parentNode;
+            }
+            if (target) {
+                 cells = target.getElementsByTagName("td");
+                 quan = cells[4].getElementsByTagName('input')[0].value;
+                 console.log(quan);
+            }
+
+             var model = new Object();
+            model.Orderid =  cells[9].innerHTML;
+            model.ProductId = cells[8].innerHTML;
+            model.Quantity = quan;
+            console.log(model);
+            jQuery.ajax({
+            type: "POST",
+            url: "@Url.Action("Add","OrderDetails")",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify( model ),
+            processData: true,
+                    cache: false,
+            });
+
+        };
 </script>
 </main>
 

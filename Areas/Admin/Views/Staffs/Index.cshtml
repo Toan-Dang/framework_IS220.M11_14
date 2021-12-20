@@ -20,7 +20,7 @@
                 <div class="welcome-text">
                     <h4>Hi, welcome back!</h4>
 
-            
+
                 </div>
             </div>
             <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
@@ -37,7 +37,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                           <a asp-action="Create"> <h4 class = "border-danger">Thêm nhân viên</h4></a>
+                        <a asp-action="Create" > <h4 class ="btn btn-outline-primary">Thêm nhân viên</h4></a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -45,11 +45,12 @@
                                 <thead>
                                     <tr>
                                         <th>
-                                           Tên nhân viên
+                                            Mã nhân viên
                                         </th>
                                         <th>
-                                            Kho
+                                            Tên nhân viên
                                         </th>
+
                                         <th>
                                             Ngày vào làm
                                         </th>
@@ -60,13 +61,14 @@
                                     @foreach (var item in Model) {
                                         <tr>
                                             <td>
+                                                @Html.DisplayFor(modelItem => item.StaffId)
+                                            </td>
+                                            <td>
                                                 @Html.DisplayFor(modelItem => item.AppUser.FullName)
                                             </td>
-                                    
+
+
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.Inventory.InventoryId)
-                                            </td>
-                                                    <td>
                                                 @Html.DisplayFor(modelItem => item.WorkingDay)
                                             </td>
                                             <td>
@@ -77,7 +79,7 @@
                                         </tr>
                                     }
                                 </tbody>
-                              
+
                             </table>
                         </div>
                     </div>

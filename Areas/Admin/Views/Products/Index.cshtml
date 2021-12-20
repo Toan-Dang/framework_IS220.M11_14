@@ -35,7 +35,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                              <a asp-action="Create"> <h4 class = "border-danger">Thêm sản phẩm</h4></a>
+                              <a asp-action="Create"> <h4 class = "btn btn-outline-secondary">Thêm sản phẩm</h4></a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -103,9 +103,9 @@
                                             </td>
                                      
                                             <td>
-                                                <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
-                                                <a asp-action="Details" asp-area="" asp-controller = "Products" asp-route-id="@item.ProductId">Details</a> |
-                                                <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                                                <a asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-secondary">Edit</a> 
+                                                <a asp-action="Details" asp-area="" asp-controller = "Products" asp-route-id="@item.ProductId" class="btn btn-outline-primary">Details</a> 
+                                                <a asp-action="Delete" asp-route-id="@item.ProductId" class="btn btn-danger">Delete</a>
                                             </td>
                                         </tr>
                                     }

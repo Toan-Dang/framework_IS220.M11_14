@@ -27,6 +27,7 @@ namespace WEB2.Models {
         public int CurrentOrder { get; set; }
         public string Note { get; set; }
         public string Special { get; set; }
+        public bool IsDelete { get; set; }
 
         //config
         public int ConnID { get; set; }
@@ -81,9 +82,9 @@ namespace WEB2.Models {
 
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual ICollection<Image> Images { get; set; }
-        public virtual ICollection<Feedback> ProductRankings { get; set; }
+        public virtual ICollection<Feedback> Feedbacks { get; set; }
         public virtual ICollection<ProductDiscount> ProductDiscounts { get; set; }
-        public virtual ICollection<Purchase> Purchases { get; set; }
+        public virtual ICollection<PurchaseDetail> PurchaseDetails { get; set; }
         public virtual ICollection<Invent_product> Invent_Products { get; set; }
         public virtual ICollection<ProductContent> ProductContents { get; set; }
     }

@@ -4,10 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace WEB2.Areas.Identity.Pages.Account.Manage
-{
-    public static class ManageNavPages
-    {
+namespace WEB2.Areas.Identity.Pages.Account.Manage {
+
+    public static class ManageNavPages {
         public static string Index => "Index";
 
         public static string Email => "Email";
@@ -23,6 +22,7 @@ namespace WEB2.Areas.Identity.Pages.Account.Manage
         public static string PersonalData => "PersonalData";
 
         public static string TwoFactorAuthentication => "TwoFactorAuthentication";
+        /*public static string Bill => "Bill";*/
 
         public static string IndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, Index);
 
@@ -40,8 +40,9 @@ namespace WEB2.Areas.Identity.Pages.Account.Manage
 
         public static string TwoFactorAuthenticationNavClass(ViewContext viewContext) => PageNavClass(viewContext, TwoFactorAuthentication);
 
-        private static string PageNavClass(ViewContext viewContext, string page)
-        {
+        /*public static string BillNavClass(ViewContext viewContext) => PageNavClass(viewContext, Bill);*/
+
+        private static string PageNavClass(ViewContext viewContext, string page) {
             var activePage = viewContext.ViewData["ActivePage"] as string
                 ?? System.IO.Path.GetFileNameWithoutExtension(viewContext.ActionDescriptor.DisplayName);
             return string.Equals(activePage, page, StringComparison.OrdinalIgnoreCase) ? "active" : null;

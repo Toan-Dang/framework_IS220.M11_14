@@ -26,7 +26,7 @@ namespace WEB2.Areas.Admin.Controllers {
 
         // GET: Admin/Staffs
         public async Task<IActionResult> Index() {
-            var appDbContext = _context.Staff.Include(s => s.AppUser).Include(s => s.Inventory);
+            var appDbContext = _context.Staff.Include(s => s.AppUser);
             return View(await appDbContext.ToListAsync());
         }
 
@@ -38,7 +38,7 @@ namespace WEB2.Areas.Admin.Controllers {
 
             var staff = await _context.Staff
                 .Include(s => s.AppUser)
-                .Include(s => s.Inventory)
+
                 .FirstOrDefaultAsync(m => m.StaffId == id);
             if (staff == null) {
                 return NotFound();
@@ -57,24 +57,32 @@ namespace WEB2.Areas.Admin.Controllers {
         // properties you want to bind to. For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("InventoryId, AppUser")] Staff staff) {
+        public async Task<IActionResult> Create([Bind("AppUser")] Staff staff) {
             if (ModelState.IsValid) {
                 //tạo user
-                var user = new AppUser { UserName = staff.AppUser.UserName, Email = staff.AppUser.Email };
+                var user = new AppUser {
+                    UserName = staff.AppUser.UserName,
+                    Email = staff.AppUser.Email,
+                    FullName = staff.AppUser.FullName,
+                    PhoneNumber = staff.AppUser.PhoneNumber,
+                    Birthday = staff.AppUser.Birthday,
+                    EmailConfirmed = true
+                };
                 var pass = staff.AppUser.PasswordHash;
                 var result = await _userManager.CreateAsync(user, pass);
                 //tạo nhân viên
-                var staffnew = new Staff { UserId = user.Id, WorkingDay = DateTime.Now, InventoryId = staff.InventoryId };
+                var staffnew = new Staff { UserId = user.Id, WorkingDay = DateTime.Now };
                 _context.Add(staffnew);
                 //add roles
                 var role = await _context.Roles.FirstOrDefaultAsync(p => p.Name.Equals("Nhân viên"));
                 await _userManager.AddToRoleAsync(user, role.Name);
                 await _context.SaveChangesAsync();
+                //thêm tên nhân viên
 
                 return RedirectToAction(nameof(Index));
             }
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", staff.UserId);
-            ViewData["InventoryId"] = new SelectList(_context.Set<Inventory>(), "InventoryId", "InventoryId", staff.InventoryId);
+
             return View(staff);
         }
 
@@ -89,7 +97,6 @@ namespace WEB2.Areas.Admin.Controllers {
                 return NotFound();
             }
 
-            ViewData["InventoryId"] = new SelectList(_context.Set<Inventory>(), "InventoryId", "InventoryId", staff.InventoryId);
             return View(staff);
         }
 
@@ -116,7 +123,7 @@ namespace WEB2.Areas.Admin.Controllers {
                 return RedirectToAction(nameof(Index));
             }
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", staff.UserId);
-            ViewData["InventoryId"] = new SelectList(_context.Set<Inventory>(), "InventoryId", "InventoryId", staff.InventoryId);
+
             return View(staff);
         }
 
@@ -128,7 +135,7 @@ namespace WEB2.Areas.Admin.Controllers {
 
             var staff = await _context.Staff
                 .Include(s => s.AppUser)
-                .Include(s => s.Inventory)
+
                 .FirstOrDefaultAsync(m => m.StaffId == id);
             if (staff == null) {
                 return NotFound();

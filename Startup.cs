@@ -112,7 +112,7 @@ namespace WEB2 {
                     policy.RequireRole("Admin");
                 });
                 options.AddPolicy("StaffDropdown", policy => {
-                    policy.RequireRole("Nhân viên");
+                    policy.RequireRole("Nhân viên", "Admin");
                 });
                 options.AddPolicy("ManangerDropdown", policy => {
                     policy.RequireRole("Quản Lý");
