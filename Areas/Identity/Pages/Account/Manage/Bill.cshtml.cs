@@ -47,7 +47,6 @@ namespace WEB2.Areas.Identity.Pages.Account.Manage {
                 .Include(o => o.Order.Customer)
                 .Include(o => o.Order.Customer.AppUser)
                 .Where(o => o.OrderId == item.OrderId)
-                .Where(o => o.Order.TransactStatus == "done")
                 .Where(o => o.Status == "solved")
                 .ToListAsync();
                 foreach (var pro in OrderDetail) {

@@ -155,6 +155,92 @@ namespace WEB2.Areas.Admin.Controllers {
             return View(reorder);
         }
 
+        public async Task<IActionResult> Done() {
+            var order = await _context.OrderDetail
+           .Include(o => o.Order)
+           .Include(o => o.Order.Customer)
+           .Include(o => o.Order.Customer.AppUser)
+           .Include(o => o.Product)
+           .Where(p => p.Order.TransactStatus == "done")
+           .Where(p => p.Status == "solved")
+           .ToListAsync();
+
+            if (order.Count == 0) {
+                return View(order);
+            }
+            OrderDetail od = new OrderDetail();
+            var reorder = new List<OrderDetail>();
+            bool check = false;
+
+            for (int i = 0 ; i < order.Count - 1 ; i++) {
+                if (check == false) {
+                    od = order[i];
+                    od.Voucher = od.Product.ProductName;
+                    od.IDSKU = od.Quantity.ToString();
+                }
+
+                if (order[i].OrderId == order[i + 1].OrderId) {
+                    od.Voucher += "\n" + order[i + 1].Product.ProductName;
+                    od.IDSKU += "\n" + order[i + 1].Quantity.ToString();
+                    check = true;
+                } else {
+                    reorder.Add(od);
+                    check = false;
+                }
+            }
+            if (check == false) {
+                od = order[order.Count - 1];
+                od.Voucher = od.Product.ProductName;
+                od.IDSKU = od.Quantity.ToString();
+            }
+            reorder.Add(od);
+
+            return View(reorder);
+        }
+
+        public async Task<IActionResult> Cancel() {
+            var order = await _context.OrderDetail
+           .Include(o => o.Order)
+           .Include(o => o.Order.Customer)
+           .Include(o => o.Order.Customer.AppUser)
+           .Include(o => o.Product)
+           .Where(p => p.Order.TransactStatus == "cancel")
+           .Where(p => p.Status == "solved")
+           .ToListAsync();
+
+            if (order.Count == 0) {
+                return View(order);
+            }
+            OrderDetail od = new OrderDetail();
+            var reorder = new List<OrderDetail>();
+            bool check = false;
+
+            for (int i = 0 ; i < order.Count - 1 ; i++) {
+                if (check == false) {
+                    od = order[i];
+                    od.Voucher = od.Product.ProductName;
+                    od.IDSKU = od.Quantity.ToString();
+                }
+
+                if (order[i].OrderId == order[i + 1].OrderId) {
+                    od.Voucher += "\n" + order[i + 1].Product.ProductName;
+                    od.IDSKU += "\n" + order[i + 1].Quantity.ToString();
+                    check = true;
+                } else {
+                    reorder.Add(od);
+                    check = false;
+                }
+            }
+            if (check == false) {
+                od = order[order.Count - 1];
+                od.Voucher = od.Product.ProductName;
+                od.IDSKU = od.Quantity.ToString();
+            }
+            reorder.Add(od);
+
+            return View(reorder);
+        }
+
         // POST: SaleManager/Create
         //[HttpPost]
         //[ValidateAntiForgeryToken]
