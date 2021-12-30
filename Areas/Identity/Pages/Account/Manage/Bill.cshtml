@@ -51,15 +51,11 @@
                             <th>
                                 Sản phẩm
                             </th>
-                            <th>
-                                Phiên bản
-                            </th>
-                            <th>
-                                Màu sắc
-                            </th>
+                        
                             <th>
                                 Số lượng
                             </th>
+                            <th>Trạng thái</th>
                             <th>
                                 Đơn giá
                             </th>
@@ -82,15 +78,11 @@
                                 @Html.DisplayFor(modelItem => item.Product.ProductName)
                            </a>
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Product.Version)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Product.Color)
-                        </td>
+                      
                        <td >
                             @Html.DisplayFor(modelItem => item.Quantity)
                         </td>
+                        <td>@Html.DisplayFor(modelItem => item.Order.TransactStatus)</td>
                         <td class="price">
                             @Html.DisplayFor(modelItem => item.Price)
                         </td>

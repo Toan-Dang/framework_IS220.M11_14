@@ -50,7 +50,7 @@ namespace WEB2.Areas.Admin.Controllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( [Bind("VoucherID,VoucherName,VoucherDetail")] Voucher voucher ) {
+        public async Task<IActionResult> Create( [Bind("VoucherID,VoucherName,VoucherDetail, Loaigiam, Number, Sotientoida")] Voucher voucher ) {
             if (ModelState.IsValid) {
                 _context.Add(voucher);
                 await _context.SaveChangesAsync();
