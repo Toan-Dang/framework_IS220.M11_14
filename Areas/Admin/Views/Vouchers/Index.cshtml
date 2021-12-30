@@ -48,6 +48,15 @@
                                         <th>
                                             @Html.DisplayNameFor(model => model.VoucherDetail)
                                         </th>
+                                            <th>
+                                            @Html.DisplayNameFor(model => model.Loaigiam)
+                                        </th>
+                                            <th>
+                                            @Html.DisplayNameFor(model => model.Number)
+                                        </th>
+                                            <th>
+                                            @Html.DisplayNameFor(model => model.Sotientoida)
+                                        </th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -60,6 +69,15 @@
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.VoucherDetail)
                                             </td>
+                                             <td>
+                                                @Html.DisplayFor(modelItem => item.Loaigiam)
+                                            </td>
+                                             <td>
+                                                @Html.DisplayFor(modelItem => item.Number)
+                                            </td>
+                                             <td>
+                                                @Html.DisplayFor(modelItem => item.Sotientoida)
+                                            </td>
                                             <td>
                                                 <a asp-action="Edit" asp-route-id="@item.VoucherID">Edit</a> |
                                                 <a asp-action="Details" asp-route-id="@item.VoucherID">Details</a> |
@@ -68,17 +86,7 @@
                                         </tr>
                                     }
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.VoucherName)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.VoucherDetail)
-                                        </th>
-                                        <th></th>
-                                    </tr>
-                                </tfoot>
+                               
                             </table>
                         </div>
                     </div>

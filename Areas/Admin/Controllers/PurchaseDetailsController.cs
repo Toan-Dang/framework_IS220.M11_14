@@ -139,6 +139,74 @@ namespace WEB2.Areas.Admin.Controllers {
             return View(reorder);
         }
 
+        public async Task<IActionResult> Done() {
+            var pur = await _context.PurchaseDetail.Include(p => p.Product).Include(p => p.Purchase)
+                .Where(p => p.Purchase.TransactStatus == "done").ToListAsync();
+            if (pur.Count == 0) {
+                return View(pur);
+            }
+            PurchaseDetail od = new PurchaseDetail();
+            var reorder = new List<PurchaseDetail>();
+            bool check = false;
+
+            for (int i = 0 ; i < pur.Count - 1 ; i++) {
+                if (check == false) {
+                    od = pur[i];
+                    od.IDSKU = od.Quantity.ToString();
+                }
+
+                if (pur[i].PurchaseId == pur[i + 1].PurchaseId) {
+                    od.Product.ProductName += "\n" + pur[i + 1].Product.ProductName;
+                    od.IDSKU += "\n" + pur[i + 1].Quantity.ToString();
+                    check = true;
+                } else {
+                    reorder.Add(od);
+                    check = false;
+                }
+            }
+            if (check == false) {
+                od = pur[pur.Count - 1];
+                od.IDSKU = od.Quantity.ToString();
+            }
+            reorder.Add(od);
+
+            return View(reorder);
+        }
+
+        public async Task<IActionResult> Cancel() {
+            var pur = await _context.PurchaseDetail.Include(p => p.Product).Include(p => p.Purchase)
+                .Where(p => p.Purchase.TransactStatus == "cancel").ToListAsync();
+            if (pur.Count == 0) {
+                return View(pur);
+            }
+            PurchaseDetail od = new PurchaseDetail();
+            var reorder = new List<PurchaseDetail>();
+            bool check = false;
+
+            for (int i = 0 ; i < pur.Count - 1 ; i++) {
+                if (check == false) {
+                    od = pur[i];
+                    od.IDSKU = od.Quantity.ToString();
+                }
+
+                if (pur[i].PurchaseId == pur[i + 1].PurchaseId) {
+                    od.Product.ProductName += "\n" + pur[i + 1].Product.ProductName;
+                    od.IDSKU += "\n" + pur[i + 1].Quantity.ToString();
+                    check = true;
+                } else {
+                    reorder.Add(od);
+                    check = false;
+                }
+            }
+            if (check == false) {
+                od = pur[pur.Count - 1];
+                od.IDSKU = od.Quantity.ToString();
+            }
+            reorder.Add(od);
+
+            return View(reorder);
+        }
+
         // GET: Admin/PurchaseDetails/Create
         public IActionResult Create() {
             ViewData["ProductId"] = new SelectList(_context.Product, "ProductId", "ProductDetail");

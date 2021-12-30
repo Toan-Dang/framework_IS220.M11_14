@@ -13,6 +13,7 @@
     <link href="~/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- Custom Stylesheet -->
     <link href="~/css/style.css" rel="stylesheet">
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 </head>
 <body>
 
@@ -26,7 +27,7 @@
             <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="javascript:void(0)">Quản lý mua hàng</a></li>
-                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Yêu cầu sản phẩm</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Yêu cầu báo giá</a></li>
                 </ol>
             </div>
         </div>
@@ -37,10 +38,21 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title"> Các giao dịch mua hàng</h4>
-                    </div>
-                     <div class="card-header">
-                             <a asp-action="Create"> <h4 class = "btn btn-outline-secondary">Tạo đơn mua hàng</h4></a>
+                        <a asp-action="Create"> <h4 class = "btn btn-outline-secondary">Tạo đơn mua hàng</h4></a>
+                        <div class="float-right">
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <label>Tình trạng: </label>
+                                    <select class="form-control" id="select_category">
+                                        <option value="0">ALL</option>
+                                        <option value="1" selected="selected">Yêu cầu báo giá</option>
+                                        <option value="2">Thanh toán đơn hàng</option>
+                                        <option value="3">Đơn hàng đã hoàn thành</option>
+                                        <option value="4">Đơn hàng đã hủy</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -97,18 +109,25 @@
                                                 status = "gửi yêu cầu";
                                                 color = "btn btn-outline-info";
                                             } 
-           
-                                            @if(item.Purchase.TransactStatus.Equals("sent") ||item.Purchase.TransactStatus.Equals("cancel") ){
+                                        @if(item.Purchase.TransactStatus.Equals("sent")){
+                                                status = "nhận hàng";
+                                                color = "btn btn-outline-secondary";
+                                        } 
+                                            @if (item.Purchase.TransactStatus.Equals("receive")) {
+                                                status = "thanh toán";
+                                                color = "btn btn-outline-success";
+                                            }
+                                            @if(item.Purchase.TransactStatus.Equals("done") ||item.Purchase.TransactStatus.Equals("cancel") ){
                                                 status = "";
                                                 color = "";
                                                 color_can = "";
                                                 text_can = "";
                                             } 
-                                       
+                                            
                                             <td>
-                                             <a asp-action="Accept_RQ" asp-route-id="@item.PurchaseId" class = "@color" >@status</a>  
-                                             <a asp-action="Details_RQ" asp-route-id="@item.PurchaseId" class = "btn btn-outline-primary">Chi tiết</a>    
-                                             <a asp-action="Delete_RQ" asp-route-id="@item.PurchaseId" class = "@color_can">@text_can</a>   
+                                             <a asp-action="Accept_T" asp-route-id="@item.PurchaseId" class = "@color" id = "route" >@status</a>  
+                                             <a asp-action="Details_T" asp-route-id="@item.PurchaseId" class = "btn btn-outline-primary">Chi tiết</a>    
+                                             <a asp-action="Delete_T" asp-route-id="@item.PurchaseId" class = "@color_can">@text_can</a>   
                                         </td>
                                     </tr>   
                                }
@@ -118,6 +137,8 @@
                             </table>
                             <script type = "text/javascript">
                                    $("#product").val().replace(/\n/g, '<br/>');
+                                
+
                             </script>
                         </div>
                     </div>
@@ -134,5 +155,24 @@
     <!-- Datatable -->
     <script src="~/vendor/datatables/js/jquery.dataTables.min.js"></script>
     <script src="~/js/plugins-init/datatables.init.js"></script>
+      <script type="text/javascript">
+         $('#select_category').change(function() {
+            var val = $(this).val();
+            if (val == 0) {
+                window.location = '/admin/purchasedetails/transaction';
+            } else if (val == 1) {
+                window.location = '/admin/purchasedetails/requests';
+            }
+            else if (val == 2) {
+                window.location = '/admin/purchasedetails/receipt';
+            }
+            else if (val == 3) {
+                window.location = '/admin/purchasedetails/done';
+            }
+            else if (val == 4) {
+                window.location = '/admin/purchasedetails/cancel';
+            }
+        });
+    </script>
 </body>
 </html>

@@ -41,6 +41,25 @@
                         <span asp-validation-for="VoucherDetail" class="text-danger"></span>
                     </div>
                     <div class="form-group">
+                        <label asp-for="Loaigiam" class="control-label"></label>
+                      
+                        <select asp-for="Loaigiam" >
+                            <option value="1">giam theo luot</option>
+                            <option value="2">giam theo dot</option>
+                        </select>
+                        <span asp-validation-for="Loaigiam" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Number" class="control-label"></label>
+                        <input asp-for="Number" class="form-control" />
+                        <span asp-validation-for="Number" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Sotientoida" class="control-label"></label>
+                        <input asp-for="Sotientoida" class="form-control" />
+                        <span asp-validation-for="Sotientoida" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
                         <input type="submit" value="Create" class="btn btn-success" />
                         <a asp-action="Index" class="btn btn-outline-danger">Trở về</a>
                     </div>

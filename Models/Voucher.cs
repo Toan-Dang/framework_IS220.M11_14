@@ -12,6 +12,9 @@ namespace WEB2.Models {
         public string VoucherDetail { get; set; }
         public int Code { get; set; }
         public bool IsActive { get; set; }
+        public int Loaigiam { get; set; }
+        public int Number { get; set; }
+        public int Sotientoida { get; set; }
         public virtual ICollection<Voucher_detail> Voucher_Details { get; set; }
     }
 }
