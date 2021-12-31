@@ -8,5 +8,6 @@ namespace WEB2.Areas.Order {
         public List<int> Quantity { get; set; }
         public double Paid { get; set; }
         public int SupplierId { get; set; }
+        public int InvenId { get; set; }
     }
 }

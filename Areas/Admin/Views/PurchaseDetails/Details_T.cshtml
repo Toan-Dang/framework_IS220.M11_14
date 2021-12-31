@@ -84,6 +84,12 @@
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => item.Purchase.TransactStatus)
                 </dd>
+                    <dt class="col-sm-2">
+                    kho
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => item.Purchase.InventoryId)
+                </dd>
                 if (status.Equals("saved")) {
                     status = "gửi yêu cầu";
                     color = "btn btn-outline-info";
