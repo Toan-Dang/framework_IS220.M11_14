@@ -1,4 +1,9 @@
 @model WEB2.Models.ProductContent
+@using Microsoft.AspNetCore.Identity
+@using WEB2.Models
+
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
 @{
     ViewData["Title"] = @Html.DisplayFor(model => model.Product.ProductName);
     int[] rating = { 0, 0, 0, 0, 0 };
@@ -8,28 +13,19 @@
 <link href="@Url.Content("//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css")" rel="stylesheet" type="text/css" />
 
-}       
+}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-@foreach (var items in Model.Product.Feedbacks)
-{
-    if (items.Rate == 1)
-    {
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+@foreach (var items in Model.Product.Feedbacks) {
+    if (items.Rate == 1) {
         rating[0] += 1;
-    }
-    else if (items.Rate == 2)
-    {
+    } else if (items.Rate == 2) {
         rating[1] += 1;
-    }
-    else if (items.Rate == 3)
-    {
+    } else if (items.Rate == 3) {
         rating[2] += 1;
-    }
-    else if (items.Rate == 4)
-    {
+    } else if (items.Rate == 4) {
         rating[3] += 1;
-    }
-    else if (items.Rate == 5)
-    {
+    } else if (items.Rate == 5) {
         rating[4] += 1;
     }
 }
@@ -51,7 +47,7 @@
                 <div class="product-slice">
                     <div class="slider-for">
                         <div><img src="@Html.DisplayFor(model => model.Product.Picture)" /></div>
-                        @foreach (var items in Model.Product.Images){
+                        @foreach (var items in Model.Product.Images) {
                             <div><img src="@items.URL" /></div>
                         }
                     </div>
@@ -59,7 +55,7 @@
                 <div class="product-slice-nav">
                     <div class="slider-nav">
                         <div><img src="@Html.DisplayFor(model => model.Product.Picture)" /></div>
-                        @foreach (var items in Model.Product.Images){
+                        @foreach (var items in Model.Product.Images) {
                             <div><img src="@items.URL" /></div>
                         }
                     </div>
@@ -71,23 +67,22 @@
                     <h5 class="msrp" style="display: inline; margin-left: 20px"><span id="price2"></span></h5>
                 </div>
                 <div class="clickbuy">
-                   
+
                     @Html.ActionLink("<p><i class='bi bi-cart-check-fill'></i> MUA NGAY</p>","AddCart","OrderDetails",new {productid = @Model.ProductId},null)
                 </div>
-                
+
                 <div class="grouping" style="position: relative; top: 100px;">
-                    @if (Model.Product.Category.ParentCategoryId < 5){
-                    <div class="phienban" id = "verpro">
-                        <h6>Phiên bản</h6>
-   
-                    </div>
-                     }
-                    <div class="mausac" id = "colopro">
+                    @if (Model.Product.Category.ParentCategoryId < 5) {
+                        <div class="phienban" id="verpro">
+                            <h6>Phiên bản</h6>
+
+                        </div>
+                    }
+                    <div class="mausac" id="colopro">
                         <h6>Màu sắc</h6>
-           
+
                     </div>
                     <div>
-
                     </div>
                 </div>
 
@@ -128,8 +123,7 @@
                         <i style="color: #be1e2d" class="bi bi-shield-fill-check"></i> Bảo hành 12 tháng chính hãng
                     </span>
                     <h6 class="mt-2">THÔNG SỐ KỸ THUẬT</h6>
-                    @if (Model.Product.Category.ParentCategoryId == 1)
-                    {
+                    @if (Model.Product.Category.ParentCategoryId == 1) {
                         <div>
                             <table style="width: 95%; margin: auto; font-size: 14px" class="table table-striped thongsokythuat">
                                 <tbody>
@@ -149,7 +143,7 @@
                                         <td>Độ phân giải</td>
                                         <td>
                                             @Html.DisplayFor(model => model.Product.Screen.Resolution)
-                                     </td>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>Tần số quét</td>
@@ -214,9 +208,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    }
-                    else if (Model.Product.Category.ParentCategoryId == 2)
-                    {
+                    } else if (Model.Product.Category.ParentCategoryId == 2) {
                         <div>
                             <table style="width: 95%; margin: auto; font-size: 14px" class="table table-striped thongsokythuat">
                                 <tbody>
@@ -236,7 +228,7 @@
                                         <td>Ổ cứng</td>
                                         <td>
                                             @Html.DisplayFor(model => model.Product.Rom.Capacity) GB, @Html.DisplayFor(model => model.Product.Rom.Type)
-                                     </td>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>Card màn hình</td>
@@ -259,7 +251,7 @@
                                     <tr>
                                         <td>Hệ điều hành</td>
                                         <td>
-                                            @Html.DisplayFor(model => model.Product.OS.Name) @Html.DisplayFor(model => model.Product.OS.Version) 
+                                            @Html.DisplayFor(model => model.Product.OS.Name) @Html.DisplayFor(model => model.Product.OS.Version)
                                         </td>
                                     </tr>
                                     <tr>
@@ -277,9 +269,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    }
-                    else if (Model.Product.Category.ParentCategoryId == 3)
-                    {
+                    } else if (Model.Product.Category.ParentCategoryId == 3) {
                         <div>
                             <table style="width: 95%; margin: auto; font-size: 14px" class="table table-striped thongsokythuat">
                                 <tbody>
@@ -292,14 +282,14 @@
                                     <tr>
                                         <td>Hệ điều hành</td>
                                         <td>
-                                            @Html.DisplayFor(model => model.Product.OS.Name) @Html.DisplayFor(model => model.Product.OS.Version) 
+                                            @Html.DisplayFor(model => model.Product.OS.Name) @Html.DisplayFor(model => model.Product.OS.Version)
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>Chip</td>
                                         <td>
                                             @Html.DisplayFor(model => model.Product.Processor.Name)
-                                     </td>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>RAM</td>
@@ -313,16 +303,16 @@
                                             @Html.DisplayFor(model => model.Product.Rom.Capacity) GB
                                         </td>
                                     </tr>
-                                    @if (Model.Product.Connection.Sim != null){
+                                    @if (Model.Product.Connection.Sim != null) {
                                         <tr>
-                                           <td>
-                                              SIM
+                                            <td>
+                                                SIM
                                             </td>
                                             <td>
-                                             @Html.DisplayFor(model => model.Product.Connection.Sim)
+                                                @Html.DisplayFor(model => model.Product.Connection.Sim)
                                             </td>
                                         </tr>
-                                     }
+                                    }
                                     <tr>
                                         <td>Camera sau</td>
                                         <td>
@@ -350,10 +340,8 @@
                                 </tbody>
                             </table>
                         </div>
-                    }
-                    else if (Model.Product.Category.ParentCategoryId == 5)
-                    {
-                         <div>
+                    } else if (Model.Product.Category.ParentCategoryId == 5) {
+                        <div>
                             <table style="width: 95%; margin: auto; font-size: 14px" class="table table-striped thongsokythuat">
                                 <tbody>
                                     <tr>
@@ -375,12 +363,12 @@
                                         </td>
                                     </tr>
                                     @if (Model.Product.Sound.Technology != "1") {
-                                    <tr>
-                                        <td>Công nghệ âm thanh</td>
-                                        <td>
-                                            @Html.DisplayFor(model => model.Product.Sound.Technology)
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td>Công nghệ âm thanh</td>
+                                            <td>
+                                                @Html.DisplayFor(model => model.Product.Sound.Technology)
+                                            </td>
+                                        </tr>
                                     }
                                     <tr>
                                         <td>Tương thích</td>
@@ -409,9 +397,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    }
-                    else if (Model.Product.Category.ParentCategoryId == 6)
-                    {
+                    } else if (Model.Product.Category.ParentCategoryId == 6) {
                         <div>
                             <table style="width: 95%; margin: auto; font-size: 14px" class="table table-striped thongsokythuat">
                                 <tbody>
@@ -423,12 +409,12 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div> 
+                        </div>
                     }
-                    @if (Model.Product.Category.ParentCategoryId != 6){
-                    <a class="btn" id="seemore" data-toggle="modal" data-target="#exampleModalLong">
-                        Xem cấu hình chi tiết <i class="bi bi-chevron-down"></i>
-                    </a>
+                    @if (Model.Product.Category.ParentCategoryId != 6) {
+                        <a class="btn" id="seemore" data-toggle="modal" data-target="#exampleModalLong">
+                            Xem cấu hình chi tiết <i class="bi bi-chevron-down"></i>
+                        </a>
                     }
                 </div>
                 <div class="thongtinmay" style="position: relative; top: 20px;">
@@ -780,9 +766,7 @@
                                 </table>
                             </div>
                         </div>
-                    }
-                    else if (Model.Product.Category.ParentCategoryId == 2)
-                    {
+                    } else if (Model.Product.Category.ParentCategoryId == 2) {
                         <div class="cauhinhchitiet">
                             <div id="cpu">
                                 <h6>BỘ XỬ LÝ</h6>
@@ -804,16 +788,16 @@
                                                 @Html.DisplayFor(model => model.Product.Processor.Core)
                                             </td>
                                         </tr>
-                                        @if (Model.Product.Processor.Thread != 0){
-                                          <tr>
-                                            <td>
-                                                Số luồng
-                                            </td>
-                                            <td>
-                                                
-                                                @Html.DisplayFor(model => model.Product.Processor.Thread)
-                                            </td>
-                                        </tr>         
+                                        @if (Model.Product.Processor.Thread != 0) {
+                                            <tr>
+                                                <td>
+                                                    Số luồng
+                                                </td>
+                                                <td>
+
+                                                    @Html.DisplayFor(model => model.Product.Processor.Thread)
+                                                </td>
+                                            </tr>
                                         }
                                         <tr>
                                             <td>
@@ -823,16 +807,16 @@
                                                 @Html.DisplayFor(model => model.Product.Processor.MaxSpeed) Ghz
                                             </td>
                                         </tr>
-                                        @if (Model.Product.Processor.Cache != 0){
-                                          <tr>
-                                            <td>
-                                                Bộ nhớ đệm
-                                            </td>
-                                            <td>
-                                                
-                                                @Html.DisplayFor(model => model.Product.Processor.Cache) MB
-                                            </td>
-                                        </tr>         
+                                        @if (Model.Product.Processor.Cache != 0) {
+                                            <tr>
+                                                <td>
+                                                    Bộ nhớ đệm
+                                                </td>
+                                                <td>
+
+                                                    @Html.DisplayFor(model => model.Product.Processor.Cache) MB
+                                                </td>
+                                            </tr>
                                         }
                                     </tbody>
                                 </table>
@@ -943,7 +927,7 @@
                                                 @Html.DisplayFor(model =>  model.Product.Sound.Technology)
                                             </td>
                                         </tr>
-                                        
+
                                     </tbody>
                                 </table>
                             </div>
@@ -953,7 +937,7 @@
                                     <tbody>
                                         <tr>
                                             <td>
-                                               Cổng giao tiếp
+                                                Cổng giao tiếp
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(model => model.Product.Connection.PhoneJack)
@@ -969,7 +953,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                Khe đọc thẻ nhớ 
+                                                Khe đọc thẻ nhớ
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(model =>  model.Product.Connection.Special)
@@ -999,7 +983,7 @@
                                                 @Html.DisplayFor(model =>  model.Product.Connection.PhoneJack)
                                             </td>
                                         </tr>
-                                         <tr>
+                                        <tr>
                                             <td>
                                                 Kết nối khác
                                             </td>
@@ -1024,7 +1008,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                Chất liệu 
+                                                Chất liệu
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(model =>  model.Product.Structure.Martirial)
@@ -1042,15 +1026,11 @@
                                                 Thông tin pin
                                             </td>
                                             <td>
-                                                @if (Model.Product.Battery.Capacity == 10)
-                                                {
+                                                @if (Model.Product.Battery.Capacity == 10) {
                                                     <span>Khoảng 10 tiếng</span>
-                                                }
-                                                else if (Model.Product.Battery.Capacity == 0){
+                                                } else if (Model.Product.Battery.Capacity == 0) {
                                                     <span>@Html.DisplayFor(model =>  model.Product.Battery.Charge) W @Html.DisplayFor(model =>  model.Product.Battery.Type)</span>
-                                                }
-                                                else
-                                                {
+                                                } else {
                                                     <span>@Html.DisplayFor(model =>  model.Product.Battery.Capacity)@Html.DisplayFor(model =>  model.Product.Battery.Type)</span>
                                                 }
                                             </td>
@@ -1067,9 +1047,7 @@
                                 </table>
                             </div>
                         </div>
-                    }
-                    else if (Model.Product.Category.ParentCategoryId == 3)
-                    {
+                    } else if (Model.Product.Category.ParentCategoryId == 3) {
                         <div class="cauhinhchitiet">
                             <div id="manhinh">
                                 <h6>MÀN HÌNH</h6>
@@ -1107,16 +1085,16 @@
                                                 @Html.DisplayFor(model => model.Product.Screen.HZ) Hz
                                             </td>
                                         </tr>
-                                        @if (Model.Product.Screen.MaxBright != null){
+                                        @if (Model.Product.Screen.MaxBright != null) {
                                             <tr>
-                                               <td>
-                                                  Độ sáng tối đa
+                                                <td>
+                                                    Độ sáng tối đa
                                                 </td>
                                                 <td>
-                                                 @Html.DisplayFor(model => model.Product.Screen.MaxBright)
+                                                    @Html.DisplayFor(model => model.Product.Screen.MaxBright)
                                                 </td>
                                             </tr>
-                                         }
+                                        }
                                         <tr>
                                             <td>
                                                 Màn hình
@@ -1249,16 +1227,16 @@
                                                 @Html.DisplayFor(model => model.Product.Connection.WirelessCard)
                                             </td>
                                         </tr>
-                                        @if (Model.Product.Connection.Sim != null){
+                                        @if (Model.Product.Connection.Sim != null) {
                                             <tr>
-                                               <td>
-                                                  SIM
+                                                <td>
+                                                    SIM
                                                 </td>
                                                 <td>
-                                                 @Html.DisplayFor(model => model.Product.Connection.Sim)
+                                                    @Html.DisplayFor(model => model.Product.Connection.Sim)
                                                 </td>
                                             </tr>
-                                         }
+                                        }
                                         <tr>
                                             <td>
                                                 Wifi
@@ -1373,9 +1351,7 @@
                                 </table>
                             </div>
                         </div>
-                    }
-                    else if (Model.Product.Category.ParentCategoryId == 5)
-                    {
+                    } else if (Model.Product.Category.ParentCategoryId == 5) {
                         <div class="cauhinhchitiet">
                             <div>
                                 <table style="margin: auto; font-size: 14px" class="table table-striped">
@@ -1428,7 +1404,7 @@
                                                 @Html.DisplayFor(model => model.Product.Connection.GPS)
                                             </td>
                                         </tr>
-                                        @if (Model.Product.Connection.Special != null){
+                                        @if (Model.Product.Connection.Special != null) {
                                             <tr>
                                                 <td>Độ dài dây</td>
                                                 <td>
@@ -1537,236 +1513,315 @@
             </div>
             <div class="commentpannel">
                 <h5>Nhận xét về sản phẩm</h5>
-                @if (Model.Product.Feedbacks.Count == 0)
-                {
+                @{
+                    int count = 0;
+                }
+                @foreach (var item in Model.Product.Feedbacks) {
+                    @if (item.IsShow == true)
+                        ++count;
+                }
+                @if (count == 0) {
                     <div class="mt-4">
                         <h6 style="text-align: center">Hiện chưa có nhận xét nào</h6>
                     </div>
-                }
-                else {
-                    @foreach (var item in Model.Product.Feedbacks)
-                   {
-                       <div class="m-3 cmt">
-                        <div class="individual mt-4">
-                            <div class="first-character"><span class="first-character1"></span></div>
-                            <div class="fullname"><span class="fullname1">@item.Rank</span></div>
-                            <div class="timeofcmt"><span><i class="bi bi-clock"></i> @item.FeedbackDay</span></div>
-                            <div style="vertical-align: 0.1em" class="ml-2">
-                               @if (item.Rate >= 1) {
-                               <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                   <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                               </svg>
-                               }
-                               else {
-                               <svg class="bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                   <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                               </svg>
-                               }
-                               @if (item.Rate >= 2) {
-                               <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                   <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                               </svg>
-                               }
-                               else {
-                               <svg class="bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                   <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                               </svg>
-                               }
-                               @if (item.Rate >= 3) {
-                               <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                   <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                               </svg>
-                               }
-                               else {
-                               <svg class="bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                   <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                               </svg>
-                               }
-                               @if (item.Rate >= 4) {
-                               <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                   <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                               </svg>
-                               }
-                               else {
-                               <svg class="bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                   <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                               </svg>
-                               }
-                               @if (item.Rate >= 5) {
-                               <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                   <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                               </svg>
-                               }
-                               else{
-                               <svg class="bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                   <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                               </svg>
-                               }
+                } else {
+                    @foreach (var item in Model.Product.Feedbacks) {
+                        @if (item.IsShow == true) {
+                            @if(item.repid > 0){
+                                <div class="ml-5 cmt">
+                                <div class="individual mt-4">
+                                    <div class="first-character"><span class="first-character1"></span></div>
+                                    <div class="fullname"><span class="fullname1">@item.Rank</span></div>
+                                    <div class="timeofcmt"><span><i class="bi bi-clock"></i> @item.FeedbackDay</span></div>
+                                   
+                                </div>
+                                <div class="contentofcmt">
+                                    <p>
+                                        @item.Comment
+                                    </p>
+                                    <button class="btn repcmt" value="@item.FeedbackId" style="border: 1px solid red">phản hồi</button>
+                                </div>
+                                @if (SignInManager.IsSignedIn(User)) {
+                                    <div class="reply"  id="@item.FeedbackId">
+                                      <form asp-action="Repcmt">
+                                          <textarea name = "tex" ></textarea>
+                                                  <input class = "noshow" name="repcom" value = "@item.FeedbackId" />
+                                                   <input class = "noshow" name="pro" value = "@item.ProductId" />
+                                           <input type="submit" value="Gửi" class="btn btn-success btn replycmt" />
+                                   
+                                       </form>
+                           
+                                    </div>
+                                } else {
+
+                                    <div class="reply" id="@item.FeedbackId">
+                                        <h5> Đăng nhập để trả lời phản hồi</h5>
+                                        <a class="nav-link text-dark " id="login" asp-area="Identity" asp-page="/Account/Login" asp-route-returnurl="~/products/details/@Model.Product.ProductId"><i class="bi bi-box-arrow-in-right" style="font-size: 18px; vertical-align: middle;"></i>&nbspĐăng nhập</a>
+                                    </div>
+                                }
+
                             </div>
-                        </div>
-                        <div class="contentofcmt">
-                            <p>
-                                @item.Comment
-                            </p>
-                        </div>
-                    </div> 
-                   }
-               }
+                            } else {
+                                   <div class="m-3 cmt">
+                                <div class="individual mt-4">
+                                    <div class="first-character"><span class="first-character1"></span></div>
+                                    <div class="fullname"><span class="fullname1">@item.Rank</span></div>
+                                    <div class="timeofcmt"><span><i class="bi bi-clock"></i> @item.FeedbackDay</span></div>
+                                    <div style="vertical-align: 0.1em" class="ml-2">
+                                        @if (item.Rate >= 1) {
+                                            <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                            </svg>
+                                        } else {
+                                            <svg class="bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                            </svg>
+                                        }
+                                        @if (item.Rate >= 2) {
+                                            <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                            </svg>
+                                        } else {
+                                            <svg class="bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                            </svg>
+                                        }
+                                        @if (item.Rate >= 3) {
+                                            <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                            </svg>
+                                        } else {
+                                            <svg class="bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                            </svg>
+                                        }
+                                        @if (item.Rate >= 4) {
+                                            <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                            </svg>
+                                        } else {
+                                            <svg class="bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                            </svg>
+                                        }
+                                        @if (item.Rate >= 5) {
+                                            <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                            </svg>
+                                        } else {
+                                            <svg class="bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                            </svg>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="contentofcmt">
+                                    <p>
+                                        @item.Comment
+                                    </p>
+                                    <button class="btn repcmt" value="@item.FeedbackId" style="border: 1px solid red">phản hồi</button>
+                                </div>
+                                @if (SignInManager.IsSignedIn(User)) {
+                                    <div class="reply" id="@item.FeedbackId">
+                                      <form asp-action="Repcmt">
+                                          <textarea name = "tex"></textarea>
+                                                  <input class = "noshow" name="repcom" value = "@item.FeedbackId" />
+                                                   <input class = "noshow" name="pro" value = "@item.ProductId" />
+                                           <input type="submit" value="Gửi" class="btn btn-success btn replycmt" />
+                                   
+                                       </form>
+                           
+                                    </div>
+                                } else {
+
+                                    <div class="reply" id="@item.FeedbackId">
+                                        <h5> Đăng nhập để trả lời phản hồi</h5>
+                                        <a class="nav-link text-dark " id="login" asp-area="Identity" asp-page="/Account/Login" asp-route-returnurl="~/products/details/@Model.Product.ProductId"><i class="bi bi-box-arrow-in-right" style="font-size: 18px; vertical-align: middle;"></i>&nbspĐăng nhập</a>
+                                    </div>
+                                }
+
+                            </div> 
+                            }
+                        
+                        }
+
+                    }
+                }
             </div>
         </div>
         <div class="col-md-4">
-            <div class="mt-4 mb-3" id="danhgia">
-                <h5>Đánh giá về sản phẩm</h5>
-                <div class="rating-box">
-                    <div>
-                        <p>
-                            5
-                            <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                            </svg>
-                        </p>
-                        <div class="baseline">
-                            <div id="baseline1"></div>
-                        </div>
-                        <span><span id="bsl1">@rating[4]</span> đánh giá</span>
-                    </div>
-                    <div>
-                        <p>
-                            4
-                            <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                            </svg>
-                        </p>
-                        <div class="baseline">
-                            <div id="baseline2"></div>
-                        </div>
-                        <span><span id="bsl2">@rating[3]</span> đánh giá</span>
-                    </div>
-                    <div>
-                        <p>
-                            3
-                            <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                            </svg>
-                        </p>
-                        <div class="baseline">
-                            <div id="baseline3"></div>
-                        </div>
-                        <span><span id="bsl3">@rating[2]</span> đánh giá</span>
-                    </div>
-                    <div>
-                        <p>
-                            2
-                            <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                            </svg>
-                        </p>
-                        <div class="baseline">
-                            <div id="baseline4"></div>
-                        </div>
-                        <span><span id="bsl4">@rating[1]</span> đánh giá</span>
-                    </div>
-                    <div>
-                        <p>
-                            1
-                            <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                            </svg>
-                        </p>
-                        <div class="baseline">
-                            <div id="baseline5"></div>
-                        </div>
 
-                        <span><span id="bsl5">@rating[0]</span> đánh giá</span>
-                    </div>
-                </div>
-                <div class="btndanhgia">
-                    <a class="btn" data-toggle="modal" data-target="#exampleModal1">Để lại đánh giá của bạn</a>
-                    <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h6 class="modal-title" id="exampleModalLabel">Đánh giá & nhận xét sản phẩm</h6>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Họ và tên">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="tel" class="form-control" id="exampleInputPassword1" placeholder="Số điện thoại">
-                                        </div>
-                                        <div class="form-group">
-                                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Cảm nhận của bạn về sản phẩm" rows="5"></textarea>
-                                        </div>
-                                    </form>
-                                    <div class="rating-system">
-                                        <div class="container">
-                                            <div class="stars">
-                                                <input class="stars__checkbox" type="radio" id="first-star" name="star">
-                                                <label class="stars__star" for="first-star">
-                                                    <svg class="stars__star-icon" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                         viewBox="0 0 53.867 53.867" style="enable-background:new 0 0 53.867 53.867;" xml:space="preserve">
-                                                    <polygon points="26.934,1.318 35.256,18.182 53.867,20.887 40.4,34.013 43.579,52.549 26.934,43.798
-                                                10.288,52.549 13.467,34.013 0,20.887 18.611,18.182 " />
-                                        </svg>
-                                                </label>
-                                                <input class="stars__checkbox" type="radio" id="second-star" name="star">
-                                                <label class="stars__star" for="second-star">
-                                                    <svg class="stars__star-icon" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                         viewBox="0 0 53.867 53.867" style="enable-background:new 0 0 53.867 53.867;" xml:space="preserve">
-                                                    <polygon points="26.934,1.318 35.256,18.182 53.867,20.887 40.4,34.013 43.579,52.549 26.934,43.798
-                                                10.288,52.549 13.467,34.013 0,20.887 18.611,18.182 " />
-                                        </svg>
-                                                </label>
-                                                <input class="stars__checkbox" type="radio" id="third-star" name="star">
-                                                <label class="stars__star" for="third-star">
-                                                    <svg class="stars__star-icon" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                         viewBox="0 0 53.867 53.867" style="enable-background:new 0 0 53.867 53.867;" xml:space="preserve">
-                                                    <polygon points="26.934,1.318 35.256,18.182 53.867,20.887 40.4,34.013 43.579,52.549 26.934,43.798
-                                                10.288,52.549 13.467,34.013 0,20.887 18.611,18.182 " />
-                                        </svg>
-                                                </label>
-                                                <input class="stars__checkbox" type="radio" id="fourth-star" name="star">
-                                                <label class="stars__star" for="fourth-star">
-                                                    <svg class="stars__star-icon" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                         viewBox="0 0 53.867 53.867" style="enable-background:new 0 0 53.867 53.867;" xml:space="preserve">
-                                                    <polygon points="26.934,1.318 35.256,18.182 53.867,20.887 40.4,34.013 43.579,52.549 26.934,43.798
-                                                10.288,52.549 13.467,34.013 0,20.887 18.611,18.182 " />
-                                        </svg>
-                                                </label>
-                                                <input class="stars__checkbox" type="radio" id="fifth-star" name="star">
-                                                <label class="stars__star" for="fifth-star">
-                                                    <svg class="stars__star-icon" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                         viewBox="0 0 53.867 53.867" style="enable-background:new 0 0 53.867 53.867;" xml:space="preserve">
-                                                    <polygon points="26.934,1.318 35.256,18.182 53.867,20.887 40.4,34.013 43.579,52.549 26.934,43.798
-                                                10.288,52.549 13.467,34.013 0,20.887 18.611,18.182 " />
-                                        </svg>
-                                                </label>
-                                            </div>
-                                            <div>
-                                                <h5 class="" style="text-align: center; display: none"><span id="rating-results"></span> / 5</h5>
-                                            </div>
-                                        </div>
+            @if (SignInManager.IsSignedIn(User)) {
+                <div class="mt-4 mb-3" id="danhgia">
+                    <h5>Đánh giá về sản phẩm</h5>
+                    <div class="rating-box">
+                        <div>
+                            <p>
+                                5
+                                <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                </svg>
+                            </p>
+                            <div class="baseline">
+                                <div id="baseline1"></div>
+                            </div>
+                            <span><span id="bsl1">@rating[4]</span> đánh giá</span>
+                        </div>
+                        <div>
+                            <p>
+                                4
+                                <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                </svg>
+                            </p>
+                            <div class="baseline">
+                                <div id="baseline2"></div>
+                            </div>
+                            <span><span id="bsl2">@rating[3]</span> đánh giá</span>
+                        </div>
+                        <div>
+                            <p>
+                                3
+                                <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                </svg>
+                            </p>
+                            <div class="baseline">
+                                <div id="baseline3"></div>
+                            </div>
+                            <span><span id="bsl3">@rating[2]</span> đánh giá</span>
+                        </div>
+                        <div>
+                            <p>
+                                2
+                                <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                </svg>
+                            </p>
+                            <div class="baseline">
+                                <div id="baseline4"></div>
+                            </div>
+                            <span><span id="bsl4">@rating[1]</span> đánh giá</span>
+                        </div>
+                        <div>
+                            <p>
+                                1
+                                <svg class="rating-checked bi bi-star-half" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                </svg>
+                            </p>
+                            <div class="baseline">
+                                <div id="baseline5"></div>
+                            </div>
 
+                            <span><span id="bsl5">@rating[0]</span> đánh giá</span>
+                        </div>
+                    </div>
+                    <div class="btndanhgia">
+                        <a class="btn" data-toggle="modal" data-target="#exampleModal1">Để lại đánh giá của bạn</a>
+                        <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h6 class="modal-title" id="exampleModalLabel">Đánh giá & nhận xét sản phẩm</h6>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
                                     </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" id="sub" class="btn" style="width: 100%; border-radius: 10px; ">Gửi đánh giá</button>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Họ và tên">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="tel" class="form-control" id="exampleInputPassword1" placeholder="Số điện thoại">
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Cảm nhận của bạn về sản phẩm" rows="5"></textarea>
+                                            </div>
+                                        </form>
+                                        <div class="rating-system">
+                                            <div class="container">
+                                                <div class="stars">
+                                                    <input class="stars__checkbox" type="radio" id="first-star" name="star">
+                                                    <label class="stars__star" for="first-star">
+                                                        <svg class="stars__star-icon" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                         viewBox="0 0 53.867 53.867" style="enable-background:new 0 0 53.867 53.867;" xml:space="preserve">
+                                                        <polygon points="26.934,1.318 35.256,18.182 53.867,20.887 40.4,34.013 43.579,52.549 26.934,43.798
+                                                10.288,52.549 13.467,34.013 0,20.887 18.611,18.182 " />
+                                            </svg>
+                                                    </label>
+                                                    <input class="stars__checkbox" type="radio" id="second-star" name="star">
+                                                    <label class="stars__star" for="second-star">
+                                                        <svg class="stars__star-icon" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                         viewBox="0 0 53.867 53.867" style="enable-background:new 0 0 53.867 53.867;" xml:space="preserve">
+                                                        <polygon points="26.934,1.318 35.256,18.182 53.867,20.887 40.4,34.013 43.579,52.549 26.934,43.798
+                                                10.288,52.549 13.467,34.013 0,20.887 18.611,18.182 " />
+                                            </svg>
+                                                    </label>
+                                                    <input class="stars__checkbox" type="radio" id="third-star" name="star">
+                                                    <label class="stars__star" for="third-star">
+                                                        <svg class="stars__star-icon" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                         viewBox="0 0 53.867 53.867" style="enable-background:new 0 0 53.867 53.867;" xml:space="preserve">
+                                                        <polygon points="26.934,1.318 35.256,18.182 53.867,20.887 40.4,34.013 43.579,52.549 26.934,43.798
+                                                10.288,52.549 13.467,34.013 0,20.887 18.611,18.182 " />
+                                            </svg>
+                                                    </label>
+                                                    <input class="stars__checkbox" type="radio" id="fourth-star" name="star">
+                                                    <label class="stars__star" for="fourth-star">
+                                                        <svg class="stars__star-icon" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                         viewBox="0 0 53.867 53.867" style="enable-background:new 0 0 53.867 53.867;" xml:space="preserve">
+                                                        <polygon points="26.934,1.318 35.256,18.182 53.867,20.887 40.4,34.013 43.579,52.549 26.934,43.798
+                                                10.288,52.549 13.467,34.013 0,20.887 18.611,18.182 " />
+                                            </svg>
+                                                    </label>
+                                                    <input class="stars__checkbox" type="radio" id="fifth-star" name="star">
+                                                    <label class="stars__star" for="fifth-star">
+                                                        <svg class="stars__star-icon" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                         viewBox="0 0 53.867 53.867" style="enable-background:new 0 0 53.867 53.867;" xml:space="preserve">
+                                                        <polygon points="26.934,1.318 35.256,18.182 53.867,20.887 40.4,34.013 43.579,52.549 26.934,43.798
+                                                10.288,52.549 13.467,34.013 0,20.887 18.611,18.182 " />
+                                            </svg>
+                                                    </label>
+                                                </div>
+                                                <div>
+                                                    <h5 class="" style="text-align: center; display: none"><span id="rating-results"></span> / 5</h5>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" id="sub" class="btn" style="width: 100%; border-radius: 10px; ">Gửi đánh giá</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            } else {
+                <div class="mt-4 mb-3" id="danhgia">
+                    <h5> Đăng nhập để đánh giá sản phẩm</h5>
+                    <a class="nav-link text-dark " id="login" asp-area="Identity" asp-page="/Account/Login" asp-route-returnurl="~/products/details/@Model.Product.ProductId"><i class="bi bi-box-arrow-in-right" style="font-size: 18px; vertical-align: middle;"></i>&nbspĐăng nhập</a>
+                </div>
+
+            }
+
+
         </div>
     </div>
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            $('.reply').hide();
+             $('.noshow').hide()
+            $(".repcmt").on("click", function () {
+                var index = $(this).val();
+                console.log(index);
+                $(`#${index}`).show();
+            });
+
+           
              var rate;
 
             $('.slider-for').slick({
@@ -1864,24 +1919,24 @@
             $("#baseline5").css("width", rating_calc(bsl5, sumbsl).toFixed(4) + "%")
 
             $("#first-star").on("click", function(){
-                $("#rating-results").html("5");
-                rate = 5;
+                $("#rating-results").html("1");
+                rate = 1;
             })
             $("#second-star").on("click", function(){
-                $("#rating-results").html("4");
-                     rate = 4;
+                $("#rating-results").html("2");
+                     rate = 2;
             })
             $("#third-star").on("click", function(){
                 $("#rating-results").html("3");
                      rate = 3;
             })
             $("#fourth-star").on("click", function(){
-                $("#rating-results").html("2");
-                     rate = 2;
+                $("#rating-results").html("4");
+                     rate = 4;
             })
             $("#fifth-star").on("click", function(){
-                $("#rating-results").html("1");
-                     rate = 1;
+                $("#rating-results").html("5");
+                     rate = 5;
             })
             $('.commentpannel').ready(function(){
                 $(this).find(('.cmt')).each(function(){
@@ -1926,32 +1981,32 @@
                   });
                });
                //////////////
-              
+
 
                   var ver = "@Model.Product.Category.Active";
                   var spver = ver.split("-");
-              
-        
+
+
                   var col = "@Model.Product.Category.Picture";
                   var spcol = col.split("-");
-            
-                  
+
+
                   var actualver = "@Model.Product.Version";
                   var actualcol = "@Model.Product.Color";
-               
+
                 var proVer = [];
                 var protemp;
                 var check = false;
-           
+
                 for (let i = 1; i < spver.length - 1; ++i) {
                   if (check == false) {
                     protemp = spver[i];
                   }
                   if (spver[i] == spver[i + 1]) {
-                    
+
                       check = true;
                     continue;
-                 
+
                   } else {
                           proVer.push(protemp);
                     check = false;
@@ -1961,7 +2016,7 @@
                   proVer.push(spver[spver.length - 1]);
                 }
                 proVer.push(protemp);
-        
+
 
                  for(let i =0; i< proVer.length; ++i){
                    if(actualver == proVer[i]){
@@ -1973,11 +2028,11 @@
                     <a class="btn" id="${proVer[i]}" href="/products/detailversion?productname=@Model.Product.ProductName&version=${proVer[i]}" >${proVer[i]}</a>
                     `);
                    }
-                  
-                 
+
+
 
                  }
-            
+
 
                  for(let i =1; i< spcol.length; ++i){
                      if(actualcol == spcol[i]){
@@ -1989,14 +2044,14 @@
                     <a class="btn" id="${spcol[i]}"  href="/products/detailcolor?productname=@Model.Product.ProductName&version=@Model.Product.Version&color=${spcol[i]}">${spcol[i]}</a>
                     `);
                      }
-                  
+
                  }
-              
+
                 $("a#undefined").css({"display" : "none"});
                 $("a#undefined").attr("href", "#");
                /////////////////////////////////////////
-               
-       
+
+
 
         });
 
@@ -2013,7 +2068,7 @@
             document.getElementById("price1").innerHTML = numberWithCommas((price1).toFixed(0));
             document.getElementById("price2").innerHTML = numberWithCommas((price2).toFixed(0));
 
-         
+
         }
     </script>
 </main>

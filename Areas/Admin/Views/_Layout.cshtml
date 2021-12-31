@@ -144,8 +144,10 @@
                             <i class="icon icon-single-04"></i><span class="nav-text">Dashboard</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a asp-controller="Dashboards" asp-action="Dashboard1" asp-area="Admin">Dashboard 1</a></li>
-                            <li><a asp-area="Admin" asp-page="/Manage/Dashboard2">Dashboard 2</a></li>
+                            <li><a asp-controller="Dashboards" asp-action="Dashboard1" asp-area="Admin">Doanh thu</a></li>
+                            <li><a asp-area="Admin" asp-page="/Manage/Dashboard2">Chi phí</a></li>
+                              <li><a asp-area="Admin" asp-page="/Manage/Dashboard3">Thống kê sản phẩm</a></li>
+                   
                         </ul>
                     </li>
                     <li class="nav-label">Apps</li>
@@ -245,14 +247,15 @@
                     </li>
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon icon-form"></i><span class="nav-text"> Nội dung</span>
+                            <i class="icon icon-form"></i><span class="nav-text"> Nội dun           g</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./form-element.html">Slide</a></li>
+                          @*  <li><a href="./form-element.html">Slide</a></li>
                             <li><a href="./form-wizard.html">Tin tức</a></li>
                             <li><a href="./form-editor-summernote.html">Danh mục tin tức</a></li>
-                            <li><a href="form-pickers.html">ảnh bài viết</a></li>
+                            <li><a href="form-pickers.html">ảnh bài viết</a></li>*@
                             <li><a href="form-validation-jquery.html">cấu hình website</a></li>
+                            <li><a asp-action="Index" asp-area="admin" asp-controller="Feedbacks">Đánh giá sản phẩm</a></li>
                         </ul>
                     </li>
                 </ul>

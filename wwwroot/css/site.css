@@ -2,6 +2,7 @@
 for details on configuring this project to bundle and minify static web assets. */
 @import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kolker+Brush&display=swap');
 
 @font-face {
     font-family: 'Glyphicons Halflings';
@@ -202,13 +203,89 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+ 
 }
 body a{
     color: black;
 }
-/*.footer {
+.sticky-side-banner{
+
+}
+    .sticky-side-banner > div > div {
+        position: absolute;
+        top: 175px;
+        border-radius: 0px 0px 20px 20px;
+        height: 325px;
+        width: 115px;
+        display: block;
+    }
+.side-banner-header {
+    display: block;
+    height: 10px;
+    background-color: black;
+    border-radius: 10px;
+}
+    .side-banner-header > div {
+        display: block;
+        height: 100%;
+        width: 88%;
+        background-color: #fed100;
+        margin: auto;
+    }
+    .side-banner-content {
+        background-color: #be1e2d;
+        border-radius: 0px 0px 65px 65px;
+        margin-left: 7.5px;
+        margin-right: 7.5px;
+        color: #fed100;
+        font-family: 'Kolker Brush', cursive;
+        text-align: center;
+        height: 265px;
+        width: 100px;
+        padding-left: 5px;
+        padding-right: 5px;
+        padding-bottom: 5px;
+    }
+        .side-banner-content > h1 {
+            border-left: 3px solid #fed100;
+            border-right: 3px solid #fed100;
+            border-bottom: 1px solid #fed100;
+            border-radius: 0px 0px 65px 65px;
+            min-height: 100%;
+        }
+
+        .sticky-side-banner .side-banner-left {
+            left: calc(((100vw - 1200px)/2) - 110px);
+        }
+        .sticky-side-banner .side-banner-right {
+            right: calc(((100vw - 1200px)/2) - 110px);
+        }
+.side-banner-footer {
+    width: 100%;
+
+}
+    .side-banner-footer > img {
+        height: 50%;
+        width: 50%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+.bottom-left-img {
+    width: 500px;
+    height: 500px;
+    position: fixed;
+    top: 575px;
+    left: calc(((100vw - 1200px)/2) - 130px);
+    
+}
+    .bottom-left-img > img {
+        width: 30%;
+        height: 30%;
+    }
+    /*.footer {
     position: absolute;
     bottom: 0;
     margin-bottom: 0px;
@@ -219,12 +296,12 @@ body a{
     background-color: black;
     line-height: 60px
 }*/
-.footer {
-    width: 100%;
-    white-space: normal;
-    padding: 0;
-    background-color: black;
-}
+    .footer {
+        width: 100%;
+        white-space: normal;
+        padding: 0;
+        background-color: black;
+    }
 .sub > p {
     color: white;
     font-weight: bold;
@@ -312,7 +389,7 @@ body a{
 #f_search .input-group-append {
     z-index: 10;
     align-items: center;
-    margin-left: -13%;
+    margin-left: -9.75%;
 }
 #f_search button {
     border-radius: 100px;

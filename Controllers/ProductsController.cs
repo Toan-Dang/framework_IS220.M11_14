@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,8 +15,14 @@ namespace WEB2.Controllers {
 
     public class ProductsController : Controller {
         private readonly AppDbContext _context;
-        public ProductsController(AppDbContext context) {
+        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
+
+        public ProductsController(AppDbContext context, UserManager<AppUser> userManager,
+            SignInManager<AppUser> signInManager) {
             _context = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         // GET: Laptop
@@ -229,22 +237,23 @@ namespace WEB2.Controllers {
             ++product.View;
             _context.Update(product);
             await _context.SaveChangesAsync();
-
+            foreach (var item in product.Feedbacks) {
+                if (item.IsShow == false)
+                    item.Rate = -1;
+            }
             var pro = await _context.Product
             .Where(p => p.ProductName == product.ProductName)
             .ToListAsync();
             var col = await _context.Product.Where(p => p.ProductName == product.ProductName)
                 .Where(p => p.Version == product.Version).ToListAsync();
             string color = "";
-            foreach (var item in col)
-            {
+            foreach (var item in col) {
                 color += "-" + item.Color;
             }
 
             string version = "";
 
-            foreach (var item in pro)
-            {
+            foreach (var item in pro) {
                 version += "-" + item.Version;
             }
 
@@ -280,9 +289,15 @@ namespace WEB2.Controllers {
             if (product == null) {
                 return RedirectToAction("ExDetails", new { id = id });
             }
+
             ++product.Product.View;
             _context.Update(product);
             await _context.SaveChangesAsync();
+            foreach (var item in product.Product.Feedbacks) {
+                if (item.IsShow == false)
+                    item.Rate = -1;
+            }
+
             var pro = await _context.Product
                 .Where(p => p.ProductName == product.Product.ProductName)
                 .ToListAsync();
@@ -325,8 +340,17 @@ namespace WEB2.Controllers {
 
         [HttpPost]
         public async Task<IActionResult> Rate([FromBody] Feedback feedback) {
+            var user = await _userManager.GetUserAsync(User);
+
+            var userid = await _userManager.GetUserIdAsync(user);
+
+            var customer = await _context.Users.FindAsync(userid);
+
             if (ModelState.IsValid) {
                 feedback.FeedbackDay = DateTime.Now;
+                feedback.IsShow = false;
+                feedback.userid = customer.Id;
+
                 _context.Add(feedback);
                 await _context.SaveChangesAsync();
                 return Json(new {
@@ -337,6 +361,32 @@ namespace WEB2.Controllers {
             return Json(new {
                 newUrl = Url.Action("Details", "Products", new { id = feedback.ProductId })
             });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Repcmt(string tex, int repcom, int pro) {
+            var user = await _userManager.GetUserAsync(User);
+
+            var userid = await _userManager.GetUserIdAsync(user);
+
+            var customer = await _context.Users.FindAsync(userid);
+
+            if (ModelState.IsValid) {
+                Feedback feedback = new Feedback {
+                    FeedbackDay = DateTime.Now,
+                    IsShow = false,
+                    userid = customer.Id,
+                    Comment = tex,
+                    repid = repcom,
+                    ProductId = pro,
+                    Rank = customer.FullName
+                };
+
+                _context.Add(feedback);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Details), pro);
         }
     }
 }

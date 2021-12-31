@@ -13,6 +13,9 @@ namespace WEB2.Models {
         public string Rank { get; set; }
         public string Comment { get; set; }
         public int Rate { get; set; }
+        public string userid { get; set; }
+        public bool IsShow { get; set; }
+        public int repid { get; set; }
         public DateTime FeedbackDay { get; set; }
 
         [ForeignKey("ProductId")]

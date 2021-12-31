@@ -385,8 +385,8 @@
             return parts.join(",");
         }
         function countDown() {
-            var currDate = new Date()
-            var endTime = new Date(currDate.getFullYear(), currDate.getMonth(), currDate.getDate() + 2, 23, 59, 59);;
+            var currDate = new Date();
+            var endTime = new Date(currDate.getFullYear(), currDate.getMonth(), currDate.getDate() + 2, 23, 59, 59);
             endTime = (Date.parse(endTime) / 1000);
             var now = new Date();
             now = (Date.parse(now) / 1000);
