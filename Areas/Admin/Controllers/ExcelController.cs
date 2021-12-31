@@ -45,7 +45,7 @@ namespace WEB2.Controllers
                 var sheet = package.Workbook.Worksheets.Add("Danh sach các đơn bán hàng đã hoàn thành");
                 sheet.Cells["A1:H99"].Style.Font.Name = "Times New Roman";
                 sheet.Cells["A1:I1"].Merge = true;
-                sheet.Cells["A1:I1"].Style.Fill.BackgroundColor.SetColor(0, 186, 248, 255);
+               
                 sheet.Column(3).Width = 25;
                 sheet.Column(1).Width = 5.33;
                 sheet.Column(2).Width = 11.67;
