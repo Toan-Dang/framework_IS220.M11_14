@@ -11,6 +11,7 @@ namespace WEB2.Areas.Order {
         public string Type { get; set; }
         public DateTime DayTransaction { get; set; }
         public string Fullname { get; set; }
+        public int InvenId { get; set; }
 
         public PurchaseOrder() {
         }

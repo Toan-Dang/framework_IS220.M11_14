@@ -177,7 +177,8 @@ namespace WEB2.Areas.Admin.Controllers {
                     Quantity = item.IDSKU,
                     DayTransaction = item.Order.OrderDay,
                     Type = item.Order.TransactStatus,
-                    Fullname = item.Order.Customer.AppUser.FullName
+                    Fullname = item.Order.Customer.AppUser.FullName,
+                    InvenId = item.Order.InventoryId
                 };
                 P.Add(p);
             }
@@ -191,7 +192,8 @@ namespace WEB2.Areas.Admin.Controllers {
                     Paid = item.Purchase.Paid,
                     DayTransaction = item.Purchase.PurchaseDay,
                     Type = item.Purchase.TransactStatus,
-                    Fullname = item.Purchase.Supplier.CompanyName
+                    Fullname = item.Purchase.Supplier.CompanyName,
+                    InvenId = item.Purchase.InventoryId
                 };
 
                 P.Add(p);
@@ -205,8 +207,21 @@ namespace WEB2.Areas.Admin.Controllers {
 
             if (order.TransactStatus.Equals("shipping"))
                 order.TransactStatus = "done";
-            if (order.TransactStatus.Equals("accept"))
+            if (order.TransactStatus.Equals("accept")) {
                 order.TransactStatus = "shipping";
+                var or = await _context.Order.Where(p => p.OrderId == id).FirstOrDefaultAsync();
+                var inven = await _context.Inventory.FindAsync(or.InventoryId);
+                var ord = await _context.OrderDetail.Where(p => p.OrderId == id).ToListAsync();
+
+                foreach (var item in ord) {
+                    var inpro = await _context.Invent_Product.Where(p => p.ProductId == item.ProductId).Where(p => p.InventoryId == inven.InventoryId).FirstOrDefaultAsync();
+                    inpro.ProductAvailable -= item.Quantity;
+
+                    _context.Update(inpro);
+                    await _context.SaveChangesAsync();
+                }
+            }
+
             if (order.TransactStatus.Equals("pay by cash") || order.TransactStatus.Equals("paid"))
                 order.TransactStatus = "accept";
 

@@ -20,6 +20,7 @@ namespace WEB2.Models {
         public string ResponseCode { get; set; }
         public string SecureHash { get; set; }
         public double Paid { get; set; }
+        public int InventoryId { get; set; }
         public DateTime DateReiceive { get; set; }
 
         [ForeignKey("StaffId")]

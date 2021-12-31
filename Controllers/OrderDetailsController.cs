@@ -250,104 +250,70 @@ namespace WEB2.Controllers {
             if (order == null) {
                 return NotFound();
             }
-            var cus = await _context.Customer.Include(p => p.AppUser)
-                .FirstOrDefaultAsync(p => p.UserId == userid);
-            double latpos = Convert.ToDouble(cus.Latitude);
-            double lonpos = Convert.ToDouble(cus.Longitude);
-            double max = 9999999999;
-            int invenid = 0;
-            // max : khoảng cách
-            var inven = await _context.Inventory.ToListAsync();
-            foreach (var item in inven) {
-                double lat = Convert.ToDouble(item.Latitude);
-                double lon = Convert.ToDouble(item.Longitude);
-                double res = Math.Abs(Math.Sqrt(Math.Pow(latpos - lat, 2) + Math.Pow(lonpos - lon, 2)));
-                if (res <= max) {
-                    max = res;
-                    invenid = item.InventoryId;
-                }
-            }
-            var ordership = await _context.Order.FindAsync(id);
-            ///tính tiền ship
-            max *= 100000;
-            ordership.InventoryId = invenid;
-            ordership.Freight = Math.Round(max, 2);
-            _context.Update(ordership);
-            await _context.SaveChangesAsync();
+            //var cus = await _context.Customer.Include(p => p.AppUser)
+            //    .FirstOrDefaultAsync(p => p.UserId == userid);
+            //double latpos = Convert.ToDouble(cus.Latitude);
+            //double lonpos = Convert.ToDouble(cus.Longitude);
+            //double max = 9999999999;
+            //int invenid = 0;
+            //// max : khoảng cách
+            //var inven = await _context.Inventory.ToListAsync();
+            //foreach (var item in inven) {
+            //    double lat = Convert.ToDouble(item.Latitude);
+            //    double lon = Convert.ToDouble(item.Longitude);
+            //    double res = Math.Abs(Math.Sqrt(Math.Pow(latpos - lat, 2) + Math.Pow(lonpos - lon, 2)));
+            //    if (res <= max) {
+            //        max = res;
+            //        invenid = item.InventoryId;
+            //    }
+            //}
+            //var ordership = await _context.Order.FindAsync(id);
+            /////tính tiền ship
+            //max *= 100000;
+            //ordership.InventoryId = invenid;
+            //ordership.Freight = Math.Round(max, 2);
+            //_context.Update(ordership);
+            //await _context.SaveChangesAsync();
 
-            order[0].Order.Customer.ShipAddress = order[0].Order.Customer.ShipAddress + ", " + order[0].Order.Customer.State + ", " + order[0].Order.Customer.City;
+            // order[0].Order.Customer.ShipAddress = order[0].Order.Customer.ShipAddress + ", " +
+            // order[0].Order.Customer.State + ", " + order[0].Order.Customer.City;
             ViewData["ShipperId"] = new SelectList(_context.Shipment, "ShipperId", "CompanyName", reorder.Shipment.CompanyName);
             ViewData["PaymentId"] = new SelectList(_context.Payment.Where(o => o.Allowed == true), "PaymentId", "PaymentType", reorder.Payment.PaymentType);
             // ViewData["VoucherId"] = new SelectList(_context.Voucher, "VoucherId", "VoucherName", voucher.Voucher.VoucherName);
             return View(order);
         }
 
-        public async Task<IActionResult> ShipMoney(int id) {
-            var order = await _context.Order
-                .Include(p => p.Customer)
-                .Where(p => p.OrderId == id)
-                .FirstOrDefaultAsync();
-            return View(order);
-        }
+        //public async Task<IActionResult> ShipMoney(int id) {
+        //    var order = await _context.Order
+        //        .Include(p => p.Customer)
+        //        .Where(p => p.OrderId == id)
+        //        .FirstOrDefaultAsync();
+        //    return View(order);
+        //}
 
-        [HttpPost]
-        public async Task<IActionResult> ShipAddress([FromBody] LatLong customer) {
-            var cus = await _context.Customer.FindAsync(customer.CustomerID);
-            cus.ShipAddress = customer.ShipAddress;
-            cus.City = customer.City;
-            cus.State = customer.State;
-            _context.Update(cus);
-            await _context.SaveChangesAsync();
+        //[HttpPost]
+        //public async Task<IActionResult> ShipAddress([FromBody] LatLong customer) {
+        //    var cus = await _context.Customer.FindAsync(customer.CustomerID);
+        //    cus.ShipAddress = customer.ShipAddress;
+        //    cus.City = customer.City;
+        //    cus.State = customer.State;
+        //    _context.Update(cus);
+        //    await _context.SaveChangesAsync();
 
-            if (cus.City.Equals("TP Hồ Chí Minh")) {
-                switch (cus.State) {
-                    case "Quận 1": {
-                        cus.Latitude = "10.7748455";
-                        cus.Longitude = "106.6993497";
-                        break;
-                    }
-                    case "Quận 12": {
-                        cus.Latitude = "10.8672335";
-                        cus.Longitude = "106.6539304";
-                        break;
-                    }
-                    case "Quận Thủ Đức": {
-                        cus.Latitude = "10.85142";
-                        cus.Longitude = "106.74727";
-                        break;
-                    }
-                    case "Quận 9": {
-                        cus.Latitude = "10.5024";
-                        cus.Longitude = "106.4615";
-                        break;
-                    }
-                    case "Quận Gò Vấp": {
-                        cus.Latitude = "10.84015";
-                        cus.Longitude = "106.6710828";
-                        break;
-                    }
-                    case "Quận Bình Thạnh": {
-                        cus.Latitude = "10.8046591";
-                        cus.Longitude = "106.7078477";
-                        break;
-                    }
-                    case "Quận Tân Bình": {
-                        cus.Latitude = "10.7979794";
-                        cus.Longitude = "106.6538054";
-                        break;
-                    }
-                    default:
-                    break;
-                }
-            }
-            // cus.Latitude = ""; cus.Longitude = "";
-            _context.Update(cus);
-            await _context.SaveChangesAsync();
+        // if (cus.City.Equals("TP Hồ Chí Minh")) { switch (cus.State) { case "Quận 1": {
+        // cus.Latitude = "10.7748455"; cus.Longitude = "106.6993497"; break; } case "Quận 12": {
+        // cus.Latitude = "10.8672335"; cus.Longitude = "106.6539304"; break; } case "Quận Thủ Đức":
+        // { cus.Latitude = "10.85142"; cus.Longitude = "106.74727"; break; } case "Quận 9": {
+        // cus.Latitude = "10.5024"; cus.Longitude = "106.4615"; break; } case "Quận Gò Vấp": {
+        // cus.Latitude = "10.84015"; cus.Longitude = "106.6710828"; break; } case "Quận Bình
+        // Thạnh": { cus.Latitude = "10.8046591"; cus.Longitude = "106.7078477"; break; } case "Quận
+        // Tân Bình": { cus.Latitude = "10.7979794"; cus.Longitude = "106.6538054"; break; }
+        // default: break; } } // cus.Latitude = ""; cus.Longitude = ""; _context.Update(cus); await _context.SaveChangesAsync();
 
-            return Json(new {
-                newUrl = Url.Action("Pay", "OrderDetails", new { id = customer.OrderId })
-            });
-        }
+        //    return Json(new {
+        //        newUrl = Url.Action("Pay", "OrderDetails", new { id = customer.OrderId })
+        //    });
+        //}
 
         [HttpPost("payment")]
         [EnableCors]
@@ -358,6 +324,7 @@ namespace WEB2.Controllers {
             var paymoney = coordinates.Paid;
             var shipcom = coordinates.Shipcompany;
             var typepay = coordinates.TypePay;
+            var provi = coordinates.Provi;
             //cap nhat dia chi giao hang
             var order = await _context.Order.FindAsync(orderid);
             var customer = await _context.Customer.FirstOrDefaultAsync(o => o.CustomerID == order.CustomerId);
@@ -373,6 +340,57 @@ namespace WEB2.Controllers {
             order.PaymentId = typepay;
             //cap nhat tinh trang hoa don
             order.TransactStatus = "pending";
+            //cap nhat noi xuat kho
+            if (provi.Equals("Hà Giang") ||
+                provi.Equals("Cao Bằng") ||
+                provi.Equals("Bắc Kạn") ||
+                provi.Equals("Lạng Sơn") ||
+                provi.Equals("Tuyên Quang") ||
+                provi.Equals("Thái Nguyên") ||
+                provi.Equals("Phú Thọ") ||
+                provi.Equals("Bắc Giang") ||
+                provi.Equals("Quảng Ninh") ||
+                provi.Equals("Lào Cai") ||
+                provi.Equals("Yên Bái") ||
+                provi.Equals("Điện Biên") ||
+                provi.Equals("Hoà Bình") ||
+                provi.Equals("Lai Châu") ||
+                provi.Equals("Sơn La") ||
+                provi.Equals("Bắc Ninh") ||
+                provi.Equals("Hà Nam") ||
+                provi.Equals("Hà Nội") ||
+                provi.Equals("Hải Dương") ||
+                provi.Equals("Hải Phòng") ||
+                provi.Equals("Hưng Yên") ||
+                provi.Equals("Nam Định") ||
+                provi.Equals("Ninh Bình") ||
+                provi.Equals("Thái Bình") ||
+                provi.Equals("Vĩnh Phúc") ||
+                provi.Equals("Thanh Hoá") ||
+                provi.Equals("Nghệ An") ||
+                provi.Equals("Hà Tĩnh") ||
+                provi.Equals("Quảng Bình") ||
+                provi.Equals("Quảng Trị") ||
+                provi.Equals("Thừa Thiên-Huế")) {
+                order.InventoryId = 10;
+            } else if (provi.Equals("Đà Nẵng") ||
+                provi.Equals("Quảng Nam") ||
+                provi.Equals("Quảng Ngãi") ||
+                provi.Equals("Bình Định") ||
+                provi.Equals("Phú Yên") ||
+                provi.Equals("Khánh Hoà") ||
+                provi.Equals("Ninh Thuận") ||
+                provi.Equals("Bình Thuận") ||
+                provi.Equals("Kon Tum") ||
+                provi.Equals("Lâm Đồng") ||
+                provi.Equals("Gia Lai") ||
+                provi.Equals("Đắk Lắk") ||
+                provi.Equals("Đắk Nông")) {
+                order.InventoryId = 17;
+            } else {
+                order.InventoryId = 1;
+            }
+
             //nếu trả bằng tiền mặt:
             if (typepay == 1) {
                 order.TransactStatus = "pay by cash";

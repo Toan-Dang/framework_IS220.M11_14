@@ -7,5 +7,6 @@
         public double Paid { get; set; }
         public int Shipcompany { get; set; }
         public int TypePay { get; set; }
+        public string Provi { get; set; }
     }
 }
