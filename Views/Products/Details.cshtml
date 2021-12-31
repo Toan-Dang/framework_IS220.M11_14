@@ -1539,26 +1539,8 @@
                                     <p>
                                         @item.Comment
                                     </p>
-                                    <button class="btn repcmt" value="@item.FeedbackId" style="border: 1px solid red">phản hồi</button>
                                 </div>
-                                @if (SignInManager.IsSignedIn(User)) {
-                                    <div class="reply"  id="@item.FeedbackId">
-                                      <form asp-action="Repcmt">
-                                          <textarea name = "tex" ></textarea>
-                                                  <input class = "noshow" name="repcom" value = "@item.FeedbackId" />
-                                                   <input class = "noshow" name="pro" value = "@item.ProductId" />
-                                           <input type="submit" value="Gửi" class="btn btn-success btn replycmt" />
-                                   
-                                       </form>
-                           
-                                    </div>
-                                } else {
 
-                                    <div class="reply" id="@item.FeedbackId">
-                                        <h5> Đăng nhập để trả lời phản hồi</h5>
-                                        <a class="nav-link text-dark " id="login" asp-area="Identity" asp-page="/Account/Login" asp-route-returnurl="~/products/details/@Model.Product.ProductId"><i class="bi bi-box-arrow-in-right" style="font-size: 18px; vertical-align: middle;"></i>&nbspĐăng nhập</a>
-                                    </div>
-                                }
 
                             </div>
                             } else {
@@ -1619,26 +1601,7 @@
                                     <p>
                                         @item.Comment
                                     </p>
-                                    <button class="btn repcmt" value="@item.FeedbackId" style="border: 1px solid red">phản hồi</button>
                                 </div>
-                                @if (SignInManager.IsSignedIn(User)) {
-                                    <div class="reply" id="@item.FeedbackId">
-                                      <form asp-action="Repcmt">
-                                          <textarea name = "tex"></textarea>
-                                                  <input class = "noshow" name="repcom" value = "@item.FeedbackId" />
-                                                   <input class = "noshow" name="pro" value = "@item.ProductId" />
-                                           <input type="submit" value="Gửi" class="btn btn-success btn replycmt" />
-                                   
-                                       </form>
-                           
-                                    </div>
-                                } else {
-
-                                    <div class="reply" id="@item.FeedbackId">
-                                        <h5> Đăng nhập để trả lời phản hồi</h5>
-                                        <a class="nav-link text-dark " id="login" asp-area="Identity" asp-page="/Account/Login" asp-route-returnurl="~/products/details/@Model.Product.ProductId"><i class="bi bi-box-arrow-in-right" style="font-size: 18px; vertical-align: middle;"></i>&nbspĐăng nhập</a>
-                                    </div>
-                                }
 
                             </div> 
                             }
@@ -1812,16 +1775,7 @@
     </div>
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('.reply').hide();
-             $('.noshow').hide()
-            $(".repcmt").on("click", function () {
-                var index = $(this).val();
-                console.log(index);
-                $(`#${index}`).show();
-            });
-
-           
+        $(document).ready(function () {           
              var rate;
 
             $('.slider-for').slick({

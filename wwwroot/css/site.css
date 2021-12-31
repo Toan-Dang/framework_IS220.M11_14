@@ -210,81 +210,7 @@ body {
 body a{
     color: black;
 }
-.sticky-side-banner{
 
-}
-    .sticky-side-banner > div > div {
-        position: absolute;
-        top: 175px;
-        border-radius: 0px 0px 20px 20px;
-        height: 325px;
-        width: 115px;
-        display: block;
-    }
-.side-banner-header {
-    display: block;
-    height: 10px;
-    background-color: black;
-    border-radius: 10px;
-}
-    .side-banner-header > div {
-        display: block;
-        height: 100%;
-        width: 88%;
-        background-color: #fed100;
-        margin: auto;
-    }
-    .side-banner-content {
-        background-color: #be1e2d;
-        border-radius: 0px 0px 65px 65px;
-        margin-left: 7.5px;
-        margin-right: 7.5px;
-        color: #fed100;
-        font-family: 'Kolker Brush', cursive;
-        text-align: center;
-        height: 265px;
-        width: 100px;
-        padding-left: 5px;
-        padding-right: 5px;
-        padding-bottom: 5px;
-    }
-        .side-banner-content > h1 {
-            border-left: 3px solid #fed100;
-            border-right: 3px solid #fed100;
-            border-bottom: 1px solid #fed100;
-            border-radius: 0px 0px 65px 65px;
-            min-height: 100%;
-        }
-
-        .sticky-side-banner .side-banner-left {
-            left: calc(((100vw - 1200px)/2) - 110px);
-        }
-        .sticky-side-banner .side-banner-right {
-            right: calc(((100vw - 1200px)/2) - 110px);
-        }
-.side-banner-footer {
-    width: 100%;
-
-}
-    .side-banner-footer > img {
-        height: 50%;
-        width: 50%;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-.bottom-left-img {
-    width: 500px;
-    height: 500px;
-    position: fixed;
-    top: 575px;
-    left: calc(((100vw - 1200px)/2) - 130px);
-    
-}
-    .bottom-left-img > img {
-        width: 30%;
-        height: 30%;
-    }
     /*.footer {
     position: absolute;
     bottom: 0;
@@ -361,7 +287,7 @@ body a{
 }
     #btn-to-top > svg {
         margin: auto;
-        color: #be1e2d;
+        color: #fed100;
     }
 
     #btn-to-top:after {
