@@ -21,13 +21,50 @@
             <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
         </svg>
     </a>
+    <div class="sticky-side-banner">
+        <div>
+            
+            <div  class="side-banner-left">
+                <div class="side-banner-header">
+                    <div>
+
+                   </div>
+                </div>
+                <div class="side-banner-content">
+                    <h1>Cung<br />Chúc<br />Tân<br />Xuân<br /><img src='/img/index/webcomponent2.png' style="height: 60%; width: 60%"/></h1>        
+                </div>
+                <div class="side-banner-footer">
+                    <img src='/img/index/web_component3.png' />
+                </div>
+            </div>
+        </div>
+        <div>
+            <div  class="side-banner-right">
+                <div class="side-banner-header">
+                   <div>
+
+                   </div>
+                </div>
+                <div class="side-banner-content">
+                    <h1>Vạn<br />Sự <br />Như <br />Ý<br /><img src='/img/index/webcomponent2.png' style="height: 60%; width: 60%"/></h1>
+                </div> 
+                <div class="side-banner-footer">
+                    <img src='/img/index/web_component3.png'  style="transform: scaleX(-1);"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-left-img">
+        <img src="/img/index/web_component4.png"/>
+    </div>
+
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white topnav">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <p class="logo mb-0">Zer<span style="color: #be1e2d">o</span>ne.vn</p>
                 </a>
-                <form id="f_search" method="get" method="get" asp-area="" asp-controller="Home" asp-action="Search" style="width: 30%">
+                <form id="f_search" method="get" method="get" asp-area="" asp-controller="Home" asp-action="Search" style="width: 40%" >
                     <div class="input-group mb-0" style="width: 100%">
                         <input id="ipt_search" type="text" class="form-control" name="searchString" placeholder="Bạn muốn tìm sản phẩm nào ?" aria-label="search" aria-describedby="basic-addon2" />
                         <div class="input-group-append">
@@ -41,27 +78,9 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                 </form>
-                <label class="theme-switch" for="checkbox">
-                    <input type="checkbox" id="checkbox">
-                    <div class="mode-container">
-                        <i class="gg-sun"></i>
-                        <i class="gg-moon"></i>
-                    </div>
-                </label>
-                @*                <form id="f_search" method="get" asp-action="Search">
-                    <div class="form-group">
-                    <div class="input-group">
-                    <input id="ipt_search" type="search" class="form-control" name="SearchTerm" />
-                    <span class="input-group-btn">
-                    <button class="btn btn-default">
-                    Search
-                    </button>
-                    </span>
-                    </div>
-                    </div>
-                    </form>*@
+
                 @await Html.PartialAsync("_LoginPartial")
-            </div>
+    </div>
         </nav>
     </header>
     <div class="sub-nav">
@@ -225,7 +244,7 @@
         </div>
     </div>
     <div class="container">
-        <main role="main" class="py-4 layoutmain">
+        <main role="main" class="py-4 layoutmain" >
             @RenderBody()
         </main>
     </div>
@@ -270,7 +289,7 @@
                     Địa chỉ: 333 Trần Quang Khải, P. Tân Định, Q.1, TP. Hồ Chí Minh.
                     <br />Điện thoại: <strong>0366.485.663</strong>. Email: cskh@zerone.com.
                     <br /><br />Chịu trách nhiệm nội dung: Nguyễn Ngọc Thiện.
-                    <br />Chịu trách nhiệm vận hành: Đặng Phúc Toàn.
+                    <br />Chịu trách nhiệm vận hành: Đặng Phúc Toàn, Nguyễn Đình Trải.
                     <br />Chịu trách nhiệm bảo mật: Đinh Công Thành.
                 </p>
             </div>
