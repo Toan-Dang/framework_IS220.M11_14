@@ -52,7 +52,6 @@
                                                     <table id="example" class="display" style="min-width: 845px">
                                                         <thead>
                                                             <tr>
-
                                                                 <th>Tên</th>
                                                                 <th>Đơn hàng</th>
                                                                 <th>Sản phẩm</th>
@@ -81,7 +80,7 @@
                                                                             @Html.DisplayFor(model => item.Quantity)
                                                                         </span>
                                                                     </td>
-                          
+                                                                    <td>@Html.DisplayFor(model => item.InvenId)</td>
                                                                     <td><span class="badge badge-info">@Html.DisplayFor(model => item.Type)</span></td>
 
                                                                     <td>
