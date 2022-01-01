@@ -92,7 +92,10 @@ namespace WEB2.Areas.Identity.Pages.Account {
                 var customer = new Customer { UserId = user.Id };
                 _context.Add(customer);
                 await _context.SaveChangesAsync();
-
+                ////tạo chat
+                var chatrom = new Chat { Id = user.Id, Name= user.UserName };
+                _context.Add(chatrom);
+                await _context.SaveChangesAsync();
                 //// cho khuyến mãi để không bị bug
                 //var voucher = new Voucher_detail { VoucherID = 1, CustomerID = customer.CustomerID };
                 //_context.Add(voucher);

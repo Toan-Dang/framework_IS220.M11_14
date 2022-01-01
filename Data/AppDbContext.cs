@@ -24,6 +24,9 @@ namespace WEB2.Data {
             builder.Entity<ProductDiscount>().HasKey(p => new { p.ProductId, p.DiscountId });
             builder.Entity<Invent_product>().HasKey(p => new { p.ProductId, p.InventoryId });
             builder.Entity<ProductContent>().HasKey(p => new { p.ProductId, p.ContentId });
+
+            builder.Entity<ChatUser>()
+                .HasKey(x => new { x.ChatId, x.UserId });
         }
 
         public DbSet<WEB2.Models.Staff> Staff { get; set; }
@@ -59,5 +62,10 @@ namespace WEB2.Data {
         public DbSet<WEB2.Models.PurchaseDetail> PurchaseDetail { get; set; }
         public DbSet<WEB2.Models.Purchase> Purchase { get; set; }
         public DbSet<WEB2.Models.Feedback> Feedback { get; set; }
+
+        public DbSet<WEB2.Models.Chat> Chats { get; set; }
+        public DbSet<ChatUser> ChatUsers { get; set; }
+
+        public DbSet<WEB2.Models.Message> Messages { get; set; }
     }
 }

@@ -278,7 +278,7 @@ body a{
     text-align: center;
     border-radius: 100%;
     position: fixed;
-    bottom: 30px;
+    bottom: 100px;
     right: 120px;
     transition: background-color .3s, opacity .5s, visibility .5s;
     opacity: 0;
@@ -287,7 +287,7 @@ body a{
 }
     #btn-to-top > svg {
         margin: auto;
-        color: #fed100;
+        color: white;
     }
 
     #btn-to-top:after {
@@ -326,3 +326,22 @@ body a{
 #f_search input {
     border-radius: 30px;
 }
+#chat-bubbles {
+    display: inline-block;
+    background-color: white;
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    border-radius: 100%;
+    position: fixed;
+    bottom: 30px;
+    right: 120px;
+    transition: background-color .3s, opacity .5s, visibility .5s;
+    z-index: 1000;
+    padding: 5px;
+}
+
+    #chat-bubbles > svg {
+        margin: auto;
+        color: deepskyblue;
+    }

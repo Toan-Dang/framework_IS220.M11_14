@@ -17,6 +17,8 @@ using System.Text;
 using System.Text.Json.Serialization;
 using WEB2.Areas.Order;
 using WEB2.Data;
+using WEB2.Hubs;
+using WEB2.Infrastructure.Respository;
 using WEB2.Mail;
 using WEB2.Models;
 
@@ -34,8 +36,10 @@ namespace WEB2 {
         public void ConfigureServices(IServiceCollection services) {
             services.AddCors(options => options.AddPolicy("ApiCorsPolicy", builder => {
                 builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-            }));
-
+            }
+            ));
+            services.AddSignalR();
+            services.AddTransient<IChatRepository, ChatRepository>();
             services.AddMvc();
 
             services.AddDistributedMemoryCache();           // Đăng ký dịch vụ lưu cache trong bộ nhớ (Session sẽ sử dụng nó)
@@ -193,6 +197,7 @@ namespace WEB2 {
 
                 // Đến Razor Page
                 endpoints.MapRazorPages();
+                endpoints.MapHub<ChatHub>("/chatHub");
             });
 
             app.Map("/testapi", app => {
