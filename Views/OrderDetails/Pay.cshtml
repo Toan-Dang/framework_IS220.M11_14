@@ -318,7 +318,7 @@
                                                 </div>
                                                 <div class="col-lg-6 mb-4">
                                                     <div class="form-group">
-                                                        <label class="text-label">Địa chỉ giao hàng<span><a asp-action= "ShipMoney" asp-area="" asp-controller="OrderDetails" asp-route-id="@item.OrderId">Cập nhật địa chỉ</a></span></label>
+                                                        <label class="text-label">Địa chỉ giao hàng<span></span></label>
                                                         <input id="shipadd" asp-for="@item.Order.Customer.ShipAddress" type="text" name="place" class="form-control" required>
                                                     </div>
                                                 </div>
@@ -416,7 +416,13 @@
                                     <h4>Khuyến mãi</h4>
                                     <section>
                                         <div>
-                                            cảm ơn đã mua hàng
+                                            <div class="container mt-4" style="min-height: 100vh">
+                                                <h1 style="text-align: center; color: #be1e2d">SẮP HOÀN TẤT</h1>
+                                                <h1 style="text-align: center; color: green; font-size: 2.5rem"><i class="bi bi-check2-circle" style="font-size: 5.5rem"></i></h1>
+                                                <p style="text-align: center; color: black;">Vui lòng chọn Hoàn Tất để quá trình xác nhận phương thức thanh toán được tiến hành<br />
+                                                
+                                                
+                                            </div>
                                         </div>
                                         <a id="paid" href="@Url.Action("Payment","Orders", new {id = orderid})">Thanh toán</a>
                                         <script type="text/javascript">
