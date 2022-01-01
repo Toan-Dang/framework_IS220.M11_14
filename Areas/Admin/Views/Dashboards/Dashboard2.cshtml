@@ -70,7 +70,25 @@
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Fee Collections and Expenses</h4>
+                        <h4 class="card-title">Thống kê theo năm</h4>
+                        <div class=" pull-right">
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <label>Select Year: </label>
+                                    <select class="form-control input-sm" id="select_year">
+                                    
+                                            @for(int i = 2020; i<=2065; i++){
+                                               
+                                            var selected = (i == 2022)? "selected":"";
+                                            
+                                               <option value="@i">@i</option>
+                                            
+                                            }
+                                        
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="ct-bar-chart mt-5"></div>
@@ -98,7 +116,7 @@
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">All Expense</h4>
+                        <h4 class="card-title">Chi tiết thu chi</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -228,25 +246,22 @@
 
 
     var data = {
-        labels: ['facebook', 'twitter', 'youtube', 'google plus'],
+        labels: ['Apple', 'Meow meow~', 'MineCute_T'],
         series: [{
                     value: 20,
-                    className: "bg-facebook"
+                   
                 },
                 {
                     value: 10,
-                    className: "bg-twitter"
+                  
                 },
                 {
                     value: 30,
-                    className: "bg-youtube"
+                   
                 },
-                {
-                    value: 40,
-                    className: "bg-google-plus"
-                }
-            ]
-            //        colors: ["#333", "#222", "#111"]
+               
+            ]  ,
+                    colors: ["#111", "#222", "#111"]
     };
 
     var options = {

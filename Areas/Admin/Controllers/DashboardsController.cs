@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WEB2.Areas.Order;
 using WEB2.Data;
 using WEB2.Models;
 
@@ -36,35 +37,38 @@ namespace WEB2.Areas.Admin.Controllers {
                 .Where(p => p.Order.TransactStatus != "cancel")
                 .Where(p => p.Status == "solved")
                 .ToListAsync();
-            if (order.Count < 1 || order == null) {
-                return RedirectToAction(nameof(Dashboard));
-            }
-            OrderDetail od = new OrderDetail();
-            var reorder = new List<OrderDetail>();
-            bool check = false;
+            //if (order.Count < 1 || order == null) {
+            //    return RedirectToAction(nameof(Dashboard));
+            //}
+            //OrderDetail od = new OrderDetail();
+            //var reorder = new List<OrderDetail>();
+            //bool check = false;
 
-            for (int i = 0 ; i < order.Count - 1 ; i++) {
-                if (check == false) {
-                    od = order[i];
-                    od.IDSKU = od.Quantity.ToString();
-                }
+            //for (int i = 0 ; i < order.Count - 1 ; i++) {
+            //    if (check == false) {
+            //        od = order[i];
+            //        od.IDSKU = od.Quantity.ToString();
+            //    }
 
-                if (order[i].OrderId == order[i + 1].OrderId) {
-                    od.Product.ProductName += "\n" + order[i + 1].Product.ProductName;
-                    od.IDSKU += "\n" + order[i + 1].IDSKU;
-                    check = true;
-                } else {
-                    reorder.Add(od);
-                    check = false;
-                }
-            }
-            if (check == false) {
-                od = order[order.Count - 1];
-                od.IDSKU = od.Quantity.ToString();
-            }
+            //    if (order[i].OrderId == order[i + 1].OrderId) {
+            //        od.Product.ProductName += "\n" + order[i + 1].Product.ProductName;
+            //        od.IDSKU += "\n" + order[i + 1].IDSKU;
+            //        check = true;
+            //    } else {
+            //        reorder.Add(od);
+            //        check = false;
+            //    }
+            //}
+            //if (check == false) {
+            //    od = order[order.Count - 1];
+            //    od.IDSKU = od.Quantity.ToString();
+            //}
 
-            reorder.Add(od);
-            return View(reorder);
+            //reorder.Add(od);
+            //return View(reorder);
+            Db1 db1 = new Db1();
+            db1.orderdetails = order;
+            return View(db1);
         }
 
         public IActionResult Dashboard2() {
