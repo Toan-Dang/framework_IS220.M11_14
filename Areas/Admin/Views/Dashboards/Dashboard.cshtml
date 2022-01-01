@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<WEB2.Models.OrderDetail>
 
 @{
     ViewData["Title"] = "Dashboard1";
@@ -12,69 +12,68 @@
 </head>
 <body>
 
-    <!-- row -->
     <div class="container-fluid">
         <div class="row">
-         <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="stat-widget-two card-body">
-                                <div class="stat-content">
-                                    <div class="stat-text">Today Expenses </div>
-                                    <div class="stat-digit"> <i class="fa fa-usd"></i>8500</div>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-success w-85" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="card">
+                    <div class="stat-widget-two card-body">
+                        <div class="stat-content">
+                            <div class="stat-text">Today Expenses </div>
+                            <div class="stat-digit"> <i class="fa fa-usd"></i>8500</div>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-success w-85" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="stat-widget-two card-body">
-                                <div class="stat-content">
-                                    <div class="stat-text">Income Detail</div>
-                                    <div class="stat-digit"> <i class="fa fa-usd"></i>7800</div>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-primary w-75" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="card">
+                    <div class="stat-widget-two card-body">
+                        <div class="stat-content">
+                            <div class="stat-text">Income Detail</div>
+                            <div class="stat-digit"> <i class="fa fa-usd"></i>7800</div>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-primary w-75" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="stat-widget-two card-body">
-                                <div class="stat-content">
-                                    <div class="stat-text">Task Completed</div>
-                                    <div class="stat-digit"> <i class="fa fa-usd"></i> 500</div>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-warning w-50" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="card">
+                    <div class="stat-widget-two card-body">
+                        <div class="stat-content">
+                            <div class="stat-text">Task Completed</div>
+                            <div class="stat-digit"> <i class="fa fa-usd"></i> 500</div>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-warning w-50" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card">
-                            <div class="stat-widget-two card-body">
-                                <div class="stat-content">
-                                    <div class="stat-text">Task Completed</div>
-                                    <div class="stat-digit"> <i class="fa fa-usd"></i>650</div>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-danger w-65" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="card">
+                    <div class="stat-widget-two card-body">
+                        <div class="stat-content">
+                            <div class="stat-text">Task Completed</div>
+                            <div class="stat-digit"> <i class="fa fa-usd"></i>650</div>
                         </div>
-                        <!-- /# card -->
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-danger w-65" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
                     </div>
-            <!-- /# column -->                          
+                </div>
+                <!-- /# card -->
+            </div>
+            <!-- /# column -->
         </div>
         <div class="row">
             <div class="col-xl-8 col-lg-8 col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Tổng quan bán hàng</h4>
+                        <h4 class="card-title">Sales Overview</h4>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -89,7 +88,7 @@
                 <div class="card">
                     <div class="card-body text-center">
                         <div class="m-t-10">
-                            <h4 class="card-title">Đánh giá của khách hàng</h4>
+                            <h4 class="card-title">Customer Feedback</h4>
                             <h2 class="mt-3">385749</h2>
                         </div>
                         <div class="widget-card-circle mt-5 mb-5" id="info-circle-card">
@@ -98,12 +97,12 @@
                         <ul class="widget-line-list m-b-15">
                             <li class="border-right">
                                 92% <br><span class="text-success">
-                                    <i class="ti-hand-point-up"></i> Tích cực
+                                    <i class="ti-hand-point-up"></i> Positive
                                 </span>
                             </li>
                             <li>
                                 8% <br><span class="text-danger">
-                                    <i class="ti-hand-point-down"></i>Tiêu cực
+                                    <i class="ti-hand-point-down"></i>Negative
                                 </span>
                             </li>
                         </ul>
@@ -112,7 +111,7 @@
             </div>
         </div>
         <div class="row">
-         @* <div class="col-lg-4">
+             <div class="col-lg-4">
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Project</h4>
@@ -122,55 +121,7 @@
                             <div class="progress-content py-2">
                                 <div class="row">
                                     <div class="col-lg-4">
-                                        <div class="progress-text">Website</div>
-                                    </div>
-                                    <div class="col-lg-8">
-                                        <div class="current-progressbar">
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-primary w-40" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
-                                                    60%
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="progress-content py-2">
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="progress-text">Android</div>
-                                    </div>
-                                    <div class="col-lg-8">
-                                        <div class="current-progressbar">
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-primary w-60" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
-                                                    90%
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="progress-content py-2">
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="progress-text">Ios</div>
-                                    </div>
-                                    <div class="col-lg-8">
-                                        <div class="current-progressbar">
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-primary w-70" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
-                                                    70%
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="progress-content py-2">
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="progress-text">Mobile</div>
+                                        <div class="progress-text">ToanDang</div>
                                     </div>
                                     <div class="col-lg-8">
                                         <div class="current-progressbar">
@@ -183,11 +134,59 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="progress-content py-2">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="progress-text">NgocThien</div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="current-progressbar">
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-primary w-85" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
+                                                    85%
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="progress-content py-2">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="progress-text">DinhTrai</div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="current-progressbar">
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-primary w-80" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                                                    80%
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="progress-content py-2">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="progress-text">CongThanh</div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="current-progressbar">
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-primary w-80" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                                                    80%
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-           <div class="col-lg-4">
+            <div class="col-lg-4">
                 <div class="card">
                     <div class="card-body">
                         <div class="testimonial-widget-one p-17">
@@ -201,12 +200,12 @@
                                         </div>
                                         <div class="media">
                                             <div class="media-body">
-                                                <div class="testimonial-author">TYRION LANNISTER</div>
+                                                <div class="testimonial-author">ToanDang</div>
                                                 <div class="testimonial-author-position">
-                                                    Founder-Ceo. Dell Corp
+                                                    Ceo
                                                 </div>
                                             </div>
-                                            <img class="testimonial-author-img ml-3" src="./images/avatar/1.png" alt="" />
+                                            <img class="testimonial-author-img ml-3" src="~/images/avatar/1.png" alt="" />
                                         </div>
                                     </div>
                                 </div>
@@ -219,12 +218,12 @@
                                         </div>
                                         <div class="media">
                                             <div class="media-body">
-                                                <div class="testimonial-author">TYRION LANNISTER</div>
+                                                <div class="testimonial-author">NgocThien</div>
                                                 <div class="testimonial-author-position">
-                                                    Founder-Ceo. Dell Corp
+                                                        Founder-Ceo. Dell Corp
                                                 </div>
                                             </div>
-                                            <img class="testimonial-author-img ml-3" src="./images/avatar/1.png" alt="" />
+                                            <img class="testimonial-author-img ml-3" src="~/images/avatar/2.png" alt="" />
                                         </div>
                                     </div>
                                 </div>
@@ -237,12 +236,30 @@
                                         </div>
                                         <div class="media">
                                             <div class="media-body">
-                                                <div class="testimonial-author">TYRION LANNISTER</div>
+                                                <div class="testimonial-author">DinhTrai</div>
                                                 <div class="testimonial-author-position">
                                                     Founder-Ceo. Dell Corp
                                                 </div>
                                             </div>
-                                            <img class="testimonial-author-img ml-3" src="./images/avatar/1.png" alt="" />
+                                            <img class="testimonial-author-img ml-3" src="~/images/avatar/3.png" alt="" />
+                                        </div>
+                                    </div>
+                                </div>
+                                    <div class="item">
+                                    <div class="testimonial-content">
+                                        <div class="testimonial-text">
+                                            <i class="fa fa-quote-left"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
+                                            consectetur adipisicing elit.
+                                            <i class="fa fa-quote-right"></i>
+                                        </div>
+                                        <div class="media">
+                                            <div class="media-body">
+                                                <div class="testimonial-author">CongThanh</div>
+                                                <div class="testimonial-author-position">
+                                                    Founder-Ceo. Dell Corp
+                                                </div>
+                                            </div>
+                                            <img class="testimonial-author-img ml-3" src="~/images/avatar/4.png" alt="" />
                                         </div>
                                     </div>
                                 </div>
@@ -250,7 +267,7 @@
                         </div>
                     </div>
                 </div>
-            </div>                       
+            </div>
             <div class="col-lg-4">
                 <div class="card">
                     <div class="card-header">
@@ -264,20 +281,20 @@
                 </div>
                 <!-- /# card -->
             </div>
-           <div class="col-lg-6">
+            <div class="col-lg-6">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Bản đồ thế giới</h4>
+                        <h4 class="card-title">Country</h4>
                     </div>
                     <div class="card-body">
-                        <div id="world-map" class="vmap"></div>
+                        <div id="vmap13" class="vmap"></div>
                     </div>
                 </div>
-            </div>    *@       
-            <div class="col-lg-12">
+            </div>
+            <div class="col-lg-6">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Những đơn hàng mới</h4>
+                        <h4 class="card-title">New Orders</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -288,29 +305,28 @@
                                         <th>Tên</th>
                                         <th>Đơn hàng</th>
                                         <th>Sản phẩm</th>
-                                         <th>Số lượng</th>
+                                        <th>Số lượng</th>
                                         <th>Tình trạng đơn hàng</th>
                                         <th>Duyệt</th>
                                     </tr>
                                 </thead>
-                             <tbody>
-                         
+                                <tbody style="height: 300px">
+
                                    
                                 </tbody>
-                               
-                             
+
+
                             </table>
-                            <script type = "text/javascript">
-                                   $("#product").val().replace(/\n/g, '<br/>');
+                            <script type="text/javascript">
+                                $("#product").val().replace(/\n/g, '<br/>');
                             </script>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-       
         <div class="row">
-           @*  <div class="col-lg-6 col-xl-4 col-xxl-6 col-md-6">
+            <div class="col-lg-6 col-xl-4 col-xxl-6 col-md-6">
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Timeline</h4>
@@ -383,8 +399,8 @@
                         </div>
                     </div>
                 </div>
-            </div>          
-           <div class="col-xl-4 col-xxl-6 col-lg-6 col-md-6 col-sm-12">
+            </div>
+            <div class="col-xl-4 col-xxl-6 col-lg-6 col-md-6 col-sm-12">
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Todo</h4>
@@ -396,19 +412,20 @@
                                     <ul id="todo_list">
                                         <li>
                                             <label>
-                                                <input type="checkbox"><i></i><span>Chấm công</span><a href='#'
+                                                <input type="checkbox"><i></i><span>Get up</span><a href='#'
                                                                                                     class="ti-trash"></a>
                                             </label>
                                         </li>
                                         <li>
                                             <label>
-                                                <input type="checkbox" checked><i></i><span>Hít đất 100 cái</span><a href='#' class="ti-trash"></a>
+                                                <input type="checkbox" checked><i></i><span>Stand up</span><a href='#' class="ti-trash"></a>
                                             </label>
                                         </li>
                                         <li>
                                             <label>
                                                 <input type="checkbox"><i></i><span>
-                                                    Chạy bộ 100 km
+                                                    Don't give up the
+                                                    fight.
                                                 </span><a href='#' class="ti-trash"></a>
                                             </label>
                                         </li>
@@ -416,7 +433,7 @@
                                             <label>
                                                 <input type="checkbox" checked><i></i><span>
                                                     Do something
-                                                
+                                                    else
                                                 </span><a href='#' class="ti-trash"></a>
                                             </label>
                                         </li>
@@ -428,7 +445,8 @@
                                         <li>
                                             <label>
                                                 <input type="checkbox"><i></i><span>
-                                                      squat 100 cái
+                                                    Don't give up the
+                                                    fight.
                                                 </span><a href='#' class="ti-trash"></a>
                                             </label>
                                         </li>
@@ -441,11 +459,11 @@
                         </div>
                     </div>
                 </div>
-            </div>   
+            </div>
             <div class="col-sm-12 col-md-12 col-xxl-6 col-xl-4 col-lg-6">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Sản phẩm bán được</h4>
+                        <h4 class="card-title">Product Sold</h4>
                         <div class="card-action">
                             <div class="dropdown custom-dropdown">
                                 <div data-toggle="dropdown">
@@ -465,7 +483,7 @@
                         </div>
                     </div>
                 </div>
-            </div>      *@
+            </div>
             <div class="col-xl-12 col-xxl-6 col-lg-6 col-md-12">
                 <div class="row">
                     <div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6 col-md-6">
@@ -555,6 +573,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 
     <script src="~/vendor/global/global.min.js"></script>
@@ -580,10 +599,242 @@
     <!-- Counter Up -->
     <script src="~/vendor/jqvmap/js/jquery.vmap.min.js"></script>
     <script src="~/vendor/jqvmap/js/jquery.vmap.usa.js"></script>
-      <script src="~/vendor/jqvmap/js/jquery.vmap.world.js"></script>
+    <script src="~/vendor/jqvmap/js/jquery.vmap.world.js"></script>
     <script src="~/vendor/jquery.counterup/jquery.counterup.min.js"></script>
 
-    <script src="~/js/dashboard/dashboard.js" type="text/javascript"></script>
-        <!-- All init script -->
+    <script type="text/javascript">
+
+                (function ($) {
+            "use strict";
+
+            // Morris bar chart
+            Morris.Bar({
+                element: 'morris-bar-chart',
+                data: [{
+                    y: '2015',
+                    a: 10,
+                    b: 90
+                }, {
+                    y: '2016',
+                    a: 75,
+                    b: 65
+                }, {
+                    y: '2017',
+                    a: 50,
+                    b: 40
+                }, {
+                    y: '2018',
+                    a: 75,
+                    b: 65
+                }, {
+                    y: '2019',
+                    a: 50,
+                    b: 40
+                }, {
+                    y: '2020',
+                    a: 75,
+                    b: 65
+                }, {
+                    y: '2021',
+                    a: 100,
+                    b: 90
+                }],
+                xkey: 'y',
+                ykeys: ['a', 'b'],
+                labels: ['A', 'B'],
+                barColors: ['#343957', '#5873FE'],
+                hideHover: 'auto',
+                gridLineColor: '#eef0f2',
+                resize: true,
+            });
+
+            $('#info-circle-card').circleProgress({
+                value: 0.70,
+                size: 100,
+                fill: {
+                    gradient: ["#a389d5"]
+                }
+            });
+
+            $('.testimonial-widget-one .owl-carousel').owlCarousel({
+                singleItem: true,
+                loop: true,
+                autoplay: false,
+                //        rtl: true,
+                autoplayTimeout: 2500,
+                autoplayHoverPause: true,
+                margin: 10,
+                nav: false,
+                dots: false,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    600: {
+                        items: 1
+                    },
+                    1000: {
+                        items: 1
+                    }
+                }
+            });
+
+            $('#vmap13').vectorMap({
+                map: 'usa_en',
+                backgroundColor: 'transparent',
+                borderColor: 'rgb(88, 115, 254)',
+                borderOpacity: 0.25,
+                borderWidth: 1,
+                color: 'rgb(88, 115, 254)',
+                enableZoom: true,
+                hoverColor: 'rgba(88, 115, 254)',
+                hoverOpacity: null,
+                normalizeFunction: 'linear',
+                scaleColors: ['#b6d6ff', '#005ace'],
+                selectedColor: 'rgba(88, 115, 254, 0.9)',
+                selectedRegions: null,
+                showTooltip: true,
+                // onRegionClick: function(element, code, region) {
+                //     var message = 'You clicked "' +
+                //         region +
+                //         '" which has the code: ' +
+                //         code.toUpperCase();
+
+                //     alert(message);
+                // }
+            });
+
+            var nk = document.getElementById("sold-product");
+            // nk.height = 50
+            new Chart(nk, {
+                type: 'pie',
+                data: {
+                    defaultFontFamily: 'Poppins',
+                    datasets: [{
+                        data: [45, 25, 20, 10],
+                        borderWidth: 0,
+                        backgroundColor: [
+                            "rgba(89, 59, 219, .9)",
+                            "rgba(89, 59, 219, .7)",
+                            "rgba(89, 59, 219, .5)",
+                            "rgba(89, 59, 219, .07)"
+                        ],
+                        hoverBackgroundColor: [
+                            "rgba(89, 59, 219, .9)",
+                            "rgba(89, 59, 219, .7)",
+                            "rgba(89, 59, 219, .5)",
+                            "rgba(89, 59, 219, .07)"
+                        ]
+                    }],
+                    labels: [
+                        "one",
+                        "two",
+                        "three",
+                        "four"
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    legend: false,
+                    maintainAspectRatio: false
+                }
+            });
+        })(jQuery);
+
+        (function ($) {
+            "use strict";
+
+            var data = [],
+                totalPoints = 300;
+
+            function getRandomData() {
+                if (data.length > 0)
+                    data = data.slice(1);
+
+                // Do a random walk
+
+                while (data.length < totalPoints) {
+                    var prev = data.length > 0 ? data[data.length - 1] : 50,
+                        y = prev + Math.random() * 10 - 5;
+
+                    if (y < 0) {
+                        y = 0;
+                    } else if (y > 100) {
+                        y = 100;
+                    }
+
+                    data.push(y);
+                }
+
+                // Zip the generated y values with the x values
+
+                var res = [];
+                for (var i = 0; i < data.length; ++i) {
+                    res.push([i, data[i]])
+                }
+
+                return res;
+            }
+
+            // Set up the control widget
+
+            var updateInterval = 30;
+            $("#updateInterval").val(updateInterval).change(function () {
+                var v = $(this).val();
+                if (v && !isNaN(+v)) {
+                    updateInterval = +v;
+                    if (updateInterval < 1) {
+                        updateInterval = 1;
+                    } else if (updateInterval > 3000) {
+                        updateInterval = 3000;
+                    }
+                    $(this).val("" + updateInterval);
+                }
+            });
+
+            var plot = $.plot("#cpu-load", [getRandomData()], {
+                series: {
+                    shadowSize: 0 // Drawing is faster without shadows
+                },
+                yaxis: {
+                    min: 0,
+                    max: 100
+                },
+                xaxis: {
+                    show: false
+                },
+                colors: ["#007BFF"],
+                grid: {
+                    color: "transparent",
+                    hoverable: true,
+                    borderWidth: 0,
+                    backgroundColor: 'transparent'
+                },
+                tooltip: true,
+                tooltipOpts: {
+                    content: "Y: %y",
+                    defaultTheme: false
+                }
+            });
+
+            function update() {
+                plot.setData([getRandomData()]);
+
+                // Since the axes don't change, we don't need to call plot.setupGrid()
+
+                plot.draw();
+                setTimeout(update, updateInterval);
+            }
+
+            update();
+        })(jQuery);
+
+        const wt = new PerfectScrollbar('.widget-todo');
+        const wtl = new PerfectScrollbar('.widget-timeline');
+    </script>
+    <!-- All init script -->
     <script src="~/js/plugins-init/jqvmap-init.js"></script>
+
 </body>
+
+

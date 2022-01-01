@@ -31,7 +31,7 @@
                    </td>
                    <td class= "text-center">
         @{
-                              <select   class="form-control" asp-items="ViewBag.ProductId" id="pro${rowIdx}"></select>
+                              <select  class="form-control" asp-items="ViewBag.ProductId" id="pro${rowIdx}"></select>
 
         }
                      </td>
@@ -72,13 +72,14 @@
 
             $('#sub').click(function(){
               var suppierid = $('#supplierid').val();
-
+               var inven = $('#invenid').val();
               var model = new Object();
               model.Productid = product;
               model.Price = price;
               model.Quantity = quantity;
               model.Paid = total;
               model.SupplierId = suppierid;
+                model.InvenId = inven;
               console.log(model);
               jQuery.ajax({
               type: "POST",
@@ -152,9 +153,24 @@
         </div>
 
         <div class="container-fluid">
-            <div class="form-group">
-                <label class="control-label">Chọn nhà cung cấp</label>
-                <select class="form-control" asp-items="ViewBag.SupplierId" id="supplierid"></select>
+     
+            <div class="row">
+                <div class="col-xl-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <label class="control-label">Chọn nhà cung cấp</label>
+                            <select class="form-control" asp-items="ViewBag.SupplierId" id="supplierid"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <label class="control-label">Chọn Kho</label>
+                            <select class="form-control" asp-items="ViewBag.InventoryId" id="invenid"></select>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="table-responsive card">
                 <table class="table table-bordered">

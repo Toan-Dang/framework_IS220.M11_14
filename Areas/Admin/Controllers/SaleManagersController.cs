@@ -8,25 +8,26 @@ using System.Threading.Tasks;
 using WEB2.Data;
 using WEB2.Models;
 
-
-
 using Microsoft.AspNetCore.Mvc;
+
 using System;
+
 using System.Collections.Generic;
 using System.Linq;
+
 using System.Data;
 using OfficeOpenXml;
 using System.IO;
+
 using OfficeOpenXml;
+
 using System.Drawing;
 using OfficeOpenXml.Style;
+
 using Microsoft.EntityFrameworkCore;
 using WEB2.Models;
 using System.Threading.Tasks;
 using WEB2.Data;
-
-
-
 
 namespace WEB2.Areas.Admin.Controllers {
 
@@ -287,7 +288,7 @@ namespace WEB2.Areas.Admin.Controllers {
             if (order.TransactStatus.Equals("shipping"))
                 order.TransactStatus = "done";
             if (order.TransactStatus.Equals("accept")) {
-                    order.TransactStatus = "shipping";
+                order.TransactStatus = "shipping";
                 var or = await _context.Order.Where(p => p.OrderId == id).FirstOrDefaultAsync();
                 var inven = await _context.Inventory.FindAsync(or.InventoryId);
                 var ord = await _context.OrderDetail.Where(p => p.OrderId == id).ToListAsync();
@@ -300,7 +301,7 @@ namespace WEB2.Areas.Admin.Controllers {
                     await _context.SaveChangesAsync();
                 }
             }
-            
+
             if (order.TransactStatus.Equals("pay by cash") || order.TransactStatus.Equals("paid"))
                 order.TransactStatus = "accept";
 
@@ -405,8 +406,21 @@ namespace WEB2.Areas.Admin.Controllers {
         public async Task<ActionResult> Accept_B(int id) {
             var order = await _context.Order.FindAsync(id);
 
-            if (order.TransactStatus.Equals("accept"))
+            if (order.TransactStatus.Equals("accept")) {
                 order.TransactStatus = "shipping";
+                var or = await _context.Order.Where(p => p.OrderId == id).FirstOrDefaultAsync();
+                var inven = await _context.Inventory.FindAsync(or.InventoryId);
+                var ord = await _context.OrderDetail.Where(p => p.OrderId == id).ToListAsync();
+
+                foreach (var item in ord) {
+                    var inpro = await _context.Invent_Product.Where(p => p.ProductId == item.ProductId).Where(p => p.InventoryId == inven.InventoryId).FirstOrDefaultAsync();
+                    inpro.ProductAvailable -= item.Quantity;
+
+                    _context.Update(inpro);
+                    await _context.SaveChangesAsync();
+                }
+            }
+
             if (order.TransactStatus.Equals("pay by cash") || order.TransactStatus.Equals("paid"))
                 order.TransactStatus = "accept";
 
@@ -450,17 +464,14 @@ namespace WEB2.Areas.Admin.Controllers {
             return RedirectToAction(nameof(ProductBill));
         }
 
-
-        public async Task<IActionResult> XuatFileAll()
-        {
+        public async Task<IActionResult> XuatFileAll() {
             // lenh khai bao
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             var data = new DataTable();
             var stream = new MemoryStream();
             int count;
 
-            using (var package = new ExcelPackage(stream))
-            {
+            using (var package = new ExcelPackage(stream)) {
                 // ten cua cai sheet
                 var sheet = package.Workbook.Worksheets.Add("Danh sach các đơn bán hàng đã hoàn thành");
                 //Font
@@ -476,7 +487,6 @@ namespace WEB2.Areas.Admin.Controllers {
                 //chu dong a1:c1
                 sheet.Cells["A1:C1"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 sheet.Cells["A1:C1"].Value = "CỬA HÀNG BÁN ĐỒ CÔNG NGHỆ ZERONE";
-
 
                 sheet.Cells["D6:E6"].Merge = true;
                 sheet.Cells["F6:G6"].Merge = true;
@@ -504,8 +514,7 @@ namespace WEB2.Areas.Admin.Controllers {
                 int x = 7;
                 int y = 7;
                 int z = 1;
-                foreach (var p in query)
-                {
+                foreach (var p in query) {
                     string a = "A" + x + ":A" + y;
                     sheet.Cells[a].Value = z;
                     string b = "B" + x + ":B" + y;
@@ -517,33 +526,23 @@ namespace WEB2.Areas.Admin.Controllers {
                     sheet.Cells[e].Merge = true;
 
                     string d = "D" + x + ":D" + y;
-                    if (p.TransactStatus == "done")
-                    {
+                    if (p.TransactStatus == "done") {
                         sheet.Cells[d].Value = "Đã hoàn thành";
-                    }
-                    else
-                    {
-                        if (p.TransactStatus == "shipping")
-                        {
+                    } else {
+                        if (p.TransactStatus == "shipping") {
                             sheet.Cells[d].Value = "Đang vận chuyển";
-                        }
-                        else
-                        {
-                            if (p.TransactStatus == "paid")
-                            {
+                        } else {
+                            if (p.TransactStatus == "paid") {
                                 sheet.Cells[d].Value = "Đã thanh toán";
                             }
-                        }    
-                    }    
-
+                        }
+                    }
 
                     string g = "F" + x + ":G" + y;
                     sheet.Cells[g].Merge = true;
 
                     string f = "F" + x + ":F" + y;
                     sheet.Cells[f].Value = p.Paid;
-
-
 
                     string i = "H" + x + ":I" + y;
                     sheet.Cells[i].Merge = true;
@@ -557,8 +556,6 @@ namespace WEB2.Areas.Admin.Controllers {
                 }
 
                 package.Save();
-
-
             }
             stream.Position = 0;
 
@@ -567,16 +564,14 @@ namespace WEB2.Areas.Admin.Controllers {
             return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", tenfile);
         }
 
-        public async Task<IActionResult> XuatFilePaid()
-        {
+        public async Task<IActionResult> XuatFilePaid() {
             // lenh khai bao
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             var data = new DataTable();
             var stream = new MemoryStream();
             int count;
 
-            using (var package = new ExcelPackage(stream))
-            {
+            using (var package = new ExcelPackage(stream)) {
                 // ten cua cai sheet
                 var sheet = package.Workbook.Worksheets.Add("Danh sach các đơn bán hàng đã trả tiền");
                 //Font
@@ -592,7 +587,6 @@ namespace WEB2.Areas.Admin.Controllers {
                 //chu dong a1:c1
                 sheet.Cells["A1:C1"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 sheet.Cells["A1:C1"].Value = "CỬA HÀNG BÁN ĐỒ CÔNG NGHỆ ZERONE";
-
 
                 sheet.Cells["D6:E6"].Merge = true;
                 sheet.Cells["F6:G6"].Merge = true;
@@ -621,8 +615,7 @@ namespace WEB2.Areas.Admin.Controllers {
                 int x = 7;
                 int y = 7;
                 int z = 1;
-                foreach (var p in query)
-                {
+                foreach (var p in query) {
                     string a = "A" + x + ":A" + y;
                     sheet.Cells[a].Value = z;
                     string b = "B" + x + ":B" + y;
@@ -636,14 +629,11 @@ namespace WEB2.Areas.Admin.Controllers {
                     string d = "D" + x + ":D" + y;
                     sheet.Cells[d].Value = "Đã thanh toán";
 
-
                     string g = "F" + x + ":G" + y;
                     sheet.Cells[g].Merge = true;
 
                     string f = "F" + x + ":F" + y;
                     sheet.Cells[f].Value = p.Paid;
-
-
 
                     string i = "H" + x + ":I" + y;
                     sheet.Cells[i].Merge = true;
@@ -657,8 +647,6 @@ namespace WEB2.Areas.Admin.Controllers {
                 }
 
                 package.Save();
-
-
             }
             stream.Position = 0;
 
@@ -667,17 +655,14 @@ namespace WEB2.Areas.Admin.Controllers {
             return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", tenfile);
         }
 
-
-        public async Task<IActionResult> XuatFileShip()
-        {
+        public async Task<IActionResult> XuatFileShip() {
             // lenh khai bao
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             var data = new DataTable();
             var stream = new MemoryStream();
             int count;
 
-            using (var package = new ExcelPackage(stream))
-            {
+            using (var package = new ExcelPackage(stream)) {
                 // ten cua cai sheet
                 var sheet = package.Workbook.Worksheets.Add("Danh sach các đơn bán hàng đang vận chuyển");
                 //Font
@@ -693,7 +678,6 @@ namespace WEB2.Areas.Admin.Controllers {
                 //chu dong a1:c1
                 sheet.Cells["A1:C1"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                 sheet.Cells["A1:C1"].Value = "CỬA HÀNG BÁN ĐỒ CÔNG NGHỆ ZERONE";
-
 
                 sheet.Cells["D6:E6"].Merge = true;
                 sheet.Cells["F6:G6"].Merge = true;
@@ -722,8 +706,7 @@ namespace WEB2.Areas.Admin.Controllers {
                 int x = 7;
                 int y = 7;
                 int z = 1;
-                foreach (var p in query)
-                {
+                foreach (var p in query) {
                     string a = "A" + x + ":A" + y;
                     sheet.Cells[a].Value = z;
                     string b = "B" + x + ":B" + y;
@@ -737,14 +720,11 @@ namespace WEB2.Areas.Admin.Controllers {
                     string d = "D" + x + ":D" + y;
                     sheet.Cells[d].Value = "Đang vận chuyển";
 
-
                     string g = "F" + x + ":G" + y;
                     sheet.Cells[g].Merge = true;
 
                     string f = "F" + x + ":F" + y;
                     sheet.Cells[f].Value = p.Paid;
-
-
 
                     string i = "H" + x + ":I" + y;
                     sheet.Cells[i].Merge = true;
@@ -758,8 +738,6 @@ namespace WEB2.Areas.Admin.Controllers {
                 }
 
                 package.Save();
-
-
             }
             stream.Position = 0;
 

@@ -211,7 +211,7 @@ namespace WEB2.Areas.Admin.Controllers {
         public IActionResult Create() {
             ViewData["ProductId"] = new SelectList(_context.Product, "ProductId", "ProductDetail");
             ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "CompanyName");
-
+            ViewData["InventoryId"] = new SelectList(_context.Inventory, "InventoryId", "Name");
             return View();
         }
 
@@ -219,6 +219,7 @@ namespace WEB2.Areas.Admin.Controllers {
             ViewData["ProductDemo"] = new SelectList(_context.Product.Where(p => p.ProductId == id), "ProductId", "ProductDetail");
             ViewData["ProductId"] = new SelectList(_context.Product, "ProductId", "ProductDetail");
             ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "CompanyName");
+            ViewData["InventoryId"] = new SelectList(_context.Inventory, "InventoryId", "Name");
 
             return View();
         }
@@ -237,7 +238,8 @@ namespace WEB2.Areas.Admin.Controllers {
                     StaffId = staff.StaffId,
                     PurchaseDay = DateTime.Now,
                     TransactStatus = "new",
-                    Paid = purchaseDetail.Paid
+                    Paid = purchaseDetail.Paid,
+                    InventoryId = purchaseDetail.InvenId
                 };
                 _context.Add(purchase);
                 await _context.SaveChangesAsync();
@@ -286,7 +288,25 @@ namespace WEB2.Areas.Admin.Controllers {
                     .Where(p => p.PurchaseId == id)
                     .Where(p => p.Purchase.TransactStatus == "receive")
                     .ToListAsync();
-                return View(purdetail);
+                pur.TransactStatus = "done";
+                pur.PaymentDate = DateTime.Now;
+
+                foreach (var item in purdetail) {
+                    item.Status = "received";
+                    //cap nhat so luong
+                    var inv = await _context.Invent_Product.Where(p => p.InventoryId == pur.InventoryId).Where(p => p.ProductId == item.ProductId).FirstOrDefaultAsync();
+                    inv.ProductAvailable += item.Quantity;
+                    _context.Update(inv);
+                    await _context.SaveChangesAsync();
+                    //update giá gốc của sản phẩm
+                    //var pro = await _context.Product.FindAsync(item.ProductId);
+                    //pro.RawPrice = item.Price;
+                    //_context.Update(pro);
+                    //await _context.SaveChangesAsync();
+
+                    _context.Update(item);
+                    await _context.SaveChangesAsync();
+                }
             }
 
             if (pur.TransactStatus.Equals("sent")) {
