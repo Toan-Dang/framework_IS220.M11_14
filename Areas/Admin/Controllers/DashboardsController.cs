@@ -66,13 +66,107 @@ namespace WEB2.Areas.Admin.Controllers {
 
             //reorder.Add(od);
             //return View(reorder);
+            double prof = 0;
+
+            double today = 0;
+            var profit = await _context.Order.ToListAsync();
+            foreach (var item in profit) {
+                prof += item.Paid;
+            }
+            var customer = await _context.Customer.ToListAsync();
+            int cus = customer.Count();
+            var product = await _context.Product.ToListAsync();
+            int pro = product.Count();
+            var tod = await _context.Order.Where(p => p.OrderDay.Date == DateTime.Now.Date)
+                .Where(p => p.OrderDay.Month == DateTime.Now.Month)
+                .Where(p => p.OrderDay.Year == DateTime.Now.Year)
+                .ToListAsync();
+            foreach (var item in tod) {
+                today += item.Paid;
+            }
+            var feedback = await _context.Feedback.ToListAsync();
+            int totalf = feedback.Count();
+
+            var pos = await _context.Feedback.Where(p => p.Rate > 3).ToListAsync();
+            int pos_f = pos.Count();
+            var dis = await _context.Feedback.Where(p => p.Rate < 4).ToListAsync();
+            int dis_f = dis.Count();
+
+            var productsasd = await _context.Product.ToListAsync();
+            var products = new List<Product>();
+            for (int i = 0 ; i < 10 ; i++) {
+                products.Add(productsasd[i]);
+            }
+            //List<int> v = new List<int>();
+            //List<int> s = new List<int>();
+            //List<string> n = new List<string>();
+
+            //foreach (var item in products) {
+            //    v.Add(item.Product.View);
+            //    n.Add(item.Product.ProductName);
+            //}
+
+            var inven = await _context.Inventory.ToListAsync();
+            var name = new List<string>();
+            var cnt = new List<int>();
+
+            foreach (var item in inven) {
+                name.Add(item.Name);
+                var inv_pro = await _context.Invent_Product.Where(P => P.InventoryId == item.InventoryId).ToListAsync();
+                int countt = 0;
+                foreach (var item2 in inv_pro) {
+                    countt += item2.ProductAvailable;
+                }
+                cnt.Add(countt);
+            }
+
             Db1 db1 = new Db1();
+            db1.Profit = prof;
+            db1.Customer = cus;
+            db1.Product = pro;
+            db1.Todei = today;
+            db1.totalfeed = totalf;
+            db1.pos_feed = pos_f;
+            db1.dis_feed = dis_f;
             db1.orderdetails = order;
+            db1.View = products;
+            db1.inven_name = name;
+            db1.inven_count = cnt;
             return View(db1);
         }
 
-        public IActionResult Dashboard2() {
-            return View();
+        public async Task<IActionResult> Dashboard2(string year) {
+            if (year == null)
+                year = DateTime.Now.Year.ToString();
+            double prof = 0;
+
+            double today = 0;
+            var profit = await _context.Order.ToListAsync();
+            foreach (var item in profit) {
+                prof += item.Paid;
+            }
+            var customer = await _context.Customer.ToListAsync();
+            int cus = customer.Count();
+            var product = await _context.Product.ToListAsync();
+            int pro = product.Count();
+            var tod = await _context.Order.Where(p => p.OrderDay.Date == DateTime.Now.Date)
+                .Where(p => p.OrderDay.Month == DateTime.Now.Month)
+                .Where(p => p.OrderDay.Year == DateTime.Now.Year)
+                .ToListAsync();
+            foreach (var item in tod) {
+                today += item.Paid;
+            }
+            var order = await _context.Order.ToListAsync();
+            foreach (var item in order) {
+            }
+            var pur = await _context.Purchase.ToListAsync();
+            Db2 db2 = new Db2();
+            db2.Profit = prof;
+            db2.Customer = cus;
+            db2.Product = pro;
+            db2.Todei = today;
+            db2.Year = Convert.ToInt32(year);
+            return View(db2);
         }
 
         public async Task<ActionResult> Accecpt(int? id) {
