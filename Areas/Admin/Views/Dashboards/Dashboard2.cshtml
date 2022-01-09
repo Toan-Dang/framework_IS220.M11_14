@@ -180,13 +180,20 @@
 
 
     /*----------------------------------*/
+     var data1 = [];
+    var data2 = [];
+            @foreach (var item in Model.Po) {
 
+                    <text>  data1.push(@item.MoneyIn); data2.push(@item.MoneyOut); </text>
+
+                }
+                console.log(data1);
+                console.log(data2);
     var data = {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         series: [
-            [5, 4, 3, 7, 5, 10, 3, 4, 8, 10, 6, 8],
-            [3, 2, 9, 5, 4, 6, 4, 6, 7, 8, 7, 4],
-            [4, 6, 3, 9, 6, 5, 2, 8, 3, , 5, 4],
+            data1,
+            data2,
         ]
     };
 

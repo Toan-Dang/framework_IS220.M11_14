@@ -91,8 +91,8 @@ namespace WEB2.Areas.Admin.Controllers {
             var dis = await _context.Feedback.Where(p => p.Rate < 4).ToListAsync();
             int dis_f = dis.Count();
 
-             var product = await _context.Product.OrderByDescending(p => p.Sold).Where(p =>p.Sold > 0).Where(p => p.View > 0).ToListAsync();
-          //  var product = await _context.Product.ToListAsync();
+            var product = await _context.Product.OrderByDescending(p => p.Sold).Where(p => p.Sold > 0).Where(p => p.View > 0).ToListAsync();
+            // var product = await _context.Product.ToListAsync();
             int pro = product.Count();
             var products = new List<Product>();
             for (int i = 0 ; i < 10 ; i++) {
@@ -139,9 +139,9 @@ namespace WEB2.Areas.Admin.Controllers {
             return View(db1);
         }
 
-        public async Task<IActionResult> Dashboard2(string year) {
+        public async Task<IActionResult> Dashboard2(int? year) {
             if (year == null)
-                year = DateTime.Now.Year.ToString();
+                year = DateTime.Now.Year;
             double prof = 0;
 
             double today = 0;
@@ -160,16 +160,27 @@ namespace WEB2.Areas.Admin.Controllers {
             foreach (var item in tod) {
                 today += item.Paid;
             }
-            var order = await _context.Order.ToListAsync();
-            foreach (var item in order) {
+            var incom = new List<Income>();
+
+            for (int i = 1 ; i <= 12 ; i++) {
+                incom.Add(new Income() { MoneyIn = 0, MoneyOut = 0 });
+                var order = await _context.Order.Where(p => p.OrderDay.Month == i).Where(p => p.OrderDay.Year == year).ToListAsync();
+                foreach (var item in order) {
+                    incom[i - 1].MoneyIn = item.Paid / 100;
+                }
+                var pur = await _context.Purchase.Where(p => p.PurchaseDay.Month == i).Where(p => p.PurchaseDay.Year == year).ToListAsync();
+                foreach (var item in pur) {
+                    incom[i - 1].MoneyOut = item.Paid / 100;
+                }
             }
-            var pur = await _context.Purchase.ToListAsync();
+
             Db2 db2 = new Db2();
             db2.Profit = prof;
             db2.Customer = cus;
             db2.Product = pro;
             db2.Todei = today;
             db2.Year = Convert.ToInt32(year);
+            db2.Po = incom;
             return View(db2);
         }
 

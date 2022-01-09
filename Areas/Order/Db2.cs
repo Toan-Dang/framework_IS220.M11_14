@@ -8,6 +8,6 @@ namespace WEB2.Areas.Order {
         public int Product { get; set; }
         public double Todei { get; set; }
         public int Year { get; set; }
-        public List<PurchaseOrder> po { get; set; }
+        public List<Income> Po { get; set; }
     }
 }
