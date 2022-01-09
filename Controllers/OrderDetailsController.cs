@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -22,16 +25,19 @@ namespace WEB2.Controllers {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IOptions<MyConfig> _config;
+        private readonly IEmailSender _emailSender;
 
         public OrderDetailsController(
             AppDbContext context,
             UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
-            IOptions<MyConfig> config) {
+            IOptions<MyConfig> config,
+            IEmailSender emailSender) {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
             _config = config;
+            _emailSender = emailSender;
         }
 
         // GET: OrderDetails
@@ -400,6 +406,7 @@ namespace WEB2.Controllers {
                     var pro = await _context.Product.Where(p => p.ProductId == item.ProductId).FirstAsync();
                     pro.CurrentOrder += item.Quantity;
                     pro.UnitInOrder += 1;
+                    pro.Sold += item.Quantity;
                     _context.Update(pro);
                     await _context.SaveChangesAsync();
                     _context.Update(item);
@@ -428,7 +435,30 @@ namespace WEB2.Controllers {
             });
         }
 
-        public IActionResult Thank() {
+        public async Task<IActionResult> Thank() {
+            var user = await _userManager.GetUserAsync(User);
+
+            // phát sinh token theo thông tin user để xác nhận email mỗi user dựa vào thông tin sẽ
+            // có một mã riêng, mã này nhúng vào link trong email gửi đi để người dùng xác nhận
+
+            var order = await _context.OrderDetail
+           .Include(o => o.Order)
+           .Include(o => o.Product)
+           .Where(p => p.Order.TransactStatus == "pay by cash")
+           .Where(p => p.Status == "solved")
+           .Where(p => p.Order.Customer.UserId == user.Id)
+           .FirstAsync();
+
+            var callbackUrl = Url.Page(
+                "/Account/Manage/Bill",
+                pageHandler: null,
+                values: new { area = "Identity" },
+                protocol: Request.Scheme);
+            // Gửi email
+            await _emailSender.SendEmailAsync(
+                user.Email,
+                "Cảm ơn bạn đã mua hàng trên zerone",
+                $"Đơn hàng của bạn:{order.OrderId}\nNgày đặt hàng: {order.Order.OrderDay}\n<a href='{callbackUrl}'>Bấm vào đây để xem chi tiết</a>.");
             return View();
         }
 

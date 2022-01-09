@@ -1,8 +1,10 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using WEB2.Models
+@using Microsoft.AspNetCore.Authorization
 
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
+@inject Microsoft.AspNetCore.Authorization.IAuthorizationService authorizationService
 <style>
     #admin-item > div > a:hover {
         background-color: #be1e2d;
@@ -48,7 +50,28 @@
     }
 </style>
 <ul class="navbar-nav" id="top-right">
-    @if (SignInManager.IsSignedIn(User)) {
+    @if (SignInManager.IsSignedIn(User)
+    && (await authorizationService.AuthorizeAsync(User, "StaffDropdown")).Succeeded) {       
+        <li class="nav-item dropdown header-profile" id="admin-item">
+                <a class="nav-link" href="#" role="button" data-toggle="dropdown">
+                    <span class="ml-2" style="color: #343a40 !important; padding: 0px;"><i class="bi bi-person"  style="font-size: 18px; vertical-align: middle;"></i> @UserManager.GetUserName(User)</span>
+                </a>
+                 <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">
+                    <i class='bi bi-info-square'></i>
+                    <span class="ml-2">Tài khoản của tôi</span>
+                </a>
+                <span class="dropdown-item">
+                    <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                        <button id="logout" type="submit" class="nav-link btn btn-link text-dark"><i class="bi bi-box-arrow-left" style="font-size: 18px; vertical-align: middle;"></i>&nbspĐăng xuất</button>
+                    </form>
+                </span>
+            </div>
+        </li>
+
+        @await Html.PartialAsync("_AdminDropdownMenu.cshtml")
+    }
+        else if (SignInManager.IsSignedIn(User)) {       
         <li class="nav-item dropdown header-profile">
            <a   id="cart-of-user" class="dropdown-item" asp-area="" asp-controller="OrderDetails" asp-action="Index" style="padding: 8px">
                     <span class="ml-2" style="color: #343a40 !important; padding: 0px;"><i class="bi bi-cart"  style="font-size: 18px; vertical-align: middle;"></i>&nbspGiỏ hàng</span>
@@ -81,4 +104,6 @@
             <a class="nav-link text-dark " id="login" asp-area="Identity" asp-page="/Account/Login"><i class="bi bi-box-arrow-in-right" style="font-size: 18px; vertical-align: middle;"></i>&nbspĐăng nhập</a>
         </li>
     }
+
+
 </ul>

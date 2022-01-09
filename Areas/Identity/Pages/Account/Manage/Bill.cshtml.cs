@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,6 +12,7 @@ using WEB2.Models;
 
 namespace WEB2.Areas.Identity.Pages.Account.Manage {
 
+    [Authorize]
     public class BillModel : PageModel {
         private readonly AppDbContext _context;
         private readonly UserManager<AppUser> _userManager;
@@ -38,6 +40,7 @@ namespace WEB2.Areas.Identity.Pages.Account.Manage {
                 .Include(p => p.Customer)
                 .Include(p => p.Customer.AppUser)
                 .Where(p => p.CustomerId == customerid.CustomerID)
+                 .OrderByDescending(p => p.OrderId)
                 .ToListAsync();
             orderdetail = new List<OrderDetail>();
             foreach (var item in order) {

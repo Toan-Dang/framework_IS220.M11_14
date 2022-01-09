@@ -15,6 +15,7 @@ using WEB2.Areas.Order;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace WEB2.Controllers {
 
@@ -23,14 +24,17 @@ namespace WEB2.Controllers {
         private readonly AppDbContext _context;
         private readonly UserManager<AppUser> _userManager;
         private readonly IOptions<MyConfig> _config;
+        private readonly IEmailSender _emailSender;
 
         public OrdersController(
             AppDbContext context,
              UserManager<AppUser> userManager,
-             IOptions<MyConfig> config) {
+             IOptions<MyConfig> config,
+             IEmailSender emailSender) {
             _context = context;
             _userManager = userManager;
             _config = config;
+            _emailSender = emailSender;
         }
 
         // GET: Orders
@@ -131,12 +135,29 @@ namespace WEB2.Controllers {
                     //available here
                     product.CurrentOrder += item.Quantity;
                     product.UnitInOrder += 1;
+                    product.Sold += item.Quantity;
 
                     _context.Update(product);
                     await _context.SaveChangesAsync();
                     _context.Update(item);
                     await _context.SaveChangesAsync();
                 }
+
+                var user = await _userManager.GetUserAsync(User);
+
+                // phát sinh token theo thông tin user để xác nhận email mỗi user dựa vào thông tin
+                // sẽ có một mã riêng, mã này nhúng vào link trong email gửi đi để người dùng xác nhận
+
+                var callbackUrl = Url.Page(
+                    "/Account/Manage/Bill",
+                    pageHandler: null,
+                    values: new { area = "Identity" },
+                    protocol: Request.Scheme);
+                // Gửi email
+                await _emailSender.SendEmailAsync(
+                    user.Email,
+                    "Cảm ơn bạn đã mua hàng trên zerone",
+                    $"Đơn hàng của bạn:{orderId}\nNgày đặt hàng: {order.OrderDay}\n<a href='{callbackUrl}'>Bấm vào đây để xem chi tiết</a>.");
             }
 
             return View();

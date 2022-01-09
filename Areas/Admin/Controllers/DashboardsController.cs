@@ -75,8 +75,7 @@ namespace WEB2.Areas.Admin.Controllers {
             }
             var customer = await _context.Customer.ToListAsync();
             int cus = customer.Count();
-            var product = await _context.Product.ToListAsync();
-            int pro = product.Count();
+
             var tod = await _context.Order.Where(p => p.OrderDay.Date == DateTime.Now.Date)
                 .Where(p => p.OrderDay.Month == DateTime.Now.Month)
                 .Where(p => p.OrderDay.Year == DateTime.Now.Year)
@@ -92,10 +91,12 @@ namespace WEB2.Areas.Admin.Controllers {
             var dis = await _context.Feedback.Where(p => p.Rate < 4).ToListAsync();
             int dis_f = dis.Count();
 
-            var productsasd = await _context.Product.ToListAsync();
+             var product = await _context.Product.OrderByDescending(p => p.Sold).Where(p =>p.Sold > 0).Where(p => p.View > 0).ToListAsync();
+          //  var product = await _context.Product.ToListAsync();
+            int pro = product.Count();
             var products = new List<Product>();
             for (int i = 0 ; i < 10 ; i++) {
-                products.Add(productsasd[i]);
+                products.Add(product[i]);
             }
             //List<int> v = new List<int>();
             //List<int> s = new List<int>();
@@ -125,11 +126,14 @@ namespace WEB2.Areas.Admin.Controllers {
             db1.Customer = cus;
             db1.Product = pro;
             db1.Todei = today;
+
             db1.totalfeed = totalf;
             db1.pos_feed = pos_f;
             db1.dis_feed = dis_f;
+
             db1.orderdetails = order;
             db1.View = products;
+
             db1.inven_name = name;
             db1.inven_count = cnt;
             return View(db1);

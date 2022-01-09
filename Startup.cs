@@ -38,6 +38,7 @@ namespace WEB2 {
                 builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
             }
             ));
+            // services.AddSignalR(); services.AddTransient<IChatRepository, ChatRepository>();
 
             services.AddDistributedMemoryCache();           // Đăng ký dịch vụ lưu cache trong bộ nhớ (Session sẽ sử dụng nó)
             services.AddSession(cfg => {                    // Đăng ký dịch vụ Session
@@ -194,7 +195,8 @@ namespace WEB2 {
 
                 // Đến Razor Page
                 endpoints.MapRazorPages();
-                
+
+                //endpoints.MapHub<ChatHub>("/chatHub");
             });
 
             app.Map("/testapi", app => {

@@ -501,7 +501,7 @@
                  var dat1 = [];
                   @foreach (var item in Model.View) {
 
-                    <text>  dat1.push({y: "@item.ProductName", a: 0, b: "@item.View"});  </text>
+                    <text>  dat1.push({y: "@item.ProductName",  a: "@item.Sold", b: "@item.View"});  </text>
 
                 }
             // Morris bar chart
@@ -538,7 +538,7 @@
                 //}],
                 data : dat1,
                 xkey: 'y',
-                ykeys: ['a', 'b'],
+                ykeys: ['a','b'],
                 labels: ['mua','xem'],
                 barColors: ['#343957', '#5873FE'],
                 hideHover: 'auto',

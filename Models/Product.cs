@@ -17,7 +17,7 @@ namespace WEB2.Models {
         public double RawPrice { get; set; }
         public string ProductDetail { get; set; }
         public double MSRP { get; set; }
-
+        public int Sold { get; set; }
         public string Version { get; set; }
 
         public string Color { get; set; }
