@@ -14,8 +14,8 @@ Lớp thực hành .2
 | Tên thành viên | MSSV | Facebook | SDT | Nhiệm vụ | Đánh giá |
 | ------ | ------ | ------ | ------ | ------ | ------ |
 | Đặng Phúc Toàn | 19522357 | https://www.facebook.com/phuctoanz | 0329 487 988 | làm những thứ còn lại | 100% |
-| Nguyễn Đình Trải| 19522371 | https://www.facebook.com/19522371k14 | 0376 101 877 | giao diện người dùng | 100% |
-| Nguyễn Ngọc Thiện | 19522264 | https://www.facebook.com/n.ngocthie.n0203 | 0877 581 945 | appchat | 100% |
+| Nguyễn Đình Trải| 19522371 | https://www.facebook.com/19522371k14 | 0376 101 877 | appchat | 100% |
+| Nguyễn Ngọc Thiện | 19522264 | https://www.facebook.com/n.ngocthie.n0203 | 0877 581 945 | giao diện người dùng  | 100% |
 | Đinh Công Thành | 19522221  | https://www.facebook.com/dinh.cong.thanh.1108 | 0936 117 465 | excel, data | 100% |
 
   
