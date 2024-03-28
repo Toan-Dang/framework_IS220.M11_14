@@ -1,9 +1,19 @@
-﻿# Nhóm 14
+<h1 align="center"> Đại học Quốc gia Thành phố Hồ Chí Minh</h1>
+<h2 align="center"> Trường Đại học Công nghệ Thông tin</h1>
+<h3 align="center"> Khoa Hệ Thống Thông Tin</h1>
+<p align="center">
+  <img src="https://github.com/ThienThomas/Exping/assets/91732816/46a7df38-9be8-4fde-914d-f97412bcc543" />
+</p>
+<p align="center">
+  <img src="https://github.com/ThienThomas/Exping/assets/91732816/46f57380-59e9-40ef-88b4-fab257979dec" />
+</p>
+
+# Nhóm 14
 ## 
 Môn Xây dựng HTTT trên các framework - IS220.M11
 Lớp thực hành .2
 
-[![N|Solid](https://media.discordapp.net/attachments/871665355108520006/926860577740046416/Logo_UIT_updated.jpg?width=300&height=300)](https://nodesource.com/products/nsolid)
+![image](https://github.com/Toan-Dang/framework_IS220.M11_14/assets/91732816/14191688-4a9b-439b-a363-ee1f1583206c)
 
 # Tên đồ án: Xây dựng website Thương mại điện tử
   website sẽ thực hiện việc mua và bán các sản phẩm công nghệ như laptop, điện thoại,...Ở mỗi sản phẩm có thể xem các cấu hình chi tiết và các thông tin liên quan đến sản phẩm
@@ -15,10 +25,10 @@ Lớp thực hành .2
 | ------ | ------ | ------ | ------ | ------ | ------ |
 | Đặng Phúc Toàn | 19522357 | https://www.facebook.com/phuctoanz | 0329 487 988 | làm những thứ còn lại | 100% |
 | Nguyễn Đình Trải| 19522371 | https://www.facebook.com/19522371k14 | 0376 101 877 | appchat | 100% |
-| Nguyễn Ngọc Thiện | 19522264 | https://www.facebook.com/n.ngocthie.n0203 | 0877 581 945 | giao diện người dùng  | 100% |
+| Nguyễn Ngọc Thiện | 19522264 | https://www.facebook.com/n.ngocthie.n0203 | 0366 485 663 | giao diện người dùng  | 100% |
 | Đinh Công Thành | 19522221  | https://www.facebook.com/dinh.cong.thanh.1108 | 0936 117 465 | excel, data | 100% |
 
-  
+### Dưới sự hướng dẫn và giám sát của ThS Vũ Minh Sang (sangvm@uit.edu.vn)
 # Chức năng
 
 #### Chung
