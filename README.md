@@ -5,7 +5,7 @@ Lớp thực hành .2
 
 [![N|Solid](https://media.discordapp.net/attachments/871665355108520006/926860577740046416/Logo_UIT_updated.jpg?width=300&height=300)](https://nodesource.com/products/nsolid)
 
-# Tên đồ án: Xây dựng website bán đồ công nghệ
+# Tên đồ án: Xây dựng website Thương mại điện tử
   website sẽ thực hiện việc mua và bán các sản phẩm công nghệ như laptop, điện thoại,...Ở mỗi sản phẩm có thể xem các cấu hình chi tiết và các thông tin liên quan đến sản phẩm
   và nếu người dùng đăng nhập thì có thể để lại đánh giá. Ở trang Admin có chức năng thống kê để kiểm tra số liệu và các hoạt động của website.
  
